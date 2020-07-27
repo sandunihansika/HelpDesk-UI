@@ -14,3 +14,16 @@ export enum UserType {
   HelpDeskUser = 5
 }
 
+export enum Alignment {
+  Left = 1,
+  Center = 2,
+  Right = 3
+}
+
+export enum ColumnType {
+  Text = 1,
+  Number = 2,
+  Date = 3,
+  Custom = 5
+}
+

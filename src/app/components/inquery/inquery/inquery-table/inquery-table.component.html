@@ -1,1 +1,30 @@
-<p>inquery-table works!</p>
+<h3>Inquery Table</h3>
+<app-common-grid
+  #inqueryGrid
+  [addAllow]="addAllow"
+  [editAllow]="editAllow"
+  [showToolBar]="showToolBar"
+  [deleteAllow]="deleteAllow"
+  [showQuotation]="showQuotation"
+  [showSearchBox]="showSearchBox"
+  (quotationBtnClicked) = "viewQuotation($event)"
+>
+</app-common-grid>
+
+<p-dialog header="Quotation :- ID:{{id + ' __ ' + 'Name:' + name}}" [(visible)]="display" [style]="{width: '50vw'}">
+  <app-common-grid
+    #quotationGrid
+    [addAllow]="addAllow1"
+    [showToolBar]="showToolBar1"
+    [showSearchBox]="showSearchBox1"
+    (addBtnClicked) = "viewForm()"
+  >
+  </app-common-grid>
+
+  <div *ngIf="visible">
+    <h2>Quotation Form</h2>
+  </div>
+
+</p-dialog>
+
+

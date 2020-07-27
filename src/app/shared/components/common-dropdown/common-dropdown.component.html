@@ -1,1 +1,4 @@
-<p>common-dropdown works!</p>
+<div>
+  <p-dropdown [options]="fields" [selectId]="value" optionLabel="name" [placeholder]="placeholder"
+              [style]="{'width':'150px'}" (onChange)="handleChange($event)" (input)="handleChange($event)"></p-dropdown>
+</div>

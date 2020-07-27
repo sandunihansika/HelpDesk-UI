@@ -18,6 +18,14 @@ import { CustomizerComponent } from './components/customizer/customizer.componen
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
+import { DropdownModule } from 'primeng/dropdown';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { PaginatorModule } from 'primeng/paginator';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToolbarModule } from 'primeng/toolbar';
+import { CardModule } from 'primeng/card';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import 'hammerjs';
 import 'mousetrap';
 
@@ -58,14 +66,24 @@ import { CommonGridComponent } from './components/common-grid/common-grid.compon
     TranslateModule,
     DragulaModule.forRoot(),
     NgbModule,
-    GalleryModule.forRoot()
+    GalleryModule.forRoot(),
+    DropdownModule,
+    TableModule,
+    ButtonModule,
+    PaginatorModule,
+    InputTextModule,
+    ToolbarModule,
+    CardModule,
+    RadioButtonModule
   ],
   exports: [
     LoaderComponent,
     FeatherIconsComponent,
     TranslateModule,
     CommonTextboxComponent,
-    CommonRadiobuttonComponent
+    CommonRadiobuttonComponent,
+    CommonDropdownComponent,
+    CommonGridComponent
   ],
   providers: [
     NavService,
