@@ -22,11 +22,15 @@ import 'hammerjs';
 import 'mousetrap';
 
 // services
-import { NavService } from "./services/nav.service";
-import { ChatService } from "./services/chat.service";
-import { CustomizerService } from "./services/customizer.service";
+import { NavService } from './services/nav.service';
+import { ChatService } from './services/chat.service';
+import { CustomizerService } from './services/customizer.service';
 // Directives
-import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
+import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
+import { CommonTextboxComponent } from './components/common-textbox/common-textbox.component';
+import { CommonRadiobuttonComponent } from './components/common-radiobutton/common-radiobutton.component';
+import { CommonDropdownComponent } from './components/common-dropdown/common-dropdown.component';
+import { CommonGridComponent } from './components/common-grid/common-grid.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,11 @@ import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
     FeatherIconsComponent,
     ToggleFullscreenDirective,
     BreadcrumbComponent,
-    CustomizerComponent
+    CustomizerComponent,
+    CommonTextboxComponent,
+    CommonRadiobuttonComponent,
+    CommonDropdownComponent,
+    CommonGridComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +63,9 @@ import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
   exports: [
     LoaderComponent,
     FeatherIconsComponent,
-    TranslateModule
+    TranslateModule,
+    CommonTextboxComponent,
+    CommonRadiobuttonComponent
   ],
   providers: [
     NavService,

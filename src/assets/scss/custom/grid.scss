@@ -1,0 +1,91 @@
+$main-bg-color: #3f4d67;
+
+
+.ui-table .ui-table-thead > tr > th {
+  background: #0d2a61 !important;
+  //background-image: linear-gradient(to bottom left, #1d8cf8, #3358f4, #1d8cf8) !important;
+  color: white !important;
+}
+
+.ui-table .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+  background-color: $main-bg-color;
+}
+
+body .ui-table .ui-table-tbody > tr:nth-child(even) {
+  background-color: white !important;
+}
+body .ui-table .ui-table-tbody > tr {
+  background-color: white !important;
+}
+
+body .ui-table .ui-table-tbody > tr > td {
+  background-color: inherit !important;
+  border: 1px solid #0000000d !important;
+}
+
+body .ui-widget {
+  font-family: Roboto, 'Helvetica Neue', sans-serif !important;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+  border: 1px solid $main-bg-color !important;
+  background-color: $main-bg-color !important;
+  color: white !important;
+  padding: 1em !important;
+  font-weight: 700 !important;
+  border-bottom: 0 none !important;
+}
+
+body .ui-paginator {
+  background-color: #00000000 !important;
+  border: 1px solid #0000000d !important;
+  padding: 0;
+}
+
+body .ui-table .ui-table-tbody > tr.ui-state-highlight {
+  background-color: #87bace !important;
+  color: #ffffff;
+}
+
+body .ui-table .ui-table-tbody > tr:nth-child.ui-state-highlight {
+  background-color: #3ebfea !important;
+  color: #ffffff;
+}
+
+body .ui-toolbar {
+  background-color: #426682 !important;
+}
+
+body .ui-button.ui-state-default.ui-button-info, body .ui-buttonset.ui-button-info > .ui-button.ui-state-default {
+  color: #ffffff;
+  background-color: #00bcf5 !important;
+  border: 1px solid #00bcf5 !important;
+}
+
+body .ui-button.ui-state-default.ui-button-success, body .ui-buttonset.ui-button-success > .ui-button.ui-state-default {
+  color: #ffffff;
+  background-color: #4fd999 !important;
+  border: 1px solid #4fd999 !important;
+}
+
+body .ui-button.ui-state-default.ui-button-danger, body .ui-buttonset.ui-button-danger > .ui-button.ui-state-default {
+  color: #ffffff;
+  background-color: #f34d5b !important;
+  border: 1px solid #f34d5b !important;
+}
+
+body .ui-button.ui-state-default.ui-button-warning, body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default {
+  color: #333333;
+  background-color: #38b61f !important;
+  border: 1px solid #38b61f !important;
+  color: white !important;
+}
+
+.ui-table .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+  background-color: #6f98b7 !important;
+}
+
+body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight, body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group.ui-state-highlight {
+  color: #ffffff;
+  background-color: #6f98b7 !important;
+}

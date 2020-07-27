@@ -194,3 +194,85 @@
 @import "theme/box-layout";
 @import "theme/rtl";
 
+@import "custom/form";
+@import "custom/grid";
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  color: #6a7a8c;
+  background-color: #eff0f1;
+  height: 100%;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.hover-pointer:hover {
+  cursor: pointer;
+}
+
+.ui-card-body {
+  //background-color: rgba(189, 184, 184, 0.2) !important;
+  //background-color: rgba(132 ,131, 131 , 0.2%)  !important;
+  //background-color: rgba(0, 0, 0, 0.1) !important;
+  //background: rgb(242 239 239 / 20%) !important;
+  padding: 1em;
+  background: white;
+  height: 50vh;
+  width: auto;
+}
+
+.card .card-block, .card .card-body {
+  padding: 30px 25px !important;
+  //background: white;
+  width: 30%;
+  //background-color: rgb(255 255 255 / 0%) !important;
+}
+
+body .ui-card {
+  //background-color: #ffffff;
+  height: 350px;
+  color: #333333;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+  width: 22%;
+  margin-top: 13%;
+  margin-left: 65%;
+  background-color: rgba(189, 184, 184, 0.2) !important;
+  //height: ;
+  //background-color: rgba(189 184 184 / 20%) !important;
+}
+
+body .ui-dialog .ui-dialog-titlebar {
+  border: 1px solid #3f4d67 !important;
+  background-color: white !important;
+  color: #6a7a8c !important;
+  padding: 1em !important;
+  font-weight: 500 !important;
+  font-size: large !important;
+  border-bottom: 0 none !important;
+}
+
+body .ui-dialog .ui-dialog-content {
+  background-color: #eff0f1;
+  color: #333333;
+  border: 1px solid #c8c8c8;
+  padding: 0.571em 1em;
+}
+body .ui-inputtext{
+  //left: ;
+  width: 200px;
+  margin-left: 45px;
+}
+//html, body {
+//  background-image: url(src/assets/images/background/laptop.jpg);
+//  background-size: cover
+//}
+.p-field > label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  margin-left: 45px;
+}
+
+.btn {
+  margin-left: 122px;
+
+}
