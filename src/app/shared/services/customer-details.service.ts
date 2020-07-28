@@ -6,7 +6,7 @@ import {CustomerDetails} from '../../components/inquery/inquery/customer-details
 import {Router} from '@angular/router';
 import {AuthenticationService} from './auth/authentication.service';
 import {CommonHttpService} from './common/common-http.service';
-import {environment} from '../../../environments/environment';
+import {Quatation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +30,15 @@ export class CustomerDetailsService {
       })
     );
   }
+
+  addQuatation(quatation: Quatation, CustomerID): Observable<any> {
+    quatation.CustomerID = CustomerID;
+    return this.commonHttpService.postData(this.customerUrl + '/quatation', quatation).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+
 }
