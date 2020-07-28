@@ -30,4 +30,12 @@ export class CustomerDetailsService {
       })
     );
   }
+
+  getAllCustomers(): Observable<any> {
+    return this.commonHttpService.getAll(this.customerUrl + '/get').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 }

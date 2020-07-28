@@ -1,6 +1,7 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { CommonGridComponent } from '../../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType} from '../../../../shared/services/common/enum';
+import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 
 @Component({
   selector: 'app-inquery-table',
@@ -40,7 +41,7 @@ export class InqueryTableComponent implements OnInit {
   display: boolean = false;
   visible: boolean = false;
 
-  constructor() { }
+  constructor(public CustomerDetailsService: CustomerDetailsService) { }
 
   ngOnInit(): void {
 
@@ -116,6 +117,30 @@ export class InqueryTableComponent implements OnInit {
       {id: 2, name: 'Eric', cperson: 'Fred', cno: '0701231234', handlingcompany:'Ingenii', address:'Kelaniya', status:'Sent Quotation' },
       {id: 3, name: 'Dean', cperson: 'Sam', cno: '0769182732', handlingcompany:'Dialog', address:'Colombo', status:'Pending' },
     ];
+
+    // this.inqueryGrid.dataLoading = true;
+    // this.CustomerDetailsService.getAllCustomers().subscribe(
+    //   (list: any) => {
+    //     this.inqueryGrid.dataLoading = false;
+    //     if (list !== undefined) {
+    //       if (list.data) {
+    //         this.inqueryGrid.rowLists = list.data;
+    //         this.inqueryGrid.rowLists.forEach((item: any) => {
+    //           Object.assign(item, {
+    //             handlingCompanyName: this.getHandlingCompanyName(item['clientId']),
+    //             displayName: item['company'] !== null ? item['company']['displayName'] : 'No Company'
+    //           });
+    //         });
+    //       } else {
+    //         this.inqueryGrid.rowLists = [];
+    //       }
+    //     }
+    //   },
+    //   error => {
+    //     this.inqueryGrid.dataLoading = false;
+    //   }
+    // );
+
 
     this.quotationGrid.columnsList = [
       {

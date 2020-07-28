@@ -7,6 +7,7 @@ import { content } from './shared/routes/content-routes';
 import { full } from './shared/routes/full.routes';
 import { AdminGuard } from './shared/guard/admin.guard';
 import {CustomerDetailsComponent} from './components/inquery/inquery/customer-details/customer-details/customer-details.component';
+import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,16 @@ const routes: Routes = [
     // canActivate: [AdminGuard],
     children: full
   },
+  {
+    path: 'grid',
+    component:InqueryTableComponent,
+    loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
+  },
+  // {
+  //   path: 'customer',
+  //   component:CustomerDetailsComponent,
+  //   loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
+  // },
   {
     path: '**',
     redirectTo: ''

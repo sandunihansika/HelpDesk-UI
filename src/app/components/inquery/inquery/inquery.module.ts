@@ -5,13 +5,14 @@ import { CustomerDetailsModule } from './customer-details/customer-details.modul
 import { SharedModule } from '../../../shared/shared.module';
 import { DialogModule } from 'primeng/dialog';
 
-
 @NgModule({
   declarations: [InqueryTableComponent],
   imports: [
     CommonModule,
     SharedModule,
-    DialogModule
-  ]
+    DialogModule,
+    CustomerDetailsModule
+  ],
+  exports: [InqueryTableComponent]
 })
 export class InqueryModule { }

@@ -11,7 +11,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 
 import { AuthService } from './shared/services/firebase/auth.service';
 import { AdminGuard } from './shared/guard/admin.guard';
@@ -19,10 +19,10 @@ import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guar
 import { CookieService } from 'ngx-cookie-service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
-import  {InqueryModule} from './components/inquery/inquery/inquery.module';
-
+import { InqueryModule } from './components/inquery/inquery/inquery.module';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {CustomerDetailsModule} from './components/inquery/inquery/customer-details/customer-details.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    CustomerDetailsModule,
     InqueryModule
   ],
   providers: [AuthService, AdminGuard, SecureInnerPagesGuard, CookieService, MessageService],
