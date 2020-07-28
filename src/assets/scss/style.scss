@@ -228,6 +228,15 @@ body {
   //background-color: rgb(255 255 255 / 0%) !important;
 }
 
+.ui-card-title {
+  font-size: 18px !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  margin-bottom: 0 !important;
+  color: #889aaf !important;
+}
+
+
 //body .ui-card {
 //  //background-color: #ffffff;
 //  height: 350px;
@@ -241,22 +250,17 @@ body {
 //  //background-color: rgba(189 184 184 / 20%) !important;
 //}
 
-body .ui-dialog .ui-dialog-titlebar {
-  border: 1px solid #3f4d67 !important;
-  background-color: white !important;
-  color: #6a7a8c !important;
-  padding: 1em !important;
-  font-weight: 500 !important;
-  font-size: large !important;
-  border-bottom: 0 none !important;
-}
-
 body .ui-dialog .ui-dialog-content {
   background-color: #eff0f1;
   color: #333333;
   border: 1px solid #c8c8c8;
   padding: 0.571em 1em;
 }
+
+body .ui-dialog {
+  margin-left: 20%;
+}
+
 body .ui-inputtext{
   //left: ;
   width: 200px;
@@ -274,5 +278,10 @@ body .ui-inputtext{
 
 .btn {
   margin-left: 122px;
+}
 
+.e-overlay {         // Set dialog modal overlay
+  background-color: #800000;  // Customize dialog modal overlay background color
+  opacity: 0.3;    // To blur the background color
+  filter: alpha(opacity=30);
 }

@@ -58,6 +58,7 @@ export class CommonGridComponent implements OnInit {
   @Input() showQuotation = false;
   @Input() showSearchBox = true;
   // @Input() colType: string;
+  @Input() header: string;
 
   constructor() { }
 

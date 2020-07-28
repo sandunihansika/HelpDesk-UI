@@ -1,6 +1,7 @@
-<h3>Inquery Table</h3>
+
 <app-common-grid
   #inqueryGrid
+  header="Customer Details"
   [addAllow]="addAllow"
   [editAllow]="editAllow"
   [showToolBar]="showToolBar"
@@ -11,9 +12,10 @@
 >
 </app-common-grid>
 
-<p-dialog header="Quotation :- ID:{{id + ' __ ' + 'Name:' + name}}" [(visible)]="display" [style]="{width: '50vw'}">
+<p-dialog header="ID:{{id + ' _ ' + 'Name:' + name}}" [(visible)]="display" [style]="{width: '75%'}">
   <app-common-grid
     #quotationGrid
+    header="Quotation Details"
     [addAllow]="addAllow1"
     [showToolBar]="showToolBar1"
     [showSearchBox]="showSearchBox1"
@@ -23,8 +25,8 @@
 
   <div *ngIf="visible">
     <h2>Quotation Form</h2>
+    <button (click)="close()">Close</button>
   </div>
 
 </p-dialog>
-
 

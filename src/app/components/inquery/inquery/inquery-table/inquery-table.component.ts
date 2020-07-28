@@ -40,6 +40,8 @@ export class InqueryTableComponent implements OnInit {
   showSearchBox1 = true;
   display: boolean = false;
   visible: boolean = false;
+  // hasBackdrop? : boolean;
+  // disableClose?: boolean;
 
   constructor(public CustomerDetailsService: CustomerDetailsService) { }
 
@@ -51,7 +53,7 @@ export class InqueryTableComponent implements OnInit {
         columnName: 'Id',
         columnType: ColumnType.Number,
         columnAlignment: Alignment.Left,
-        columnWidth: 30,
+        columnWidth: 50,
         columnFormat: null
       },
       {
@@ -63,11 +65,19 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
+        mappingName: 'nic',
+        columnName: 'NIC',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 100,
+        columnFormat: null
+      },
+      {
         mappingName: 'cperson',
         columnName: 'Contact Person',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
-        columnWidth: 100,
+        columnWidth: 110,
         columnFormat: null
       },
       {
@@ -83,7 +93,7 @@ export class InqueryTableComponent implements OnInit {
         columnName: 'Handling Company',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
-        columnWidth: 100,
+        columnWidth: 120,
         columnFormat: null
       },
       // {
@@ -113,9 +123,9 @@ export class InqueryTableComponent implements OnInit {
     ];
 
     this.inqueryGrid.rowLists = [
-      {id: 1, name: 'Mark', cperson: 'Micheal', cno: '0719873701', handlingcompany:'Dimo', address:'Colombo', status:'Pending' },
-      {id: 2, name: 'Eric', cperson: 'Fred', cno: '0701231234', handlingcompany:'Ingenii', address:'Kelaniya', status:'Sent Quotation' },
-      {id: 3, name: 'Dean', cperson: 'Sam', cno: '0769182732', handlingcompany:'Dialog', address:'Colombo', status:'Pending' },
+      {id: 1, name: 'Mark', nic: '957823918V', cperson: 'Micheal', cno: '0719873701', handlingcompany:'Dimo', address:'Colombo', status:'Pending' },
+      {id: 2, name: 'Eric', nic: '961234567V', cperson: 'Fred', cno: '0701231234', handlingcompany:'Ingenii', address:'Kelaniya', status:'Sent Quotation' },
+      {id: 3, name: 'Dean', nic: '979238792V', cperson: 'Sam', cno: '0769182732', handlingcompany:'Dialog', address:'Colombo', status:'Pending' },
     ];
 
     // this.inqueryGrid.dataLoading = true;
@@ -214,10 +224,17 @@ export class InqueryTableComponent implements OnInit {
     this.name = event.name;
     this.handlingcompany = event.handlingcompany;
     this.display = true;
+    // this.hasBackdrop = true;
+    // this.disableClose = true;
   }
 
   viewForm(){
     this.visible = true;
+  }
+
+  close(){
+    this.display = false;
+    this.visible = false;
   }
 
 }

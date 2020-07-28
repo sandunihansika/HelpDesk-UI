@@ -32,25 +32,8 @@ const routes: Routes = [
     children: full
   },
   {
-    path: 'grid',
-    component:InqueryTableComponent,
-    loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
-  },
-  // {
-  //   path: 'customer',
-  //   component:CustomerDetailsComponent,
-  //   loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
-  // },
-  {
     path: '**',
     redirectTo: ''
-  },
-  {
-    path: 'customer',
-    component: CustomerDetailsComponent,
-    loadChildren: () => import('./components/inquery/inquery/customer-details/customer-details.module').then(
-      m => m.CustomerDetailsModule
-    )
   }
 ];
 

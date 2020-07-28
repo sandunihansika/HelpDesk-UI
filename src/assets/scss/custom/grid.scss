@@ -27,12 +27,21 @@ body .ui-widget {
   font-family: Roboto, 'Helvetica Neue', sans-serif !important;
 }
 
+//body .ui-dialog .ui-dialog-titlebar {
+//  border: 1px solid $main-bg-color !important;
+//  background-color: $main-bg-color !important;
+//  color: white !important;
+//  padding: 1em !important;
+//  font-weight: 700 !important;
+//  border-bottom: 0 none !important;
+//}
 body .ui-dialog .ui-dialog-titlebar {
-  border: 1px solid $main-bg-color !important;
-  background-color: $main-bg-color !important;
-  color: white !important;
+  border: 1px solid #3f4d67 !important;
+  background-color: white !important;
+  color: #6a7a8c !important;
   padding: 1em !important;
-  font-weight: 700 !important;
+  font-weight: 500 !important;
+  font-size: large !important;
   border-bottom: 0 none !important;
 }
 
@@ -43,7 +52,7 @@ body .ui-paginator {
 }
 
 body .ui-table .ui-table-tbody > tr.ui-state-highlight {
-  background-color: #87bace !important;
+  background-color: #94c9de !important;
   color: #ffffff;
 }
 
@@ -75,7 +84,6 @@ body .ui-button.ui-state-default.ui-button-danger, body .ui-buttonset.ui-button-
 }
 
 body .ui-button.ui-state-default.ui-button-warning, body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default {
-  color: #333333;
   background-color: #38b61f !important;
   border: 1px solid #38b61f !important;
   color: white !important;
@@ -88,4 +96,21 @@ body .ui-button.ui-state-default.ui-button-warning, body .ui-buttonset.ui-button
 body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item.ui-state-highlight, body .ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item-group.ui-state-highlight {
   color: #ffffff;
   background-color: #6f98b7 !important;
+}
+
+
+body .ui-paginator .ui-dropdown .ui-dropdown-label {
+  color: #848484;
+  width: 50px !important;
+}
+
+body .ui-paginator .ui-paginator-current {
+  color: #889aaf !important;
+  height: 2.286em;
+  min-width: 2.286em;
+  line-height: 2.286em;
+}
+
+body .ui-table .ui-sortable-column .ui-sortable-column-icon .hover-7{
+  color: #848484 !important;
 }
