@@ -43,7 +43,7 @@ export class CommonGridComponent implements OnInit {
   rowLists: any[] = [];
   cols: any[];
   elements: any[];
-  loading = false;
+  dataLoading = false;
   selectionMode = 'single';
   selectedEntity: any[];
   rowsPerPage = 10;

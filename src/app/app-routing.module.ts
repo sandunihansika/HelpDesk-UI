@@ -9,6 +9,7 @@ import { AdminGuard } from './shared/guard/admin.guard';
 import {CustomerDetailsComponent} from './components/inquery/inquery/customer-details/customer-details/customer-details.component';
 import {AuthLoginComponent} from './auth/auth-login/auth-login.component';
 import {AuthGuard} from './auth/auth-login/auth.guard';
+import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
 
 const routes: Routes = [
   {
@@ -18,13 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'auth/login',
-    component: AuthLoginComponent
+    component: LoginComponent
   },
   {
     path: '',
     component: ContentLayoutComponent,
     // canActivate: [AdminGuard],
-
     children: content
   },
   {
@@ -34,8 +34,25 @@ const routes: Routes = [
     children: full
   },
   {
+    path: 'grid',
+    component:InqueryTableComponent,
+    loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
+  },
+  // {
+  //   path: 'customer',
+  //   component:CustomerDetailsComponent,
+  //   loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
+  // },
+  {
     path: '**',
     redirectTo: ''
+  },
+  {
+    path: 'customer',
+    component: CustomerDetailsComponent,
+    loadChildren: () => import('./components/inquery/inquery/customer-details/customer-details.module').then(
+      m => m.CustomerDetailsModule
+    )
   }
 ];
 

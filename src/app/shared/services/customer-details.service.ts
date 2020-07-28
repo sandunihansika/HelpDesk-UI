@@ -30,4 +30,23 @@ export class CustomerDetailsService {
       })
     );
   }
+
+  addQuatation(quatation: Quatation, CustomerID): Observable<any> {
+    quatation.CustomerID = CustomerID;
+    return this.commonHttpService.postData(this.customerUrl + '/quatation', quatation).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+
+
+  getAllCustomers(): Observable<any> {
+    return this.commonHttpService.getAll(this.customerUrl + '/get').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 }

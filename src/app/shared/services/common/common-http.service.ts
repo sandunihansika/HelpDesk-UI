@@ -56,4 +56,21 @@ export class CommonHttpService {
       })
     );
   };
+
+  getAll(subUrl: string) {
+    return this.http.get<any>(environment.baseUrl + subUrl, { headers: this.getHttpHeaders() }).pipe(
+      map(response => {
+        if (response && response.statusCode === StatusCodes.Success) {
+          return response;
+        } else if (response && response.statusCode === StatusCodes.Unauthorized) {
+          //this.authenticationService.logout();
+          this.router.navigate(['/auth/login']).then(() => {});
+          this.toastService.error('Error', response.message);
+        } else {
+          this.toastService.error('Error', response.message);
+          return response;
+        }
+      })
+    );
+  }
 }
