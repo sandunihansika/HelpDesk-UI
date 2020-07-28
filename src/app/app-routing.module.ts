@@ -7,6 +7,8 @@ import { content } from './shared/routes/content-routes';
 import { full } from './shared/routes/full.routes';
 import { AdminGuard } from './shared/guard/admin.guard';
 import {CustomerDetailsComponent} from './components/inquery/inquery/customer-details/customer-details/customer-details.component';
+import {AuthLoginComponent} from './auth/auth-login/auth-login.component';
+import {AuthGuard} from './auth/auth-login/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,12 +18,13 @@ const routes: Routes = [
   },
   {
     path: 'auth/login',
-    component: LoginComponent
+    component: AuthLoginComponent
   },
   {
     path: '',
     component: ContentLayoutComponent,
     // canActivate: [AdminGuard],
+
     children: content
   },
   {

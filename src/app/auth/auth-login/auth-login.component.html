@@ -1,0 +1,41 @@
+<p>auth-login works!</p>
+
+<div>
+  <p-card>
+    <form [formGroup]="loginForm">
+      <div>
+        <div class="p-field p-col-12 p-md-6">
+          <label for="Email">Email<span class="form-error"></span>
+            <span *ngIf="email.touched && email.errors?.required"
+                  class="form-error">  email is required!</span>
+          </label>
+          <app-common-textbox
+            [inputType]="TextBoxTypes.Email"
+            formControlName="email"
+            id="email"
+            [ngClass]="{
+                     'is-invalid': (email.touched ||email.dirty) && (!email.valid) }"></app-common-textbox>
+        </div>
+
+        <div class="p-field p-col-12 p-md-6">
+          <label for="Email">Password<span class="form-error"></span>
+            <span *ngIf=" password.touched &&  password.errors?.required"
+                  class="form-error">  Password is required!</span>
+          </label>
+          <app-common-textbox
+            [inputType]="TextBoxTypes.Password"
+            formControlName="password"
+            id="password"
+            [ngClass]="{'is-invalid': (password.touched ||password.dirty) && (!password.valid) }"></app-common-textbox>
+        </div>
+      </div>
+
+<br><br>
+      <button class="btn btn-primary mb-4" (click)="login()">Login</button>
+
+    </form>
+  </p-card>
+</div>
+
+
+<router-outlet></router-outlet>

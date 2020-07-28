@@ -39,6 +39,7 @@ import { CommonTextboxComponent } from './components/common-textbox/common-textb
 import { CommonRadiobuttonComponent } from './components/common-radiobutton/common-radiobutton.component';
 import { CommonDropdownComponent } from './components/common-dropdown/common-dropdown.component';
 import { CommonGridComponent } from './components/common-grid/common-grid.component';
+import {FormValidationHelpers} from './helpers/form-validation-helpers';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { CommonGridComponent } from './components/common-grid/common-grid.compon
   providers: [
     NavService,
     ChatService,
-    CustomizerService
+    CustomizerService,
+    FormValidationHelpers
   ]
 })
 export class SharedModule { }

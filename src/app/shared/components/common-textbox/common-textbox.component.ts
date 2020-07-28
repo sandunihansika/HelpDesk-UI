@@ -27,7 +27,7 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   @Input('value') _value = '';
   @Input() inputType: TextBoxTypes;
   @Output() inputModelChange = new EventEmitter<string>();
-  onModelChange = () => {
+  onModelChange = (x) => {
   };
   onModelTouched = () => {
   };
@@ -48,7 +48,7 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   }
 
   set value(val) {
-    this.onModelChange();
+    this.onModelChange(val);
     this.onModelTouched();
     this._value = val;
     this.inputModelChange.emit(val);
