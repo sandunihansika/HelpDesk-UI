@@ -4,10 +4,15 @@
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
-  (addBtnClicked)="viewForm()"
+  (addBtnClicked) = "viewForm()"
 >
 </app-common-grid>
 
+<p-dialog header="Quotation - ID:{{data.id + '  ' + 'Name:' + data.name}}" [modal]="true" [(visible)]="display" [style]="{width: '50%'}" [baseZIndex]="10000">
+  <p-card>
+    <form novalidate
+          (ngSubmit)="saveQuatation()"
+          [formGroup]="quatationForm" enctype="multipart/form-data">
 <p-dialog header="Quotation - ID:{{data.id + '  ' + 'Name:' + data.name}}" [modal]="true" [(visible)]="display"
           class="overlay" [baseZIndex]="10000">
   <div class="container-fluid">
