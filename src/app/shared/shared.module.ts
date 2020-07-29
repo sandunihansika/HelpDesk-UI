@@ -34,12 +34,17 @@ import { NavService } from './services/nav.service';
 import { ChatService } from './services/chat.service';
 import { CustomizerService } from './services/customizer.service';
 // Directives
-import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
-import { CommonTextboxComponent } from './components/common-textbox/common-textbox.component';
-import { CommonRadiobuttonComponent } from './components/common-radiobutton/common-radiobutton.component';
-import { CommonDropdownComponent } from './components/common-dropdown/common-dropdown.component';
-import { CommonGridComponent } from './components/common-grid/common-grid.component';
+import {ToggleFullscreenDirective} from './directives/fullscreen.directive';
+import {CommonTextboxComponent} from './components/common-textbox/common-textbox.component';
+import {CommonRadiobuttonComponent} from './components/common-radiobutton/common-radiobutton.component';
+import {CommonDropdownComponent} from './components/common-dropdown/common-dropdown.component';
+import {CommonGridComponent} from './components/common-grid/common-grid.component';
 import {FormValidationHelpers} from './helpers/form-validation-helpers';
+import {CommonTextareaComponent} from './components/common-textarea/common-textarea/common-textarea.component';
+import {CommonCalenderComponent} from './components/common-calender/common-calender/common-calender.component';
+import {CalendarModule} from 'primeng/calendar';
+
+
 
 @NgModule({
   declarations: [
@@ -58,7 +63,9 @@ import {FormValidationHelpers} from './helpers/form-validation-helpers';
     CommonTextboxComponent,
     CommonRadiobuttonComponent,
     CommonDropdownComponent,
-    CommonGridComponent
+    CommonGridComponent,
+    CommonTextareaComponent,
+    CommonCalenderComponent
   ],
   imports: [
     CommonModule,
@@ -75,7 +82,9 @@ import {FormValidationHelpers} from './helpers/form-validation-helpers';
     InputTextModule,
     ToolbarModule,
     CardModule,
-    RadioButtonModule
+    RadioButtonModule,
+    CalendarModule,
+
   ],
   exports: [
     LoaderComponent,
@@ -84,7 +93,9 @@ import {FormValidationHelpers} from './helpers/form-validation-helpers';
     CommonTextboxComponent,
     CommonRadiobuttonComponent,
     CommonDropdownComponent,
-    CommonGridComponent
+    CommonGridComponent,
+    CommonTextareaComponent,
+    CommonCalenderComponent
   ],
   providers: [
     NavService,

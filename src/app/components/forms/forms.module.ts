@@ -11,6 +11,7 @@ import { InputGroupsComponent } from './form-controls/input-groups/input-groups.
 import { MegaOptionsComponent } from './form-controls/mega-options/mega-options.component';
 import { FormDefaultComponent } from './form-default/form-default.component';
 import { NgxWizardModule } from './ngx-wizard/ngx-wizard.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,12 +22,13 @@ import { NgxWizardModule } from './ngx-wizard/ngx-wizard.module';
     MegaOptionsComponent,
     FormDefaultComponent
   ],
-  imports: [
-    CommonModule,
-    FormsRoutingModule,
-    ReactiveFormsModule,
-    FormsModule,
-    NgxWizardModule
-  ]
+    imports: [
+        CommonModule,
+        FormsRoutingModule,
+        ReactiveFormsModule,
+        FormsModule,
+        NgxWizardModule,
+        SharedModule
+    ]
 })
 export class FormModule { }

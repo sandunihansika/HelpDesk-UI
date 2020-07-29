@@ -1,51 +1,48 @@
-/* tslint:disable:semicolon */
 import {Component, OnInit, Input, Output, EventEmitter, forwardRef} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor
 } from '@angular/forms';
-import {TextBoxTypes} from '../../services/common/enum';
+
 
 @Component({
-  selector: 'app-common-textbox',
-  templateUrl: './common-textbox.component.html',
+  selector: 'app-common-calender',
+  templateUrl: './common-calender.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CommonTextboxComponent),
+      useExisting: forwardRef(() => CommonCalenderComponent),
       multi: true
     }
   ],
-  styleUrls: ['./common-textbox.component.scss']
+  styleUrls: ['./common-calender.component.scss']
 })
-export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
+export class CommonCalenderComponent implements OnInit, ControlValueAccessor {
 
   constructor() {
   }
 
-  // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line:variable-name no-input-rename
   @Input('value') _value = '';
-  @Input() inputType: TextBoxTypes;
-  @Input() placeholder;
-  @Input() class;
-  // @Output() inputModelChange = new EventEmitter<string>();
+
+  ngOnInit(): void {
+  }
+
   onModelChange = (x) => {
   };
   onModelTouched = () => {
   };
 
-  ngOnInit(): void {
-  }
 
-  registerOnChange(fn) {
+  registerOnChange(fn: any): void {
     this.onModelChange = fn;
   }
 
-  registerOnTouched(fn) {
+  registerOnTouched(fn: any): void {
     this.onModelTouched = fn;
   }
 
-  writeValue(value) {
+  writeValue(value: any): void {
     this.value = value;
   }
 
@@ -63,5 +60,6 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   handleChange(val) {
     this.value = val.target.value;
   }
+
 
 }

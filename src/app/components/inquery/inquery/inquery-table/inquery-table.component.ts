@@ -12,6 +12,8 @@ import {Router} from '@angular/router';
 export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', { static: true }) inqueryGrid: CommonGridComponent;
+  //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
+
 
   // companies = [
   //   {name: 'Ingenii'},
@@ -25,9 +27,10 @@ export class InqueryTableComponent implements OnInit {
   //   {label: 'Sent Quotation', name: 'Sent Quotation'},
   //   {label: 'Reneed Consent', name: 'Reneed Consent'}
   // ]
-
+  // id: any;
+  // name: string;
+  // handlingcompany: string;
   customer: any[];
-  statusField: string;
 
   addAllow = true;
   editAllow = true;
@@ -35,11 +38,12 @@ export class InqueryTableComponent implements OnInit {
   deleteAllow = true;
   showQuotation = true;
   showSearchBox = true;
-  gotConsentAllow = false;
+  // addAllow1 = true;
+  // showToolBar1 = true;
+  // showSearchBox1 = true;
+  // display: boolean = false;
 
-  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) {
-    //this.enableAuthorizedActions();
-  }
+  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) { }
 
   ngOnInit(): void {
 
@@ -147,13 +151,16 @@ export class InqueryTableComponent implements OnInit {
     //   }
     // );
 
+
   }
 
-
   viewQuotation(item){
-    this.statusField = item.status;
     this.CustomerDetailsService.data = item;
     this.route.navigate(['inquiry/quotation']);
+  }
+
+  addButtonClick(){
+  this.display = true;
   }
 
 

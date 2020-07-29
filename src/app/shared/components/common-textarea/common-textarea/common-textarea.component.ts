@@ -1,38 +1,35 @@
-/* tslint:disable:semicolon */
 import {Component, OnInit, Input, Output, EventEmitter, forwardRef} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor
 } from '@angular/forms';
-import {TextBoxTypes} from '../../services/common/enum';
 
 @Component({
-  selector: 'app-common-textbox',
-  templateUrl: './common-textbox.component.html',
+  selector: 'app-common-textarea',
+  templateUrl: './common-textarea.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => CommonTextboxComponent),
+      useExisting: forwardRef(() => CommonTextareaComponent),
       multi: true
     }
   ],
-  styleUrls: ['./common-textbox.component.scss']
+  styleUrls: ['./common-textarea.component.scss']
 })
-export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
+export class CommonTextareaComponent implements OnInit, ControlValueAccessor {
 
   constructor() {
   }
 
-  // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line:variable-name no-input-rename
   @Input('value') _value = '';
-  @Input() inputType: TextBoxTypes;
-  @Input() placeholder;
-  @Input() class;
+  @Input() rows;
+  @Input() cols;
   // @Output() inputModelChange = new EventEmitter<string>();
   onModelChange = (x) => {
-  };
+  }
   onModelTouched = () => {
-  };
+  }
 
   ngOnInit(): void {
   }

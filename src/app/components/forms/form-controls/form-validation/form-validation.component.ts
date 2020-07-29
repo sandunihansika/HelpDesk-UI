@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class FormValidationComponent implements OnInit {
 
   validationForm: FormGroup;
+  firstName: any;
 
   constructor(private fb: FormBuilder) { }
 
@@ -20,7 +21,7 @@ export class FormValidationComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required]
-    })
+    });
   }
 
 }

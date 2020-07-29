@@ -32,7 +32,7 @@ import {AuthRoutingModule} from './auth-routing.module';
     AuthLoginComponent
 
   ],
-  providers:[
+  providers: [
     AuthEvent,
     PasswordHash
 
