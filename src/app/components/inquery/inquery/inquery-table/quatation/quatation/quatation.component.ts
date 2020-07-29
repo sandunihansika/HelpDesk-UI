@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Quatation} from './quatation';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {TextBoxTypes} from '../../../../../../shared/services/common/enum';
+import {ColumnType, TextBoxTypes, Alignment} from '../../../../../../shared/services/common/enum';
 import {FormValidationHelpers} from '../../../../../../shared/helpers/form-validation-helpers';
 import {CustomerDetailsService} from '../../../../../../shared/services/customer-details.service';
+import {CommonGridComponent} from '../../../../../../shared/components/common-grid/common-grid.component';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {CustomerDetailsService} from '../../../../../../shared/services/customer
   styleUrls: ['./quatation.component.scss']
 })
 export class QuatationComponent implements OnInit {
-  @ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
+  @ViewChild('quotationGrid', {static: true}) quotationGrid: CommonGridComponent;
 
   addAllow1 = true;
   showToolBar1 = true;
@@ -23,7 +24,7 @@ export class QuatationComponent implements OnInit {
   uploadedFiles: any[] = [];
 
   display: boolean = false;
-  data:any[];
+  data: any[];
 
   constructor(
     private formbuilder: FormBuilder,
@@ -93,13 +94,13 @@ export class QuatationComponent implements OnInit {
     ];
 
     this.quotationGrid.rowLists = [
-      {id: 1, qno: 'ab120', description: 'kdjndcjzka', expirydate:'2020-10-10', createddate:'2020-07-23', pdf:'' },
-      {id: 2, qno: 'dc234', description: 'asnxakkkj', expirydate:'20202-11-11', createddate:'2020-07-23', pdf:'' },
-      {id: 3, qno: 'sd256', description: 'akjsxnkxn', expirydate:'2020-12-12', createddate:'2020-07-23', pdf:'' },
+      {id: 1, qno: 'ab120', description: 'kdjndcjzka', expirydate: '2020-10-10', createddate: '2020-07-23', pdf: ''},
+      {id: 2, qno: 'dc234', description: 'asnxakkkj', expirydate: '20202-11-11', createddate: '2020-07-23', pdf: ''},
+      {id: 3, qno: 'sd256', description: 'akjsxnkxn', expirydate: '2020-12-12', createddate: '2020-07-23', pdf: ''},
     ];
   }
 
-  viewForm(){
+  viewForm() {
     this.display = true;
   }
 

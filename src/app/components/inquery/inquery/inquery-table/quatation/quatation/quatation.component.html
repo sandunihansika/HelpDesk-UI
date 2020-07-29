@@ -1,72 +1,88 @@
-<p-card>
-  <form novalidate
-        (ngSubmit)="saveQuatation()"
-        [formGroup]="quatationForm" enctype="multipart/form-data">
+<app-common-grid
+  #quotationGrid
+  header="Quotation Details - ID:{{data.id + '  ' + 'Name:' + data.name}}"
+  [addAllow]="addAllow1"
+  [showToolBar]="showToolBar1"
+  [showSearchBox]="showSearchBox1"
+  (addBtnClicked) = "viewForm()"
+>
+</app-common-grid>
 
-    <div class="ui-fluid p-formgrid p-grid">
-      <div class="p-field p-col-12 p-md-6">
-        <label for="description">Description<span class="form-error">* </span>
-          <span *ngIf="Description.touched && Description.errors?.required"
-                class="form-error">  Description required!</span>
-        </label>
-        <app-common-textarea
-          formControlName="Description"
-          id="description"
-          [rows]="5"
-          [cols]="50"
-          [ngClass]="{
+<p-dialog header="Quotation - ID:{{data.id + '  ' + 'Name:' + data.name}}" [modal]="true" [(visible)]="display"   class="overlay" [baseZIndex]="10000">
+  <p-card>
+    <form novalidate
+          (ngSubmit)="saveQuatation()"
+          [formGroup]="quatationForm" enctype="multipart/form-data">
+
+      <div class="ui-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+          <label for="description">Description<span class="form-error">* </span>
+            <span *ngIf="Description.touched && Description.errors?.required"
+                  class="form-error">  Description required!</span>
+          </label>
+          <app-common-textarea
+            formControlName="Description"
+            id="description"
+            [rows]="5"
+            [cols]="50"
+            [ngClass]="{
             'is-invalid': (Description.touched ||Description.dirty) && !Description.valid }"></app-common-textarea>
-      </div>
+        </div>
 
-      <div class="p-field p-col-12 p-md-6">
-        <label for="quatationNo">Quatation No<span class="form-error">* </span>
-          <span *ngIf="QuatationNo.touched && QuatationNo.errors?.required"
-                class="form-error">  QuatationNo is required!</span>
-        </label>
-        <app-common-textbox
-          [inputType]="TextBoxTypes.Text"
-          formControlName="QuatationNo"
-          id="quatationNo"
-          [ngClass]="{
+        <div class="p-field p-col-12 p-md-6">
+          <label for="quatationNo">Quatation No<span class="form-error">* </span>
+            <span *ngIf="QuatationNo.touched && QuatationNo.errors?.required"
+                  class="form-error">  QuatationNo is required!</span>
+          </label>
+          <app-common-textbox
+            [inputType]="TextBoxTypes.Text"
+            formControlName="QuatationNo"
+            id="quatationNo"
+            [ngClass]="{
                      'is-invalid':(QuatationNo.touched ||QuatationNo.dirty) && !QuatationNo.valid}"></app-common-textbox>
-      </div>
+        </div>
 
-      <div class="p-field p-col-12 p-md-6">
-        <label for="expiryDate">Expiry Date<span class="form-error">* </span>
-          <span *ngIf="ExpiryDate.touched && ExpiryDate.errors?.required"
-                class="form-error">  Expiry Date is required!</span>
-        </label>
-        <app-common-calender
-          formControlName="ExpiryDate"
-          id="expiryDate"
-          [ngClass]="{
+        <div class="p-field p-col-12 p-md-6">
+          <label for="expiryDate">Expiry Date<span class="form-error">* </span>
+            <span *ngIf="ExpiryDate.touched && ExpiryDate.errors?.required"
+                  class="form-error">  Expiry Date is required!</span>
+          </label>
+          <app-common-calender
+            formControlName="ExpiryDate"
+            id="expiryDate"
+            [ngClass]="{
                      'is-invalid': (ExpiryDate.touched ||ExpiryDate.dirty) && !ExpiryDate.valid }"></app-common-calender>
-      </div>
+        </div>
 
-      <div class="p-field p-col-12 p-md-6">
-        <p-fileUpload name="pdf"
+        <div class="p-field p-col-12 p-md-6">
+          <p-fileUpload name="pdf"
 
-                      formControlName="pdf"
-                      (onUpload)="onUpload($event)"
-                      multiple="multiple">
-        <ng-template pTemplate="content">
-          <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-          </ul>
-        </ng-template>
-        </p-fileUpload>
-      </div>
+                        formControlName="pdf"
+                        (onUpload)="onUpload($event)"
+                        multiple="multiple">
+            <ng-template pTemplate="content">
+              <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+              </ul>
+            </ng-template>
+          </p-fileUpload>
+        </div>
 
 
-      <div class="offset-md-2 col-md-4">
-        <div>
-          <button class="btn btn-primary mr-3"
-                  type="submit" style="background-position:center">Save
-          </button>
+        <div class="offset-md-2 col-md-4">
+          <div>
+            <button class="btn btn-primary mr-3"
+                    type="submit" style="background-position:center">Save
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-  </form>
+    </form>
+  </p-card>
+</p-dialog>
+
+<p-card>
+
 </p-card>
 

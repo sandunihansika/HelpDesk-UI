@@ -18,7 +18,7 @@ import {DialogModule} from 'primeng/dialog';
     ReactiveFormsModule,
     DialogModule
   ],
-  exports: [QuatationComponent]
+  exports: [QuatationComponent,
     ReactiveFormsModule,
     InputTextareaModule,
     FileUploadModule

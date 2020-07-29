@@ -18,11 +18,13 @@ import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guar
 import { CookieService } from 'ngx-cookie-service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+// tslint:disable-next-line:import-spacing
 import  {InqueryModule} from './components/inquery/inquery/inquery.module';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {AuthLoginModule} from './auth/auth-login.module';
 import {FormValidationHelpers} from './shared/helpers/form-validation-helpers';
+import {CustomerDetailsService} from './shared/services/customer-details.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -54,9 +56,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    InqueryModule
+    InqueryModule,
+    AuthLoginModule
   ],
-  providers: [AuthService, AdminGuard, SecureInnerPagesGuard, CookieService, MessageService],
+  providers: [AuthService, AdminGuard, SecureInnerPagesGuard, CookieService, MessageService, CustomerDetailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
