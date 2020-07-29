@@ -132,7 +132,7 @@
             <li><a href="javascript:void(0)">
                 <app-feather-icons [icon]="'settings'"></app-feather-icons>Settings
               </a></li>
-            <li *ngIf="authService.userData as user"><a href="javascript:void(0)" (click)="authService.SignOut()">
+            <li><a href="javascript:void(0)" (click)="authenticationService.logOut()">
                 <app-feather-icons [icon]="'log-out'"></app-feather-icons>Logout
               </a></li>
           </ul>

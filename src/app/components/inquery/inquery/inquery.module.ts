@@ -6,6 +6,8 @@ import {QuatationModule} from './inquery-table/quatation/quatation.module';
 import {CustomerDetailsModule} from './customer-details/customer-details.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DialogModule} from 'primeng/dialog';
+import {InqueryRoutingModule} from './inquery-routing.module';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CustomerDetailsComponent} from './customer-details/customer-details/customer-details.component';
 
 @NgModule({
@@ -17,7 +19,9 @@ import {CustomerDetailsComponent} from './customer-details/customer-details/cust
     CommonModule,
     SharedModule,
     DialogModule,
-    CustomerDetailsModule
+    CustomerDetailsModule,
+    InqueryRoutingModule,
+    ConfirmDialogModule
   ],
   exports: [InqueryTableComponent]
 })

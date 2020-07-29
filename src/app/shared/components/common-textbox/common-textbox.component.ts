@@ -23,7 +23,7 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   constructor() {
   }
 
-  // tslint:disable-next-line:variable-name no-input-rename
+  // tslint:disable-next-line:variable-name
   @Input('value') _value = '';
   @Input() inputType: TextBoxTypes;
   @Input() placeholder;

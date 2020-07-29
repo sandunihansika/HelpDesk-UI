@@ -1,5 +1,5 @@
 <div>
-  <input [type]="inputType" [placeholder]="placeholder"  [value]="value" class="form-control" (change)="handleChange($event)">
+  <input [type]="inputType"  [value]="value" (change)="handleChange($event)" (input)="handleChange($event)" class="form-control">
 </div>
 
 

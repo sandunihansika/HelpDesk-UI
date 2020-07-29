@@ -1,5 +1,5 @@
 
-<p-card>
+<p-card [header]="header">
   <div class="main-tab-in">
     <div class="ui-g-12">
       <div class="ui-g-12 toolbar-table">
@@ -43,7 +43,7 @@
                 icon="pi pi-external-link"
                 style="margin-right: .25em"
                 class="ui-button-warning"
-                label=" View Quotation"
+                label="Quotation"
                 (click)="quotationClick(this.selectedEntity)"
               ></button>
             </div>

@@ -232,4 +232,11 @@ export const content: Routes = [
       breadcrumb: "To-do"
     }
   },
+  {
+    path: 'inquiry',
+    loadChildren: () => import('../../components/inquery/inquery/inquery.module').then(m => m.InqueryModule),
+    data: {
+      breadcrumb: "Inquiry"
+    }
+  },
 ];

@@ -7,6 +7,8 @@ import {content} from './shared/routes/content-routes';
 import {full} from './shared/routes/full.routes';
 import {AdminGuard} from './shared/guard/admin.guard';
 import {CustomerDetailsComponent} from './components/inquery/inquery/customer-details/customer-details/customer-details.component';
+import {AuthLoginComponent} from './auth/auth-login/auth-login.component';
+import {AuthGuard} from './auth/auth-login/auth.guard';
 import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
 import {QuatationComponent} from './components/inquery/inquery/inquery-table/quatation/quatation/quatation.component';
 

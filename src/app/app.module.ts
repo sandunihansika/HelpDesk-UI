@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 import {MessageService} from 'primeng/api';
-
 import { AuthService } from './shared/services/firebase/auth.service';
 import { AdminGuard } from './shared/guard/admin.guard';
 import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guard';
@@ -20,9 +19,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import  {InqueryModule} from './components/inquery/inquery/inquery.module';
-
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {AuthLoginModule} from './auth/auth-login.module';
 import {FormValidationHelpers} from './shared/helpers/form-validation-helpers';
 
 // AoT requires an exported function for factories

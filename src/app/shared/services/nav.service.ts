@@ -309,6 +309,13 @@ export class NavService {
 		{
 			path: '/maintenance', title: 'Maintenance', icon: 'settings', type: 'link'
 		},
+    {
+      path: '/inquiry', title: 'Inquiry', icon: 'layers', type: 'link'
+    },
+    {
+      path: '/customer', title: 'Customer Details', icon: 'user', type: 'link'
+    },
+
 	]
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
