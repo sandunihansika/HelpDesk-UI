@@ -13,41 +13,44 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
   ],
   styleUrls: ['./common-radiobutton.component.scss']
 })
-export class CommonRadiobuttonComponent implements OnInit {
+export class CommonRadiobuttonComponent implements OnInit, ControlValueAccessor {
 
   constructor() {
   }
 
   @Input() groupName: string;
   @Input() label: string;
-  // tslint:disable-next-line:variable-name
+  // tslint:disable-next-line:variable-name no-input-rename
   @Input('value') _value: string;
-  @Output() opRadioValue = new EventEmitter<string>();
+  // @Output() opRadioValue = new EventEmitter<string>();
   @ViewChild('radio', {static: false}) radio: any;
-  onChange = (value: any) => {};
-  onTouched = () => {};
+  onModelChange = (x) => {
+  };
+  onModelTouched = () => {
+  };
 
   ngOnInit(): void {
   }
 
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onModelChange = fn;
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+    this.onModelTouched = fn;
   }
 
   writeValue(value: any): void {
-    console.log(value);
+    console.log(value + '*********');
     this.value = value;
+
   }
 
   set value(val) {
-    this.onChange(val);
-    this.onTouched();
+    this.onModelChange(val);
+    this.onModelTouched();
     this._value = val;
-    this.opRadioValue.emit(val);
+    // this.opRadioValue.emit(val);
   }
 
   get value() {

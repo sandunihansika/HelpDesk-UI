@@ -15,6 +15,8 @@ export class CustomerDetailsComponent implements OnInit {
   customersForm: FormGroup;
   customer: CustomerDetails;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
+  male: string;
+  female: string;
 
   constructor(
     private formbuilder: FormBuilder,
@@ -26,7 +28,8 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customersForm = this.formbuilder.group({
-      FirstName: ['', [Validators.required]],
+      ID: [0],
+      firstName: ['', [Validators.required]],
       LastName: ['', [Validators.required]],
       NIC: ['', [Validators.required, Validators.minLength(10)]],
       Email: ['', [Validators.required, Validators.email]],
@@ -39,7 +42,7 @@ export class CustomerDetailsComponent implements OnInit {
   patchValues() {
     if (this.customer) {
       this.customersForm.patchValue({
-        FirstName: this.customer.FirstName ? this.customer.FirstName : '',
+        firstName: this.customer.firstName ? this.customer.firstName : '',
         LastName: this.customer.LastName ? this.customer.LastName : '',
         NIC: this.customer.NIC ? this.customer.NIC : '',
         Email: this.customer.Email ? this.customer.Email : '',
@@ -63,12 +66,13 @@ export class CustomerDetailsComponent implements OnInit {
     }
   }
 
+
   editCustomer() {
     this.patchValues();
   }
 
-  get FirstName() {
-    return this.customersForm.get('FirstName');
+  get firstName() {
+    return this.customersForm.get('firstName');
   }
 
   get LastName() {

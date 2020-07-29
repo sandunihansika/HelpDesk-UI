@@ -15,6 +15,8 @@ export class QuatationComponent implements OnInit {
   quatationForm: FormGroup;
   quatation: Quatation;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
+  uploadedFiles: any[] = [];
+
 
   constructor(
     private formbuilder: FormBuilder,
@@ -25,13 +27,27 @@ export class QuatationComponent implements OnInit {
 
   ngOnInit(): void {
     this.quatationForm = this.formbuilder.group({
+      CustomerID: ['', Validators.required],
       Description: ['', [Validators.required]],
       QuatationNo: ['', [Validators.required]],
       ExpiryDate: ['', [Validators.required]],
+      pdf: ['', [Validators.required]]
     });
   }
 
+
+  onUpload(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      console.log(file);
+      this.quatationForm.patchValue({
+        pdf: file
+      });
+    }
+  }
+
   saveQuatation() {
+    console.log(this.quatationForm.value);
     if (this.quatationForm.invalid) {
       this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
       return;
@@ -42,6 +58,7 @@ export class QuatationComponent implements OnInit {
         });
     }
   }
+
 
   get Description() {
     return this.quatationForm.get('Description');

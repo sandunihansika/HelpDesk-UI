@@ -6,15 +6,17 @@
     <div class="ui-fluid p-formgrid p-grid">
       <div class="p-field p-col-12 p-md-6">
         <label for="firstName">First name<span class="form-error">* </span>
-          <span *ngIf="FirstName.touched && FirstName.errors?.required"
-                class="form-error">  First name is required!</span>
+
         </label>
         <app-common-textbox
           [inputType]="TextBoxTypes.Text"
-          formControlName="FirstName"
+          formControlName="firstName"
+          placeholder="First name"
           id="firstName"
           [ngClass]="{
-            'is-invalid': (FirstName.touched ||FirstName.dirty) && !FirstName.valid }"></app-common-textbox>
+            'is-invalid': (firstName.touched ||firstName.dirty) && !firstName.valid }"></app-common-textbox>
+        <span *ngIf="this.customersForm.controls.firstName.touched && this.customersForm.controls.firstName.errors?.required"
+              class="form-error">  First name is required!</span>
       </div>
       <div class="p-field p-col-12 p-md-6">
         <label for="LastName">Last name<span class="form-error">* </span>
@@ -24,6 +26,7 @@
         <app-common-textbox
           [inputType]="TextBoxTypes.Text"
           formControlName="LastName"
+          placeholder="Last name"
           id="LastName"
           [ngClass]="{
                      'is-invalid':(LastName.touched ||LastName.dirty) && !LastName.valid}"></app-common-textbox>
@@ -37,6 +40,7 @@
         <app-common-textbox
           [inputType]="TextBoxTypes.Text"
           formControlName="NIC"
+          placeholder="NIC"
           id="NIC"
           [ngClass]="{
                      'is-invalid': (NIC.touched ||NIC.dirty) && !NIC.valid }"></app-common-textbox>
@@ -49,6 +53,7 @@
         <app-common-textbox
           [inputType]="TextBoxTypes.Email"
           formControlName="Email"
+          placeholder="Email"
           id="Email"
           [ngClass]="{
                      'is-invalid': (Email.touched ||Email.dirty) && !Email.valid }"></app-common-textbox>
@@ -64,6 +69,7 @@
         <app-common-textbox
           [inputType]="TextBoxTypes.Text"
           formControlName="TelNo"
+          placeholder="Contact No"
           id="TelNo"
           [ngClass]="{
                      'is-invalid': (TelNo.touched ||TelNo.dirty) && !TelNo.valid }"></app-common-textbox>
@@ -76,28 +82,31 @@
         <app-common-textbox
           [inputType]="TextBoxTypes.Text"
           formControlName="Address"
+          placeholder="Address"
           id="Address"
           [ngClass]="{
                      'is-invalid': (Address.touched ||Address.dirty) && !Address.valid }"></app-common-textbox>
       </div>
-      <div class="p-field p-col-12 p-md-6">
 
-      </div>
-      <div class="form-group">
-        <label for="gender">Gender</label>
-        <div>
-          <app-common-radiobutton id="male" groupName="Gender" [value]="'male'" formControlName="Gender"
-                                  type="radio" label="male"></app-common-radiobutton>
-          <!--                    <input id="male" type="radio" class="custom-control-input" value="male" name="gender" formControlName="gender">-->
-          <!--                    <label class="custom-control-label" for="male">Male</label>-->
+      <div class="p-field p-col-12 p-md-6">
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <div>
+            <app-common-radiobutton id="male" groupName="Gender" [value]='male' formControlName="Gender"
+                                    type="radio" label="male"></app-common-radiobutton>
+            <!--                    <input id="male" type="radio" class="custom-control-input" value="male" name="gender" formControlName="gender">-->
+            <!--                    <label class="custom-control-label" for="male">Male</label>-->
+          </div>
+          <div>
+            <app-common-radiobutton id="female" groupName="Gender" [value]='female' formControlName="Gender"
+                                    type="radio" label="female"></app-common-radiobutton>
+            <!--                    <input id="female" type="radio" class="custom-control-input" value="female" name="gender" formControlName="gender">-->
+            <!--                    <label class="custom-control-label" for="female">Female</label>-->
+          </div>
         </div>
-        <div>
-          <app-common-radiobutton id="female" groupName="Gender" [value]="'female'" formControlName="Gender"
-                                  type="radio" label="female"></app-common-radiobutton>
-          <!--                    <input id="female" type="radio" class="custom-control-input" value="female" name="gender" formControlName="gender">-->
-          <!--                    <label class="custom-control-label" for="female">Female</label>-->
-        </div>
       </div>
+
+
     </div>
 
 

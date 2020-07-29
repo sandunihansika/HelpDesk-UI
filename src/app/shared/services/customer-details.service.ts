@@ -6,6 +6,7 @@ import {CustomerDetails} from '../../components/inquery/inquery/customer-details
 import {Router} from '@angular/router';
 import {AuthenticationService} from './auth/authentication.service';
 import {CommonHttpService} from './common/common-http.service';
+import {Quatation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
 import {environment} from '../../../environments/environment';
 
 @Injectable({

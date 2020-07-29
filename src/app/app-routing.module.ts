@@ -8,6 +8,7 @@ import {full} from './shared/routes/full.routes';
 import {AdminGuard} from './shared/guard/admin.guard';
 import {CustomerDetailsComponent} from './components/inquery/inquery/customer-details/customer-details/customer-details.component';
 import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
+import {QuatationComponent} from './components/inquery/inquery/inquery-table/quatation/quatation/quatation.component';
 
 const routes: Routes = [
   {
@@ -33,25 +34,23 @@ const routes: Routes = [
   },
   {
     path: 'grid',
-    component:InqueryTableComponent,
+    component: InqueryTableComponent,
     loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
-  },
-  // {
-  //   path: 'customer',
-  //   component:CustomerDetailsComponent,
-  //   loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
-  // },
-  {
-    path: '**',
-    redirectTo: ''
   },
   {
     path: 'customer',
     component: CustomerDetailsComponent,
-    loadChildren: () => import('./components/inquery/inquery/customer-details/customer-details.module').then(
-      m => m.CustomerDetailsModule
-    )
-  }
+    loadChildren: () => import('./components/inquery/inquery/customer-details/customer-details.module').then(m => m.CustomerDetailsModule)
+  },
+  {
+    path: 'quatation',
+    component: QuatationComponent,
+    loadChildren: () => import('./components/inquery/inquery/inquery-table/quatation/quatation.module').then(m => m.QuatationModule)
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  },
 ];
 
 @NgModule({

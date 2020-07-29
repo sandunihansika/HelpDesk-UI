@@ -6,6 +6,7 @@ import {QuatationModule} from './inquery-table/quatation/quatation.module';
 import {CustomerDetailsModule} from './customer-details/customer-details.module';
 import {SharedModule} from '../../../shared/shared.module';
 import {DialogModule} from 'primeng/dialog';
+import {CustomerDetailsComponent} from './customer-details/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [InqueryTableComponent, CustomerHandlingComponent],

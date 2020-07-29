@@ -23,6 +23,7 @@ import  {InqueryModule} from './components/inquery/inquery/inquery.module';
 
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {FormValidationHelpers} from './shared/helpers/form-validation-helpers';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
