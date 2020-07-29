@@ -41,7 +41,7 @@ export class InqueryTableComponent implements OnInit {
   // addAllow1 = true;
   // showToolBar1 = true;
   // showSearchBox1 = true;
-  // display: boolean = false;
+  display: boolean = false;
 
   constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) { }
 
@@ -226,6 +226,10 @@ export class InqueryTableComponent implements OnInit {
     //this.display = true;
     this.CustomerDetailsService.data = item;
     this.route.navigate(['inquiry/quotation']);
+  }
+
+  addButtonClick(){
+  this.display = true;
   }
 
 
