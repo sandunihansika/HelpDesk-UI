@@ -221,12 +221,12 @@ body {
   width: auto;
 }
 
-.card .card-block, .card .card-body {
-  padding: 30px 25px !important;
-  //background: white;
-  width: 30%;
-  //background-color: rgb(255 255 255 / 0%) !important;
-}
+//.card .card-block, .card .card-body {
+//  padding: 30px 25px !important;
+//  //background: white;
+//  width: 30%;
+//  //background-color: rgb(255 255 255 / 0%) !important;
+//}
 
 .ui-card-title {
   font-size: 18px !important;
@@ -266,10 +266,7 @@ body .ui-inputtext{
   width: 200px;
   margin-left: 45px;
 }
-//html, body {
-//  background-image: url(src/assets/images/background/laptop.jpg);
-//  background-size: cover
-//}
+
 .p-field > label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -280,8 +277,9 @@ body .ui-inputtext{
   margin-left: 122px;
 }
 
-.e-overlay {         // Set dialog modal overlay
-  background-color: #800000;  // Customize dialog modal overlay background color
-  opacity: 0.3;    // To blur the background color
-  filter: alpha(opacity=30);
-}
+
+
+
+
+
+

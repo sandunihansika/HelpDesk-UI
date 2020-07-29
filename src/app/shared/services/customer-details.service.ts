@@ -14,6 +14,7 @@ import { Quatation } from '../../components/inquery/inquery/inquery-table/quatat
 })
 export class CustomerDetailsService {
   customerUrl = 'customer';
+  data:any[];
 
   constructor(
     private http: HttpClient,

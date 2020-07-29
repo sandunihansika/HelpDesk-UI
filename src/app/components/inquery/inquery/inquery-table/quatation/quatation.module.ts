@@ -4,8 +4,7 @@ import { QuatationComponent } from './quatation/quatation.component';
 import {SharedModule} from '../../../../../shared/shared.module';
 import {CardModule} from 'primeng/card';
 import {ReactiveFormsModule} from '@angular/forms';
-
-
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [QuatationComponent],
@@ -13,7 +12,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     CommonModule,
     SharedModule,
     CardModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    DialogModule
+  ],
+  exports: [QuatationComponent]
 })
 export class QuatationModule { }

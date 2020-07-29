@@ -310,22 +310,12 @@ export class NavService {
 			path: '/maintenance', title: 'Maintenance', icon: 'settings', type: 'link'
 		},
     {
-      title: 'Customer Requests', icon: 'layers', type: 'sub', active: false, children: [
-        {title: 'Inquiry', icon: 'layers', type: 'sub', active: false, children: [
-            { path: '/inquiry/quotation', title: 'Quotation', type: 'link' },
-            { path: '/inquiry/details', title: 'Details', type: 'link' },
-            { path: '/inquiry/quotationwithdetails', title: 'Quotaion + Details', type: 'link' },
-          ]
-        },
-        {
-          title: 'Complaint', icon: 'layers', type: 'sub', active: false, children: [
-            { path: '/complaint/software', title: 'Software', type: 'link' },
-            { path: '/complaint/hardware', title: 'Hardware', type: 'link' },
-            { path: '/complaint/technitian', title: 'Technitian', type: 'link' },
-          ]
-        }
-      ]
+      path: '/inquiry', title: 'Inquiry', icon: 'layers', type: 'link'
     },
+    {
+      path: '/customer', title: 'Customer Details', icon: 'user', type: 'link'
+    },
+
 	]
 	// Array
 	items = new BehaviorSubject<Menu[]>(this.MENUITEMS);
