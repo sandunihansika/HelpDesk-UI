@@ -30,28 +30,28 @@ export class CustomerDetailsComponent implements OnInit {
     this.customersForm = this.formbuilder.group({
       ID: [0],
       firstName: ['', [Validators.required]],
-      LastName: ['', [Validators.required]],
-      NIC: ['', [Validators.required, Validators.minLength(10)]],
-      Email: ['', [Validators.required, Validators.email]],
-      TelNo: ['', [Validators.required, Validators.minLength(10)]],
-      Address: ['', [Validators.required]],
-      Gender: ['', [Validators.required]]
+      lastName: ['', [Validators.required]],
+      nic: ['', [Validators.required, Validators.minLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
+      telNo: ['', [Validators.required, Validators.minLength(10)]],
+      address: ['', [Validators.required]],
+      gender: ['', [Validators.required]]
     });
   }
 
-  patchValues() {
-    if (this.customer) {
-      this.customersForm.patchValue({
-        firstName: this.customer.firstName ? this.customer.firstName : '',
-        LastName: this.customer.LastName ? this.customer.LastName : '',
-        NIC: this.customer.NIC ? this.customer.NIC : '',
-        Email: this.customer.Email ? this.customer.Email : '',
-        TelNo: this.customer.TelNo ? this.customer.TelNo : '',
-        Address: this.customer.Address ? this.customer.Address : '',
-        Gender: this.customer.Gender ? this.customer.Gender : ''
-      });
-    }
-  }
+  // patchValues() {
+  //   if (this.customer) {
+  //     this.customersForm.patchValue({
+  //       firstName: this.customer.firstName ? this.customer.firstName : '',
+  //       LastName: this.customer.LastName ? this.customer.LastName : '',
+  //       NIC: this.customer.NIC ? this.customer.NIC : '',
+  //       Email: this.customer.Email ? this.customer.Email : '',
+  //       TelNo: this.customer.TelNo ? this.customer.TelNo : '',
+  //       Address: this.customer.Address ? this.customer.Address : '',
+  //       Gender: this.customer.Gender ? this.customer.Gender : ''
+  //     });
+  //   }
+  // }
 
   saveCustomer() {
     console.log(this.customersForm.value);
@@ -66,37 +66,37 @@ export class CustomerDetailsComponent implements OnInit {
     }
   }
 
-
-  editCustomer() {
-    this.patchValues();
-  }
+  //
+  // editCustomer() {
+  //   this.patchValues();
+  // }
 
   get firstName() {
     return this.customersForm.get('firstName');
   }
 
-  get LastName() {
-    return this.customersForm.get('LastName');
+  get lastName() {
+    return this.customersForm.get('lastName');
   }
 
-  get NIC() {
-    return this.customersForm.get('NIC');
+  get nic() {
+    return this.customersForm.get('nic');
   }
 
-  get Email() {
-    return this.customersForm.get('Email');
+  get email() {
+    return this.customersForm.get('email');
   }
 
-  get TelNo() {
-    return this.customersForm.get('TelNo');
+  get telNo() {
+    return this.customersForm.get('telNo');
   }
 
-  get Address() {
-    return this.customersForm.get('Address');
+  get address() {
+    return this.customersForm.get('address');
   }
 
-  get Gender() {
-    return this.customersForm.get('Gender');
+  get gender() {
+    return this.customersForm.get('gender');
   }
 
 }

@@ -1,4 +1,4 @@
 <div>
-  <p-dropdown [options]="fields" [selectId]="value" optionLabel="name" [placeholder]="placeholder"
-              [style]="{'width':'150px'}" (onChange)="handleChange($event)" (input)="handleChange($event)"></p-dropdown>
+  <p-dropdown [options]="fields" [selectId]="value" optionLabel="name" [placeholder]="placeholder" [filter]="true"
+              (onChange)="handleChange($event)" (input)="handleChange($event)"></p-dropdown>
 </div>

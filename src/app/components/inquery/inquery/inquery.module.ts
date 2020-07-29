@@ -7,6 +7,7 @@ import {CustomerDetailsModule} from './customer-details/customer-details.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DialogModule} from 'primeng/dialog';
 import {InqueryRoutingModule} from './inquery-routing.module';
+import {CustomerTableModule} from './customer-table/customer-table.module';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CustomerDetailsComponent} from './customer-details/customer-details/customer-details.component';
 
@@ -21,7 +22,7 @@ import {CustomerDetailsComponent} from './customer-details/customer-details/cust
     DialogModule,
     CustomerDetailsModule,
     InqueryRoutingModule,
-    ConfirmDialogModule
+    CustomerTableModule
   ],
   exports: [InqueryTableComponent]
 })

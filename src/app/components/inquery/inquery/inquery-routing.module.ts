@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { InqueryTableComponent } from './inquery-table/inquery-table.component';
 import {QuatationComponent} from './inquery-table/quatation/quatation/quatation.component';
+import {CustomerTableComponent} from './customer-table/customer-table/customer-table.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,6 @@ const routes: Routes = [
           title: "Inquiry",
           breadcrumb: "Inquiry"
         },
-
       },
       {
         path: 'quotation',
@@ -22,6 +22,14 @@ const routes: Routes = [
         data: {
           title: "Quotation",
           breadcrumb: "Quotation"
+        },
+      },
+      {
+        path: 'customer',
+        component: CustomerTableComponent,
+        data: {
+          title: "Customer",
+          breadcrumb: "Customer"
         },
       },
     ]
