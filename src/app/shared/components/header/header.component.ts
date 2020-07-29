@@ -4,6 +4,7 @@ import { NavService, Menu } from '../../services/nav.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/firebase/auth.service';
 import { DOCUMENT } from '@angular/common';
+import {AuthenticationService} from '../../services/auth/authentication.service';
 
 var body = document.getElementsByTagName("body")[0];
 
@@ -29,7 +30,8 @@ export class HeaderComponent implements OnInit {
     public navServices: NavService,
     @Inject(DOCUMENT) private document: any,
     private translate: TranslateService,
-    public authService: AuthService) {
+    public authService: AuthService,
+    public authenticationService : AuthenticationService) {
     translate.setDefaultLang('en');
   }
 

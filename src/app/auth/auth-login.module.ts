@@ -8,6 +8,7 @@ import {PasswordHash} from './auth-login/password-hash';
 import {CardModule} from 'primeng/card';
 import {AuthLoginComponent} from './auth-login/auth-login.component';
 import {SharedModule} from '../shared/shared.module';
+import {AuthRoutingModule} from './auth-routing.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {SharedModule} from '../shared/shared.module';
     RouterModule,
     ReactiveFormsModule,
     CardModule,
-    SharedModule
+    SharedModule,
+    AuthRoutingModule
 
 
   ],
