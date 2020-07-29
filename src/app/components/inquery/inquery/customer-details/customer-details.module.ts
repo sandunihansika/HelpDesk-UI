@@ -12,6 +12,9 @@ import {CorporateDetailsComponent} from './corporate-details/corporate-details.c
     CustomerDetailsComponent,
     CorporateDetailsComponent
   ],
+  exports: [
+    CustomerDetailsComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
