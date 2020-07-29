@@ -313,7 +313,7 @@ export class NavService {
       path: '/inquiry', title: 'Inquiry', icon: 'layers', type: 'link'
     },
     {
-      path: '/customer', title: 'Customer Details', icon: 'user', type: 'link'
+      path: '/inquiry/customer', title: 'Customer Details', icon: 'user', type: 'link'
     },
 
 	]

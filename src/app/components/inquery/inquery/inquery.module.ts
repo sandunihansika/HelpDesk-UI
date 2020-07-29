@@ -7,7 +7,7 @@ import {CustomerDetailsModule} from './customer-details/customer-details.module'
 import {SharedModule} from '../../../shared/shared.module';
 import {DialogModule} from 'primeng/dialog';
 import {InqueryRoutingModule} from './inquery-routing.module';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {CustomerTableModule} from './customer-table/customer-table.module';
 
 @NgModule({
   declarations: [InqueryTableComponent, CustomerHandlingComponent],
@@ -20,7 +20,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     DialogModule,
     CustomerDetailsModule,
     InqueryRoutingModule,
-    ConfirmDialogModule
+    CustomerTableModule
   ],
   exports: [InqueryTableComponent]
 })

@@ -1,6 +1,33 @@
+
 <mat-tab-group>
+  <mat-tab label="Individual">
+    <app-common-grid
+      #IndividualCompanyListGrid
+      [addAllow]="addAllow"
+      (addBtnClicked) = "viewIndividualForm()"
+    >
+    </app-common-grid>
+  </mat-tab>
   <mat-tab label="Corporate">
     <app-common-grid
-      [addAllow]="addAllow"
       #CorporateCompanyListGrid
+      [addAllow]="addAllow"
+      (addBtnClicked) = "viewCorporateForm()"
     >
+    </app-common-grid>
+  </mat-tab>
+</mat-tab-group>
+
+<p-dialog header="Add Individual Customer"
+          [modal]="true"
+          [(visible)]="displayIndividual"
+          [style]="{width: '50%'}"
+>
+</p-dialog>
+
+<p-dialog header="Add Corporate Company"
+          [modal]="true"
+          [(visible)]="displayCoporate"
+          [style]="{width: '50%'}"
+>
+</p-dialog>
