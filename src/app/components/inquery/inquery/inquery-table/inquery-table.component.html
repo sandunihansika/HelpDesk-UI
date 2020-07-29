@@ -1,4 +1,3 @@
-
 <app-common-grid
   #inqueryGrid
   header="Inquiry Details"
@@ -9,12 +8,17 @@
   [showQuotation]="showQuotation"
   [showSearchBox]="showSearchBox"
   (quotationBtnClicked) = "viewQuotation($event)"
->
+><button
+  type="button"
+  pButton
+  style="margin-right: .25em"
+  icon="pi pi-user-edit"
+  label="Assign"
+  iconPos="left"
+  class="ui-button-secondary"
+  *ngIf="inqueryGrid.selectedEntity && gotConsentAllow"
+></button>
 </app-common-grid>
 
-<!--<p-dialog header="ID:{{id + ' _ ' + 'Name:' + name}}" [modal]="true" [(visible)]="display" [style]="{width: '75%'}" class="overlay" [baseZIndex]="10000">-->
-
-
-<!--</p-dialog>-->
 
 

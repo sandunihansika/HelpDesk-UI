@@ -12,8 +12,6 @@ import {Router} from '@angular/router';
 export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', { static: true }) inqueryGrid: CommonGridComponent;
-  //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
-
 
   // companies = [
   //   {name: 'Ingenii'},
@@ -27,10 +25,9 @@ export class InqueryTableComponent implements OnInit {
   //   {label: 'Sent Quotation', name: 'Sent Quotation'},
   //   {label: 'Reneed Consent', name: 'Reneed Consent'}
   // ]
-  // id: any;
-  // name: string;
-  // handlingcompany: string;
+
   customer: any[];
+  statusField: string;
 
   addAllow = true;
   editAllow = true;
@@ -38,12 +35,11 @@ export class InqueryTableComponent implements OnInit {
   deleteAllow = true;
   showQuotation = true;
   showSearchBox = true;
-  // addAllow1 = true;
-  // showToolBar1 = true;
-  // showSearchBox1 = true;
-  // display: boolean = false;
+  gotConsentAllow = false;
 
-  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) { }
+  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) {
+    //this.enableAuthorizedActions();
+  }
 
   ngOnInit(): void {
 
@@ -151,79 +147,11 @@ export class InqueryTableComponent implements OnInit {
     //   }
     // );
 
-
-    // this.quotationGrid.columnsList = [
-    //   {
-    //     mappingName: 'id',
-    //     columnName: 'Id',
-    //     columnType: ColumnType.Number,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: null
-    //   },
-    //   {
-    //     mappingName: 'cid',
-    //     columnName: 'Customer Id',
-    //     columnType: ColumnType.Text,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: null
-    //   },
-    //   {
-    //     mappingName: 'qno',
-    //     columnName: 'Quotation Number',
-    //     columnType: ColumnType.Text,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: null
-    //   },
-    //   {
-    //     mappingName: 'description',
-    //     columnName: 'Description',
-    //     columnType: ColumnType.Text,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: null
-    //   },
-    //   {
-    //     mappingName: 'expirydate',
-    //     columnName: 'Expiry Date',
-    //     columnType: ColumnType.Date,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: 'yyyy-MM-dd'
-    //   },
-    //   {
-    //     mappingName: 'createddate',
-    //     columnName: 'Created Date',
-    //     columnType: ColumnType.Date,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: 'yyyy-MM-dd'
-    //   },
-    //   {
-    //     mappingName: 'pdf',
-    //     columnName: 'PDF',
-    //     columnType: ColumnType.Text,
-    //     columnAlignment: Alignment.Left,
-    //     columnWidth: 100,
-    //     columnFormat: null
-    //   }
-    // ];
-    //
-    // this.quotationGrid.rowLists = [
-    //   {id: 1, cid: 12, qno: 'ab120', description: 'kdjndcjzka', expirydate:'2020-10-10', createddate:'2020-07-23', pdf:'' },
-    //   {id: 2, cid: 23, qno: 'dc234', description: 'asnxakkkj', expirydate:'20202-11-11', createddate:'2020-07-23', pdf:'' },
-    //   {id: 3, cid: 34, qno: 'sd256', description: 'akjsxnkxn', expirydate:'2020-12-12', createddate:'2020-07-23', pdf:'' },
-    // ];
-
   }
 
+
   viewQuotation(item){
-    // this.id = event.id;
-    // this.name = event.name;
-    // this.handlingcompany = event.handlingcompany;
-    //this.display = true;
+    this.statusField = item.status;
     this.CustomerDetailsService.data = item;
     this.route.navigate(['inquiry/quotation']);
   }
