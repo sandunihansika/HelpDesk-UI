@@ -28,7 +28,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customersForm = this.formbuilder.group({
-      ID: [0],
+      id: [0],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       nic: ['', [Validators.required, Validators.minLength(10)]],
@@ -59,7 +59,7 @@ export class CustomerDetailsComponent implements OnInit {
       this.formvalidationhelpers.validateAllFormFields(this.customersForm);
       return;
     } else if (this.customersForm.valid) {
-      this.customerservice.addCustomer(this.customersForm.value, this.customer.NIC).subscribe(
+      this.customerservice.addCustomer(this.customersForm.value, this.customer.nic).subscribe(
         respond => {
           /**/
         });

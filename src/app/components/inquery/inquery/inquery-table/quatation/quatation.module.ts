@@ -6,7 +6,6 @@ import {CardModule} from 'primeng/card';
 import {ReactiveFormsModule} from '@angular/forms';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {FileUploadModule} from 'primeng/fileupload';
-
 import {DialogModule} from 'primeng/dialog';
 
 @NgModule({

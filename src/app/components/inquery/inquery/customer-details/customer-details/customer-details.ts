@@ -1,10 +1,10 @@
 export class CustomerDetails {
-  ID: number;
+  id: number;
   firstName: string;
-  LastName: string;
-  NIC: string;
-  Email: string;
-  TelNo: string;
-  Address: string;
-  Gender: string;
+  lastName: string;
+  nic: string;
+  email: string;
+  telNo: string;
+  address: string;
+  gender: string;
 }
