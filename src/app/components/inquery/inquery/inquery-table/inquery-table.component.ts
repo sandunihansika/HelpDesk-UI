@@ -1,8 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType, Status} from '../../../../shared/services/common/enum';
+import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
+import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
+import {Alignment, ColumnType} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-inquery-table',
@@ -11,7 +15,7 @@ import {Router} from '@angular/router';
 })
 export class InqueryTableComponent implements OnInit {
 
-  @ViewChild('inqueryGrid', { static: true }) inqueryGrid: CommonGridComponent;
+  @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
   //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
 
 
@@ -42,6 +46,7 @@ export class InqueryTableComponent implements OnInit {
   // showToolBar1 = true;
   // showSearchBox1 = true;
   display: boolean = false;
+
 
   constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) { }
 
@@ -123,9 +128,36 @@ export class InqueryTableComponent implements OnInit {
     ];
 
     this.inqueryGrid.rowLists = [
-      {id: 1, name: 'Mark', nic: '957823918V', cperson: 'Micheal', cno: '0719873701', handlingcompany:'Dimo', address:'Colombo', status:'Need_Consent' },
-      {id: 2, name: 'Eric', nic: '961234567V', cperson: 'Fred', cno: '0701231234', handlingcompany:'Ingenii', address:'Kelaniya', status:'Send_Quotation' },
-      {id: 3, name: 'Dean', nic: '979238792V', cperson: 'Sam', cno: '0769182732', handlingcompany:'Dialog', address:'Colombo', status:'Remind_Customer' },
+      {
+        id: 1,
+        name: 'Mark',
+        nic: '957823918V',
+        cperson: 'Micheal',
+        cno: '0719873701',
+        handlingcompany: 'Dimo',
+        address: 'Colombo',
+        status: 'Pending'
+      },
+      {
+        id: 2,
+        name: 'Eric',
+        nic: '961234567V',
+        cperson: 'Fred',
+        cno: '0701231234',
+        handlingcompany: 'Ingenii',
+        address: 'Kelaniya',
+        status: 'Sent Quotation'
+      },
+      {
+        id: 3,
+        name: 'Dean',
+        nic: '979238792V',
+        cperson: 'Sam',
+        cno: '0769182732',
+        handlingcompany: 'Dialog',
+        address: 'Colombo',
+        status: 'Pending'
+      },
     ];
 
     // this.inqueryGrid.dataLoading = true;

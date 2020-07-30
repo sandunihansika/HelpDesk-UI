@@ -4,6 +4,7 @@ import {CustomerDetails} from './customer-details';
 import {FormValidationHelpers} from '../../../../../shared/helpers/form-validation-helpers';
 import {TextBoxTypes} from '../../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
+import {CustomerType} from '../../../../../shared/services/common/enum';
 
 
 @Component({
@@ -28,14 +29,14 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customersForm = this.formbuilder.group({
-      ID: [0],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       nic: ['', [Validators.required, Validators.minLength(10)]],
       email: ['', [Validators.required, Validators.email]],
       telNo: ['', [Validators.required, Validators.minLength(10)]],
       address: ['', [Validators.required]],
-      gender: ['', [Validators.required]]
+      gender: ['', [Validators.required]],
+      type: [CustomerType.Individual, [Validators.required]]
     });
   }
 
@@ -59,17 +60,12 @@ export class CustomerDetailsComponent implements OnInit {
       this.formvalidationhelpers.validateAllFormFields(this.customersForm);
       return;
     } else if (this.customersForm.valid) {
-      this.customerservice.addCustomer(this.customersForm.value, this.customer.NIC).subscribe(
+      this.customerservice.addCustomer(this.customersForm.value, this.customer.nic).subscribe(
         respond => {
           /**/
         });
     }
   }
-
-  //
-  // editCustomer() {
-  //   this.patchValues();
-  // }
 
   get firstName() {
     return this.customersForm.get('firstName');

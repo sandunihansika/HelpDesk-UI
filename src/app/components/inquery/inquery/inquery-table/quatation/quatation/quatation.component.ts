@@ -23,7 +23,7 @@ export class QuatationComponent implements OnInit {
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   uploadedFiles: any[] = [];
 
-  display: boolean = false;
+  display = false;
   data: any[];
 
   constructor(
@@ -35,9 +35,12 @@ export class QuatationComponent implements OnInit {
 
   ngOnInit(): void {
     this.quatationForm = this.formbuilder.group({
-      Description: ['', [Validators.required]],
-      QuatationNo: ['', [Validators.required]],
-      ExpiryDate: ['', [Validators.required]],
+      id: [0],
+      customerId: [0],
+      description: ['', [Validators.required]],
+      quatationNo: ['', [Validators.required]],
+      expiryDate: ['', [Validators.required]],
+      pdf: [ [Validators.required]]
     });
 
     this.data = this.customerservice.data;
@@ -121,23 +124,23 @@ export class QuatationComponent implements OnInit {
       this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
       return;
     } else if (this.quatationForm.invalid) {
-      this.customerservice.addQuatation(this.quatationForm.value, this.quatation.CustomerID).subscribe(
+      this.customerservice.addQuatation(this.quatationForm.value, this.quatation.customerId).subscribe(
         respond => {
           /**/
         });
     }
   }
 
-  get Description() {
-    return this.quatationForm.get('Description');
+  get description() {
+    return this.quatationForm.get('description');
   }
 
-  get QuatationNo() {
-    return this.quatationForm.get('QuatationNo');
+  get quatationNo() {
+    return this.quatationForm.get('quatationNo');
   }
 
-  get ExpiryDate() {
-    return this.quatationForm.get('ExpiryDate');
+  get expiryDate() {
+    return this.quatationForm.get('expiryDate');
   }
 
 }

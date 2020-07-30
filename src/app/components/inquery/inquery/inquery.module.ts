@@ -10,7 +10,8 @@ import {InqueryRoutingModule} from './inquery-routing.module';
 import {CustomerTableModule} from './customer-table/customer-table.module';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CustomerDetailsComponent} from './customer-details/customer-details/customer-details.component';
-
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {FormsModule} from '@angular/forms';
 @NgModule({
   declarations: [InqueryTableComponent, CustomerHandlingComponent],
   imports: [
@@ -22,7 +23,9 @@ import {CustomerDetailsComponent} from './customer-details/customer-details/cust
     DialogModule,
     CustomerDetailsModule,
     InqueryRoutingModule,
-    CustomerTableModule
+    CustomerTableModule,
+    RadioButtonModule,
+    FormsModule
   ],
   exports: [InqueryTableComponent]
 })

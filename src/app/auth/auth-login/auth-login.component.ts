@@ -42,6 +42,7 @@ export class AuthLoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
 
+
     });
   }
 

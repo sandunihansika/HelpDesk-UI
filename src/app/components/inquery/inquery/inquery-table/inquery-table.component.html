@@ -51,20 +51,12 @@
     (click)="gotConsent()"
     *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
   ></button>
+  >
 </app-common-grid>
 
 
-
-
-
-
-
-
-
-
-<p-dialog header="Inquiry " [modal]="true" [(visible)]="display" [style]="{width: '75%'}" class="overlay" [baseZIndex]="10000" [modal]="true">
-<h1>hi im thilini</h1>
-
+<p-dialog header="Inquiry " [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
+  <app-customer-handling></app-customer-handling>
 </p-dialog>
 
 

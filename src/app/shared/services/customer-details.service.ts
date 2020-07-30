@@ -25,8 +25,8 @@ export class CustomerDetailsService {
   ) {
   }
 
-  addCustomer(customer: CustomerDetails, NIC): Observable<any> {
-    customer.NIC = NIC;
+  addCustomer(customer: CustomerDetails, nic): Observable<any> {
+    customer.nic = nic;
     return this.commonHttpService.postData(this.customerUrl + '/add', customer).pipe(  // http://localhost:5000/admin/customer/add//
       map(data => {
         return data;
@@ -34,9 +34,9 @@ export class CustomerDetailsService {
     );
   }
 
-  addQuatation(quatation: Quatation, CustomerID): Observable<any> {
-    quatation.CustomerID = CustomerID;
-    return this.commonHttpService.postData(this.customerUrl + '/quatation', quatation).pipe(
+  addQuatation(quatation: Quatation, customerId): Observable<any> {
+    quatation.customerId = customerId;
+    return this.commonHttpService.postUploadData(this.customerUrl + '/quatation', quatation).pipe(
       map(data => {
         return data;
       })

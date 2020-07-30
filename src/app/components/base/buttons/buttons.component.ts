@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-buttons',
@@ -7,11 +7,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./buttons.component.scss']
 })
 export class ButtonsComponent implements OnInit {
-  
+
   public checkboxGroupForm: FormGroup;
   public radioGroupForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.checkboxGroupForm = this.formBuilder.group({
@@ -29,7 +30,7 @@ export class ButtonsComponent implements OnInit {
     middle: false,
     right: false
   };
-  
-  modelRadio = 1
+
+  modelRadio = 1;
 
 }

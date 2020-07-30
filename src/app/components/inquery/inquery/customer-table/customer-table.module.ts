@@ -9,13 +9,13 @@ import {CustomerDetailsModule} from '../customer-details/customer-details.module
 
 @NgModule({
   declarations: [CustomerTableComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    DialogModule,
-    MatTabsModule,
-    CardModule,
-    CustomerDetailsModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        DialogModule,
+        MatTabsModule,
+        CardModule,
+        CustomerDetailsModule
+    ]
 })
 export class CustomerTableModule { }

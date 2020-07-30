@@ -1,8 +1,8 @@
 export class Quatation {
-  ID: number;
-  CustomerID: number;
-  Description: string;
-  QuatationNo: number;
+  id: number;
+  customerId: number;
+  description: string;
+  quatationNo: number;
   pdf: any;
-  ExpiryDate: Date;
+  expiryDate: Date;
 }

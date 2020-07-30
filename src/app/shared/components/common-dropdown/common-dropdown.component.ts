@@ -39,6 +39,7 @@ export class CommonDropdownComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
   registerOnChange(fn) {
     this.onModelChange = fn;
   }
