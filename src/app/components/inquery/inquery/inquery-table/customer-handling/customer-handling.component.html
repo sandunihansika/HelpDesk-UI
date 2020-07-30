@@ -3,6 +3,13 @@
   <div class="row">
     <div class="col-sm-12 ">
       <div class="card">
+        <div>
+          <label for="customer">Select Company</label>
+          <div>
+            <app-common-dropdown [fields]='comp' placeholder="Select Company" (selectChange)="getCompany($event)"></app-common-dropdown>
+          </div>
+        </div>
+        <br> <br>
         <label for="customer">Select Customer</label>
         <div class="ui-fluid p-formgrid p-grid">
           <div class="p-field p-col-12 p-md-6">
@@ -14,7 +21,9 @@
             <p-radioButton name="customer" value="exist" [(ngModel)]="selectedValue"  (onClick)="getValue(selectedValue)"></p-radioButton>
           </div>
         </div>
-        <app-common-dropdown [fields]='emp' placeholder="select" (selectChange)="getCostomerId($event)"></app-common-dropdown>
+        <div *ngIf="formEnqble">
+          <app-common-dropdown [fields]='emp' placeholder="select customer" (selectChange)="getCostomerId($event)"></app-common-dropdown>
+        </div>
       </div>
     </div>
   </div>
