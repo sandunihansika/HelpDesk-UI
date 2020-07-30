@@ -15,7 +15,7 @@ import {CommonGridComponent} from '../../../../../../shared/components/common-gr
 export class QuatationComponent implements OnInit {
   @ViewChild('quotationGrid', {static: true}) quotationGrid: CommonGridComponent;
 
-  addAllow1 = true;
+  addAllow1 = false;
   showToolBar1 = true;
   showSearchBox1 = true;
   quatationForm: FormGroup;

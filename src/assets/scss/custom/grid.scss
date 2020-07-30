@@ -83,12 +83,6 @@ body .ui-button.ui-state-default.ui-button-danger, body .ui-buttonset.ui-button-
   border: 1px solid #f34d5b !important;
 }
 
-body .ui-button.ui-state-default.ui-button-warning, body .ui-buttonset.ui-button-warning > .ui-button.ui-state-default {
-  background-color: #38b61f !important;
-  border: 1px solid #38b61f !important;
-  color: white !important;
-}
-
 .ui-table .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
   background-color: #6f98b7 !important;
 }
@@ -118,4 +112,27 @@ body .ui-table .ui-sortable-column .ui-sortable-column-icon .hover-7{
 .mat-tab-labels {
   display: flex;
   background-color: white !important;
+}
+
+body .btn-resend {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: black !important;
+}
+
+body .btn-reject {
+  background-color: #f34d5b !important;
+  border: 1px solid #f34d5b !important;
+  color: white !important;
+}
+
+body .btn-quotation {
+  background-color: #1fb69e !important;
+  border: 1px solid #1fb69e !important;
+  color: white !important;
+}
+
+.fa-search:before {
+  color: #a9a9a9 !important;
+  content: "";
 }

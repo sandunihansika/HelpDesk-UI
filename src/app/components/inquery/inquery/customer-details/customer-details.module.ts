@@ -8,15 +8,18 @@ import {CorporateDetailsComponent} from './corporate-details/corporate-details.c
 
 
 @NgModule({
-  declarations: [
-    CustomerDetailsComponent,
-    CorporateDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ReactiveFormsModule,
-    CardModule
-  ]
+    declarations: [
+        CustomerDetailsComponent,
+        CorporateDetailsComponent
+    ],
+    exports: [
+        CustomerDetailsComponent
+    ],
+    imports: [
+        CommonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        CardModule
+    ]
 })
 export class CustomerDetailsModule { }

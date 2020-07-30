@@ -64,7 +64,7 @@ export class CommonDropdownComponent implements OnInit {
   }
 
   handleChange(val) {
-    this.value = val.value.name;
+    this.value = val.value;
   }
 
 }

@@ -4,8 +4,15 @@
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
-  (addBtnClicked) = "viewForm()"
->
+><button
+  *ngIf="data.status === 'Send_Quotation' || data.status === 'ReSend_Quotation'"
+  pButton
+  type="button"
+  icon="pi pi-plus"
+  style="margin-right: .25em"
+  class="ui-button-info"
+  (click)="viewForm()"
+></button>
 </app-common-grid>
 
 <p-dialog header="Quotation - ID:{{data.id + '  ' + 'Name:' + data.name}}" [modal]="true" [(visible)]="display" [style]="{width: '50%'}" [baseZIndex]="10000">
