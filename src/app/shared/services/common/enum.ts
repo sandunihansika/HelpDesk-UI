@@ -32,3 +32,8 @@ export enum ColumnType {
   Custom = 5
 }
 
+export enum CompanyType {
+  Dimo =2,
+  Ingenii = 3
+}
+

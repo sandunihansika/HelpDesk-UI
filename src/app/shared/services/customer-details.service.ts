@@ -43,8 +43,6 @@ export class CustomerDetailsService {
     );
   }
 
-
-
   getAllCustomers(): Observable<any> {
     return this.commonHttpService.getAll(this.customerUrl + '/get').pipe(
       map(data => {
@@ -52,4 +50,18 @@ export class CustomerDetailsService {
       })
     );
   }
+
+  getCustomerDetails(handlingCompany: any):Observable<any> {
+    return this.commonHttpService.postData(this.customerUrl + '/view',handlingCompany).pipe(  // http://localhost:5000/admin/customer
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
+  }
+
+
+//get customer details according to the company
+
+
 }
