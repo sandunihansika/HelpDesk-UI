@@ -3,6 +3,7 @@ import { CommonGridComponent } from '../../../../shared/components/common-grid/c
 import {Alignment, ColumnType} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-inquery-table',
@@ -13,7 +14,6 @@ export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', { static: true }) inqueryGrid: CommonGridComponent;
   //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
-
 
   // companies = [
   //   {name: 'Ingenii'},
@@ -41,11 +41,23 @@ export class InqueryTableComponent implements OnInit {
   // addAllow1 = true;
   // showToolBar1 = true;
   // showSearchBox1 = true;
-  // display: boolean = false;
+  display: boolean = false;
+  new : string;
+  exist : string;
+  selectedValue : string;
+  formEnqble : boolean =false;
 
-  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) { }
+
+
+
+
+  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) {
+
+  }
 
   ngOnInit(): void {
+    this.selectedValue = 'exist';
+    console.log(this.selectedValue);
 
     this.inqueryGrid.columnsList = [
       {
@@ -163,5 +175,16 @@ export class InqueryTableComponent implements OnInit {
   this.display = true;
   }
 
+  getValue(value){
+    console.log(value);
+    if(value === 'new'){
+      this.formEnqble = true;
+      console.log(this.formEnqble );
+    }
+    else{
+      this.formEnqble = false;
+      console.log(this.formEnqble );
+    }
+  }
 
 }
