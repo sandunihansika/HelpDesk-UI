@@ -9,6 +9,11 @@ export enum StatusCodes {
   Unauthorized = 401
 }
 
+export enum CustomerType {
+  Individual = 1,
+  Corporate = 2
+}
+
 export enum UserType {
   AdminUser = 1,
   HelpDeskUser = 5
