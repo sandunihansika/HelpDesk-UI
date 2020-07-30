@@ -18,7 +18,7 @@ export class CustomerHandlingComponent implements OnInit {
   new: string;
   exist: string;
   selectedValue: string;
-  formEnqble: boolean = false;
+  formEnqble: boolean = true;
 
 
   employee= [
@@ -32,43 +32,44 @@ export class CustomerHandlingComponent implements OnInit {
     { id : '8',name : 'Amara',company : 'ingenii'},
   ];
 
+  company=[
+    { id : '1',name : 'Ingenii'},
+    { id : '2',name : 'Dimo'}
+  ];
+  comp = this.company;
+
   emp = this.employee;
 
   user :{
     id : string;
     name :string;
     company : string
-
   }
 
   getValue(value) {
     console.log(value);
     if (value === 'new') {
-      this.formEnqble = true;
+      this.formEnqble = false;
       console.log(this.formEnqble);
     } else {
-      this.formEnqble = false;
+      this.formEnqble = true;
       console.log(this.formEnqble);
     }
   }
 
   getCostomerId(event) {
     this.filterCustomerDetails(event.id);
-    console.log(event.id);
+  }
+  getCompany(event){
+    console.log(event.name);
 
   }
-
-  i=0;
 
   filterCustomerDetails(id){
-    console.log(id);
-    for(this.i;this.i<=this.employee.length;this.i++){
-      if("this.employee.id"===id){
-        this.user = this.employee[this.i];
-        console.log(this.user);
-      }
-    }
+    const result = this.employee.filter(employee => employee.id === id);
+    console.log(result);
   }
+
 
 
 
