@@ -15,7 +15,7 @@ import {CommonGridComponent} from '../../../../../../shared/components/common-gr
 export class QuatationComponent implements OnInit {
   @ViewChild('quotationGrid', {static: true}) quotationGrid: CommonGridComponent;
 
-  addAllow1 = true;
+  addAllow1 = false;
   showToolBar1 = true;
   showSearchBox1 = true;
   quatationForm: FormGroup;
@@ -24,7 +24,8 @@ export class QuatationComponent implements OnInit {
   uploadedFiles: any[] = [];
 
   display = false;
-  data: any[];
+  selectedCustomer;
+
 
   constructor(
     private formbuilder: FormBuilder,
@@ -34,16 +35,15 @@ export class QuatationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.selectedCustomer = this.customerservice.selectedCustomer;
     this.quatationForm = this.formbuilder.group({
-      id: [0],
-      customerId: [0],
+      customerId: [this.selectedCustomer.id, [Validators.required]],
       description: ['', [Validators.required]],
       quatationNo: ['', [Validators.required]],
       expiryDate: ['', [Validators.required]],
-      pdf: [ [Validators.required]]
+      pdf: [[Validators.required]]
     });
 
-    this.data = this.customerservice.data;
 
     this.quotationGrid.columnsList = [
       {

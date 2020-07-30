@@ -40,14 +40,15 @@
                 *ngIf="this.selectedEntity && showQuotation"
                 pButton
                 type="button"
-                icon="pi pi-external-link"
+                icon="pi pi-file"
                 style="margin-right: .25em"
-                class="ui-button-warning"
+                class="btn-quotation"
                 label="Quotation"
                 (click)="quotationClick(this.selectedEntity)"
               ></button>
             </div>
             <div class="ui-toolbar-group-right">
+              <i class="fa fa-search" style="margin:4px -30px 0 0"></i>
               <input
                 *ngIf="showSearchBox"
                 type="text"

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
 import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType} from '../../../../shared/services/common/enum';
+import {Alignment, ColumnType, Status} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
@@ -13,35 +13,23 @@ import {FormControl} from '@angular/forms';
 export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
-  //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
 
-  // companies = [
-  //   {name: 'Ingenii'},
-  //   {name: 'Dialog'},
-  //   {name: 'Dimo'}
-  // ]
-  //
-  // statuses = [
-  //   {label: 'Pending', name: 'Pending'},
-  //   {label: 'Need Consent', name: 'Need Consent'},
-  //   {label: 'Sent Quotation', name: 'Sent Quotation'},
-  //   {label: 'Reneed Consent', name: 'Reneed Consent'}
-  // ]
-  // id: any;
-  // name: string;
-  // handlingcompany: string;
   customer: any[];
 
   addAllow = true;
-  editAllow = true;
+  editAllow = false;
   showToolBar = true;
-  deleteAllow = true;
+  deleteAllow = false;
   showQuotation = true;
   showSearchBox = true;
   // addAllow1 = true;
   // showToolBar1 = true;
   // showSearchBox1 = true;
   display: boolean = false;
+  new: string;
+  exist: string;
+  selectedValue: string;
+  formEnqble: boolean = false;
 
 
   constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
@@ -49,7 +37,8 @@ export class InqueryTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.selectedValue = 'exist';
+    console.log(this.selectedValue);
 
     this.inqueryGrid.columnsList = [
       {
@@ -135,7 +124,7 @@ export class InqueryTableComponent implements OnInit {
         cno: '0719873701',
         handlingcompany: 'Dimo',
         address: 'Colombo',
-        status: 'Pending'
+        status: 'Need_Consent'
       },
       {
         id: 2,
@@ -145,7 +134,7 @@ export class InqueryTableComponent implements OnInit {
         cno: '0701231234',
         handlingcompany: 'Ingenii',
         address: 'Kelaniya',
-        status: 'Sent Quotation'
+        status: 'Send_Quotation'
       },
       {
         id: 3,
@@ -155,7 +144,7 @@ export class InqueryTableComponent implements OnInit {
         cno: '0769182732',
         handlingcompany: 'Dialog',
         address: 'Colombo',
-        status: 'Pending'
+        status: 'Remind_Customer'
       },
     ];
 
@@ -186,12 +175,17 @@ export class InqueryTableComponent implements OnInit {
   }
 
   viewQuotation(item) {
-    this.CustomerDetailsService.data = item;
+    this.CustomerDetailsService.selectedCustomer = item;
+    //console.log(item.status);
     this.route.navigate(['inquiry/quotation']);
   }
 
   addButtonClick() {
     this.display = true;
+  }
+
+  gotConsent() {
+
   }
 
 }

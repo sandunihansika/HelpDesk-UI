@@ -37,3 +37,12 @@ export enum CompanyType {
   Ingenii = 3
 }
 
+export enum Status{
+  NeedConsent = 1,
+  SendQuotation = 2,
+  RemindCustomer = 3,
+  ReNeedConsent = 4,
+  ReSendQuotation = 5,
+  ReRemindCustomer = 6
+}
+

@@ -1,108 +1,112 @@
 <app-common-grid
   #quotationGrid
-  header="Quotation Details - ID:{{data.id + '  ' + 'Name:' + data.name}}"
+  header="Quotation Details - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}"
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
-  (addBtnClicked) = "viewForm()"
->
+><button
+  pButton
+  type="button"
+  icon="pi pi-plus"
+  style="margin-right: .25em"
+  class="ui-button-info"
+  (click)="viewForm()"
+  *ngIf="selectedCustomer.status === 'Send_Quotation' || selectedCustomer.status === 'Resend_Quotation'"
+></button>
 </app-common-grid>
 
-<p-dialog header="Quotation - ID:{{data.id + '  ' + 'Name:' + data.name}}" [modal]="true" [(visible)]="display" [style]="{width: '50%'}" [baseZIndex]="10000">
+<p-dialog header="Quotation - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}" [modal]="true"
+          [(visible)]="display">
   <p-card>
-    <form novalidate
-          (ngSubmit)="saveQuatation()"
-          [formGroup]="quatationForm" enctype="multipart/form-data">
-<p-dialog header="Quotation - ID:{{data.id + '  ' + 'Name:' + data.name}}" [modal]="true" [(visible)]="display"
-          class="overlay" [baseZIndex]="10000">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 ">
-        <div class="card">
-          <div class="card-header">
-            <h5>QuatationForm</h5>
-          </div>
-          <div class="card-body">
-            <form novalidate
-                  (ngSubmit)="saveQuatation()"
-                  [formGroup]="quatationForm" enctype="multipart/form-data">
+<!--    <form novalidate-->
+<!--          (ngSubmit)="saveQuatation()"-->
+<!--          [formGroup]="quatationForm" enctype="multipart/form-selectedCustomer">-->
+<!--      &lt;!&ndash;<p-dialog header="Quotation - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}" [modal]="true" [(visible)]="display"&ndash;&gt;-->
+<!--      &lt;!&ndash;          class="overlay" [baseZIndex]="10000">&ndash;&gt;-->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12 ">
+            <div class="card">
+              <div class="card-header">
+                <h5>QuatationForm</h5>
+              </div>
+              <div class="card-body">
+                <form novalidate
+                      (ngSubmit)="saveQuatation()"
+                      [formGroup]="quatationForm" enctype="multipart/form-data">
 
-              <div class="ui-fluid p-formgrid p-grid">
-                <div class="p-field p-col-12 p-md-6">
-                  <label for="description">Description<span class="form-error">* </span>
-                    <span *ngIf="description.touched && description.errors?.required"
-                          class="form-error">  description required!</span>
-                  </label>
-                  <app-common-textarea
-                    formControlName="description"
-                    id="description"
-                    [rows]="5"
-                    [cols]="50"
-                    [ngClass]="{
+                  <div class="ui-fluid p-formgrid p-grid">
+                    <div class="p-field p-col-12 p-md-6">
+                      <label for="description">Description<span class="form-error">* </span>
+                        <span *ngIf="description.touched && description.errors?.required"
+                              class="form-error">  description required!</span>
+                      </label>
+                      <app-common-textarea
+                        formControlName="description"
+                        id="description"
+                        [rows]="5"
+                        [cols]="50"
+                        [ngClass]="{
             'is-invalid': (description.touched ||description.dirty) && !description.valid }"></app-common-textarea>
-                </div>
+                    </div>
 
-                <div class="p-field p-col-12 p-md-6">
-                  <label for="quatationNo">Quatation No<span class="form-error">* </span>
-                    <span *ngIf="quatationNo.touched && quatationNo.errors?.required"
-                          class="form-error">  quatationNo is required!</span>
-                  </label>
-                  <app-common-textbox
-                    [inputType]="TextBoxTypes.Text"
-                    formControlName="quatationNo"
-                    placeholder="Quatation No"
-                    rows="3"
-                    id="quatationNo"
-                    [ngClass]="{
+                    <div class="p-field p-col-12 p-md-6">
+                      <label for="quatationNo">Quatation No<span class="form-error">* </span>
+                        <span *ngIf="quatationNo.touched && quatationNo.errors?.required"
+                              class="form-error">  quatationNo is required!</span>
+                      </label>
+                      <app-common-textbox
+                        [inputType]="TextBoxTypes.Text"
+                        formControlName="quatationNo"
+                        placeholder="Quatation No"
+                        rows="3"
+                        id="quatationNo"
+                        [ngClass]="{
                      'is-invalid':(quatationNo.touched ||quatationNo.dirty) && !quatationNo.valid}"></app-common-textbox>
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                  <div class="row">
-                    <div class="col">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Upload File</label>
-                        <div class="col-sm-9">
-                          <input type="file" class="form-control" formControlName="pdf"  (change)="onUpload($event)">
+                    </div>
+                    <div class="p-field p-col-12 p-md-6">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Upload File</label>
+                            <div class="col-sm-9">
+                              <input type="file" class="form-control" formControlName="pdf" (change)="onUpload($event)">
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="p-field p-col-12 p-md-6">
-                  <label for="expiryDate">Expiry Date<span class="form-error">* </span>
-                    <span *ngIf="expiryDate.touched && expiryDate.errors?.required"
-                          class="form-error">  Expiry Date is required!</span>
-                  </label>
-                  <app-common-calender
-                    formControlName="expiryDate"
-                    id="expiryDate"
-                    [ngClass]="{
+                    <div class="p-field p-col-12 p-md-6">
+                      <label for="expiryDate">Expiry Date<span class="form-error">* </span>
+                        <span *ngIf="expiryDate.touched && expiryDate.errors?.required"
+                              class="form-error">  Expiry Date is required!</span>
+                      </label>
+                      <app-common-calender
+                        formControlName="expiryDate"
+                        id="expiryDate"
+                        [ngClass]="{
                      'is-invalid': (expiryDate.touched ||expiryDate.dirty) && !expiryDate.valid }"></app-common-calender>
-                </div>
+                    </div>
 
 
-                <div class="offset-md-2 col-md-4">
-<!--                  <div>-->
-<!--                    <button class="btn btn-primary mr-3"-->
-<!--                            type="submit" style="background-position:center">Save-->
-<!--                    </button>-->
-<!--                  </div>-->
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mr-1">Submit</button>
-                    <input type="reset" class="btn btn-light" value="Cancel">
+                    <div class="offset-md-2 col-md-4">
+                      <!--                  <div>-->
+                      <!--                    <button class="btn btn-primary mr-3"-->
+                      <!--                            type="submit" style="background-position:center">Save-->
+                      <!--                    </button>-->
+                      <!--                  </div>-->
+                      <div class="card-footer">
+                        <button type="submit" class="btn btn-primary mr-1">Submit</button>
+                        <input type="reset" class="btn btn-light" value="Cancel">
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
 
-            </form>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+  </p-card>
 </p-dialog>
-
-<p-card>
-
-</p-card>
-

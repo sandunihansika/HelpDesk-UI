@@ -8,9 +8,50 @@
   [deleteAllow]="deleteAllow"
   [showQuotation]="showQuotation"
   [showSearchBox]="showSearchBox"
-  (quotationBtnClicked) = "viewQuotation($event)"
+  (quotationBtnClicked) ="viewQuotation($event)"
   (addBtnClicked)="addButtonClick()"
-  >
+><button
+  type="button"
+  pButton
+  style="margin-right: .25em"
+  icon="pi pi-check-square"
+  label="Got Consent"
+  iconPos="left"
+  (click)="gotConsent()"
+  *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Need_Consent'"
+></button>
+  <button
+    type="button"
+    pButton
+    style="margin-right: .25em"
+    icon="pi pi-check-square"
+    label="Approved Quotation"
+    iconPos="left"
+    (click)="gotConsent()"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+  ></button>
+  <button
+    type="button"
+    pButton
+    style="margin-right: .25em"
+    label="Rejected Quotation"
+    iconPos="left"
+    class="btn-reject"
+    (click)="gotConsent()"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+  ></button>
+  <button
+    type="button"
+    pButton
+    style="margin-right: .25em"
+    icon="pi pi-arrow-circle-right"
+    label="Resend Quotation"
+    iconPos="left"
+    class="btn-resend"
+    (click)="gotConsent()"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+  ></button>
+
 </app-common-grid>
 
 
