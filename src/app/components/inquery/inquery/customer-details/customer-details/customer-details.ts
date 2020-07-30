@@ -1,5 +1,6 @@
 export class CustomerDetails {
   id: number;
+  type: number;
   firstName: string;
   lastName: string;
   nic: string;
