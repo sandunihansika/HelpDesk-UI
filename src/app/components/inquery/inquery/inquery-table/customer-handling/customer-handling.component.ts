@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {CompanyType} from '../../../../../shared/services/common/enum';
+import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
+import {CompanyCustomerDeails} from './CompanyCustomerDeails';
+import {CustomerType} from '../../../../../shared/services/common/enum';
 
 @Component({
   selector: 'app-customer-handling',
@@ -7,13 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerHandlingComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+  private customerService : CustomerDetailsService
+  ) { }
 
   ngOnInit(): void {
     this.selectedValue = 'exist';
     console.log(this.selectedValue);
   }
 
+handleCustomer : CompanyCustomerDeails[];
 
   new: string;
   exist: string;
@@ -33,8 +40,8 @@ export class CustomerHandlingComponent implements OnInit {
   ];
 
   company=[
-    { id : '1',name : 'Ingenii'},
-    { id : '2',name : 'Dimo'}
+    { id : CompanyType.Ingenii, name : 'Ingenii'},
+    { id : CompanyType.Dimo, name : 'Dimo'}
   ];
   comp = this.company;
 
@@ -60,14 +67,29 @@ export class CustomerHandlingComponent implements OnInit {
   getCostomerId(event) {
     this.filterCustomerDetails(event.id);
   }
+
   getCompany(event){
-    console.log(event.name);
+    try{
+      this.customerService.getCustomerDetails(event.id).
+      subscribe(response=>{
+        if(response.type == CustomerType.Individual) {
+          this.handleCustomer = response;
+        }if(response.type == CustomerType.Corporate){
+           this.handleCustomer = response
+        }
+
+      })
+    }
+    catch (e) {
+      console.log(e);
+    }
+    console.log(event.name,event.id);
 
   }
 
   filterCustomerDetails(id){
     const result = this.employee.filter(employee => employee.id === id);
-    console.log(result);
+    console.log(result[0].name);
   }
 
 

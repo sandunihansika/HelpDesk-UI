@@ -8,7 +8,7 @@
   [deleteAllow]="deleteAllow"
   [showQuotation]="showQuotation"
   [showSearchBox]="showSearchBox"
-  (quotationBtnClicked) = "viewQuotation($event)"
+  (quotationBtnClicked) ="viewQuotation($event)"
   (addBtnClicked)="addButtonClick()"
 ><button
   type="button"
@@ -50,6 +50,16 @@
     class="btn-resend"
     (click)="gotConsent()"
     *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+  ></button>
+  <button
+    type="button"
+    pButton
+    style="margin-right: .25em"
+    icon="pi pi-check-square"
+    label="Mark As Done"
+    iconPos="left"
+    (click)="gotConsent()"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Other'"
   ></button>
 
 </app-common-grid>
