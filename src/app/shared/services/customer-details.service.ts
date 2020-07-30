@@ -15,7 +15,7 @@ import {environment} from '../../../environments/environment';
 })
 export class CustomerDetailsService {
   customerUrl = 'customer';
-  data: any[];
+  selectedCustomer;
 
   constructor(
     private http: HttpClient,

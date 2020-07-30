@@ -13,7 +13,8 @@ import {CorporateDetailsComponent} from './corporate-details/corporate-details.c
     CorporateDetailsComponent
   ],
   exports: [
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    CorporateDetailsComponent
   ],
   imports: [
     CommonModule,

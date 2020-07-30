@@ -15,22 +15,6 @@ export class InqueryTableComponent implements OnInit {
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
   //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
 
-
-  // companies = [
-  //   {name: 'Ingenii'},
-  //   {name: 'Dialog'},
-  //   {name: 'Dimo'}
-  // ]
-  //
-  // statuses = [
-  //   {label: 'Pending', name: 'Pending'},
-  //   {label: 'Need Consent', name: 'Need Consent'},
-  //   {label: 'Sent Quotation', name: 'Sent Quotation'},
-  //   {label: 'Reneed Consent', name: 'Reneed Consent'}
-  // ]
-  // id: any;
-  // name: string;
-  // handlingcompany: string;
   customer: any[];
 
   addAllow = true;
@@ -43,11 +27,19 @@ export class InqueryTableComponent implements OnInit {
   // showToolBar1 = true;
   // showSearchBox1 = true;
   display: boolean = false;
+  new: string;
+  exist: string;
+  selectedValue: string;
+  formEnqble: boolean = false;
 
 
-  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) { }
+  constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
+
+  }
 
   ngOnInit(): void {
+    this.selectedValue = 'exist';
+    console.log(this.selectedValue);
 
     this.inqueryGrid.columnsList = [
       {
@@ -183,19 +175,18 @@ export class InqueryTableComponent implements OnInit {
 
   }
 
-  viewQuotation(item){
-    this.CustomerDetailsService.data = item;
+  viewQuotation(item) {
+    this.CustomerDetailsService.selectedCustomer = item;
     console.log(item.status);
     this.route.navigate(['inquiry/quotation']);
   }
 
-  addButtonClick(){
-  this.display = true;
+  addButtonClick() {
+    this.display = true;
   }
 
-  gotConsent(){
+  gotConsent() {
 
   }
-
 
 }
