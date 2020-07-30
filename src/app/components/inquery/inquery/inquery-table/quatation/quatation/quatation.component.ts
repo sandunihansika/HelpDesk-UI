@@ -27,8 +27,6 @@ export class QuatationComponent implements OnInit {
   selectedCustomer;
 
 
-
-
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,

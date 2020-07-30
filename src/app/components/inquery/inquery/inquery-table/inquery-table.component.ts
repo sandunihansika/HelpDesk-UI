@@ -13,7 +13,6 @@ import {FormControl} from '@angular/forms';
 export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
-  //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
 
   customer: any[];
 
@@ -177,7 +176,7 @@ export class InqueryTableComponent implements OnInit {
 
   viewQuotation(item) {
     this.CustomerDetailsService.selectedCustomer = item;
-    console.log(item.status);
+    //console.log(item.status);
     this.route.navigate(['inquiry/quotation']);
   }
 
