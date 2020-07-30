@@ -1,9 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType, Status} from '../../../../shared/services/common/enum';
 import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
 import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType} from '../../../../shared/services/common/enum';
+import {Alignment, ColumnType, Status} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
@@ -136,7 +133,7 @@ export class InqueryTableComponent implements OnInit {
         cno: '0719873701',
         handlingcompany: 'Dimo',
         address: 'Colombo',
-        status: 'Pending'
+        status: 'Need_Consent'
       },
       {
         id: 2,
@@ -146,7 +143,7 @@ export class InqueryTableComponent implements OnInit {
         cno: '0701231234',
         handlingcompany: 'Ingenii',
         address: 'Kelaniya',
-        status: 'Sent Quotation'
+        status: 'Send_Quotation'
       },
       {
         id: 3,
@@ -156,7 +153,7 @@ export class InqueryTableComponent implements OnInit {
         cno: '0769182732',
         handlingcompany: 'Dialog',
         address: 'Colombo',
-        status: 'Pending'
+        status: 'Remind_Customer'
       },
     ];
 
