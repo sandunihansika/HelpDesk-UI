@@ -71,8 +71,4 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
 
-
-
-
-
 }
