@@ -1,1 +1,21 @@
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 ">
+      <div class="card">
+        <label for="customer">Select Customer</label>
+        <div class="ui-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
+            <label>New Customer</label>
+            <p-radioButton name="customer" value="new" [(ngModel)]="selectedValue" (onClick)="getValue(selectedValue)"></p-radioButton>
+          </div>
+          <div class="p-field p-col-12 p-md-6">
+            <label>Existing Customer</label>
+            <p-radioButton name="customer" value="exist" [(ngModel)]="selectedValue"  (onClick)="getValue(selectedValue)"></p-radioButton>
+          </div>
+        </div>
+        <app-common-dropdown [fields]='emp' placeholder="select" (selectChange)="getCostomerId($event)"></app-common-dropdown>
+      </div>
+    </div>
+  </div>
+</div>

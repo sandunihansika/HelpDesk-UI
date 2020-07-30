@@ -15,26 +15,7 @@
 
 
 <p-dialog header="Inquiry " [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 ">
-        <div class="card">
-          <div class="ui-fluid p-formgrid p-grid">
-            <div class="p-field p-col-12 p-md-6">
-              <label>New Customer</label>
-              <p-radioButton name="customer" value="new" [(ngModel)]="selectedValue" (onClick)="getValue(selectedValue)"></p-radioButton>
-            </div>
-            <div class="p-field p-col-12 p-md-6">
-              <label>Existing Customer</label>
-              <p-radioButton name="customer" value="exist" [(ngModel)]="selectedValue"  (onClick)="getValue(selectedValue)"></p-radioButton>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <app-customer-handling></app-customer-handling>
 </p-dialog>
 
 

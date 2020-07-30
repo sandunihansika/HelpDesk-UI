@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
-import { CommonGridComponent } from '../../../../shared/components/common-grid/common-grid.component';
+import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
@@ -12,7 +12,7 @@ import {FormControl} from '@angular/forms';
 })
 export class InqueryTableComponent implements OnInit {
 
-  @ViewChild('inqueryGrid', { static: true }) inqueryGrid: CommonGridComponent;
+  @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
   //@ViewChild('quotationGrid', { static: true }) quotationGrid: CommonGridComponent;
 
   // companies = [
@@ -42,22 +42,14 @@ export class InqueryTableComponent implements OnInit {
   // showToolBar1 = true;
   // showSearchBox1 = true;
   display: boolean = false;
-  new : string;
-  exist : string;
-  selectedValue : string;
-  formEnqble : boolean =false;
 
 
-
-
-
-  constructor(public CustomerDetailsService: CustomerDetailsService,public route: Router) {
+  constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
 
   }
 
   ngOnInit(): void {
-    this.selectedValue = 'exist';
-    console.log(this.selectedValue);
+
 
     this.inqueryGrid.columnsList = [
       {
@@ -135,9 +127,36 @@ export class InqueryTableComponent implements OnInit {
     ];
 
     this.inqueryGrid.rowLists = [
-      {id: 1, name: 'Mark', nic: '957823918V', cperson: 'Micheal', cno: '0719873701', handlingcompany:'Dimo', address:'Colombo', status:'Pending' },
-      {id: 2, name: 'Eric', nic: '961234567V', cperson: 'Fred', cno: '0701231234', handlingcompany:'Ingenii', address:'Kelaniya', status:'Sent Quotation' },
-      {id: 3, name: 'Dean', nic: '979238792V', cperson: 'Sam', cno: '0769182732', handlingcompany:'Dialog', address:'Colombo', status:'Pending' },
+      {
+        id: 1,
+        name: 'Mark',
+        nic: '957823918V',
+        cperson: 'Micheal',
+        cno: '0719873701',
+        handlingcompany: 'Dimo',
+        address: 'Colombo',
+        status: 'Pending'
+      },
+      {
+        id: 2,
+        name: 'Eric',
+        nic: '961234567V',
+        cperson: 'Fred',
+        cno: '0701231234',
+        handlingcompany: 'Ingenii',
+        address: 'Kelaniya',
+        status: 'Sent Quotation'
+      },
+      {
+        id: 3,
+        name: 'Dean',
+        nic: '979238792V',
+        cperson: 'Sam',
+        cno: '0769182732',
+        handlingcompany: 'Dialog',
+        address: 'Colombo',
+        status: 'Pending'
+      },
     ];
 
     // this.inqueryGrid.dataLoading = true;
@@ -166,25 +185,13 @@ export class InqueryTableComponent implements OnInit {
 
   }
 
-  viewQuotation(item){
+  viewQuotation(item) {
     this.CustomerDetailsService.data = item;
     this.route.navigate(['inquiry/quotation']);
   }
 
-  addButtonClick(){
-  this.display = true;
-  }
-
-  getValue(value){
-    console.log(value);
-    if(value === 'new'){
-      this.formEnqble = true;
-      console.log(this.formEnqble );
-    }
-    else{
-      this.formEnqble = false;
-      console.log(this.formEnqble );
-    }
+  addButtonClick() {
+    this.display = true;
   }
 
 }
