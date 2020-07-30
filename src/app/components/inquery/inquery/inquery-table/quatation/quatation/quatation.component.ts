@@ -5,7 +5,7 @@ import {ColumnType, TextBoxTypes, Alignment} from '../../../../../../shared/serv
 import {FormValidationHelpers} from '../../../../../../shared/helpers/form-validation-helpers';
 import {CustomerDetailsService} from '../../../../../../shared/services/customer-details.service';
 import {CommonGridComponent} from '../../../../../../shared/components/common-grid/common-grid.component';
-
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-quatation',
@@ -30,7 +30,8 @@ export class QuatationComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
-    private customerservice: CustomerDetailsService
+    private customerservice: CustomerDetailsService,
+    public route: Router
   ) {
   }
 
@@ -104,9 +105,20 @@ export class QuatationComponent implements OnInit {
   }
 
   viewForm() {
-    this.display = true;
+    try {
+      this.display = true;
+    } catch (error) {
+      return error;
+    }
   }
 
+  back() {
+    try {
+      this.route.navigate(['inquiry']);
+    } catch (error) {
+      return error;
+    }
+  }
 
   onUpload(event) {
     if (event.target.files.length > 0) {

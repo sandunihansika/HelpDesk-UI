@@ -155,11 +155,19 @@ export class CustomerTableComponent implements OnInit {
   }
 
   viewIndividualForm(){
-    this.displayIndividual = true;
+    try {
+      this.displayIndividual = true;
+    } catch (error) {
+      return error;
+    }
   }
 
   viewCorporateForm(){
-    this.displayCoporate = true;
+    try {
+      this.displayCoporate = true;
+    } catch (error) {
+      return error;
+    }
   }
 
 }
