@@ -49,6 +49,8 @@ export enum Status {
   RemindCustomer = 3,
   ReNeedConsent = 4,
   ReSendQuotation = 5,
-  ReRemindCustomer = 6
+  ReRemindCustomer = 6,
+  Pending=7,
+  Completed=8
 }
 
