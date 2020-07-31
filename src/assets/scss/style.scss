@@ -217,6 +217,7 @@ body {
   //background: rgb(242 239 239 / 20%) !important;
   padding: 1em;
   background: white;
+  height: 50vh;
   width: auto;
 }
 
@@ -276,6 +277,12 @@ body .ui-inputtext{
   margin-left: 122px;
 }
 
+.ui-dropdown-panel .ui-dropdown-filter {
+  margin-left: 0.6% !important;
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 1.5em;
+}
 
 
 

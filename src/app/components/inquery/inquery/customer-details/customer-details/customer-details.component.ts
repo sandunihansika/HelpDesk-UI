@@ -32,10 +32,14 @@ export class CustomerDetailsComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       nic: ['', [Validators.required, Validators.minLength(10)]],
+      ppNo: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       telNo: ['', [Validators.required, Validators.minLength(10)]],
-      address: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
+      addressLine1: ['', [Validators.required]],
+      addressLine2: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      zip: ['', [Validators.required]],
       type: [CustomerType.Individual, [Validators.required]]
     });
   }
@@ -87,12 +91,29 @@ export class CustomerDetailsComponent implements OnInit {
     return this.customersForm.get('telNo');
   }
 
-  get address() {
-    return this.customersForm.get('address');
+  get addressLine1() {
+    return this.customersForm.get('addressLine1');
   }
 
-  get gender() {
-    return this.customersForm.get('gender');
+  get addressLine2() {
+    return this.customersForm.get('addressLine2');
   }
+
+  get ppNo() {
+    return this.customersForm.get('ppNo');
+  }
+
+  get city() {
+    return this.customersForm.get('city');
+  }
+
+  get country() {
+    return this.customersForm.get('country');
+  }
+
+  get zip() {
+    return this.customersForm.get('zip');
+  }
+
 
 }

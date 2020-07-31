@@ -37,16 +37,20 @@ export enum CompanyType {
   Ingenii = 3
 }
 
-export enum Status{
+export enum InqueryType {
+  Details = 1,
+  Quatation = 2,
+  Quatation_with_details = 3
+}
+
+export enum Status {
   NeedConsent = 1,
   SendQuotation = 2,
   RemindCustomer = 3,
   ReNeedConsent = 4,
   ReSendQuotation = 5,
   ReRemindCustomer = 6,
-  Pending = 7,
-  MarkAsDone = 8
+  Pending=7,
+  Completed=8
 }
-
-
 

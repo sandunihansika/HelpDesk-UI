@@ -28,7 +28,6 @@ export class InqueryTableComponent implements OnInit {
   display: boolean = false;
   new: string;
   exist: string;
-  selectedValue: string;
   formEnqble: boolean = false;
 
 
@@ -37,8 +36,6 @@ export class InqueryTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectedValue = 'exist';
-    console.log(this.selectedValue);
 
     this.setInquiryColumns();
     this.setInquiryRowColumns();

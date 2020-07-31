@@ -1,3 +1,5 @@
+import {CustomerType} from '../../../../../shared/services/common/enum';
+
 export class CompanyCustomerDeails {
   companyName: string;
   type: number;
@@ -5,6 +7,7 @@ export class CompanyCustomerDeails {
   email: string;
   streetAddressLineOne: string;
   streetAddressLineTwo: string;
+  ppNo: string;
   country: string;
   city: string;
   zipCode: string;
@@ -12,5 +15,14 @@ export class CompanyCustomerDeails {
   vatNumber: string;
   contactPerson: string;
   contactNo: string;
+  firstName: string;
+  lastName: string;
+  nicNumber: string;
+  telNo: string;
+  address: string;
+  gender: string;
+  handlingCompany: string;
+  handlingCustomer: string;
+  inqueryType: number;
 
 }

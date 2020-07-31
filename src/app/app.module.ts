@@ -25,6 +25,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {AuthLoginModule} from './auth/auth-login.module';
 import {FormValidationHelpers} from './shared/helpers/form-validation-helpers';
 import {CustomerDetailsService} from './shared/services/customer-details.service';
+import {ComplaintModule} from './components/complaint/complaint.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -57,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireAuthModule,
     AngularFirestoreModule,
     InqueryModule,
-    AuthLoginModule
+    AuthLoginModule,
+    ComplaintModule
   ],
   providers: [AuthService, AdminGuard, SecureInnerPagesGuard, CookieService, MessageService, CustomerDetailsService],
   bootstrap: [AppComponent]

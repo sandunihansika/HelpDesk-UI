@@ -8,6 +8,7 @@ import {AuthenticationService} from './auth/authentication.service';
 import {CommonHttpService} from './common/common-http.service';
 import {Quatation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
 import {environment} from '../../../environments/environment';
+import {CompanyType} from './common/enum';
 
 
 @Injectable({
@@ -121,8 +122,9 @@ export class CustomerDetailsService {
     );
   }
 
-  getCustomerDetails(handlingCompany: any):Observable<any> {
-    return this.commonHttpService.postData(this.customerUrl + '/view',handlingCompany).pipe(  // http://localhost:5000/admin/customer
+
+  getCustomerDetails(handlingCompany: any) {
+    return this.commonHttpService.postData(this.customerUrl + '/view', handlingCompany).pipe(
       map(data => {
         console.log(data);
         return data;
@@ -153,9 +155,6 @@ export class CustomerDetailsService {
       })
     );
   }
-
-
-//get customer details according to the company
 
 
 }
