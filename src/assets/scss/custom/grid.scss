@@ -2,7 +2,7 @@ $main-bg-color: #3f4d67;
 
 
 .ui-table .ui-table-thead > tr > th {
-  background: #0d2a61 !important;
+  background: #333f56 !important;
   //background-image: linear-gradient(to bottom left, #1d8cf8, #3358f4, #1d8cf8) !important;
   color: white !important;
 }
@@ -130,6 +130,12 @@ body .btn-quotation {
   background-color: #1fb69e !important;
   border: 1px solid #1fb69e !important;
   color: white !important;
+}
+
+body .btn-back {
+  color: #ffffff;
+  background-color: #1fb69e !important;
+  border: 1px solid #1fb69e !important;
 }
 
 .fa-search:before {

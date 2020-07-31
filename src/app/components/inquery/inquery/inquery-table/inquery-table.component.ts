@@ -47,11 +47,43 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'name',
-        columnName: 'Name',
+        mappingName: 'cid',
+        columnName: 'Customer Id',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 75,
+        columnFormat: null
+      },
+      {
+        mappingName: 'fname',
+        columnName: 'First Name',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
+        columnFormat: null
+      },
+      {
+        mappingName: 'lname',
+        columnName: 'Last Name',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 100,
+        columnFormat: null
+      },
+      {
+        mappingName: 'name',
+        columnName: 'Company Name',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 120,
+        columnFormat: null
+      },
+      {
+        mappingName: 'regno',
+        columnName: 'Reg. No',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 50,
         columnFormat: null
       },
       {
@@ -83,7 +115,7 @@ export class InqueryTableComponent implements OnInit {
         columnName: 'Handling Company',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
-        columnWidth: 120,
+        columnWidth: 100,
         columnFormat: null
       },
       // {
@@ -94,20 +126,20 @@ export class InqueryTableComponent implements OnInit {
       //   columnWidth: 100,
       //   columnFormat: "yyyy-MM-dd"
       // },
-      {
-        mappingName: 'address',
-        columnName: 'Address',
-        columnType: ColumnType.Text,
-        columnAlignment: Alignment.Left,
-        columnWidth: 100,
-        columnFormat: null
-      },
+      // {
+      //   mappingName: 'address',
+      //   columnName: 'Address',
+      //   columnType: ColumnType.Text,
+      //   columnAlignment: Alignment.Left,
+      //   columnWidth: 100,
+      //   columnFormat: null
+      // },
       {
         mappingName: 'status',
         columnName: 'Status',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
-        columnWidth: 100,
+        columnWidth: 120,
         columnFormat: null
       }
     ];
@@ -115,33 +147,45 @@ export class InqueryTableComponent implements OnInit {
     this.inqueryGrid.rowLists = [
       {
         id: 1,
-        name: 'Mark',
+        cid: 1,
+        fname: 'Mark',
+        lname: 'George',
         nic: '957823918V',
         cperson: 'Micheal',
         cno: '0719873701',
         handlingcompany: 'Dimo',
-        address: 'Colombo',
         status: 'Need_Consent'
       },
       {
         id: 2,
-        name: 'Eric',
-        nic: '961234567V',
+        cid: 2,
+        name: 'Unicorn',
+        regno: '13',
         cperson: 'Fred',
         cno: '0701231234',
         handlingcompany: 'Ingenii',
-        address: 'Kelaniya',
         status: 'Send_Quotation'
       },
       {
         id: 3,
-        name: 'Dean',
+        cid: 3,
+        fname: 'Dean',
+        lname: 'Winchester',
         nic: '979238792V',
         cperson: 'Sam',
         cno: '0769182732',
         handlingcompany: 'Dialog',
-        address: 'Colombo',
         status: 'Remind_Customer'
+      },
+      {
+        id: 4,
+        cid: 4,
+        name: 'Phoenix',
+        regno: '15',
+        cperson: 'Sam',
+        cno: '0769182732',
+        handlingcompany: 'Dialog',
+        status: 'Other'
       },
     ];
 
@@ -172,9 +216,14 @@ export class InqueryTableComponent implements OnInit {
   }
 
   viewQuotation(item) {
-    this.CustomerDetailsService.selectedCustomer = item;
-    //console.log(item.status);
-    this.route.navigate(['inquiry/quotation']);
+    try{
+      this.CustomerDetailsService.selectedCustomer = item;
+      //console.log(item.status);
+      this.route.navigate(['inquiry/quotation']);
+    } catch (error) {
+      return error;
+    }
+
   }
 
   addButtonClick() {
@@ -182,7 +231,11 @@ export class InqueryTableComponent implements OnInit {
   }
 
   gotConsent() {
-
+    try {
+      this.route.navigate(['inquiry'])
+    } catch (error) {
+      return error;
+    }
   }
 
 }
