@@ -12,11 +12,12 @@ export class ComplaintTableComponent implements OnInit {
   @ViewChild('complaintGrid', {static: true}) complaintGrid: CommonGridComponent;
 
   addAllow = true;
-  editAllow = true;
+  editAllow = false;
   showToolBar = true;
   deleteAllow = false;
   showSearchBox = true;
   display = false;
+  status ="pending";
 
   addButtonClick() {
     this.display = true;
@@ -91,7 +92,7 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719813701',
         description : 'not working',
-        status: 'pending'
+        status: this.status
       },
       {
         id: 2,
@@ -100,7 +101,7 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719473701',
         description : 'not working',
-        status: 'pending'
+        status: this.status
       }, {
         id: 3,
         name: 'Eleena',
@@ -108,7 +109,7 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719873801',
         description : 'not working',
-        status: 'pending'
+        status: this.status
       }, {
         id: 4,
         name: 'Bella',
@@ -116,7 +117,7 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719873705',
         description : 'not working',
-        status: 'pending'
+        status: this.status
       }, {
         id: 5,
         name: 'Kevin',
@@ -124,12 +125,18 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719845705',
         description : 'not working',
-        status: 'pending'
+        status: this.status
       },
 
     ]
+   }
 
-
-
+  changeStatus(event){
+    // this.status = "completed";
+    // this.ngOnInit();
+    console.log("helooooooo")
   }
+
+
+
 }

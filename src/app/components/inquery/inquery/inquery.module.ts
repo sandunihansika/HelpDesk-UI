@@ -27,7 +27,7 @@ import {FormsModule} from '@angular/forms';
     RadioButtonModule,
     FormsModule
   ],
-  exports: [InqueryTableComponent]
+  exports: [InqueryTableComponent, CustomerHandlingComponent]
 })
 export class InqueryModule {
 }
