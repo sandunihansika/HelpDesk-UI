@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {CompanyType} from '../../../../../shared/services/common/enum';
+import {CompanyType, TextBoxTypes} from '../../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
 import {CompanyCustomerDeails} from './CompanyCustomerDeails';
 import {CustomerType} from '../../../../../shared/services/common/enum';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-customer-handling',
@@ -12,47 +13,47 @@ import {CustomerType} from '../../../../../shared/services/common/enum';
 export class CustomerHandlingComponent implements OnInit {
 
   constructor(
-  private customerService : CustomerDetailsService
-  ) { }
+    private customerService: CustomerDetailsService,
+    private formBuilder: FormBuilder
+  ) {
+  }
 
   ngOnInit(): void {
     this.selectedValue = 'exist';
     console.log(this.selectedValue);
   }
 
-handleCustomer : CompanyCustomerDeails[];
+
+  handleCustomer: CompanyCustomerDeails[];
 
   new: string;
   exist: string;
   selectedValue: string;
   formEnqble: boolean = true;
+  employeeType = [];
+  TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
+  userType;
 
-
-  employee= [
-    { id: '1', name: 'thilini',company : 'Ingenii'},
-    { id: '2', name: 'sanduni' ,company : 'Ingenii'},
-    { id : '3',name : 'Chamari',company : 'Dimo'},
-    { id : '4',name : 'Nayana',company : 'Dimo'},
-    { id : '5',name : 'Amara',company : 'Ingenii'},
-    { id : '6',name : 'Kasuni',company : 'Dimo'},
-    { id : '7',name : 'Malithi',company : 'Dimo'},
-    { id : '8',name : 'Amara',company : 'ingenii'},
+  employee = [
+    {id: '1', name: 'thilini', company: 'Ingenii'},
+    {id: '2', name: 'sanduni', company: 'Ingenii'},
+    {id: '3', name: 'Chamari', company: 'Dimo'},
+    {id: '4', name: 'Nayana', company: 'Dimo'},
+    {id: '5', name: 'Amara', company: 'Ingenii'},
+    {id: '6', name: 'Kasuni', company: 'Dimo'},
+    {id: '7', name: 'Malithi', company: 'Dimo'},
+    {id: '8', name: 'Amara', company: 'ingenii'},
   ];
 
-  company=[
-    { id : CompanyType.Ingenii, name : 'Ingenii'},
-    { id : CompanyType.Dimo, name : 'Dimo'}
+  company = [
+    {id: CompanyType.Ingenii, name: 'Ingenii'},
+    {id: CompanyType.Dimo, name: 'Dimo'}
   ];
   comp = this.company;
+  handlingCompany;
 
-  emp = this.employee;
 
-  user :{
-    id : string;
-    name :string;
-    company : string
-  }
-
+//get value from radio buttons
   getValue(value) {
     console.log(value);
     if (value === 'new') {
@@ -64,37 +65,26 @@ handleCustomer : CompanyCustomerDeails[];
     }
   }
 
+  //get customer id
   getCostomerId(event) {
     this.filterCustomerDetails(event.id);
   }
 
-  getCompany(event){
-    try{
-      this.customerService.getCustomerDetails(event.id).
-      subscribe(response=>{
-        if(response.type == CustomerType.Individual) {
-          this.handleCustomer = response;
-        }if(response.type == CustomerType.Corporate){
-           this.handleCustomer = response
-        }
+  //get company id and call to the service class
+  getCompany(event) {
+    try {
+      this.employeeType = this.customerService.getCustomerDetails(event.id)
 
-      })
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-    console.log(event.name,event.id);
+    console.log(event.name, event.id);
 
   }
 
-  filterCustomerDetails(id){
-    const result = this.employee.filter(employee => employee.id === id);
-    console.log(result[0].name);
+  //filter customer
+  filterCustomerDetails(id) {
+    const data = this.employeeType.filter(employeeType => employeeType.id === id);
+    console.log(data[0].name);
   }
-
-
-
-
-
-
 }

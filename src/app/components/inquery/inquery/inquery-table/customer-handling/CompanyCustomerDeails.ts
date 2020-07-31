@@ -1,4 +1,5 @@
-export class CompanyCustomerDeails {
+
+export class CompanyCustomerDeails{
   companyName: string;
   type: number;
   companyRegistrationNo: string;
@@ -12,5 +13,4 @@ export class CompanyCustomerDeails {
   vatNumber: string;
   contactPerson: string;
   contactNo: string;
-
 }

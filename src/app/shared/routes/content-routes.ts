@@ -239,4 +239,12 @@ export const content: Routes = [
       breadcrumb: "Inquiry"
     }
   },
+  {
+    path: 'complaint',
+    loadChildren: () => import('../../components/complaint/complaint.module').then(m => m.ComplaintModule),
+    data: {
+      breadcrumb: "Complaint"
+    }
+  },
+
 ];
