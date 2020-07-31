@@ -19,18 +19,13 @@
   style="margin-right: .25em"
   class="ui-button-info"
   (click)="viewForm()"
-  *ngIf="selectedCustomer.status === 'Send_Quotation' || selectedCustomer.status === 'Resend_Quotation'"
+  *ngIf="selectedCustomer.status.name === 'Send quotation' || selectedCustomer.status.name === 'Re-send quotation '"
 ></button>
 </app-common-grid>
 
 <p-dialog header="Quotation - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}" [modal]="true"
           [(visible)]="display">
   <p-card>
-<!--    <form novalidate-->
-<!--          (ngSubmit)="saveQuatation()"-->
-<!--          [formGroup]="quatationForm" enctype="multipart/form-selectedCustomer">-->
-<!--      &lt;!&ndash;<p-dialog header="Quotation - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}" [modal]="true" [(visible)]="display"&ndash;&gt;-->
-<!--      &lt;!&ndash;          class="overlay" [baseZIndex]="10000">&ndash;&gt;-->
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 ">

@@ -76,7 +76,6 @@
                    [responsive]="true"
                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                    [(selection)]="selectedEntity"
-                   ng-class="ui-column-filter"
                    [globalFilterFields]="GlobalSearchList()"
                    #grid>
 
@@ -141,7 +140,11 @@
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                        {{rowData[col.mappingName]}}
+                        {{
+                      col.subMappingName && rowData[col.mappingName]
+                        ? rowData[col.mappingName][col.subMappingName]
+                        : rowData[col.mappingName]
+                      }}
                     </span>
                     <span
                       *ngIf="col.columnType == 2"
@@ -149,7 +152,10 @@
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                        {{(rowData[col.mappingName] | number: col.columnFormat)}}
+                        {{
+                      col.subMappingName && rowData[col.mappingName]
+                        ? rowData[col.mappingName][col.subMappingName]
+                        :(rowData[col.mappingName] | number: col.columnFormat)}}
                     </span>
                     <span
                       *ngIf="col.columnType == 3"
@@ -157,7 +163,10 @@
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                         {{(rowData[col.mappingName] | date: col.columnFormat)}}
+                         {{
+                      col.subMappingName && rowData[col.mappingName]
+                        ? rowData[col.mappingName][col.subMappingName]
+                        :(rowData[col.mappingName] | date: col.columnFormat)}}
                      </span>
                     <!--                         <span-->
                     <!--                         *ngIf="colType==pdf">-->
