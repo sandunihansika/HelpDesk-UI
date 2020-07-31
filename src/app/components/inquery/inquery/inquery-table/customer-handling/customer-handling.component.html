@@ -1,32 +1,116 @@
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 ">
       <div class="card">
-        <div>
-          <label>Select Company</label>
-          <div>
-            <app-common-dropdown [fields]='comp' placeholder="Select Company" (selectChange)="getCompany($event)"></app-common-dropdown>
-          </div>
-        </div>
-        <br> <br>
-        <label>Select Customer</label>
         <div class="ui-fluid p-formgrid p-grid">
           <div class="p-field p-col-12 p-md-6">
-            <label>New Customer</label>
-            <p-radioButton name="customer" value="new" [(ngModel)]="selectedValue" (onClick)="getValue(selectedValue)"></p-radioButton>
+            <label>Select Company</label>
+            <app-common-dropdown [fields]='customers'  formControlName=" handlingCompany"
+                                 (selectChange)="getCompanySelected($event)"></app-common-dropdown>
+          </div>
+          <div class="col">
+            <label>Customer Status</label>
+            <div class="form-group m-t-15 m-checkbox-inline mb-2 custom-radio-ml">
+              <div class="radio radio-primary">
+                <input type="radio" name="customer" id="radioinline1" value="new" [(ngModel)]="selectedValue"
+                       (click)="getCustomerStuatus(selectedValue)">
+                <label for="radioinline1" class="mb-0">new<span class="digits"></span></label>
+              </div>
+              <div class="radio radio-primary">
+                <input type="radio" name="customer" id="radioinline2" value="exist" [(ngModel)]="selectedValue"
+                       (click)="getCustomerStuatus(selectedValue)">
+                <label for="radioinline2" class="mb-0">existing<span class="digits"></span></label>
+              </div>
+            </div>
           </div>
           <div class="p-field p-col-12 p-md-6">
-            <label>Existing Customer</label>
-            <p-radioButton name="customer" value="exist" [(ngModel)]="selectedValue"  (onClick)="getValue(selectedValue)"></p-radioButton>
+            <label>Select Customer</label>
+            <app-common-dropdown [fields]='customers' formControlName="handlingCustomer"
+                                 (selectChange)="getCustomerId($event)"></app-common-dropdown>
           </div>
+
+
         </div>
-        <div *ngIf="formEnqble">
-          <app-common-dropdown [fields]='emp' placeholder="select customer" (selectChange)="getCostomerId($event)"></app-common-dropdown>
+        <!--          <br> <br>-->
+        <!--          <label>Select Customer</label>-->
+        <!--          <div class="ui-fluid p-formgrid p-grid">-->
+        <!--            <div class="p-field p-col-12 p-md-6">-->
+        <!--              <label>New Customer</label>-->
+        <!--              <p-radioButton name="customer" value="new" [(ngModel)]="selectedValue
+        <!--                             (onClick)="getCustomerStuatus(selectedValue)"></p-radioButton>
+        <!--            </div>-->
+        <!--            <div class="p-field p-col-12 p-md-6">-->
+        <!--              <label>Existing Customer</label>-->
+        <!--              <p-radioButton name="customer" value="exist" [(ngModel)]="selectedValue"-->
+        <!--                             (onClick)="getCustomerStuatus(selectedValue)"></p-radioButton>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--          <div *ngIf="formEnable">-->
+        <!--            <app-common-dropdown [fields]='emp' placeholder="select customer"-->
+        <!--                                 (selectChange)="getCostomerId($event)"></app-common-dropdown>-->
+        <!--          </div>-->
+      </div>
+    </div>
+  </div>
+
+
+  <!--individual form-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 ">
+        <div class="card">
+          <!--        <div class="card-header">-->
+          <!--          <h5>Customer Details Form</h5>-->
+          <!--        </div>-->
+          <div class="card-body">
+            <form novalidate
+                  (ngSubmit)="saveCustomer()"
+                  [formGroup]="individualCorpCustomerForm">
+
+              <div class="ui-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-6">
+                  <label for="firstName">First name<span class="form-error">* </span>
+                    <span *ngIf="firstName.touched && firstName.errors?.required"
+                          class="form-error">  First name is required!</span>
+                  </label>
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="firstName"
+                    placeholder="First name"
+                    id="firstName"
+                    [ngClass]="{
+            'is-invalid': (firstName.touched ||firstName.dirty) && !firstName.valid }"></app-common-textbox>
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <label for="lastName">Last name<span class="form-error">* </span>
+                    <span *ngIf="lastName.touched && lastName.errors?.required"
+                          class="form-error">  Last name is required!</span>
+                  </label>
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="lastName"
+                    placeholder="Last name"
+                    id="lastName"
+                    [ngClass]="{
+                     'is-invalid':(lastName.touched ||lastName.dirty) && !lastName.valid}"></app-common-textbox>
+                </div>
+              </div>
+              <div class="offset-md-2 col-md-4">
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary mr-1">Submit</button>
+                  <input type="reset" class="btn btn-light" value="Cancel">
+                </div>
+
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+
+
+
 
 
