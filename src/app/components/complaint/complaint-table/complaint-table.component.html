@@ -1,0 +1,15 @@
+<app-common-grid
+  #complaintGrid
+  header = "Complaint Details"
+  [addAllow]="addAllow"
+  [editAllow]="editAllow"
+  [showToolBar]="showToolBar"
+  [deleteAllow]="deleteAllow"
+  [showSearchBox]="showSearchBox"
+  (addBtnClicked)="addButtonClick()"
+
+></app-common-grid>
+
+<p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
+  <h2>Hi Thilini</h2>
+</p-dialog>

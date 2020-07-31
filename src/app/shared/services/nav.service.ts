@@ -310,11 +310,14 @@ export class NavService {
 			path: '/maintenance', title: 'Maintenance', icon: 'settings', type: 'link'
 		},
     {
-      path: '/inquiry', title: 'Inquiry', icon: 'edit', type: 'link'
-    },
-    {
       path: '/inquiry/customer', title: 'Customer', icon: 'user', type: 'link'
     },
+    {
+      path: '/inquiry', title: 'Inquiry', icon: 'edit', type: 'link'
+    },{
+      path: '/complaint', title: 'Complaint', icon: 'complaint', type: 'link'
+    },
+
 
 	]
 	// Array
