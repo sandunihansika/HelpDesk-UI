@@ -6,6 +6,7 @@ import {CompanyCustomerDeails} from './CompanyCustomerDeails';
 import {CustomerType} from '../../../../../shared/services/common/enum';
 import {CompanyType} from '../../../../../shared/services/common/enum';
 import {TextBoxTypes} from '../../../../../shared/services/common/enum';
+import {InqueryType} from '../../../../../shared/services/common/enum';
 
 @Component({
   selector: 'app-customer-handling',
@@ -38,9 +39,6 @@ export class CustomerHandlingComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.selectedValue = 'exist';
-    console.log(this.selectedValue);
-
     this.individualCorpCustomerForm = this.formbuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -56,26 +54,27 @@ export class CustomerHandlingComponent implements OnInit {
       companyRegistrationNo: ['', [Validators.required]],
       streetAddressLineOne: ['', [Validators.required]],
       streetAddressLineTwo: ['', [Validators.required]],
+      ppNo: ['', [Validators.required]],
       country: ['', [Validators.required]],
       city: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
       taxNumber: ['', [Validators.required]],
       vatNumber: ['', [Validators.required]],
       handlingCompany: [CompanyType.Ingenii, [Validators.required]], /*value by dropdown*/
-      handlingCustomer: ['', [Validators.required]] /*value by dropdown*/
+      handlingCustomer: ['', [Validators.required]], /*value by dropdown*/
+      inqueryType: ['', [Validators.required]],
+      customerStatus: ['exist']
     });
-    this.saveCustomer();
-    this.customerData = this.customers[0]; //when page load first array element get
-    this.patchToCustomer(); // call to patch the selected customer
+    console.log(this.individualCorpCustomerForm.value.customerStatus);
+    this.getCustomer(); //send the handlingcompany
+
 
   }
 
   customers = []; /*array of customers */
-
-
-  getCustomerStuatus(value) { //radio event to select customer status
-    console.log(value);
-    if (value === 'new') {
+  getCustomerStuatus(status) { //radio event to select customer status
+    console.log(status.value);
+    if (status === 'new') {
       this.formEnable = false;
       // console.log(this.formEnable);
     } else {
@@ -95,48 +94,50 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   filterCustomerDetails(cid) {
-    this.customerData = this.customers.filter(c => c.id === cid);
+    const customerData = this.customers.filter(c => c.id === cid); //efficiency improved
     console.log(this.customerData[0].type);
 
     if (this.customerData[0].type == CustomerType.Corporate) {
-      this.patchToCustomer();
+      this.patchToCustomer(customerData);
       this.display = true;
     }
     if (this.customerData[0].type == CustomerType.Individual) {
-      this.patchToCustomer(); //call for patch the individual customer
+      this.patchToCustomer(customerData); //call for patch the individual customer
       this.display = false;
     }
 
   }
 
-  patchToCustomer() {
+  patchToCustomer(customerValue) {
+    console.log(customerValue);
     this.individualCorpCustomerForm.patchValue({
-      firstName: this.customerData[0].firstName ? this.customerData[0].firstName : '',
-      lastName: this.customerData[0].lastName ? this.customerData[0].lastName : '',
-      nic: this.customerData[0].nic ? this.customerData[0].nic : '',
-      email: this.customerData[0].email ? this.customerData[0].email : '',
-      telNo: this.customerData[0].telNo ? this.customerData[0].telNo : '',
-      address: this.customerData[0].address ? this.customerData[0].address : '',
-      type: this.customerData[0].type ? this.customerData[0].type : '',
-      companyName: this.customerData[0].companyName ? this.customerData[0].companyName : '',
-      companyRegistrationNo: this.customerData[0].companyRegistrationNo ? this.customerData[0].companyRegistrationNo : '',
-      streetAddressLineOne: this.customerData[0].streetAddressLineOne ? this.customerData[0].streetAddressLineOne : '',
-      streetAddressLineTwo: this.customerData[0].streetAddressLineTwo ? this.customerData[0].streetAddressLineTwo : '',
-      country: this.customerData[0].country ? this.customerData[0].country : '',
-      city: this.customerData[0].city ? this.customerData[0].city : '',
-      zipCode: this.customerData[0].zipCode ? this.customerData[0].zipCode : '',
-      taxNumber: this.customerData[0].taxNumber ? this.customerData[0].taxNumber : '',
-      vatNumber: this.customerData[0].vatNumber ? this.customerData[0].vatNumber : '',
-      handlingCompany: this.customerData[0].handlingCompany ? this.customerData[0].handlingCompany : '', //dropdown values
-      handlingCustomer: this.customerData[0].handlingCustomer ? this.customerData[0].handlingCustomer : '', //dropdown values
-      // contactPerson: this.customerData[0].contactPerson ? this.customerData[0].contactPerson : '',
-      // contactNo: this.customerData[0].contactNo ? this.customerData[0].contactNo : '',
+      firstName: customerValue[0].firstName ? customerValue[0].firstName : '',
+      lastName: customerValue[0].lastName ? customerValue[0].lastName : '',
+      nic: customerValue[0].nic ? customerValue[0].nic : '',
+      email: customerValue[0].email ? customerValue[0].email : '',
+      telNo: customerValue[0].telNo ? customerValue[0].telNo : '',
+      address: customerValue[0].address ? customerValue[0].address : '',
+      type: customerValue[0].type ? customerValue[0].type : '',
+      companyName: customerValue[0].companyName ? customerValue[0].companyName : '',
+      companyRegistrationNo: customerValue[0].companyRegistrationNo ? customerValue[0].companyRegistrationNo : '',
+      streetAddressLineOne: customerValue[0].streetAddressLineOne ? customerValue[0].streetAddressLineOne : '',
+      streetAddressLineTwo: customerValue[0].streetAddressLineTwo ? customerValue[0].streetAddressLineTwo : '',
+      ppNo: customerValue[0].ppNo ? customerValue[0].ppNo : '',
+      country: customerValue[0].country ? customerValue[0].country : '',
+      city: customerValue[0].city ? customerValue[0].city : '',
+      zipCode: customerValue[0].zipCode ? customerValue[0].zipCode : '',
+      taxNumber: customerValue[0].taxNumber ? customerValue[0].taxNumber : '',
+      vatNumber: customerValue[0].vatNumber ? customerValue[0].vatNumber : '',
+      handlingCompany: customerValue[0].handlingCompany ? customerValue[0].handlingCompany : '', //dropdown values
+      handlingCustomer: customerValue[0].handlingCustomer ? customerValue[0].handlingCustomer : '', //dropdown values
+      // contactPerson: customerValue[0].contactPerson ? customerValue[0].contactPerson : '',
+      // contactNo: customerValue[0].contactNo ? customerValue[0].contactNo : '',
 
       /*no need to patch for contactNo and contact person*/
     });
   }
 
-  saveCustomer() {
+  getCustomer() {
     if (this.individualCorpCustomerForm.invalid) {
       this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
       return;
@@ -145,6 +146,8 @@ export class CustomerHandlingComponent implements OnInit {
         respond => {
           this.customers = respond;
           console.log(this.customers);
+          //when page load first array element get
+          this.patchToCustomer(this.customers[0]); // call to patch the selected customer
         });
     }
   }
@@ -159,6 +162,10 @@ export class CustomerHandlingComponent implements OnInit {
 
   get nic() {
     return this.individualCorpCustomerForm.get('nic');
+  }
+
+  get ppNo() {
+    return this.individualCorpCustomerForm.get('ppNo');
   }
 
   get email() {
@@ -224,6 +231,15 @@ export class CustomerHandlingComponent implements OnInit {
   get handlingCompany() {
     return this.individualCorpCustomerForm.get('handlingCompany');
   }
+
+  get inqueryType() {
+    return this.individualCorpCustomerForm.get('inqueryType');
+  }
+
+  get customerStatus() {
+    return this.individualCorpCustomerForm.get('customerStatus');
+  }
+
 
 
 }

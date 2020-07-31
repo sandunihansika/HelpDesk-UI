@@ -22,5 +22,7 @@ export class CompanyCustomerDeails {
   address: string;
   gender: string;
   handlingCompany: string;
+  handlingCustomer: string;
+  inqueryType: number;
 
 }

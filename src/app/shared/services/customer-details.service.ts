@@ -26,31 +26,6 @@ export class CustomerDetailsService {
   ) {
   }
 
-  employee1= [
-    { id: '1', name: 'thilini',company : 'Ingenii',type :'Individual'},
-    { id: '2', name: 'sanduni' ,company : 'Ingenii',type :'Individual'},
-    { id : '3',name : 'Chamari',company : 'Ingenii',type :'Individual'},
-    { id : '4',name : 'Nayana',company : 'Ingenii',type :'Individual'},
-    { id : '5',name : 'Amara',company : 'Ingenii',type :'Individual'},
-    { id : '6',name : 'Kasuni',company : 'Ingenii',type :'Individual'},
-    { id : '7',name : 'Malithi',company : 'Ingenii',type :'Individual'},
-    { id : '8',name : 'Amara',company : 'Ingenii',type :'Individual'},
-  ];
-
-  employee2= [
-    { id: '1', name: 'Akila',company : 'Demo',type :'Corporate'},
-    { id: '2', name: 'Siripala' ,company : 'Demo',type :'Corporate'},
-    { id : '3',name : 'Chamila',company : 'Demo',type :'Corporate'},
-    { id : '4',name : 'Herath',company : 'Demo',type :'Corporate'},
-    { id : '5',name : 'Kumari',company : 'Demo',type :'Corporate'},
-    { id : '6',name : 'Banda',company : 'Demo',type :'Corporate'},
-    { id : '7',name : 'manike',company : 'Demo',type :'Corporate'},
-    { id : '8',name : 'Bandara',company : 'Demo',type :'Corporate'},
-  ];
-
-
-
-
   addCustomer(customer: CustomerDetails, nic): Observable<any> {
     customer.nic = nic;
     return this.commonHttpService.postData(this.customerUrl + '/add', customer).pipe(  // http://localhost:5000/admin/customer/add//
@@ -77,34 +52,15 @@ export class CustomerDetailsService {
     );
   }
 
-//get customer details according to the company
+
   getCustomerDetails(handlingCompany: any) {
-try{
-  this.http.get('http://localhost:3000/hellow').subscribe(response=>{
-    console.log(response);
-  })
-}catch (e) {
-  console.log(e);
-}
-
-
-    if(handlingCompany === CompanyType.Ingenii){
-      return this.employee1;
-    }
-    if(handlingCompany === CompanyType.Dimo){
-      return this.employee2;
-    }
-    // return this.commonHttpService.postData(this.customerUrl + '/view',handlingCompany).pipe(  // http://localhost:5000/admin/customer
-    //   map(data => {
-    //     console.log(data);
-    //     return data;
-    //   })
-    // );
-
-
+    return this.commonHttpService.postData(this.customerUrl + '/view', handlingCompany).pipe(
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
   }
-
-
 
 
 }

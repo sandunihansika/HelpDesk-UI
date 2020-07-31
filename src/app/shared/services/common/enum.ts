@@ -33,11 +33,17 @@ export enum ColumnType {
 }
 
 export enum CompanyType {
-  Dimo =2,
+  Dimo = 2,
   Ingenii = 3
 }
 
-export enum Status{
+export enum InqueryType {
+  Details = 1,
+  Quatation = 2,
+  Quatation_with_details = 3
+}
+
+export enum Status {
   NeedConsent = 1,
   SendQuotation = 2,
   RemindCustomer = 3,
