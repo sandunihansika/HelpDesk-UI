@@ -45,7 +45,11 @@ export class QuatationComponent implements OnInit {
       pdf: [[Validators.required]]
     });
 
+    this.setQuotationColumns();
+    this.setQuotationRowList(this.selectedCustomer.customerId);
+  }
 
+  setQuotationColumns() {
     this.quotationGrid.columnsList = [
       {
         mappingName: 'id',
@@ -56,8 +60,24 @@ export class QuatationComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'qno',
+        mappingName: 'quotationNo',
         columnName: 'Quotation Number',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 100,
+        columnFormat: null
+      },
+      {
+        mappingName: 'expiryDate',
+        columnName: 'Expiry Date',
+        columnType: ColumnType.Date,
+        columnAlignment: Alignment.Left,
+        columnWidth: 100,
+        columnFormat: 'yyyy-MM-dd'
+      },
+      {
+        mappingName: 'createdBy',
+        columnName: 'Created By',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
@@ -71,37 +91,25 @@ export class QuatationComponent implements OnInit {
         columnWidth: 100,
         columnFormat: null
       },
-      {
-        mappingName: 'expirydate',
-        columnName: 'Expiry Date',
-        columnType: ColumnType.Date,
-        columnAlignment: Alignment.Left,
-        columnWidth: 100,
-        columnFormat: 'yyyy-MM-dd'
-      },
-      {
-        mappingName: 'createddate',
-        columnName: 'Created Date',
-        columnType: ColumnType.Date,
-        columnAlignment: Alignment.Left,
-        columnWidth: 100,
-        columnFormat: 'yyyy-MM-dd'
-      },
-      {
-        mappingName: 'pdf',
-        columnName: 'PDF',
-        columnType: ColumnType.Text,
-        columnAlignment: Alignment.Left,
-        columnWidth: 100,
-        columnFormat: null
-      }
     ];
+  }
 
-    this.quotationGrid.rowLists = [
-      {id: 1, qno: 'ab120', description: 'kdjndcjzka', expirydate: '2020-10-10', createddate: '2020-07-23', pdf: ''},
-      {id: 2, qno: 'dc234', description: 'asnxakkkj', expirydate: '20202-11-11', createddate: '2020-07-23', pdf: ''},
-      {id: 3, qno: 'sd256', description: 'akjsxnkxn', expirydate: '2020-12-12', createddate: '2020-07-23', pdf: ''},
-    ];
+  setQuotationRowList(customerId) {
+    this.customerservice.getQuotation(customerId).subscribe(
+      (list: any) => {
+        if(list !== undefined) {
+          if(list) {
+            console.log(list);
+            this.quotationGrid.rowLists = list;
+          } else {
+            this.quotationGrid.rowLists = [];
+          }
+        }
+      },
+      error => {
+        this.quotationGrid.dataLoading = false;
+      }
+    );
   }
 
   viewForm() {

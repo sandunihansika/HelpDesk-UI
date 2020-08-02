@@ -3,7 +3,7 @@ import {Alignment, ColumnType} from '../../services/common/enum';
 
 export class ColumnDefinition {
   mappingName: string;
-  // subMappingName?: string;
+  subMappingName?: string;
   columnName: string;
   columnType: ColumnType;
   columnAlignment: Alignment;

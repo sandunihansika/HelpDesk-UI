@@ -18,6 +18,65 @@ export class CustomerDetailsService {
   customerUrl = 'customer';
   selectedCustomer;
 
+  customerData = [
+    {cid:1, fname:'Dean', lname:'Winchester', type:1},
+    {cid:2, fname:'Sam', lname:'Winchester', type:1},
+    {cid:3, name:'MASS', regno:'111', type:2},
+    {cid:4, name:'Phoenix', regno:'101', type:2}
+  ]
+
+  quotationData = [
+    {id:1, cid:1, qno:'AB-123', expirydate:'07/30/2020'},
+    {id:2, cid:2, qno:'AB-222', expirydate:'08/01/2020'},
+  ]
+
+  inquiry: any;
+
+  inquiryData = [
+    {
+    id: 1,
+    cid: 1,
+    fname: 'Mark',
+    lname: 'George',
+    nic: '957823918V',
+    cperson: 'Micheal',
+    cno: '0719873701',
+    handlingcompany: 'Dimo',
+    status: 'Need Consent'
+  },
+{
+  id: 2,
+  cid: 2,
+  name: 'Unicorn',
+  regno: '13',
+  cperson: 'Fred',
+  cno: '0701231234',
+  handlingcompany: 'Ingenii',
+  status: 'Send Quotation'
+},
+{
+  id: 3,
+    cid: 3,
+  fname: 'Dean',
+  lname: 'Winchester',
+  nic: '979238792V',
+  cperson: 'Sam',
+  cno: '0769182732',
+  handlingcompany: 'Dialog',
+  status: 'Remind Customer'
+},
+{
+  id: 4,
+    cid: 4,
+  name: 'Phoenix',
+  regno: '15',
+  cperson: 'Sam',
+  cno: '0769182732',
+  handlingcompany: 'Dialog',
+  status: 'Other'
+},
+];
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -25,31 +84,6 @@ export class CustomerDetailsService {
     private commonHttpService: CommonHttpService
   ) {
   }
-
-  employee1= [
-    { id: '1', name: 'thilini',company : 'Ingenii',type :'Individual'},
-    { id: '2', name: 'sanduni' ,company : 'Ingenii',type :'Individual'},
-    { id : '3',name : 'Chamari',company : 'Ingenii',type :'Individual'},
-    { id : '4',name : 'Nayana',company : 'Ingenii',type :'Individual'},
-    { id : '5',name : 'Amara',company : 'Ingenii',type :'Individual'},
-    { id : '6',name : 'Kasuni',company : 'Ingenii',type :'Individual'},
-    { id : '7',name : 'Malithi',company : 'Ingenii',type :'Individual'},
-    { id : '8',name : 'Amara',company : 'Ingenii',type :'Individual'},
-  ];
-
-  employee2= [
-    { id: '1', name: 'Akila',company : 'Demo',type :'Corporate'},
-    { id: '2', name: 'Siripala' ,company : 'Demo',type :'Corporate'},
-    { id : '3',name : 'Chamila',company : 'Demo',type :'Corporate'},
-    { id : '4',name : 'Herath',company : 'Demo',type :'Corporate'},
-    { id : '5',name : 'Kumari',company : 'Demo',type :'Corporate'},
-    { id : '6',name : 'Banda',company : 'Demo',type :'Corporate'},
-    { id : '7',name : 'manike',company : 'Demo',type :'Corporate'},
-    { id : '8',name : 'Bandara',company : 'Demo',type :'Corporate'},
-  ];
-
-
-
 
   addCustomer(customer: CustomerDetails, nic): Observable<any> {
     customer.nic = nic;
@@ -69,42 +103,58 @@ export class CustomerDetailsService {
     );
   }
 
-  getAllCustomers(): Observable<any> {
-    return this.commonHttpService.getAll(this.customerUrl + '/get').pipe(
+  getQuotation(customerId): Observable<any>{
+    //return this.quotationData.filter(quotationData => quotationData.cid === customerId);
+    return this.http.get( 'http://localhost:3000/quotation/' + customerId).pipe(
       map(data => {
         return data;
       })
     );
   }
 
-//get customer details according to the company
-  getCustomerDetails(handlingCompany: any) {
-try{
-  this.http.get('http://localhost:3000/hellow').subscribe(response=>{
-    console.log(response);
-  })
-}catch (e) {
-  console.log(e);
-}
-
-
-    if(handlingCompany === CompanyType.Ingenii){
-      return this.employee1;
-    }
-    if(handlingCompany === CompanyType.Dimo){
-      return this.employee2;
-    }
-    // return this.commonHttpService.postData(this.customerUrl + '/view',handlingCompany).pipe(  // http://localhost:5000/admin/customer
-    //   map(data => {
-    //     console.log(data);
-    //     return data;
-    //   })
-    // );
-
-
+  getAllInquiry(): Observable<any>{
+    //return this.inquiryData;
+    return this.http.get('http://localhost:3000/inquiry/inquiryDetails').pipe(
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
   }
 
 
+  getCustomerDetails(handlingCompany: any) {
+    return this.commonHttpService.postData(this.customerUrl + '/view', handlingCompany).pipe(
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
+  }
+
+  getCustomerList(): Observable<any>{
+    //return this.customerData;
+    return this.http.get('http://localhost:3000/customer/getAllCustomers').pipe(
+      map(data => {
+        return data;
+      })
+    );
+
+    // this.http.get('http://localhost:3000/hellow').subscribe(res=>{
+    //   console.log(res);
+    // })
+  }
+
+  clickedGotConsent(InquiryId): Observable<any> {
+    // this.inquiry = this.inquiryData.filter(inquiryData=> inquiryData.id === inqiryId);
+    // this.inquiry.status = 'Send_Quotation';
+    // return this.inquiry;
+    return this.commonHttpService.postUploadData(this.customerUrl + '/quatation', InquiryId).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
 
 
 }

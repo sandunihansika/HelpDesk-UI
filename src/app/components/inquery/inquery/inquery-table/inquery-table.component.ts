@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
 import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType, Status} from '../../../../shared/services/common/enum';
+import {Alignment, ColumnType, CompanyType, Status} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
@@ -37,6 +37,12 @@ export class InqueryTableComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.setInquiryColumns();
+    this.setInquiryRowColumns();
+
+  }
+
+  setInquiryColumns() {
     this.inqueryGrid.columnsList = [
       {
         mappingName: 'id',
@@ -47,15 +53,16 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'cid',
+        mappingName: 'customerId',
         columnName: 'Customer Id',
-        columnType: ColumnType.Text,
+        columnType: ColumnType.Number,
         columnAlignment: Alignment.Left,
         columnWidth: 75,
         columnFormat: null
       },
       {
-        mappingName: 'fname',
+        mappingName: 'customer',
+        subMappingName: 'firstName',
         columnName: 'First Name',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -63,7 +70,8 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'lname',
+        mappingName: 'customer',
+        subMappingName: 'lastName',
         columnName: 'Last Name',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -71,7 +79,8 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'name',
+        mappingName: 'customer',
+        subMappingName: 'companyName',
         columnName: 'Company Name',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -79,7 +88,8 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'regno',
+        mappingName: 'customer',
+        subMappingName: 'companyRegistrationNo',
         columnName: 'Reg. No',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -87,7 +97,8 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'nic',
+        mappingName: 'customer',
+        subMappingName: 'nicNumber',
         columnName: 'NIC',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -95,23 +106,23 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'cperson',
-        columnName: 'Contact Person',
+        mappingName: 'contactPerson',
+        columnName: 'Contact Person Name',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 110,
         columnFormat: null
       },
       {
-        mappingName: 'cno',
-        columnName: 'Contact No',
+        mappingName: 'contactPersonNumber',
+        columnName: 'Contact Person No',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
         columnFormat: null
       },
       {
-        mappingName: 'handlingcompany',
+        mappingName: 'handlingCompanyName',
         columnName: 'Handling Company',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -126,16 +137,9 @@ export class InqueryTableComponent implements OnInit {
       //   columnWidth: 100,
       //   columnFormat: "yyyy-MM-dd"
       // },
-      // {
-      //   mappingName: 'address',
-      //   columnName: 'Address',
-      //   columnType: ColumnType.Text,
-      //   columnAlignment: Alignment.Left,
-      //   columnWidth: 100,
-      //   columnFormat: null
-      // },
       {
         mappingName: 'status',
+        subMappingName: 'name',
         columnName: 'Status',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -143,76 +147,38 @@ export class InqueryTableComponent implements OnInit {
         columnFormat: null
       }
     ];
+  }
 
-    this.inqueryGrid.rowLists = [
-      {
-        id: 1,
-        cid: 1,
-        fname: 'Mark',
-        lname: 'George',
-        nic: '957823918V',
-        cperson: 'Micheal',
-        cno: '0719873701',
-        handlingcompany: 'Dimo',
-        status: 'Need_Consent'
+  setInquiryRowColumns() {
+    //this.inqueryGrid.rowLists = this.CustomerDetailsService.getAllInquiry();
+    this.CustomerDetailsService.getAllInquiry().subscribe(
+      (list: any) => {
+        this.inqueryGrid.dataLoading = false;
+        if(list !== undefined) {
+          if(list) {
+            list.forEach((item: any) => {
+              Object.assign(item, {
+                handlingCompanyName: this.getHandlingCompanyName(item.customer['handlingCompany'])
+              });
+            });
+            this.inqueryGrid.rowLists = list;
+          } else {
+            this.inqueryGrid.rowLists = [];
+          }
+        }
       },
-      {
-        id: 2,
-        cid: 2,
-        name: 'Unicorn',
-        regno: '13',
-        cperson: 'Fred',
-        cno: '0701231234',
-        handlingcompany: 'Ingenii',
-        status: 'Send_Quotation'
-      },
-      {
-        id: 3,
-        cid: 3,
-        fname: 'Dean',
-        lname: 'Winchester',
-        nic: '979238792V',
-        cperson: 'Sam',
-        cno: '0769182732',
-        handlingcompany: 'Dialog',
-        status: 'Remind_Customer'
-      },
-      {
-        id: 4,
-        cid: 4,
-        name: 'Phoenix',
-        regno: '15',
-        cperson: 'Sam',
-        cno: '0769182732',
-        handlingcompany: 'Dialog',
-        status: 'Other'
-      },
-    ];
+      error => {
+        this.inqueryGrid.dataLoading = false;
+      }
+    );
+  }
 
-    // this.inqueryGrid.dataLoading = true;
-    // this.CustomerDetailsService.getAllCustomers().subscribe(
-    //   (list: any) => {
-    //     this.inqueryGrid.dataLoading = false;
-    //     if (list !== undefined) {
-    //       if (list.data) {
-    //         this.inqueryGrid.rowLists = list.data;
-    //         this.inqueryGrid.rowLists.forEach((item: any) => {
-    //           Object.assign(item, {
-    //             handlingCompanyName: this.getHandlingCompanyName(item['clientId']),
-    //             displayName: item['company'] !== null ? item['company']['displayName'] : 'No Company'
-    //           });
-    //         });
-    //       } else {
-    //         this.inqueryGrid.rowLists = [];
-    //       }
-    //     }
-    //   },
-    //   error => {
-    //     this.inqueryGrid.dataLoading = false;
-    //   }
-    // );
-
-
+  getHandlingCompanyName(item: number) {
+    if (item === CompanyType.Dimo) {
+      return 'Dimo';
+    } else if (item === CompanyType.Ingenii) {
+      return 'Ingenii';
+    }
   }
 
   viewQuotation(item) {
@@ -230,9 +196,10 @@ export class InqueryTableComponent implements OnInit {
     this.display = true;
   }
 
-  gotConsent() {
+  gotConsent(event) {
     try {
-      this.route.navigate(['inquiry'])
+      this.inqueryGrid.rowLists[0] = this.CustomerDetailsService.clickedGotConsent(event);
+      //this.route.navigate(['inquiry'])
     } catch (error) {
       return error;
     }

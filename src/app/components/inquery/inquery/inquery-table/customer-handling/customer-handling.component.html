@@ -1,33 +1,43 @@
-
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 ">
       <div class="card">
-        <div class="ui-fluid p-formgrid p-grid">
-          <div class="p-field p-col-12 p-md-6">
-            <label for="customer">Select Inquiry Type</label>
-            <app-common-dropdown [fields]='comp' placeholder="Select inquiry type" (selectChange)="getCompany($event)"></app-common-dropdown>
-          </div>
-          <div class="p-field p-col-12 p-md-6">
-            <label for="customer">Select Company</label>
-            <app-common-dropdown [fields]='comp' placeholder="Select Company" (selectChange)="getCompany($event)"></app-common-dropdown>
+        <div class="card-body">
+          <form novalidate
+                (ngSubmit)="getCustomer()"
+                [formGroup]="individualCorpCustomerForm">
+            <div class="ui-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-md-6">
+                <label>Select Inquiry Type</label>
+                <app-common-dropdown [fields]='customers' placeholder="Select inquiry type"
+                                     (selectChange)="getCompanySelected($event)"></app-common-dropdown>
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <label>Select Company</label>
+                <app-common-dropdown [fields]='customers' (selectChange)="getCompanySelected($event)"
+                                     formControlName="handlingCustomer"></app-common-dropdown>
+              </div>
+            </div>
+            <br> <br>
+            <label>Select Customer</label>
+            <div class="ui-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-md-6">
+                <label>New Customer</label>
+                <p-radioButton name="customer" value="new" formControlName="customerStatus"
+                               (onClick)="getCustomerStuatus(customerStatus)"></p-radioButton>
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <label>Existing Customer</label>
+                <p-radioButton name="customer" value="exist" formControlName="customerStatus"
+                               (onClick)="getCustomerStuatus(customerStatus)"></p-radioButton>
+              </div>
+            </div>
+            <div *ngIf="formEnable">
+              <app-common-dropdown [fields]='customers' (selectChange)="getCustomerId($event)"
+                                   formControlName="handlingCustomer"></app-common-dropdown>
+            </div>
 
-          </div>
-        </div>
-        <br> <br>
-        <label for="customer">Select Customer</label>
-        <div class="ui-fluid p-formgrid p-grid">
-          <div class="p-field p-col-12 p-md-6">
-            <label>New Customer</label>
-            <p-radioButton name="customer" value="new" [(ngModel)]="selectedValue" (onClick)="getValue(selectedValue)"></p-radioButton>
-          </div>
-          <div class="p-field p-col-12 p-md-6">
-            <label>Existing Customer</label>
-            <p-radioButton name="customer" value="exist" [(ngModel)]="selectedValue"  (onClick)="getValue(selectedValue)"></p-radioButton>
-          </div>
-        </div>
-        <div *ngIf="formEnqble">
-          <app-common-dropdown [fields]='employeeType' placeholder="select customer" (selectChange)="getCostomerId($event)"></app-common-dropdown>
+          </form>
         </div>
       </div>
     </div>

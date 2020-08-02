@@ -17,8 +17,8 @@
   icon="pi pi-check-square"
   label="Got Consent"
   iconPos="left"
-  (click)="gotConsent()"
-  *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Need_Consent'"
+  (click)="gotConsent(inqueryGrid.selectedEntity.id)"
+  *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Need consent'"
 ></button>
   <button
     type="button"
@@ -27,8 +27,7 @@
     icon="pi pi-check-square"
     label="Approved Quotation"
     iconPos="left"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Remind customer'"
   ></button>
   <button
     type="button"
@@ -37,8 +36,7 @@
     label="Rejected Quotation"
     iconPos="left"
     class="btn-reject"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Remind customer'"
   ></button>
   <button
     type="button"
@@ -48,8 +46,7 @@
     label="Resend Quotation"
     iconPos="left"
     class="btn-resend"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Remind customer'"
   ></button>
   <button
     type="button"
@@ -58,8 +55,7 @@
     icon="pi pi-check-square"
     label="Mark As Done"
     iconPos="left"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Other'"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Other'"
   ></button>
 
 </app-common-grid>
