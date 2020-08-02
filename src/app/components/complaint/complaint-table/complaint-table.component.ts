@@ -12,12 +12,16 @@ export class ComplaintTableComponent implements OnInit {
   @ViewChild('complaintGrid', {static: true}) complaintGrid: CommonGridComponent;
 
   addAllow = true;
-  editAllow = false;
+  // editAllow = true;
   showToolBar = true;
   deleteAllow = false;
   showSearchBox = true;
   display = false;
   status ="pending";
+  status1 ="pending";
+  status2 ="pending";
+  status3 ="pending";
+
 
   addButtonClick() {
     this.display = true;
@@ -92,7 +96,7 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719813701',
         description : 'not working',
-        status: this.status
+        status: 'Pending'
       },
       {
         id: 2,
@@ -101,7 +105,7 @@ export class ComplaintTableComponent implements OnInit {
         type : 'Sim Problem',
         cno: '0719473701',
         description : 'not working',
-        status: this.status
+        status: this.status3
       }, {
         id: 3,
         name: 'Eleena',
@@ -132,9 +136,10 @@ export class ComplaintTableComponent implements OnInit {
    }
 
   changeStatus(event){
-    // this.status = "completed";
-    // this.ngOnInit();
     console.log("helooooooo")
+    this.status = "completed";
+    this.ngOnInit();
+
   }
 
 

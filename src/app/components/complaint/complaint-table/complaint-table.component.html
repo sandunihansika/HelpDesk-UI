@@ -2,7 +2,6 @@
   #complaintGrid
   header = "Complaint Details"
   [addAllow]="addAllow"
-  [editAllow]="editAllow"
   [showToolBar]="showToolBar"
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
@@ -13,15 +12,13 @@
   pButton
   style="margin-right: .25em"
   icon="pi pi-check-square"
-  label="Got Consent"
+  label="Completed"
   iconPos="left"
   (click)="changeStatus($event)"
-  *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === "
-  ></button>
-
-
+  *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "
+  >Completed</button>
 </app-common-grid>
 
 <p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
-  <h2>Hi Thilini</h2>
+<app-complaint-form></app-complaint-form>
 </p-dialog>
