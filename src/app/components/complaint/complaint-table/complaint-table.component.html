@@ -1,24 +1,24 @@
 <app-common-grid
   #complaintGrid
-  header = "Complaint Details"
+  header = "Complain Details"
   [addAllow]="addAllow"
   [showToolBar]="showToolBar"
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
   (addBtnClicked)="addButtonClick()"
 >
-<button
-  type="button"
-  pButton
-  style="margin-right: .25em"
-  icon="pi pi-check-square"
-  label="Completed"
-  iconPos="left"
-  (click)="changeStatus($event)"
-  *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "
+  <button
+    type="button"
+    pButton
+    style="margin-right: .25em"
+    icon="pi pi-check-square"
+    label="Completed"
+    iconPos="left"
+    (click)="changeStatus($event)"
+    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "
   >Completed</button>
 </app-common-grid>
 
 <p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
-<app-complaint-form></app-complaint-form>
+  <app-complaint-form></app-complaint-form>
 </p-dialog>

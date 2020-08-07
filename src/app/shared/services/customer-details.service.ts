@@ -157,4 +157,13 @@ export class CustomerDetailsService {
   }
 
 
+  getAllComplains() : Observable<any>{
+    return this.http.get('http://localhost:3000/complain/complainDetails').pipe(
+      map(data=>{
+        console.log(data);
+        return data;
+      })
+    )
+  }
+
 }
