@@ -7,18 +7,39 @@
   [showSearchBox]="showSearchBox"
   (addBtnClicked)="addButtonClick()"
 >
+<!--  <button-->
+<!--    type="button"-->
+<!--    pButton-->
+<!--    style="margin-right: .25em"-->
+<!--    icon="pi pi-check-square"-->
+<!--    label="Completed"-->
+<!--    iconPos="left"-->
+<!--    (click)="changeStatus($event)"-->
+<!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
+<!--  >Completed</button>-->
   <button
-    type="button"
-    pButton
-    style="margin-right: .25em"
-    icon="pi pi-check-square"
-    label="Completed"
+    class="btn btn-success"
+    style="margin-left:10px"
     iconPos="left"
-    (click)="changeStatus($event)"
-    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "
+    (click)="changeStatus(complaintGrid.selectedEntity.id)"
+    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
+
   >Completed</button>
 </app-common-grid>
 
 <p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
   <app-complaint-form></app-complaint-form>
 </p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+

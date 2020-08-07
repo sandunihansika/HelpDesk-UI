@@ -156,7 +156,7 @@ export class CustomerDetailsService {
     );
   }
 
-
+//get complaint details for grid
   getAllComplains() : Observable<any>{
     return this.http.get('http://localhost:3000/complain/complainDetails').pipe(
       map(data=>{
@@ -164,6 +164,17 @@ export class CustomerDetailsService {
         return data;
       })
     )
+  }
+
+  //update status of complain table
+
+  updateComplainStatus(id, statusId) : Observable<any>{
+     return this.http.post('http://localhost:3000/complain/changeComplainStatus',{id,statusId}).pipe(
+        map(data=>{
+          console.log(data);
+          return data;
+        })
+      )
   }
 
 }

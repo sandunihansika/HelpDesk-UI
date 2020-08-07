@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonGridComponent} from '../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType, CompanyType} from '../../../shared/services/common/enum';
+import {Alignment, ColumnType, CompanyType, Status} from '../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../shared/services/customer-details.service';
 
 @Component({
@@ -35,58 +35,8 @@ export class ComplaintTableComponent implements OnInit {
 
    this.setComplainColomn();
    this. setComplainRow();
-    // this.complaintGrid.rowLists = [
-    //   {
-    //     id: 1,
-    //     name: 'Mark',
-    //     handlingcompany : 'Ingenii',
-    //     type : 'Sim Problem',
-    //     cno: '0719813701',
-    //     cperson : 'Amila',
-    //     description : 'not working',
-    //     status: 'Pending'
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Danial',
-    //     handlingcompany : 'Ingenii',
-    //     type : 'Sim Problem',
-    //     cno: '0719473701',
-    //     cperson : 'Ann',
-    //     description : 'not working',
-    //     status: this.status3
-    //   }, {
-    //     id: 3,
-    //     name: 'Eleena',
-    //     handlingcompany : 'Dimo',
-    //     type : 'Sim Problem',
-    //     cno: '0719873801',
-    //     cperson : 'Jerry',
-    //     description : 'not working',
-    //     status: this.status
-    //   }, {
-    //     id: 4,
-    //     name: 'Bella',
-    //     handlingcompany : 'Dimo',
-    //     type : 'Sim Problem',
-    //     cno: '0719873705',
-    //     cperson : 'Bimsara',
-    //     description : 'not working',
-    //     status: this.status
-    //   }, {
-    //     id: 5,
-    //     name: 'Kevin',
-    //     handlingcompany : 'Dialog',
-    //     type : 'Sim Problem',
-    //     cno: '0719845705',
-    //     cperson : 'Jimmy',
-    //     description : 'not working',
-    //     status: this.status
-    //   },
-    //
-    // ]
-   }
 
+   }
 
    setComplainColomn(){
      this.complaintGrid.columnsList = [
@@ -164,6 +114,7 @@ export class ComplaintTableComponent implements OnInit {
    setComplainRow() {
      this.customerDetailsService.getAllComplains().
      subscribe((list : any)=>{
+       // console.log(list.status.name);
        this.complaintGrid.dataLoading = false;
        if(list !== undefined){
          if(list){
@@ -186,19 +137,46 @@ export class ComplaintTableComponent implements OnInit {
    }
 
 
-  changeStatus(event){
-    console.log("helooooooo")
-    this.status = "completed";
-    this.ngOnInit();
-
-  }
+  // changeStatus(event){
+  //   console.log("helooooooo")
+  //   this.status = "completed";
+  //   this.ngOnInit();
+  //
+  // }
   getHandlingCompanyName(item: number) {
-    if (item === CompanyType.Dimo) {
-      return 'Dimo';
-    } else if (item === CompanyType.Ingenii) {
-      return 'Ingenii';
+    try{
+      if (item === CompanyType.Dimo) {
+        return 'Dimo';
+      } else if (item === CompanyType.Ingenii) {
+        return 'Ingenii';
+      }
+    }
+    catch (e) {
+      console.log(e);
     }
   }
+
+  changeStatus(event){
+    const status = Status.SendQuotation;
+    const id = event;
+    console.log(event);
+
+    try{
+      this.customerDetailsService.updateComplainStatus(id,status).
+      subscribe((res)=>{
+        location.reload();
+      })
+    }
+    catch (e) {
+      console.log(e);
+    }
+    // try {
+    //   this.inqueryGrid.rowLists[0] = this.CustomerDetailsService.clickedGotConsent(event);
+    //   //this.route.navigate(['inquiry'])
+    // } catch (error) {
+    //   return error;
+  }
+
 
 
 }

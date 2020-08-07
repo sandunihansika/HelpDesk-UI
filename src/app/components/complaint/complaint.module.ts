@@ -7,10 +7,14 @@ import {CommonGridComponent} from '../../shared/components/common-grid/common-gr
 import {DialogModule} from 'primeng/dialog';
 import {InqueryModule} from '../inquery/inquery/inquery.module';
 import {ComplaintFormComponent} from './complaint-form/complaint-form.component';
+
+
+
 @NgModule({
   declarations : [
     ComplaintTableComponent,
-    ComplaintFormComponent
+    ComplaintFormComponent,
+
 
   ],
   imports: [
