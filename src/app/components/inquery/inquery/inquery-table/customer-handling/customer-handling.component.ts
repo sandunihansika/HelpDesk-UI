@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FormValidationHelpers} from '../../../../../shared/helpers/form-validation-helpers';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
 import {CompanyCustomerDeails} from './CompanyCustomerDeails';
-import {CustomerType} from '../../../../../shared/services/common/enum';
-import {CompanyType} from '../../../../../shared/services/common/enum';
-import {TextBoxTypes} from '../../../../../shared/services/common/enum';
-import {InqueryType} from '../../../../../shared/services/common/enum';
+import {CompanyType, CustomerType, InqueryType, TextBoxTypes} from '../../../../../shared/services/common/enum';
+
 
 @Component({
   selector: 'app-customer-handling',
@@ -28,13 +26,27 @@ export class CustomerHandlingComponent implements OnInit {
   selectedValue: string;
   formEnable: boolean = true;
   display: boolean;
+  cTypes: typeof CustomerType = CustomerType;
+  customerType: CustomerType;
+  InqueryType = [];
+  companyType = [];
 
   constructor(
-    private customerService: CustomerDetailsService,
+    private customerservice: CustomerDetailsService,
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers
   ) {
     this.companyCustomerDetails = new CompanyCustomerDeails();
+    this.InqueryType = [
+      {id: InqueryType.Details, name: 'Details'},
+      {id: InqueryType.Quotation, name: 'Quotation'},
+      {id: InqueryType.Quotation_with_details, name: 'Quotation with Details'}
+    ];
+
+    this.companyType = [
+      {id: CompanyType.Ingenii, name: 'Ingenii'},
+      {id: CompanyType.Dimo, name: 'Dimo'},
+    ]
   }
 
 
@@ -67,8 +79,6 @@ export class CustomerHandlingComponent implements OnInit {
     });
     console.log(this.individualCorpCustomerForm.value.customerStatus);
     this.getCustomer(); //send the handlingcompany
-
-
   }
 
   customers = []; /*array of customers */
@@ -90,7 +100,7 @@ export class CustomerHandlingComponent implements OnInit {
 
   getCompanySelected(event) { //dropdown event
     this.individualCorpCustomerForm.value.handlingCompany = event.id;  //when event fired need to find the relevant id customer form the array
-
+    console.log( this.individualCorpCustomerForm.value.handlingCompany);
   }
 
   filterCustomerDetails(cid) {
@@ -142,12 +152,25 @@ export class CustomerHandlingComponent implements OnInit {
       this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
       return;
     } else if (this.individualCorpCustomerForm.valid) {
-      this.customerService.getCustomerDetails(this.individualCorpCustomerForm.value).subscribe(
+      this.customerservice.getCustomerDetails(this.individualCorpCustomerForm.value).subscribe(
         respond => {
           this.customers = respond;
           console.log(this.customers);
           //when page load first array element get
           this.patchToCustomer(this.customers[0]); // call to patch the selected customer
+        });
+    }
+  }
+
+  saveInquery() {
+    console.log(this.individualCorpCustomerForm.value);
+    if (this.individualCorpCustomerForm.invalid) {
+      this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
+      return;
+    } else if (this.individualCorpCustomerForm.valid) {
+      this.customerservice.addInquery(this.individualCorpCustomerForm.value).subscribe(
+        respond => {
+          /**/
         });
     }
   }
@@ -239,7 +262,6 @@ export class CustomerHandlingComponent implements OnInit {
   get customerStatus() {
     return this.individualCorpCustomerForm.get('customerStatus');
   }
-
 
 
 }

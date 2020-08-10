@@ -31,28 +31,28 @@
                      'is-invalid': (companyRegistrationNo.touched ||companyRegistrationNo.dirty) && (!companyRegistrationNo.valid) }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <label for="companyName">Contact person</label>
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="contactPerson"
-                  id="contactPerson"
-                  [ngClass]="{
-                     'is-invalid': (contactPerson.touched ||contactPerson.dirty) && (!contactPerson.valid) }"></app-common-textbox>
-              </div>
+<!--              <div class="p-field p-col-12 p-md-6">-->
+<!--                <label for="companyName">Contact person</label>-->
+<!--                <app-common-textbox-->
+<!--                  [inputType]="TextBoxTypes.Text"-->
+<!--                  formControlName="contactPerson"-->
+<!--                  id="contactPerson"-->
+<!--                  [ngClass]="{-->
+<!--                     'is-invalid': (contactPerson.touched ||contactPerson.dirty) && (!contactPerson.valid) }"></app-common-textbox>-->
+<!--              </div>-->
 
-              <div class="p-field p-col-12 p-md-6">
-                <label for="ContactPerson">Contact Number<span class="form-error"></span>
-                  <span *ngIf="contactNo.touched && contactNo.errors?.required"
-                        class="form-error"> contact number is required!</span>
-                </label>
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="contactNo"
-                  id="contactNo"
-                  [ngClass]="{
-                     'is-invalid': (contactNo.touched ||contactNo.dirty) && (!contactNo.valid) }"></app-common-textbox>
-              </div>
+<!--              <div class="p-field p-col-12 p-md-6">-->
+<!--                <label for="ContactPerson">Contact Number<span class="form-error"></span>-->
+<!--                  <span *ngIf="contactNo.touched && contactNo.errors?.required"-->
+<!--                        class="form-error"> contact number is required!</span>-->
+<!--                </label>-->
+<!--                <app-common-textbox-->
+<!--                  [inputType]="TextBoxTypes.Text"-->
+<!--                  formControlName="contactNo"-->
+<!--                  id="contactNo"-->
+<!--                  [ngClass]="{-->
+<!--                     'is-invalid': (contactNo.touched ||contactNo.dirty) && (!contactNo.valid) }"></app-common-textbox>-->
+<!--              </div>-->
 
               <div class="p-field p-col-12 p-md-6">
                   <label for="companyName">Vat Number</label>
@@ -83,6 +83,11 @@
                   id="email"
                   [ngClass]="{
                      'is-invalid': (email.touched ||email.dirty) && (!email.valid) }"></app-common-textbox>
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <label>Select Company</label>
+                <app-common-dropdown [fields]="companyType" formControlName="handlingCompany"
+                ></app-common-dropdown>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label for="country">Country<span class="form-error"></span>

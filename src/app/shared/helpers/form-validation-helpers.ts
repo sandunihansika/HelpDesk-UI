@@ -8,6 +8,7 @@ export class FormValidationHelpers {
   }
 
   validateAllFormFields(formGroup: FormGroup) {  // save when fileds without filled
+    console.log(formGroup);
     Object.keys(formGroup.controls).forEach(fields => {
       const control = formGroup.get('field');
       if (control instanceof FormControl) {

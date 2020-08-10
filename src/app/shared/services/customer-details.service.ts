@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from './auth/authentication.service';
 import {CommonHttpService} from './common/common-http.service';
 import {Quatation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
+import {CompanyCustomerDeails} from '../../components/inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails';
 import {environment} from '../../../environments/environment';
 import {CompanyType} from './common/enum';
 
@@ -26,9 +27,14 @@ export class CustomerDetailsService {
   ) {
   }
 
-  addCustomer(customer: CustomerDetails, nic): Observable<any> {
-    customer.nic = nic;
-    return this.commonHttpService.postData(this.customerUrl + '/add', customer).pipe(  // http://localhost:5000/admin/customer/add//
+  addCustomer(customer: CustomerDetails): Observable<any> {
+    console.log(customer);
+    // return this.http.post('http://localhost:3000/customer/addCustomer', customer).pipe(
+    //   map(data => {
+    //     return data;
+    //   })
+    // );
+    return this.commonHttpService.postData(this.customerUrl + '/addCustomer', customer).pipe(  // http://localhost:5000/admin/customer/add//
       map(data => {
         return data;
       })
@@ -38,6 +44,14 @@ export class CustomerDetailsService {
   addQuatation(quatation: Quatation, customerId): Observable<any> {
     quatation.customerId = customerId;
     return this.commonHttpService.postUploadData(this.customerUrl + '/quatation', quatation).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  addInquery(inquery: CompanyCustomerDeails): Observable<any> {
+    return this.commonHttpService.postData(this.customerUrl + '/inquery', inquery).pipe(
       map(data => {
         return data;
       })
@@ -61,6 +75,5 @@ export class CustomerDetailsService {
       })
     );
   }
-
 
 }

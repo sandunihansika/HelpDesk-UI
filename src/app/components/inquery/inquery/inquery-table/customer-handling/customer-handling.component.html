@@ -4,24 +4,25 @@
       <div class="card">
         <div class="card-body">
           <form novalidate
-                (ngSubmit)="getCustomer()"
+                (ngSubmit)="saveInquery()"
                 [formGroup]="individualCorpCustomerForm">
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
                 <label>Select Inquiry Type</label>
-                <app-common-dropdown [fields]='customers' placeholder="Select inquiry type"
-                                     (selectChange)="getCompanySelected($event)"></app-common-dropdown>
+                <app-common-dropdown [fields]="InqueryType" placeholder="Select inquiry type"
+                                     formControlName="inqueryType"></app-common-dropdown>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label>Select Company</label>
-                <app-common-dropdown [fields]='customers' (selectChange)="getCompanySelected($event)"
-                                     formControlName="handlingCustomer"></app-common-dropdown>
+                <app-common-dropdown [fields]="companyType" formControlName="handlingCompany"
+                ></app-common-dropdown>
               </div>
             </div>
             <br> <br>
-            <label>Select Customer</label>
+
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
+                <label>Select Customer</label>
                 <label>New Customer</label>
                 <p-radioButton name="customer" value="new" formControlName="customerStatus"
                                (onClick)="getCustomerStuatus(customerStatus)"></p-radioButton>
@@ -31,12 +32,232 @@
                 <p-radioButton name="customer" value="exist" formControlName="customerStatus"
                                (onClick)="getCustomerStuatus(customerStatus)"></p-radioButton>
               </div>
+              <div class="p-field p-col-12 p-md-6">
+                <div *ngIf="formEnable">
+                  <app-common-dropdown [fields]='customers' (selectChange)="getCustomerId($event)"
+                                       formControlName="handlingCustomer"></app-common-dropdown>
+                </div>
+              </div>
             </div>
-            <div *ngIf="formEnable">
-              <app-common-dropdown [fields]='customers' (selectChange)="getCustomerId($event)"
-                                   formControlName="handlingCustomer"></app-common-dropdown>
-            </div>
+            <div class="ui-fluid p-formgrid p-grid">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
+                <label for="firstName">First name<span class="form-error">* </span>
+                  <span *ngIf="firstName.touched && firstName.errors?.required"
+                        class="form-error">  First name is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="firstName"
+                  placeholder="First name"
+                  id="firstName"
+                  [ngClass]="{
+            'is-invalid': (firstName.touched ||firstName.dirty) && !firstName.valid }"></app-common-textbox>
+              </div>
 
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
+                <label for="lastName">Last name<span class="form-error">* </span>
+                  <span *ngIf="lastName.touched && lastName.errors?.required"
+                        class="form-error">  Last name is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="lastName"
+                  placeholder="Last name"
+                  id="lastName"
+                  [ngClass]="{
+            'is-invalid': (lastName.touched ||lastName.dirty) && !lastName.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-12" *ngIf="customerType === cTypes.Corporate">
+                <label for="companyName">Company Name<span class="form-error">* </span>
+                  <span *ngIf="companyName.touched && companyName.errors?.required"
+                        class="form-error">  Company Name is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="companyName"
+                  placeholder="Company Name"
+                  id="companyName"
+                  [ngClass]="{
+            'is-invalid': (companyName.touched ||companyName.dirty) && !companyName.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
+                <label for="telNo">Contact No<span class="form-error">* </span>
+                  <span *ngIf="telNo.touched && telNo.errors?.required"
+                        class="form-error">  Contact No is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="telNo"
+                  placeholder="Contact No"
+                  id="telNo"
+                  [ngClass]="{
+            'is-invalid': (telNo.touched ||telNo.dirty) && !telNo.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
+                <label for="companyRegistrationNo">Registration No<span class="form-error">* </span>
+                  <span *ngIf="companyRegistrationNo.touched && companyRegistrationNo.errors?.required"
+                        class="form-error">  Registration No is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="companyRegistrationNo"
+                  placeholder="Registration No"
+                  id="companyRegistrationNo"
+                  [ngClass]="{
+            'is-invalid': (companyRegistrationNo.touched ||companyRegistrationNo.dirty) && !companyRegistrationNo.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
+                <label for="ppNo">Passport No<span class="form-error">* </span>
+                  <span *ngIf="ppNo.touched && ppNo.errors?.required"
+                        class="form-error">  Passport No is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="ppNo"
+                  placeholder="Passport No"
+                  id="ppNo"
+                  [ngClass]="{
+            'is-invalid': (ppNo.touched ||ppNo.dirty) && !ppNo.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
+                <label for="nic">Nic<span class="form-error">* </span>
+                  <span *ngIf="nic.touched && nic.errors?.required"
+                        class="form-error">  Nic is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="nic"
+                  placeholder="Nic"
+                  id="nic"
+                  [ngClass]="{
+            'is-invalid': (nic.touched ||nic.dirty) && !nic.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
+                <label for="taxNumber">Tax No<span class="form-error">* </span>
+                  <span *ngIf="taxNumber.touched && taxNumber.errors?.required"
+                        class="form-error">  Tax No is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="taxNumber"
+                  placeholder="Tax No"
+                  id="taxNumber"
+                  [ngClass]="{
+            'is-invalid': (taxNumber.touched ||taxNumber.dirty) && !taxNumber.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
+                <label for="vatNumber">Vat No<span class="form-error">* </span>
+                  <span *ngIf="vatNumber.touched && vatNumber.errors?.required"
+                        class="form-error">  Vat No is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="vatNumber"
+                  placeholder="Vat No"
+                  id="vatNumber"
+                  [ngClass]="{
+            'is-invalid': (vatNumber.touched ||vatNumber.dirty) && !vatNumber.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="email">Email<span class="form-error">* </span>
+                  <span *ngIf="email.touched && email.errors?.required"
+                        class="form-error">  Email is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="email"
+                  placeholder="Email"
+                  id="email"
+                  [ngClass]="{
+            'is-invalid': (email.touched ||email.dirty) && !email.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="country">Country<span class="form-error">* </span>
+                  <span *ngIf="country.touched && country.errors?.required"
+                        class="form-error">  Country is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="country"
+                  placeholder="Country"
+                  id="country"
+                  [ngClass]="{
+            'is-invalid': (country.touched ||country.dirty) && !country.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="city">City<span class="form-error">* </span>
+                  <span *ngIf="city.touched && city.errors?.required"
+                        class="form-error">  City is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="city"
+                  placeholder="City"
+                  id="city"
+                  [ngClass]="{
+            'is-invalid': (city.touched ||city.dirty) && !city.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="zipCode">Zip<span class="form-error">* </span>
+                  <span *ngIf="zipCode.touched && zipCode.errors?.required"
+                        class="form-error">  Zip is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="zipCode"
+                  placeholder="Zip"
+                  id="zipCode"
+                  [ngClass]="{
+            'is-invalid': (zipCode.touched ||zipCode.dirty) && !zipCode.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="streetAddressLineOne">AddressLine 1<span class="form-error">* </span>
+                  <span *ngIf="streetAddressLineOne.touched && streetAddressLineOne.errors?.required"
+                        class="form-error">  AddressLine 1 is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="streetAddressLineOne"
+                  placeholder="AddressLine 1"
+                  id="streetAddressLineOne"
+                  [ngClass]="{
+            'is-invalid': (streetAddressLineOne.touched ||streetAddressLineOne.dirty) && !streetAddressLineOne.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="streetAddressLineTwo">AddressLine 2<span class="form-error">* </span>
+                  <span *ngIf="streetAddressLineTwo.touched && streetAddressLineTwo.errors?.required"
+                        class="form-error">  AddressLine 2 is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="streetAddressLineTwo"
+                  placeholder="AddressLine 2"
+                  id="streetAddressLineTwo"
+                  [ngClass]="{
+            'is-invalid': (streetAddressLineTwo.touched ||streetAddressLineTwo.dirty) && !streetAddressLineTwo.valid }"></app-common-textbox>
+              </div>
+
+            </div>
+            <div class="offset-md-2 col-md-4">
+              <div class="card-footer">
+                <button type="submit" class="btn btn-primary mr-1">Submit</button>
+                <input type="reset" class="btn btn-light" value="Cancel">
+              </div>
+
+            </div>
           </form>
         </div>
       </div>
