@@ -6,16 +6,23 @@ import {SharedModule} from '../../shared/shared.module';
 import {CommonGridComponent} from '../../shared/components/common-grid/common-grid.component';
 import {DialogModule} from 'primeng/dialog';
 import {InqueryModule} from '../inquery/inquery/inquery.module';
+import {ComplaintFormComponent} from './complaint-form/complaint-form.component';
+
+
+
 @NgModule({
   declarations : [
-    ComplaintTableComponent
+    ComplaintTableComponent,
+    ComplaintFormComponent,
+
 
   ],
   imports: [
     ComplaintRoutingModule,
     SharedModule,
     DialogModule,
-    InqueryModule
+    InqueryModule,
+    CommonModule
   ],
   providers : [],
   exports : []

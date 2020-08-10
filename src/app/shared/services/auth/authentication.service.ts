@@ -40,6 +40,7 @@ export class AuthenticationService {
     return new HttpHeaders()
       .set('userType', UserType.AdminUser.toString())
       .set('clientId', "3")
+
   }
 
   login(email, password, saveDetails) {
@@ -60,6 +61,8 @@ export class AuthenticationService {
               LoggedUserDetails.clientId = decodedToken.clientId;
               LoggedUserDetails.displayName = decodedToken.displayName;
               LoggedUserDetails.token = decodedToken.token;
+              LoggedUserDetails.loginId = decodedToken.globalUserId;
+              console.log( LoggedUserDetails.loginId);
               this.currentUserSubject.next(response.data);  // change the value of currentUserSubject behavior
               this.authEvent.UserLoggedIn.emit()
               return response;

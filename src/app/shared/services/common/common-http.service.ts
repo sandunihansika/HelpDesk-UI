@@ -36,7 +36,8 @@ export class CommonHttpService {
       .set('Content-Type', 'application/json')
       .set('Authorization', 'bearer ' + this.token)
       .set('userType', UserType.AdminUser.toString())
-      .set('clientId', '3');
+      .set('clientId', '3')
+      .set('globalUserId', LoggedUserDetails.loginId);
   }
 
   getMultipartHttpHeaders() {

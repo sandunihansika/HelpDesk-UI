@@ -1,47 +1,61 @@
-<div class="auth-bg-video">
-  <video id="bgvid"  playsinline="" autoplay="" muted=""
-         loop="">
-    <source src="assets/video/auth-bg.mp4" type="video/mp4">
-  </video>
-<div class="cardS">
-  <div class="text-center"><img src="assets/images/endless-logo.png" alt=""></div>
-  <p-card>
-    <form [formGroup]="loginForm" class="theme-form">
-      <div>
-        <div class="p-field p-col-12 p-md-6">
-          <label for="Email">Email<span class="form-error"></span>
-            <span *ngIf="email.touched && email.errors?.required"
-                  class="form-error">  email is required!</span>
-          </label>
-          <app-common-textbox
-            [inputType]="TextBoxTypes.Email"
-            formControlName="email"
-            id="email"
-            [ngClass]="{
-                     'is-invalid': (email.touched ||email.dirty) && (!email.valid) }"></app-common-textbox>
-        </div>
-        <br><br>
-        <div class="p-field p-col-12 p-md-6">
-          <label for="Email">Password<span class="form-error"></span>
-            <span *ngIf=" password.touched &&  password.errors?.required"
-                  class="form-error">  Password is required!</span>
-          </label>
-          <app-common-textbox
-            [inputType]="TextBoxTypes.Password"
-            formControlName="password"
-            id="password"
-            [ngClass]="{'is-invalid': (password.touched ||password.dirty) && (!password.valid) }"></app-common-textbox>
-        </div>
-      </div>
+      <div class="auth-bg-video">
+          <video id="bgvid"  playsinline="" autoplay="" muted=""
+                 loop="">
+            <source src="assets/video/auth-bg.mp4" type="video/mp4">
+          </video>
+          <div class="cardS" style="width:25% !important;">
+            <div class="text-center"><img src="assets/images/endless-logo.png" alt=""></div>
+            <div class="cardS">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-sm-12 ">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 style="text-align: center">Login</h5>
+                        <p style="margin-left: 18%">Enter your email and password</p>
+                      </div>
+                      <form [formGroup]="loginForm" class="theme-form">
+                        <div  class="ui-fluid p-formgrid p-grid">
 
-      <br><br>
-      <button class="btn btn-primary mb-4" (click)="login()">Login</button>
-
-    </form>
-  </p-card>
+                          <div class="p-field p-col-12 p-md-11">
+                              <label style="margin-left: 5px !important;" class="col-form-label pt-0" for="Email">Email<span class="form-error"></span>
+                                <span *ngIf="email.touched && email.errors?.required"
+                                      class="form-error">  email is required!</span>
+                              </label>
+                            <app-common-textbox
+                              [inputType]="TextBoxTypes.Email"
+                              formControlName="email"
+                              id="email"
+                              [ngClass]="{
+                                  'is-invalid': (email.touched ||email.dirty) && (!email.valid) }"></app-common-textbox>
+                          </div>
+                          <br><br>
+                          <div   class="p-field p-col-12 p-md-11">
+                            <label style="margin-left: 5px !important;" class="col-form-label pt-0" for="Email">Password<span class="form-error"></span>
+                              <span *ngIf=" password.touched &&  password.errors?.required"
+                                    class="form-error">  Password is required!</span>
+                            </label>
+                            <app-common-textbox
+                              [inputType]="TextBoxTypes.Password"
+                              formControlName="password"
+                              id="password"
+                              [ngClass]="{'is-invalid': (password.touched ||password.dirty) && (!password.valid) }"></app-common-textbox>
+                          </div>
+                          <div class="checkbox p-0">
+                            <input id="checkbox1" type="checkbox">
+                            <label for="checkbox1">Remember me</label>
+                          </div>
+                        </div>
+                        <br><br>
+                        <button class="btn btn-primary mb-4" (click)="login()">Login</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+  </div>
 </div>
-</div>
-
 
 
 <router-outlet></router-outlet>

@@ -4,4 +4,6 @@ export class LoggedUserDetails {
   public static clientId = '';
   public static displayName = '';
   public static token = '';
+  public static loginId = '';
+
 }
