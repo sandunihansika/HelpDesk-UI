@@ -31,16 +31,17 @@ export class AuthLoginComponent implements OnInit {
 
   loginForm: FormGroup;
   newPassword: string;
-  saveDetails = false;
+  // saveDetails = false;
   url: string;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   user: User = new User();
-
+  spinner : boolean=false;
 
   getFormDetails() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
+      saveDetails : false
 
 
     });
@@ -54,8 +55,12 @@ export class AuthLoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+  get saveDetails(){
+    return this.loginForm.get('saveDetails')
+  }
 
   login() {
+    this.spinner=true;
     try {
       if (this.loginForm.invalid) {
         this.formValidationHelper.validateAllFormFields(this.loginForm);
@@ -63,7 +68,7 @@ export class AuthLoginComponent implements OnInit {
       }
       this.newPassword = this.passwordHash.hashPassword(this.password.value);
 
-      this.authService.login(this.email.value, this.newPassword, this.saveDetails)
+      this.authService.login(this.email.value, this.newPassword, this.saveDetails.value)
         .subscribe(response => {
           if (response && response.statusCode === StatusCodes.Success) {
             console.log('login success');
