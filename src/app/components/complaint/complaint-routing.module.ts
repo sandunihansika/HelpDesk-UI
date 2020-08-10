@@ -10,8 +10,8 @@ const routes: Routes = [
     path : '',
         component : ComplaintTableComponent,
         data: {
-          title: "Complain-table",
-          breadcrumb: "Complain-table"
+          title: "Complaint-table",
+          breadcrumb: "Complaint-table"
         },
   }
 ]

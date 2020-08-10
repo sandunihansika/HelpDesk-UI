@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonGridComponent} from '../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType, CompanyType, Status} from '../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../shared/services/customer-details.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-complaint-table',
@@ -12,7 +13,7 @@ import {CustomerDetailsService} from '../../../shared/services/customer-details.
 export class ComplaintTableComponent implements OnInit {
   @ViewChild('complaintGrid', {static: true}) complaintGrid: CommonGridComponent;
 
-    constructor(private customerDetailsService : CustomerDetailsService) {
+    constructor(private customerDetailsService : CustomerDetailsService , private router : Router) {
     }
 
   addAllow = true;
@@ -164,7 +165,9 @@ export class ComplaintTableComponent implements OnInit {
     try{
       this.customerDetailsService.updateComplainStatus(id,status).
       subscribe((res)=>{
-        location.reload();
+        // location.reload();
+        // this.router.navigate(['complain']);
+        window.location.reload();
       })
     }
     catch (e) {
