@@ -58,8 +58,18 @@ export class CustomerDetailsService {
     );
   }
 
-  getAllCustomers(): Observable<any> {
-    return this.commonHttpService.getAll(this.customerUrl + '/get').pipe(
+  getQuotation(customerId): Observable<any>{
+    //return this.quotationData.filter(quotationData => quotationData.cid === customerId);
+    return this.http.get( 'http://localhost:3000/quotation/' + customerId).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  getAllInquiry(): Observable<any>{
+    //return this.inquiryData;
+    return this.http.get('http://localhost:3000/inquiry/inquiryDetails').pipe(
       map(data => {
         return data;
       })
@@ -75,5 +85,97 @@ export class CustomerDetailsService {
       })
     );
   }
+
+  getCustomerList(): Observable<any>{
+    //return this.customerData;
+    return this.http.get('http://localhost:3000/customer/getAllCustomers').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  getAuditDetails(customerId): Observable<any>{
+    return this.http.get('http://localhost:3000/audit/auditreport/' + customerId).pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  clickedGotConsent(inquiryId, customerId): Observable<any> {
+    // return this.commonHttpService.postUploadData(this.customerUrl + '/quatation', InquiryId).pipe(
+    //   map(data => {
+    //     return data;
+    //   })
+    // );
+    return this.http.put( 'http://localhost:3000/quotation/changeStatus/send/' + inquiryId + '/' + customerId, '').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  clickedApprove(inquiryId, customerId): Observable<any> {
+    return this.http.put( 'http://localhost:3000/quotation/changeStatus/approve/' + inquiryId + '/' + customerId, '').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  clickedReject(inquiryId, customerId): Observable<any> {
+    return this.http.put( 'http://localhost:3000/quotation/changeStatus/reject/' + inquiryId + '/' + customerId, '').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  clickedResend(inquiryId, customerId, handlingCompany): Observable<any> {
+    return this.http.put( 'http://localhost:3000/quotation/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany, '').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  clickedGotReConsent(inquiryId, customerId): Observable<any> {
+    return this.http.put( 'http://localhost:3000/quotation/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId, '').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  clickedSend(inquiryId, customerId): Observable<any> {
+    return this.http.put( 'http://localhost:3000/quotation/changeStatus/remind/' + inquiryId + '/' + customerId,'').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+//get complaint details for grid
+  getAllComplains() : Observable<any>{
+    return this.http.get('http://localhost:3000/complain/complainDetails').pipe(
+      map(data=>{
+        console.log(data);
+        return data;
+      })
+    )
+  }
+
+  //update status of complain table
+
+  updateComplainStatus(id, statusId) : Observable<any>{
+     return this.http.post('http://localhost:3000/complain/changeComplainStatus',{id,statusId}).pipe(
+        map(data=>{
+          console.log(data);
+          return data;
+        })
+      )
+  }
+
 
 }

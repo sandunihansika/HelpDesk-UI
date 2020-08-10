@@ -6,67 +6,105 @@
   [editAllow]="editAllow"
   [showToolBar]="showToolBar"
   [deleteAllow]="deleteAllow"
-  [showQuotation]="showQuotation"
   [showSearchBox]="showSearchBox"
-  (quotationBtnClicked) ="viewQuotation($event)"
   (addBtnClicked)="addButtonClick()"
 ><button
+  pButton
+  type="button"
+  icon="fa fa-file-text-o"
+  style="margin-right: .25em"
+  class="btn-quotation"
+  label="Quotation"
+  (click)="viewQuotation(this.inqueryGrid.selectedEntity)"
+  *ngIf="this.inqueryGrid.selectedEntity && showQuotation"
+></button>
+  <button
+    pButton
+    type="button"
+    style="margin-right: .25em"
+    icon="fa fa-history"
+    class="btn-history"
+    label="View Status History"
+    (click)="viewHistory(this.inqueryGrid.selectedEntity)"
+    *ngIf="this.inqueryGrid.selectedEntity"
+  ></button>
+  <button
   type="button"
   pButton
   style="margin-right: .25em"
-  icon="pi pi-check-square"
+  icon="fa fa-check-square-o"
   label="Got Consent"
   iconPos="left"
-  (click)="gotConsent()"
-  *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Need_Consent'"
+  (click)="gotConsent(this.inqueryGrid.selectedEntity)"
+  *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Need consent'"
 ></button>
   <button
     type="button"
     pButton
     style="margin-right: .25em"
-    icon="pi pi-check-square"
-    label="Approved Quotation"
+    icon="fa fa-check-square-o"
+    label="Got Reconsent"
     iconPos="left"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+    (click)="gotReConsent(this.inqueryGrid.selectedEntity)"
+    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Re-need consent'"
   ></button>
   <button
     type="button"
     pButton
     style="margin-right: .25em"
+    icon="fa fa-check-square-o"
+    label="Approved Quotation"
+    iconPos="left"
+    (click)="approve(this.inqueryGrid.selectedEntity)"
+    *ngIf="inqueryGrid.selectedEntity && (inqueryGrid.selectedEntity.status.name === 'Remind customer' || inqueryGrid.selectedEntity.status.name === 'Re-remind customer')"
+  ></button>
+  <button
+    type="button"
+    pButton
+    style="margin-right: .25em"
+    icon="fa fa-times"
     label="Rejected Quotation"
     iconPos="left"
     class="btn-reject"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+    (click)="reject(this.inqueryGrid.selectedEntity)"
+    *ngIf="inqueryGrid.selectedEntity && (inqueryGrid.selectedEntity.status.name === 'Remind customer' || inqueryGrid.selectedEntity.status.name === 'Re-remind customer')"
   ></button>
   <button
     type="button"
     pButton
     style="margin-right: .25em"
-    icon="pi pi-arrow-circle-right"
+    icon="fa fa-share-square-o"
     label="Resend Quotation"
     iconPos="left"
     class="btn-resend"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Remind_Customer'"
+    (click)="resend(this.inqueryGrid.selectedEntity)"
+    *ngIf="inqueryGrid.selectedEntity && (inqueryGrid.selectedEntity.status.name === 'Remind customer' || inqueryGrid.selectedEntity.status.name === 'Re-remind customer')"
   ></button>
-  <button
-    type="button"
-    pButton
-    style="margin-right: .25em"
-    icon="pi pi-check-square"
-    label="Mark As Done"
-    iconPos="left"
-    (click)="gotConsent()"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status === 'Other'"
-  ></button>
-
+<!--  <button-->
+<!--    type="button"-->
+<!--    pButton-->
+<!--    style="margin-right: .25em"-->
+<!--    icon="fa fa-check"-->
+<!--    label="Mark As Done"-->
+<!--    iconPos="left"-->
+<!--    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Other'"-->
+<!--  ></button>-->
 </app-common-grid>
 
 
-<p-dialog header="Inquiry " [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
+<p-dialog header="Inquiry Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
   <app-customer-handling></app-customer-handling>
+</p-dialog>
+
+<p-dialog header="Inquiries - Customer Id: {{cId + ' / ' + 'Customer Name: ' + (fName || cName)}}" [modal]="true" [(visible)]="displayHistory">
+  <app-common-grid
+    #auditGrid
+    header="Inquiry Status"
+    [addAllow]="addAllowHistory"
+    [showToolBar]="showToolBar"
+    [showSearchBox]="showSearchBox"
+  >
+  </app-common-grid>
 </p-dialog>
 
 

@@ -240,10 +240,10 @@ export const content: Routes = [
     }
   },
   {
-    path: 'complaint',
+    path: 'complain',
     loadChildren: () => import('../../components/complaint/complaint.module').then(m => m.ComplaintModule),
     data: {
-      breadcrumb: "Complaint"
+      breadcrumb: "Complain"
     }
   },
 

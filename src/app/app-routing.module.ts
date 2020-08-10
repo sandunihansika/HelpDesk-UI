@@ -11,12 +11,21 @@ import {AuthLoginComponent} from './auth/auth-login/auth-login.component';
 import {AuthGuard} from './auth/auth-login/auth.guard';
 import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
 import {QuatationComponent} from './components/inquery/inquery/inquery-table/quatation/quatation/quatation.component';
+import {CorporateDetailsComponent} from './components/inquery/inquery/customer-details/corporate-details/corporate-details.component';
 
 const routes: Routes = [
+  // {
+  //   path: 'auth',
+  //   loadChildren: () => import('./auth/auth-login.module').then(m => m.AuthLoginModule)
+  // },
   {
     path: '',
     redirectTo: 'dashboard/default',
     pathMatch: 'full'
+  },
+  {
+    path : 'corporate',
+    component: CorporateDetailsComponent
   },
   {
     path: 'auth/login',

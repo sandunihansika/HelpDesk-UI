@@ -1,6 +1,6 @@
 <app-common-grid
   #quotationGrid
-  header="Quotation Details - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}"
+  header="Quotation Details - Customer Id:{{selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}"
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
@@ -15,29 +15,33 @@
   <button
   pButton
   type="button"
-  icon="pi pi-plus"
+  icon="icofont icofont-ui-add"
   style="margin-right: .25em"
   class="ui-button-info"
   (click)="viewForm()"
-  *ngIf="selectedCustomer.status === 'Send_Quotation' || selectedCustomer.status === 'Resend_Quotation'"
+  *ngIf="selectedCustomer.status.name === 'Re-send quotation '"
 ></button>
+  <button
+    pButton
+    type="button"
+    icon="icofont icofont-ui-add"
+    style="margin-right: .25em"
+    class="ui-button-info"
+    (click)="viewForm()"
+    *ngIf="selectedCustomer.status.name === 'Send quotation'"
+  ></button>
 </app-common-grid>
 
-<p-dialog header="Quotation - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}" [modal]="true"
+<p-dialog header="Quotation - Customer Id:{{selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}" [modal]="true"
           [(visible)]="display">
   <p-card>
-<!--    <form novalidate-->
-<!--          (ngSubmit)="saveQuatation()"-->
-<!--          [formGroup]="quatationForm" enctype="multipart/form-selectedCustomer">-->
-<!--      &lt;!&ndash;<p-dialog header="Quotation - ID:{{selectedCustomer.id + '  ' + 'Name:' + selectedCustomer.name}}" [modal]="true" [(visible)]="display"&ndash;&gt;-->
-<!--      &lt;!&ndash;          class="overlay" [baseZIndex]="10000">&ndash;&gt;-->
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-12 ">
             <div class="card">
-              <div class="card-header">
-                <h5>QuatationForm</h5>
-              </div>
+<!--              <div class="card-header">-->
+<!--                <h5>QuatationForm</h5>-->
+<!--              </div>-->
               <div class="card-body">
                 <form novalidate
                       (ngSubmit)="saveQuatation()"
@@ -104,8 +108,8 @@
                       <!--                    </button>-->
                       <!--                  </div>-->
                       <div class="card-footer">
-                        <button type="submit" class="btn btn-primary mr-1">Submit</button>
-                        <input type="reset" class="btn btn-light" value="Cancel">
+                        <button type="submit" class="btn btn-primary mr-1" (click)="send(selectedCustomer)">Submit</button>
+                        <input type="reset" class="btn btn-light" value="Reset">
                       </div>
                     </div>
                   </div>
