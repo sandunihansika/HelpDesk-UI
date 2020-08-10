@@ -12,7 +12,7 @@
                 *ngIf="addAllow"
                 pButton
                 type="button"
-                icon="pi pi-plus"
+                icon="icofont icofont-ui-add"
                 style="margin-right: .25em"
                 class="ui-button-info"
                 (click)="addClick()"
@@ -36,16 +36,6 @@
                 (click)="this.deleteClick()"
               ></button>
               <ng-content></ng-content>
-              <button
-                *ngIf="this.selectedEntity && showQuotation"
-                pButton
-                type="button"
-                icon="pi pi-file"
-                style="margin-right: .25em"
-                class="btn-quotation"
-                label="Quotation"
-                (click)="quotationClick(this.selectedEntity)"
-              ></button>
             </div>
             <div class="ui-toolbar-group-right">
               <i class="fa fa-search" style="margin:4px -30px 0 0"></i>
@@ -71,7 +61,6 @@
                    [rows]="rowsPerPage"
                    [rowHover]="true"
                    [showCurrentPageReport]="true"
-                   [loading]="dataLoading"
                    [selectionMode]="selectionMode"
                    [responsive]="true"
                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -198,6 +187,14 @@
             <!--    </ng-template>-->
 
           </p-table>
+          <div class="loader-box" *ngIf="spinner">
+            <div class="loader">
+              <div class="line bg-secondary"></div>
+              <div class="line bg-secondary"></div>
+              <div class="line bg-secondary"></div>
+              <div class="line bg-secondary"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

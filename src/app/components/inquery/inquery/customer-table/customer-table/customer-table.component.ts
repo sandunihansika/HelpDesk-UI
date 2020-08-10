@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {CommonGridComponent} from '../../../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType, CustomerType} from '../../../../../shared/services/common/enum';
+import {Alignment, ColumnType, CompanyType, CustomerType} from '../../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
 
 @Component({
@@ -61,7 +61,7 @@ export class CustomerTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'handlingCompany',
+        mappingName: 'handlingCompanyName',
         columnName: 'Handling Company',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -122,7 +122,7 @@ export class CustomerTableComponent implements OnInit {
         columnFormat: null
       },
       {
-        mappingName: 'handlingCompany',
+        mappingName: 'handlingCompanyName',
         columnName: 'Handling Company',
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
@@ -164,20 +164,30 @@ export class CustomerTableComponent implements OnInit {
     // this.IndividualCompanyListGrid.rowLists = result1;
     // const result2 = this.CusArray.filter(CusArray=> CusArray.type === CustomerType.Corporate);
     // this.CorporateCompanyListGrid.rowLists = result2;
-
+    this.IndividualCompanyListGrid.spinner = true;
+    this.CorporateCompanyListGrid.spinner = true;
     this.CustomerDetailsService.getCustomerList().subscribe(
       (list: any) => {
         if (list !== undefined) {
           if (list) {
-            console.log(list);
+            list.forEach((item: any) => {
+              Object.assign(item, {
+                handlingCompanyName: this.getHandlingCompanyName(item['handlingCompany'])
+              });
+            });
             this.putDataIntoTable(list);
+            this.IndividualCompanyListGrid.spinner = false;
+            this.CorporateCompanyListGrid.spinner = false;
           } else {
             this.IndividualCompanyListGrid.rowLists = [];
+            this.IndividualCompanyListGrid.spinner = false;
             this.CorporateCompanyListGrid.rowLists = [];
+            this.CorporateCompanyListGrid.spinner = false;
           }
         }
       },
       error => {
+        this.IndividualCompanyListGrid.spinner = true;
         console.log(error);
       }
     );
@@ -193,11 +203,14 @@ export class CustomerTableComponent implements OnInit {
         this.CorporateCompanyListGrid.rowLists.push(item);
       }
     });
+  }
 
-    // const result1 = data.filter(data=> data.type === CustomerType.Individual);
-    // this.IndividualCompanyListGrid.rowLists = result1;
-    // const result2 = data.filter(data=> data.type === CustomerType.Corporate);
-    // this.CorporateCompanyListGrid.rowLists = result2;
+  getHandlingCompanyName(item: number) {
+    if (item === CompanyType.Dimo) {
+      return 'Dimo';
+    } else if (item === CompanyType.Ingenii) {
+      return 'Ingenii';
+    }
   }
 
   viewIndividualForm(){
