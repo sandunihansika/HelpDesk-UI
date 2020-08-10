@@ -37,6 +37,7 @@ export class QuatationComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedCustomer = this.customerservice.selectedCustomer;
+    //console.log(this.selectedCustomer);
     this.quatationForm = this.formbuilder.group({
       customerId: [this.selectedCustomer.id, [Validators.required]],
       description: ['', [Validators.required]],
@@ -95,11 +96,12 @@ export class QuatationComponent implements OnInit {
   }
 
   setQuotationRowList(customerId) {
+    this.quotationGrid.spinner = true;
     this.customerservice.getQuotation(customerId).subscribe(
       (list: any) => {
+        this.quotationGrid.spinner = false;
         if(list !== undefined) {
           if(list) {
-            console.log(list);
             this.quotationGrid.rowLists = list;
           } else {
             this.quotationGrid.rowLists = [];
@@ -107,7 +109,7 @@ export class QuatationComponent implements OnInit {
         }
       },
       error => {
-        this.quotationGrid.dataLoading = false;
+        this.quotationGrid.spinner = false;
       }
     );
   }
@@ -161,6 +163,15 @@ export class QuatationComponent implements OnInit {
 
   get expiryDate() {
     return this.quatationForm.get('expiryDate');
+  }
+
+  send(event) {
+    this.customerservice.clickedSend(event.id,event.customerId).subscribe(
+      (res) => {
+        console.log(res);
+      },
+    );
+    this.display = false;
   }
 
 }

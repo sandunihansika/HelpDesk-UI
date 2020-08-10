@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Alignment, ColumnType} from '../../services/common/enum';
+import {Alignment, ColumnType, Status} from '../../services/common/enum';
 
 export class ColumnDefinition {
   mappingName: string;
@@ -23,7 +23,6 @@ export class CommonGridComponent implements OnInit {
   @Output() editBtnClicked = new EventEmitter();
   @Output() refreshBtnClicked = new EventEmitter();
   @Output() deleteBtnClicked = new EventEmitter();
-  @Output() quotationBtnClicked = new EventEmitter();
 
   // companies = [
   //   {name: 'Ingenii'},
@@ -46,10 +45,11 @@ export class CommonGridComponent implements OnInit {
   dataLoading = false;
   selectionMode = 'single';
   selectedEntity: any;
-  rowsPerPage = 10;
-  rowsPerPageOptions = [10, 25, 50];
+  rowsPerPage = 15;
+  rowsPerPageOptions = [20, 30, 50];
   defaultPaginationEnabled = true;
   display = false;
+  spinner = false;
 
   @Input() showToolBar = true;
   @Input() addAllow = true;
@@ -91,10 +91,6 @@ export class CommonGridComponent implements OnInit {
 
   deleteClick() {
     this.deleteBtnClicked.emit(1);
-  }
-
-  quotationClick(item) {
-    this.quotationBtnClicked.emit(item);
   }
 
 }
