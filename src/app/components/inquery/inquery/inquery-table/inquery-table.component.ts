@@ -18,7 +18,7 @@ export class InqueryTableComponent implements OnInit {
   customer: any[];
 
   addAllow = true;
-  editAllow = false;
+  editAllow = true;
   showToolBar = true;
   deleteAllow = false;
   showQuotation = true;
@@ -33,6 +33,7 @@ export class InqueryTableComponent implements OnInit {
   fName: string;
   cName: string;
   consent = true;
+
 
   constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
 

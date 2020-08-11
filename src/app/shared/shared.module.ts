@@ -43,6 +43,7 @@ import {FormValidationHelpers} from './helpers/form-validation-helpers';
 import {CommonTextareaComponent} from './components/common-textarea/common-textarea/common-textarea.component';
 import {CommonCalenderComponent} from './components/common-calender/common-calender/common-calender.component';
 import {CalendarModule} from 'primeng/calendar';
+import { CommonDialogBoxComponent } from './components/common-dialog-box/common-dialog-box.component';
 
 
 
@@ -65,7 +66,8 @@ import {CalendarModule} from 'primeng/calendar';
     CommonDropdownComponent,
     CommonGridComponent,
     CommonTextareaComponent,
-    CommonCalenderComponent
+    CommonCalenderComponent,
+    CommonDialogBoxComponent
   ],
   imports: [
     CommonModule,
@@ -86,17 +88,18 @@ import {CalendarModule} from 'primeng/calendar';
     CalendarModule,
 
   ],
-  exports: [
-    LoaderComponent,
-    FeatherIconsComponent,
-    TranslateModule,
-    CommonTextboxComponent,
-    CommonRadiobuttonComponent,
-    CommonDropdownComponent,
-    CommonGridComponent,
-    CommonTextareaComponent,
-    CommonCalenderComponent
-  ],
+    exports: [
+        LoaderComponent,
+        FeatherIconsComponent,
+        TranslateModule,
+        CommonTextboxComponent,
+        CommonRadiobuttonComponent,
+        CommonDropdownComponent,
+        CommonGridComponent,
+        CommonTextareaComponent,
+        CommonCalenderComponent,
+        CommonDialogBoxComponent
+    ],
   providers: [
     NavService,
     ChatService,
