@@ -1,8 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {CommonGridComponent} from '../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType, CompanyType, Status} from '../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
+import {NgbdModalContent} from '../../base/modal/modal.component';
+import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-complaint-table',
@@ -13,7 +15,14 @@ import {Router} from '@angular/router';
 export class ComplaintTableComponent implements OnInit {
   @ViewChild('complaintGrid', {static: true}) complaintGrid: CommonGridComponent;
 
-    constructor(private customerDetailsService : CustomerDetailsService , private router : Router) {
+  @Output() btnClicked = new EventEmitter();
+
+    constructor(
+      private customerDetailsService : CustomerDetailsService ,
+      private router : Router,
+      private modalService : NgbModal,
+      config: NgbModalConfig
+      ) {
     }
 
   addAllow = true;
@@ -26,16 +35,15 @@ export class ComplaintTableComponent implements OnInit {
   status1 ="pending";
   status2 ="pending";
   status3 ="pending";
+  showDialogBox = false;
+  // checkButton:boolean;
 
-
-  addButtonClick() {
-    this.display = true;
-  }
 
   ngOnInit() {
 
    this.setComplainColomn();
    this. setComplainRow();
+    // this.checkButton = true;
 
    }
 
@@ -158,16 +166,20 @@ export class ComplaintTableComponent implements OnInit {
   }
 
   changeStatus(event){
+    // this.checkButton = false;
     const status = Status.SendQuotation;
-    const id = event;
+    const id = event.id;
+    // event = null;
+
     console.log(event);
 
     try{
       this.customerDetailsService.updateComplainStatus(id,status).
       subscribe((res)=>{
-        // location.reload();
+        this.ngOnInit();
+        location.reload();
         // this.router.navigate(['complain']);
-        window.location.reload();
+        // window.location.reload();
       })
     }
     catch (e) {
@@ -180,6 +192,13 @@ export class ComplaintTableComponent implements OnInit {
     //   return error;
   }
 
+  //add dialog box
+  addButtonClick() {
+    this.showDialogBox = true;
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.name = 'World';
+
+  }
 
 
 }
