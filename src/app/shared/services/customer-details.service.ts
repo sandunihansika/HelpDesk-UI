@@ -29,11 +29,6 @@ export class CustomerDetailsService {
 
   addCustomer(customer: CustomerDetails): Observable<any> {
     console.log(customer);
-    // return this.http.post('http://localhost:3000/customer/addCustomer', customer).pipe(
-    //   map(data => {
-    //     return data;
-    //   })
-    // );
     return this.commonHttpService.postData(this.customerUrl + '/addCustomer', customer).pipe(  // http://localhost:5000/admin/customer/add//
       map(data => {
         return data;
@@ -58,16 +53,16 @@ export class CustomerDetailsService {
     );
   }
 
-  getQuotation(customerId): Observable<any>{
+  getQuotation(customerId): Observable<any> {
     //return this.quotationData.filter(quotationData => quotationData.cid === customerId);
-    return this.http.get( 'http://localhost:3000/quotation/' + customerId).pipe(
+    return this.http.get('http://localhost:3000/quotation/' + customerId).pipe(
       map(data => {
         return data;
       })
     );
   }
 
-  getAllInquiry(): Observable<any>{
+  getAllInquiry(): Observable<any> {
     //return this.inquiryData;
     return this.http.get('http://localhost:3000/inquiry/inquiryDetails').pipe(
       map(data => {
@@ -86,7 +81,7 @@ export class CustomerDetailsService {
     );
   }
 
-  getCustomerList(): Observable<any>{
+  getCustomerList(): Observable<any> {
     //return this.customerData;
     return this.http.get('http://localhost:3000/customer/getAllCustomers').pipe(
       map(data => {
@@ -95,7 +90,7 @@ export class CustomerDetailsService {
     );
   }
 
-  getAuditDetails(customerId): Observable<any>{
+  getAuditDetails(customerId): Observable<any> {
     return this.http.get('http://localhost:3000/audit/auditreport/' + customerId).pipe(
       map(data => {
         return data;
@@ -109,7 +104,7 @@ export class CustomerDetailsService {
     //     return data;
     //   })
     // );
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/send/' + inquiryId + '/' + customerId, '').pipe(
+    return this.http.put('http://localhost:3000/quotation/changeStatus/send/' + inquiryId + '/' + customerId, '').pipe(
       map(data => {
         return data;
       })
@@ -117,7 +112,7 @@ export class CustomerDetailsService {
   }
 
   clickedApprove(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/approve/' + inquiryId + '/' + customerId, '').pipe(
+    return this.http.put('http://localhost:3000/quotation/changeStatus/approve/' + inquiryId + '/' + customerId, '').pipe(
       map(data => {
         return data;
       })
@@ -125,7 +120,7 @@ export class CustomerDetailsService {
   }
 
   clickedReject(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/reject/' + inquiryId + '/' + customerId, '').pipe(
+    return this.http.put('http://localhost:3000/quotation/changeStatus/reject/' + inquiryId + '/' + customerId, '').pipe(
       map(data => {
         return data;
       })
@@ -133,7 +128,7 @@ export class CustomerDetailsService {
   }
 
   clickedResend(inquiryId, customerId, handlingCompany): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany, '').pipe(
+    return this.http.put('http://localhost:3000/quotation/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany, '').pipe(
       map(data => {
         return data;
       })
@@ -141,7 +136,7 @@ export class CustomerDetailsService {
   }
 
   clickedGotReConsent(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId, '').pipe(
+    return this.http.put('http://localhost:3000/quotation/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId, '').pipe(
       map(data => {
         return data;
       })
@@ -149,7 +144,7 @@ export class CustomerDetailsService {
   }
 
   clickedSend(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/remind/' + inquiryId + '/' + customerId,'').pipe(
+    return this.http.put('http://localhost:3000/quotation/changeStatus/remind/' + inquiryId + '/' + customerId, '').pipe(
       map(data => {
         return data;
       })
@@ -157,24 +152,24 @@ export class CustomerDetailsService {
   }
 
 //get complaint details for grid
-  getAllComplains() : Observable<any>{
+  getAllComplains(): Observable<any> {
     return this.http.get('http://localhost:3000/complain/complainDetails').pipe(
-      map(data=>{
+      map(data => {
         console.log(data);
         return data;
       })
-    )
+    );
   }
 
   //update status of complain table
 
-  updateComplainStatus(id, statusId) : Observable<any>{
-     return this.http.post('http://localhost:3000/complain/changeComplainStatus',{id,statusId}).pipe(
-        map(data=>{
-          console.log(data);
-          return data;
-        })
-      )
+  updateComplainStatus(id, statusId): Observable<any> {
+    return this.http.post('http://localhost:3000/complain/changeComplainStatus', {id, statusId}).pipe(
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
   }
 
 

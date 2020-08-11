@@ -46,7 +46,7 @@ export class CustomerHandlingComponent implements OnInit {
     this.companyType = [
       {id: CompanyType.Ingenii, name: 'Ingenii'},
       {id: CompanyType.Dimo, name: 'Dimo'},
-    ]
+    ];
   }
 
 
@@ -54,25 +54,24 @@ export class CustomerHandlingComponent implements OnInit {
     this.individualCorpCustomerForm = this.formbuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      nic: ['', [Validators.required, Validators.minLength(10)]],
+      nic: [''],
       email: ['', [Validators.required, Validators.email]],
       telNo: ['', [Validators.required, Validators.minLength(10)]],
       address: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      contactPerson: ['', [Validators.required]],
-      contactNo: ['', [Validators.required, Validators.minLength(10)]],
+      contactPerson: [''],
+      contactNo: ['', [Validators.minLength(10)]],
       companyName: ['', [Validators.required]],
       companyRegistrationNo: ['', [Validators.required]],
       streetAddressLineOne: ['', [Validators.required]],
       streetAddressLineTwo: ['', [Validators.required]],
-      ppNo: ['', [Validators.required]],
+      ppNo: [''],
       country: ['', [Validators.required]],
       city: ['', [Validators.required]],
       zipCode: ['', [Validators.required]],
       taxNumber: ['', [Validators.required]],
       vatNumber: ['', [Validators.required]],
-      handlingCompany: [CompanyType.Ingenii, [Validators.required]], /*value by dropdown*/
+      handlingCompany: [this.companyType[0].id, [Validators.required]], /*value by dropdown*/
       handlingCustomer: ['', [Validators.required]], /*value by dropdown*/
       inqueryType: ['', [Validators.required]],
       customerStatus: ['exist']
@@ -100,7 +99,7 @@ export class CustomerHandlingComponent implements OnInit {
 
   getCompanySelected(event) { //dropdown event
     this.individualCorpCustomerForm.value.handlingCompany = event.id;  //when event fired need to find the relevant id customer form the array
-    console.log( this.individualCorpCustomerForm.value.handlingCompany);
+    console.log(this.individualCorpCustomerForm.value.handlingCompany);
   }
 
   filterCustomerDetails(cid) {
@@ -148,18 +147,18 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   getCustomer() {
-    if (this.individualCorpCustomerForm.invalid) {
-      this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
-      return;
-    } else if (this.individualCorpCustomerForm.valid) {
-      this.customerservice.getCustomerDetails(this.individualCorpCustomerForm.value).subscribe(
+    // if (this.individualCorpCustomerForm.invalid) {
+    //   this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
+    //   return;
+    // } else if (this.individualCorpCustomerForm.valid) {
+      this.customerservice.getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany).subscribe(
         respond => {
           this.customers = respond;
           console.log(this.customers);
           //when page load first array element get
           this.patchToCustomer(this.customers[0]); // call to patch the selected customer
         });
-    }
+    // }
   }
 
   saveInquery() {

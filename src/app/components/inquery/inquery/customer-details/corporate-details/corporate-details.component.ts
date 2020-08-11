@@ -97,7 +97,7 @@ export class CorporateDetailsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       streetAddressLineOne: ['', Validators.required],
       streetAddressLineTwo: ['', Validators.required],
-      handlingCompany: ['', [Validators.required]],
+      handlingCompany: [this.companyType[0].id, [Validators.required]],
       country: ['', Validators.required],
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
@@ -108,6 +108,11 @@ export class CorporateDetailsComponent implements OnInit {
     });
   }
 
+  getCompanyId(event){
+    console.log(event.id);
+    this.corporateForm.value.handlingCompany = event.id;
+  }
+
 
   saveCorporteDetails() {
     if (this.corporateForm.invalid) {
@@ -116,7 +121,7 @@ export class CorporateDetailsComponent implements OnInit {
     } else if (this.corporateForm.valid) {
       this.customerservice.addCustomer(this.corporateForm.value).subscribe(
         respond => {
-          /**/
+          console.log(respond);
         });
     }
   }

@@ -14,10 +14,7 @@ import {CustomerType} from '../../../../../shared/services/common/enum';
 })
 export class CustomerDetailsComponent implements OnInit {
   customersForm: FormGroup;
-  customer: CustomerDetails;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
-  male: string;
-  female: string;
   companyType = [];
 
   constructor(
@@ -25,42 +22,12 @@ export class CustomerDetailsComponent implements OnInit {
     private formvalidationhelpers: FormValidationHelpers,
     private customerservice: CustomerDetailsService
   ) {
-    this.customer = new CustomerDetails();
     this.companyType = [
       {id: CompanyType.Ingenii, name: 'Ingenii'},
       {id: CompanyType.Dimo, name: 'Dimo'},
     ];
   }
 
-  ngOnInit(): void {
-    this.customersForm = this.formbuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      nicNumber: ['', [Validators.required]],
-      ppNo: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      telNo: ['', [Validators.required]],
-      handlingCompany: ['', [Validators.required]],
-      streetAddressLineOne: ['', [Validators.required]],
-      streetAddressLineTwo: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]],
-      type: [CustomerType.Individual, [Validators.required]]
-    });
-  }
-
-  saveCustomer() {
-    if (this.customersForm.invalid) {
-      this.formvalidationhelpers.validateAllFormFields(this.customersForm);
-      return;
-    } else if (this.customersForm.valid) {
-      this.customerservice.addCustomer(this.customersForm.value).subscribe(
-        respond => {
-          /**/
-        });
-    }
-  }
 
   get firstName() {
     return this.customersForm.get('firstName');
@@ -108,6 +75,42 @@ export class CustomerDetailsComponent implements OnInit {
 
   get handlingCompany() {
     return this.customersForm.get('handlingCompany');
+  }
+
+  ngOnInit(): void {
+    this.customersForm = this.formbuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      nicNumber: [''],
+      ppNo: [''],
+      email: ['', [Validators.required, Validators.email]],
+      telNo: ['', [Validators.required]],
+      handlingCompany: [this.companyType[0].id, [Validators.required]],
+      streetAddressLineOne: ['', [Validators.required]],
+      streetAddressLineTwo: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      zipCode: ['', [Validators.required]],
+      type: [CustomerType.Individual, [Validators.required]]
+    });
+  }
+
+  getCompanyId(event) {
+    console.log(event.id);
+    this.customersForm.value.handlingCompany = event.id;
+  }
+
+
+  saveCustomer() {
+    if (this.customersForm.invalid) {
+      this.formvalidationhelpers.validateAllFormFields(this.customersForm);
+      return;
+    } else if (this.customersForm.valid) {
+      this.customerservice.addCustomer(this.customersForm.value).subscribe(
+        respond => {
+          console.log(respond);
+        });
+    }
   }
 
 

@@ -39,7 +39,7 @@ export enum ColumnType {
 }
 
 export enum CompanyType {
-  Dimo =2,
+  Dimo = 2,
   Ingenii = 3
 }
 

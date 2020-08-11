@@ -14,7 +14,7 @@
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label>Select Company</label>
-                <app-common-dropdown [fields]="companyType" formControlName="handlingCompany"
+                <app-common-dropdown [fields]="companyType" (selectChange)="getCompanySelected($event)"
                 ></app-common-dropdown>
               </div>
             </div>
@@ -248,6 +248,34 @@
                   id="streetAddressLineTwo"
                   [ngClass]="{
             'is-invalid': (streetAddressLineTwo.touched ||streetAddressLineTwo.dirty) && !streetAddressLineTwo.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="contactPerson">Contact Person<span class="form-error">* </span>
+                  <span *ngIf="contactPerson.touched && contactPerson.errors?.required"
+                        class="form-error">  Contact Person is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="contactPerson"
+                  placeholder="Contact Person"
+                  id="contactPerson"
+                  [ngClass]="{
+            'is-invalid': (contactPerson.touched ||contactPerson.dirty) && !contactPerson.valid }"></app-common-textbox>
+              </div>
+
+              <div class="p-field p-col-12 p-md-6">
+                <label for="contactNo">Contact No<span class="form-error">* </span>
+                  <span *ngIf="contactNo.touched && contactNo.errors?.required"
+                        class="form-error">  Contact No is required!</span>
+                </label>
+                <app-common-textbox
+                  [inputType]="TextBoxTypes.Text"
+                  formControlName="contactNo"
+                  placeholder="Contact No"
+                  id="contactNo"
+                  [ngClass]="{
+            'is-invalid': (contactNo.touched ||contactNo.dirty) && !contactNo.valid }"></app-common-textbox>
               </div>
 
             </div>
