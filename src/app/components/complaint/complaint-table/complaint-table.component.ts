@@ -5,6 +5,7 @@ import {CustomerDetailsService} from '../../../shared/services/customer-details.
 import {Router} from '@angular/router';
 import {NgbdModalContent} from '../../base/modal/modal.component';
 import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import {CommonDialogBoxComponent} from '../../../shared/components/common-dialog-box/common-dialog-box.component';
 
 @Component({
   selector: 'app-complaint-table',
@@ -14,6 +15,7 @@ import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@
 
 export class ComplaintTableComponent implements OnInit {
   @ViewChild('complaintGrid', {static: true}) complaintGrid: CommonGridComponent;
+  @ViewChild('complaintDialogBox', {static: true}) complaintDialogBox: CommonDialogBoxComponent;
 
   @Output() btnClicked = new EventEmitter();
 
@@ -25,7 +27,7 @@ export class ComplaintTableComponent implements OnInit {
       ) {
     }
 
-  addAllow = true;
+  addAllow = false;
   // editAllow = true;
   showToolBar = true;
   deleteAllow = false;
@@ -36,9 +38,9 @@ export class ComplaintTableComponent implements OnInit {
   status2 ="pending";
   status3 ="pending";
   showDialogBox = false;
-  // checkButton:boolean;
-
-
+  setDialogBoxValue=false;
+  headerName = "Complaint Form"
+  setDialog = false;
   ngOnInit() {
 
    this.setComplainColomn();
@@ -194,11 +196,13 @@ export class ComplaintTableComponent implements OnInit {
 
   //add dialog box
   addButtonClick() {
-    this.showDialogBox = true;
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.name = 'World';
-
+    // this.setDialog = true;
+    this.setDialogBoxValue = true;
+    // this.display = true;
+    // this.showDialogBox = true;
   }
-
+  close(){
+    this.setDialogBoxValue=false;
+  }
 
 }
