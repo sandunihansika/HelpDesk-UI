@@ -73,9 +73,9 @@ export class CustomerDetailsService {
 
 
   getCustomerDetails(handlingCompany: any) {
-    return this.commonHttpService.postData(this.customerUrl + '/view', handlingCompany).pipe(
+    return this.commonHttpService.getAll(this.customerUrl + '/existing/' + handlingCompany).pipe(
       map(data => {
-        console.log(data);
+        // console.log(data);
         return data;
       })
     );
@@ -91,7 +91,7 @@ export class CustomerDetailsService {
   }
 
   getAuditDetails(customerId): Observable<any> {
-    return this.http.get('http://localhost:3000/audit/auditreport/' + customerId).pipe(
+    return this.http.get('ht  qtp://localhost:3000/audit/auditreport/' + customerId).pipe(
       map(data => {
         return data;
       })

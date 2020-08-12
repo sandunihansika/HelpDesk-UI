@@ -47,6 +47,22 @@ export class CustomerHandlingComponent implements OnInit {
       {id: CompanyType.Ingenii, name: 'Ingenii'},
       {id: CompanyType.Dimo, name: 'Dimo'},
     ];
+    this.allcustomers = [{
+      id:1, name:"rambo"
+    }]
+
+  }
+
+
+  customers = []; /*array of customers to get respond*/
+  allcustomers = [];
+
+  putintoDropdown(id, fName) {
+    console.log(id + ',' + fName);
+    this.allcustomers = [{
+      id: id, name: fName
+    }];
+    // console.log(this.allcustomers);
   }
 
 
@@ -80,7 +96,7 @@ export class CustomerHandlingComponent implements OnInit {
     this.getCustomer(); //send the handlingcompany
   }
 
-  customers = []; /*array of customers */
+
   getCustomerStuatus(status) { //radio event to select customer status
     console.log(status.value);
     if (status === 'new') {
@@ -99,6 +115,7 @@ export class CustomerHandlingComponent implements OnInit {
 
   getCompanySelected(event) { //dropdown event
     this.individualCorpCustomerForm.value.handlingCompany = event.id;  //when event fired need to find the relevant id customer form the array
+    this.getCustomer();
     console.log(this.individualCorpCustomerForm.value.handlingCompany);
   }
 
@@ -108,17 +125,15 @@ export class CustomerHandlingComponent implements OnInit {
 
     if (this.customerData[0].type == CustomerType.Corporate) {
       this.patchToCustomer(customerData);
-      this.display = true;
     }
     if (this.customerData[0].type == CustomerType.Individual) {
       this.patchToCustomer(customerData); //call for patch the individual customer
-      this.display = false;
     }
 
   }
 
   patchToCustomer(customerValue) {
-    console.log(customerValue);
+    // console.log(customerValue);
     this.individualCorpCustomerForm.patchValue({
       firstName: customerValue[0].firstName ? customerValue[0].firstName : '',
       lastName: customerValue[0].lastName ? customerValue[0].lastName : '',
@@ -151,13 +166,17 @@ export class CustomerHandlingComponent implements OnInit {
     //   this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
     //   return;
     // } else if (this.individualCorpCustomerForm.valid) {
-      this.customerservice.getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany).subscribe(
-        respond => {
-          this.customers = respond;
-          console.log(this.customers);
-          //when page load first array element get
-          this.patchToCustomer(this.customers[0]); // call to patch the selected customer
+    this.customerservice.getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany).subscribe(
+      respond => {
+        this.customers = respond.data; //getting data array into customer array
+        console.log(this.customers);
+        this.customers.forEach(i => {
+          this.putintoDropdown(i.id, i.firstName);
         });
+        // console.log(this.customers[0]);
+        //when page load first array element get
+        this.patchToCustomer(this.customers[0]); // call to patch the selected customer
+      });
     // }
   }
 

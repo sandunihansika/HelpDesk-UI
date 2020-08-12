@@ -34,7 +34,7 @@
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <div *ngIf="formEnable">
-                  <app-common-dropdown [fields]='customers' (selectChange)="getCustomerId($event)"
+                  <app-common-dropdown [fields]='allcustomers' (selectChange)="getCustomerId($event)"
                                        formControlName="handlingCustomer"></app-common-dropdown>
                 </div>
               </div>
