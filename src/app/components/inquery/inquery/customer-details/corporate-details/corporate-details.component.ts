@@ -3,8 +3,9 @@ import {FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormAr
 import {PasswordHash} from '../../../../../auth/auth-login/password-hash';
 import {Router} from '@angular/router';
 import {FormValidationHelpers} from '../../../../../shared/helpers/form-validation-helpers';
-import {TextBoxTypes} from 'src/app/shared/services/common/enum';
+import {CompanyType, TextBoxTypes} from 'src/app/shared/services/common/enum';
 import {CustomerType} from 'src/app/shared/services/common/enum';
+import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
 
 
 @Component({
@@ -14,12 +15,20 @@ import {CustomerType} from 'src/app/shared/services/common/enum';
 })
 
 export class CorporateDetailsComponent implements OnInit {
+  companyType = [];
+
+
   constructor(
     private passwordHash: PasswordHash,
     private router: Router,
     private formBuilder: FormBuilder,
-    private formValidationHelper: FormValidationHelpers
+    private formValidationHelper: FormValidationHelpers,
+    private customerservice: CustomerDetailsService
   ) {
+    this.companyType = [
+      {id: CompanyType.Ingenii, name: 'Ingenii'},
+      {id: CompanyType.Dimo, name: 'Dimo'},
+    ];
   }
 
   get companyName() {
@@ -42,10 +51,6 @@ export class CorporateDetailsComponent implements OnInit {
     return this.corporateForm.get(' designation');
   }
 
-  get masterAccNo() {
-    return this.corporateForm.get('masterAccNo');
-  }
-
   get vatNumber() {
     return this.corporateForm.get('vatNumber');
   }
@@ -54,16 +59,16 @@ export class CorporateDetailsComponent implements OnInit {
     return this.corporateForm.get('email');
   }
 
-  get addressLine1() {
-    return this.corporateForm.get('addressLine1');
-  }
-
   get streetAddressLineOne() {
     return this.corporateForm.get('streetAddressLineOne');
   }
 
   get streetAddressLineTwo() {
     return this.corporateForm.get('streetAddressLineTwo');
+  }
+
+  get handlingCompany() {
+    return this.corporateForm.get('handlingCompany');
   }
 
   get country() {
@@ -85,11 +90,6 @@ export class CorporateDetailsComponent implements OnInit {
   corporateForm: FormGroup;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
 
-  HandlingCompany = [
-    {id: 1, name: 'Ingenii'},
-    {id: 2, name: 'Dimo'}
-  ];
-
   ngOnInit(): void {
     this.corporateForm = this.formBuilder.group({
       companyName: ['', Validators.required],
@@ -97,21 +97,33 @@ export class CorporateDetailsComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       streetAddressLineOne: ['', Validators.required],
       streetAddressLineTwo: ['', Validators.required],
+      handlingCompany: [this.companyType[0].id, [Validators.required]],
       country: ['', Validators.required],
       city: ['', Validators.required],
       zipCode: ['', Validators.required],
       taxNumber: ['', Validators.required],
       vatNumber: ['', Validators.required],
-      contactPerson: ['', Validators.required],
-      contactNo: ['', Validators.required],
       type: [CustomerType.Corporate, [Validators.required]]
 
     });
   }
 
+  getCompanyId(event){
+    console.log(event.id);
+    this.corporateForm.value.handlingCompany = event.id;
+  }
+
 
   saveCorporteDetails() {
-
+    if (this.corporateForm.invalid) {
+      this.formValidationHelper.validateAllFormFields(this.corporateForm);
+      return;
+    } else if (this.corporateForm.valid) {
+      this.customerservice.addCustomer(this.corporateForm.value).subscribe(
+        respond => {
+          console.log(respond);
+        });
+    }
   }
 
 }

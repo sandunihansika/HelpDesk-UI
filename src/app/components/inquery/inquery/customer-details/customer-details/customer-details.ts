@@ -4,12 +4,13 @@ export class CustomerDetails {
   firstName: string;
   lastName: string;
   nic: string;
-  ppNo:string;
+  ppNo: string;
   email: string;
   telNo: string;
-  addressLine1: string;
-  addressLine2: string;
-  country:string;
-  city:string;
-  zip:string;
+  streetAddressLineOne: string;
+  streetAddressLineTwo: string;
+  country: string;
+  handlingCompany: number;
+  city: string;
+  zip: string;
 }
