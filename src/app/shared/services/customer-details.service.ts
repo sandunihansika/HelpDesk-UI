@@ -141,8 +141,8 @@ export class CustomerDetailsService {
     );
   }
 
-  getAuditDetails(customerId): Observable<any>{
-    return this.http.get('http://localhost:3000/audit/auditreport/' + customerId).pipe(
+  getStatusHistory(inquiryId): Observable<any>{
+    return this.http.get('http://localhost:3000/inquiry/getHistory/' + inquiryId).pipe(
       map(data => {
         return data;
       })

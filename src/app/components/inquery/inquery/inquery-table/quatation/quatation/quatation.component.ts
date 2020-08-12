@@ -24,6 +24,7 @@ export class QuatationComponent implements OnInit {
   uploadedFiles: any[] = [];
 
   display = false;
+  dataLoading = false;
   selectedCustomer;
 
 
@@ -96,20 +97,22 @@ export class QuatationComponent implements OnInit {
   }
 
   setQuotationRowList(customerId) {
-    this.quotationGrid.spinner = true;
+    this.quotationGrid.dataLoading = true;
     this.customerservice.getQuotation(customerId).subscribe(
       (list: any) => {
-        this.quotationGrid.spinner = false;
-        if(list !== undefined) {
-          if(list) {
-            this.quotationGrid.rowLists = list;
+        if(list.data !== undefined) {
+          if(list.data) {
+            this.quotationGrid.rowLists = list.data;
+            this.quotationGrid.dataLoading = false;
           } else {
             this.quotationGrid.rowLists = [];
+            this.quotationGrid.dataLoading = false;
           }
         }
       },
       error => {
-        this.quotationGrid.spinner = false;
+        this.quotationGrid.dataLoading = true;
+        console.log(error);
       }
     );
   }

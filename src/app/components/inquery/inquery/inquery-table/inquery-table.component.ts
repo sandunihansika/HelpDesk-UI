@@ -13,7 +13,7 @@ import {FormControl} from '@angular/forms';
 export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
-  @ViewChild('auditGrid', {static: true}) auditGrid: CommonGridComponent;
+  @ViewChild('statusHistoryGrid', {static: true}) statusHistoryGrid: CommonGridComponent;
 
   customer: any[];
 
@@ -29,10 +29,11 @@ export class InqueryTableComponent implements OnInit {
   new: string;
   exist: string;
   formEnqble: boolean = false;
-  cId: number;
+  id: number;
   fName: string;
   cName: string;
   consent = true;
+  dataLoading = false;
 
   constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
 
@@ -42,8 +43,7 @@ export class InqueryTableComponent implements OnInit {
 
     this.setInquiryColumns();
     this.setInquiryRowColumns();
-    this.setAuditColumns();
-    this.setAuditRows();
+    this.setStatusHistoryColumns();
 
   }
 
@@ -154,22 +154,14 @@ export class InqueryTableComponent implements OnInit {
     ];
   }
 
-  setAuditColumns() {
-    this.auditGrid.columnsList = [
+  setStatusHistoryColumns() {
+    this.statusHistoryGrid.columnsList = [
       {
         mappingName: 'id',
         columnName: 'Id',
         columnType: ColumnType.Number,
         columnAlignment: Alignment.Left,
         columnWidth: 20,
-        columnFormat: null
-      },
-      {
-        mappingName: 'description',
-        columnName: 'Description',
-        columnType: ColumnType.Text,
-        columnAlignment: Alignment.Left,
-        columnWidth: 100,
         columnFormat: null
       },
       {
@@ -180,46 +172,42 @@ export class InqueryTableComponent implements OnInit {
         columnWidth: 50,
         columnFormat: 'yyyy-MM-dd'
       },
-      // {
-      //   mappingName: 'status',
-      //   subMappingName: 'name',
-      //   columnName: 'Status',
-      //   columnType: ColumnType.Text,
-      //   columnAlignment: Alignment.Left,
-      //   columnWidth: 50,
-      //   columnFormat: null
-      // }
+      {
+        mappingName: 'status',
+        subMappingName: 'name',
+        columnName: 'Status',
+        columnType: ColumnType.Text,
+        columnAlignment: Alignment.Left,
+        columnWidth: 50,
+        columnFormat: null
+      }
     ];
   }
 
   setInquiryRowColumns() {
-    //this.inqueryGrid.rowLists = this.CustomerDetailsService.getAllInquiry();
-    this.inqueryGrid.spinner = true;
+    this.inqueryGrid.dataLoading = true;
     this.CustomerDetailsService.getAllInquiry().subscribe(
       (list: any) => {
-        this.inqueryGrid.spinner = false;
-        console.log(list);
-        if(list !== undefined) {
-          if(list) {
-            list.forEach((item: any) => {
+        if(list.data !== undefined) {
+          if(list.data) {
+            list.data.forEach((item: any) => {
               Object.assign(item, {
                 handlingCompanyName: this.getHandlingCompanyName(item.customer['handlingCompany'])
               });
             });
-            this.inqueryGrid.rowLists = list;
+            this.inqueryGrid.rowLists = list.data;
+            this.inqueryGrid.dataLoading = false;
           } else {
             this.inqueryGrid.rowLists = [];
+            this.inqueryGrid.dataLoading = false;
           }
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.dataLoading = true;
+        console.log(error);
       }
     );
-  }
-
-  setAuditRows() {
-
   }
 
   getHandlingCompanyName(item: number) {
@@ -233,8 +221,7 @@ export class InqueryTableComponent implements OnInit {
   viewQuotation(item) {
     try{
       this.CustomerDetailsService.selectedCustomer = item;
-      //console.log(item);
-      this.route.navigate(['inquiry/quotation']);
+      this.route.navigate(['inquiry/quotation/'+item.customerId]);
     } catch (error) {
       return error;
     }
@@ -246,25 +233,25 @@ export class InqueryTableComponent implements OnInit {
   }
 
   viewHistory(event) {
-    this.cId = event.customerId;
+    this.id = event.id;
     this.fName = event.customer.firstName;
     this.cName = event.customer.companyName;
     this.displayHistory = true;
-    this.auditGrid.spinner = true;
-    this.CustomerDetailsService.getAuditDetails(event.customerId).subscribe(
+    this.statusHistoryGrid.spinner = true;
+    this.CustomerDetailsService.getStatusHistory(event.id).subscribe(
       (list: any) => {
-        this.auditGrid.spinner = false;
+        this.statusHistoryGrid.spinner = false;
         console.log(list);
-        if(list !== undefined) {
-          if(list) {
-            this.auditGrid.rowLists = list;
+        if(list.data !== undefined) {
+          if(list.data) {
+            this.statusHistoryGrid.rowLists = list.data;
           } else {
-            this.auditGrid.rowLists = [];
+            this.statusHistoryGrid.rowLists = [];
           }
         }
       },
       error => {
-        this.auditGrid.spinner = false;
+        this.statusHistoryGrid.spinner = false;
       }
     );
   }
@@ -275,9 +262,9 @@ export class InqueryTableComponent implements OnInit {
       (list: any) => {
           if(list) {
             this.inqueryGrid.spinner = false;
-            //this.consent = false;
             this.setInquiryRowColumns();
             //this.route.navigate(['inquiry']);
+            //location.reload();
           } else {
             this.inqueryGrid.rowLists = [];
           }

@@ -45,7 +45,7 @@ export class CommonGridComponent implements OnInit {
   dataLoading = false;
   selectionMode = 'single';
   selectedEntity: any;
-  rowsPerPage = 15;
+  rowsPerPage = 10;
   rowsPerPageOptions = [20, 30, 50];
   defaultPaginationEnabled = true;
   display = false;
