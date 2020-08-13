@@ -236,22 +236,24 @@ export class InqueryTableComponent implements OnInit {
     this.id = event.id;
     this.fName = event.customer.firstName;
     this.cName = event.customer.companyName;
+    this.statusHistoryGrid.dataLoading = true;
     this.displayHistory = true;
-    this.statusHistoryGrid.spinner = true;
+
     this.CustomerDetailsService.getStatusHistory(event.id).subscribe(
       (list: any) => {
-        this.statusHistoryGrid.spinner = false;
-        console.log(list);
         if(list.data !== undefined) {
           if(list.data) {
             this.statusHistoryGrid.rowLists = list.data;
+            this.statusHistoryGrid.dataLoading = false;
           } else {
             this.statusHistoryGrid.rowLists = [];
+            this.statusHistoryGrid.dataLoading = false;
           }
         }
       },
       error => {
-        this.statusHistoryGrid.spinner = false;
+        this.statusHistoryGrid.dataLoading = true;
+        console.log(error);
       }
     );
   }
