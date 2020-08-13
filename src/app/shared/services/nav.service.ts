@@ -315,7 +315,7 @@ export class NavService {
     {
       path: '/inquiry', title: 'Inquiry', icon: 'edit', type: 'link'
     },{
-      path: '/complain', title: 'Complain', icon: 'complain', type: 'link'
+      path: '/complain', title: 'Complain', icon: 'help-circle', type: 'link'
     },
 
 

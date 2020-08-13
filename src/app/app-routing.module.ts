@@ -14,53 +14,41 @@ import {QuatationComponent} from './components/inquery/inquery/inquery-table/qua
 import {CorporateDetailsComponent} from './components/inquery/inquery/customer-details/corporate-details/corporate-details.component';
 
 const routes: Routes = [
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth-login.module').then(m => m.AuthLoginModule)
+  },
   // {
-  //   path: 'auth',
-  //   loadChildren: () => import('./auth/auth-login.module').then(m => m.AuthLoginModule)
-  // },
-  {
-    path: '',
-    redirectTo: 'dashboard/default',
-    pathMatch: 'full'
-  },
-  {
-    path : 'corporate',
-    component: CorporateDetailsComponent
-  },
-  {
-    path: 'auth/login',
-    component: AuthLoginComponent
-  },
+  //   path: '',
+  //   redirectTo: 'dashboard/default',
+  //    canActivate: [AuthGuard],
+  //   pathMatch: 'full'
+  // }
+  // ,
+
+
+  // {path : 'auth/login',
+  // component : AuthLoginComponent },
+
   {
     path: '',
     component: ContentLayoutComponent,
-    // canActivate: [AdminGuard],
-    children: content
+    canActivate: [AuthGuard],
+    children: content,
+
   },
   {
     path: '',
     component: FullLayoutComponent,
-    // canActivate: [AdminGuard],
-    children: full
+    // canActivate: [AuthGuard],
+    children: full,
+
+
   },
-  {
-    path: 'grid',
-    component: InqueryTableComponent,
-    loadChildren: () => import('./components/inquery/inquery/inquery.module').then(m => m.InqueryModule)
-  },
-  {
-    path: 'customer',
-    component: CustomerDetailsComponent,
-    loadChildren: () => import('./components/inquery/inquery/customer-details/customer-details.module').then(m => m.CustomerDetailsModule)
-  },
-  {
-    path: 'quatation',
-    component: QuatationComponent,
-    loadChildren: () => import('./components/inquery/inquery/inquery-table/quatation/quatation.module').then(m => m.QuatationModule)
-  },
+
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: 'auth/login'
   },
 ];
 

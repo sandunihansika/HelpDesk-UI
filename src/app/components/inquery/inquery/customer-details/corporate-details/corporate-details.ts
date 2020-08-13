@@ -11,6 +11,5 @@ export class CorporateDetails {
   zipCode: string;
   taxNumber: string;
   vatNumber: string;
-  contactPerson: string;
-  contactNo: string;
+  handlingCompany: number;
 }

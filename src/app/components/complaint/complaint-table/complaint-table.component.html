@@ -5,7 +5,7 @@
   [showToolBar]="showToolBar"
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
-  (addBtnClicked)="addButtonClick()"
+
 >
 <!--  <button-->
 <!--    type="button"-->
@@ -17,18 +17,45 @@
 <!--    (click)="changeStatus($event)"-->
 <!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
 <!--  >Completed</button>-->
+
+  <button
+    class="btn btn-primary"
+    style="margin-left:10px"
+    iconPos="left"
+    (click)="addButtonClick()"
+  >Add</button>
+
+  <button
+    class="btn btn-primary"
+    style="margin-left:10px"
+    iconPos="left"
+    (click)="changeStatus(complaintGrid.selectedEntity)"
+    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
+  >Completed</button>
   <button
     class="btn btn-success"
     style="margin-left:10px"
     iconPos="left"
-    (click)="changeStatus(complaintGrid.selectedEntity.id)"
+    (click)="changeStatus(complaintGrid.selectedEntity)"
     *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
   >Completed</button>
 </app-common-grid>
 
-<p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
-  <app-complaint-form></app-complaint-form>
-</p-dialog>
+<!--<p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
+
+<!--</p-dialog>-->
+
+
+  <app-common-dialog-box
+                         #complaintDialogBox
+                         [dialogBox]="setDialogBoxValue"
+                         [header]="headerName"
+                          (closeButtonClick)="close()"
+      >
+    <app-complaint-form></app-complaint-form>
+  </app-common-dialog-box>
+
+
 
 
 

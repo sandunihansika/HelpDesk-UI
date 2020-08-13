@@ -23,3 +23,18 @@ background-color: #266a9d;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.checkbox label::before {
+  left: 11px !important;
+}
+.theme-form .checkbox label {
+  padding-left: 17px !important;
+}
+
+.center{
+  margin: 0;
+  top : 97%;
+  left: 1% !important;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+
+}

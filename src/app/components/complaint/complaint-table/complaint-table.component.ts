@@ -1,8 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {CommonGridComponent} from '../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType, CompanyType, Status} from '../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
+import {NgbdModalContent} from '../../base/modal/modal.component';
+import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import {CommonDialogBoxComponent} from '../../../shared/components/common-dialog-box/common-dialog-box.component';
 
 @Component({
   selector: 'app-complaint-table',
@@ -12,11 +15,19 @@ import {Router} from '@angular/router';
 
 export class ComplaintTableComponent implements OnInit {
   @ViewChild('complaintGrid', {static: true}) complaintGrid: CommonGridComponent;
+  @ViewChild('complaintDialogBox', {static: true}) complaintDialogBox: CommonDialogBoxComponent;
 
-    constructor(private customerDetailsService : CustomerDetailsService , private router : Router) {
+  @Output() btnClicked = new EventEmitter();
+
+    constructor(
+      private customerDetailsService : CustomerDetailsService ,
+      private router : Router,
+      private modalService : NgbModal,
+      config: NgbModalConfig
+      ) {
     }
 
-  addAllow = true;
+  addAllow = false;
   // editAllow = true;
   showToolBar = true;
   deleteAllow = false;
@@ -26,16 +37,15 @@ export class ComplaintTableComponent implements OnInit {
   status1 ="pending";
   status2 ="pending";
   status3 ="pending";
-
-
-  addButtonClick() {
-    this.display = true;
-  }
-
+  showDialogBox = false;
+  setDialogBoxValue=false;
+  headerName = "Complaint Form"
+  setDialog = false;
   ngOnInit() {
 
    this.setComplainColomn();
    this. setComplainRow();
+    // this.checkButton = true;
 
    }
 
@@ -158,16 +168,20 @@ export class ComplaintTableComponent implements OnInit {
   }
 
   changeStatus(event){
+    // this.checkButton = false;
     const status = Status.SendQuotation;
-    const id = event;
+    const id = event.id;
+    // event = null;
+
     console.log(event);
 
     try{
       this.customerDetailsService.updateComplainStatus(id,status).
       subscribe((res)=>{
-        // location.reload();
+        this.ngOnInit();
+        location.reload();
         // this.router.navigate(['complain']);
-        window.location.reload();
+        // window.location.reload();
       })
     }
     catch (e) {
@@ -180,6 +194,15 @@ export class ComplaintTableComponent implements OnInit {
     //   return error;
   }
 
-
+  //add dialog box
+  addButtonClick() {
+    // this.setDialog = true;
+    this.setDialogBoxValue = true;
+    // this.display = true;
+    // this.showDialogBox = true;
+  }
+  close(){
+    this.setDialogBoxValue=false;
+  }
 
 }

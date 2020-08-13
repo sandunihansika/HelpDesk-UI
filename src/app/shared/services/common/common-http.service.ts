@@ -37,13 +37,13 @@ export class CommonHttpService {
       .set('Authorization', 'bearer ' + this.token)
       .set('userType', UserType.AdminUser.toString())
       .set('clientId', '3')
-      .set('globalUserId', LoggedUserDetails.loginId);
+      .set('logedUserId', LoggedUserDetails.loginId);
   }
 
   getMultipartHttpHeaders() {
     return new HttpHeaders()
       .set('Authorization', 'bearer ' + this.token)
-      // .set('loginId', UserType.globalUserId.toString())
+      .set('logedUserId', LoggedUserDetails.loginId)
       .set('userType', UserType.AdminUser.toString())
       .set('userType', UserType.toString());
   }
@@ -54,7 +54,7 @@ export class CommonHttpService {
         if (response && response.statusCode === StatusCodes.Success) {
           return response;
         } else if (response && response.statusCode === StatusCodes.Unauthorized) {
-          this.authenticationService.logOut(); /*remove comment after auth service implemented*/
+          this.authenticationService.logOut();
           this.router.navigate(['/auth/login']).then(() => {
           });
           this.toastService.error('Error', response.message);
@@ -64,7 +64,7 @@ export class CommonHttpService {
         }
       })
     );
-  };
+  }
 
   getAll(subUrl: string) {
     return this.http.get<any>(environment.baseUrl + subUrl, {headers: this.getHttpHeaders()}).pipe(

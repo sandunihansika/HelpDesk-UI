@@ -19,6 +19,12 @@ export enum UserType {
   HelpDeskUser = 5
 }
 
+export enum InqueryType {
+  Details = 1,
+  Quotation = 2,
+  Quotation_with_details = 3
+}
+
 export enum Alignment {
   Left = 1,
   Center = 2,
@@ -33,14 +39,8 @@ export enum ColumnType {
 }
 
 export enum CompanyType {
-  Dimo =2,
+  Dimo = 2,
   Ingenii = 3
-}
-
-export enum InqueryType {
-  Details = 1,
-  Quatation = 2,
-  Quatation_with_details = 3
 }
 
 export enum Status {
@@ -50,7 +50,7 @@ export enum Status {
   ReNeedConsent = 4,
   ReSendQuotation = 5,
   ReRemindCustomer = 6,
-  Pending=7,
-  Completed=8
+  Pending = 7,
+  Completed = 8
 }
 

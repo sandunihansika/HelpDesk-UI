@@ -2,14 +2,8 @@
   <div class="row">
     <div class="col-sm-12 ">
       <div class="card">
-        <!--        <div class="card-header">-->
-        <!--          <h5>Customer Details Form</h5>-->
-        <!--        </div>-->
         <div class="card-body">
-          <form novalidate
-                (ngSubmit)="saveCustomer()"
-                [formGroup]="customersForm">
-
+          <form [formGroup]="customersForm" class="theme-form">
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
                 <label for="firstName">First name<span class="form-error">* </span>
@@ -67,32 +61,38 @@
                      'is-invalid': (telNo.touched ||telNo.dirty) && !telNo.valid }"></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-                <label for="addressLine1">AddressLine1<span class="form-error">* </span>
-                  <span *ngIf="addressLine1.touched && addressLine1.errors?.required"
-                        class="form-error">  addressLine is required!</span>
+                <label for="streetAddressLineOne">AddressLine1<span class="form-error">* </span>
+                  <span *ngIf="streetAddressLineOne.touched && streetAddressLineOne.errors?.required"
+                        class="form-error">  addressLine 1 is required!</span>
                 </label>
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
-                  formControlName="addressLine1"
-                  placeholder="addressLine1"
-                  id="addressLine1"
+                  formControlName="streetAddressLineOne"
+                  placeholder="streetAddressLineOne"
+                  id="streetAddressLineOne"
                   [ngClass]="{
-                     'is-invalid': (addressLine1.touched ||addressLine1.dirty) && !addressLine1.valid }"></app-common-textbox>
+                     'is-invalid': (streetAddressLineOne.touched ||streetAddressLineOne.dirty) && !streetAddressLineOne.valid }"></app-common-textbox>
               </div>
 
               <div class="p-field p-col-12 p-md-6">
-                <label for="addressLine2">AddressLine2<span class="form-error">* </span>
-                  <span *ngIf="addressLine2.touched && addressLine2.errors?.required"
-                        class="form-error">  addressLine is required!</span>
+                <label for="streetAddressLineTwo">AddressLine2<span class="form-error">* </span>
+                  <span *ngIf="streetAddressLineTwo.touched && streetAddressLineTwo.errors?.required"
+                        class="form-error">  addressLine 2 is required!</span>
                 </label>
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
-                  formControlName="addressLine2"
-                  placeholder="addressLine2"
-                  id="addressLine2"
+                  formControlName="streetAddressLineTwo"
+                  placeholder="streetAddressLineTwo"
+                  id="streetAddressLineTwo"
                   [ngClass]="{
-                     'is-invalid': (addressLine2.touched ||addressLine2.dirty) && !addressLine2.valid }"></app-common-textbox>
+                     'is-invalid': (streetAddressLineTwo.touched ||streetAddressLineTwo.dirty) && !streetAddressLineTwo.valid }"></app-common-textbox>
 
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <label>Select Company</label>
+                <app-common-dropdown [fields]="companyType"
+                                     (selectChange)="getCompanyId($event)"
+                ></app-common-dropdown>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label for="country">Country<span class="form-error">* </span>
@@ -123,31 +123,32 @@
 
               </div>
               <div class="p-field p-col-12 p-md-6">
-                <label for="zip">Zip<span class="form-error">* </span>
-                  <span *ngIf="zip.touched && zip.errors?.required"
-                        class="form-error">  zip is required!</span>
+                <label for="zipCode">Zip<span class="form-error">* </span>
+                  <span *ngIf="zipCode.touched && zipCode.errors?.required"
+                        class="form-error">  zipCode is required!</span>
                 </label>
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
-                  formControlName="zip"
-                  placeholder="zip"
-                  id="zip"
+                  formControlName="zipCode"
+                  placeholder="zipCode"
+                  id="zipCode"
                   [ngClass]="{
-                     'is-invalid': (zip.touched ||zip.dirty) && !zip.valid }"></app-common-textbox>
+                     'is-invalid': (zipCode.touched ||zipCode.dirty) && !zipCode.valid }"></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-                <label for="nic">Nic<span class="form-error">* </span>
-                  <span *ngIf="nic.touched && nic.errors?.required"
-                        class="form-error">  nic is required!</span>
-                  <span *ngIf="nic.errors?.minlength" class="form-error"> nic should contain 10 characters</span>
+                <label for="nicNumber">Nic<span class="form-error">* </span>
+                  <span *ngIf="nicNumber.touched && nicNumber.errors?.required"
+                        class="form-error">  nicNumber is required!</span>
+                  <span *ngIf="nicNumber.errors?.minlength"
+                        class="form-error"> nicNumber should contain 10 characters</span>
                 </label>
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
-                  formControlName="nic"
-                  placeholder="nic"
-                  id="nic"
+                  formControlName="nicNumber"
+                  placeholder="nicNumber"
+                  id="nicNumber"
                   [ngClass]="{
-                     'is-invalid': (nic.touched ||nic.dirty) && !nic.valid }"></app-common-textbox>
+                     'is-invalid': (nicNumber.touched ||nicNumber.dirty) && !nicNumber.valid }"></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label for="ppNo">Passport Number<span class="form-error">* </span>
@@ -166,8 +167,7 @@
             </div>
             <div class="offset-md-2 col-md-4">
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary mr-1">Submit</button>
-                <input type="reset" class="btn btn-light" value="Cancel">
+                <button class="btn btn-primary mr-3" (click)="saveCustomer()">Submit</button>
               </div>
 
             </div>

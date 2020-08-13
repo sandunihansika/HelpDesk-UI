@@ -41,13 +41,15 @@
                               id="password"
                               [ngClass]="{'is-invalid': (password.touched ||password.dirty) && (!password.valid) }"></app-common-textbox>
                           </div>
-                          <div class="checkbox p-0">
+                          <div class="checkbox p-0" style="">
                             <input id="checkbox1" type="checkbox" name="checkboxa1" formControlName="saveDetails">
                             <label for="checkbox1">Remember me</label>
                           </div>
                         </div>
                         <br><br>
-                        <button class="btn btn-primary mb-4" (click)="login()">Login</button>
+
+                          <button  class="btn btn-primary mb-4" (click)="login()">Login</button>
+
                       </form>
                     </div>
 
@@ -55,7 +57,7 @@
                 </div>
             </div>
           </div>
-            <div *ngIf="spinner" class="col-md-5" style="margin-left: 34% !important;">
+            <div *ngIf="spinner" class="col-md-6" style="margin-left: 13% !important;">
               <div class="loader-box"><span class="rotate dashed"></span></div>
             </div>
   </div>

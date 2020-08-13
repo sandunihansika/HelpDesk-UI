@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, FormArray} from '@angular/forms';
 import {CustomerDetails} from './customer-details';
 import {FormValidationHelpers} from '../../../../../shared/helpers/form-validation-helpers';
-import {TextBoxTypes} from '../../../../../shared/services/common/enum';
+import {CompanyType, TextBoxTypes} from '../../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
 import {CustomerType} from '../../../../../shared/services/common/enum';
 
@@ -14,62 +14,20 @@ import {CustomerType} from '../../../../../shared/services/common/enum';
 })
 export class CustomerDetailsComponent implements OnInit {
   customersForm: FormGroup;
-  customer: CustomerDetails;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
-  male: string;
-  female: string;
+  companyType = [];
 
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
     private customerservice: CustomerDetailsService
   ) {
-    this.customer = new CustomerDetails();
+    this.companyType = [
+      {id: CompanyType.Ingenii, name: 'Ingenii'},
+      {id: CompanyType.Dimo, name: 'Dimo'},
+    ];
   }
 
-  ngOnInit(): void {
-    this.customersForm = this.formbuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      nic: ['', [Validators.required, Validators.minLength(10)]],
-      ppNo: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      telNo: ['', [Validators.required, Validators.minLength(10)]],
-      addressLine1: ['', [Validators.required]],
-      addressLine2: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      zip: ['', [Validators.required]],
-      type: [CustomerType.Individual, [Validators.required]]
-    });
-  }
-
-  // patchValues() {
-  //   if (this.customer) {
-  //     this.customersForm.patchValue({
-  //       firstName: this.customer.firstName ? this.customer.firstName : '',
-  //       LastName: this.customer.LastName ? this.customer.LastName : '',
-  //       NIC: this.customer.NIC ? this.customer.NIC : '',
-  //       Email: this.customer.Email ? this.customer.Email : '',
-  //       TelNo: this.customer.TelNo ? this.customer.TelNo : '',
-  //       Address: this.customer.Address ? this.customer.Address : '',
-  //       Gender: this.customer.Gender ? this.customer.Gender : ''
-  //     });
-  //   }
-  // }
-
-  saveCustomer() {
-    console.log(this.customersForm.value);
-    if (this.customersForm.invalid) {
-      this.formvalidationhelpers.validateAllFormFields(this.customersForm);
-      return;
-    } else if (this.customersForm.valid) {
-      this.customerservice.addCustomer(this.customersForm.value, this.customer.nic).subscribe(
-        respond => {
-          /**/
-        });
-    }
-  }
 
   get firstName() {
     return this.customersForm.get('firstName');
@@ -79,8 +37,8 @@ export class CustomerDetailsComponent implements OnInit {
     return this.customersForm.get('lastName');
   }
 
-  get nic() {
-    return this.customersForm.get('nic');
+  get nicNumber() {
+    return this.customersForm.get('nicNumber');
   }
 
   get email() {
@@ -91,12 +49,12 @@ export class CustomerDetailsComponent implements OnInit {
     return this.customersForm.get('telNo');
   }
 
-  get addressLine1() {
-    return this.customersForm.get('addressLine1');
+  get streetAddressLineOne() {
+    return this.customersForm.get('streetAddressLineOne');
   }
 
-  get addressLine2() {
-    return this.customersForm.get('addressLine2');
+  get streetAddressLineTwo() {
+    return this.customersForm.get('streetAddressLineTwo');
   }
 
   get ppNo() {
@@ -111,8 +69,48 @@ export class CustomerDetailsComponent implements OnInit {
     return this.customersForm.get('country');
   }
 
-  get zip() {
-    return this.customersForm.get('zip');
+  get zipCode() {
+    return this.customersForm.get('zipCode');
+  }
+
+  get handlingCompany() {
+    return this.customersForm.get('handlingCompany');
+  }
+
+  ngOnInit(): void {
+    this.customersForm = this.formbuilder.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      nicNumber: [''],
+      ppNo: [''],
+      email: ['', [Validators.required, Validators.email]],
+      telNo: ['', [Validators.required]],
+      handlingCompany: [this.companyType[0].id, [Validators.required]],
+      streetAddressLineOne: ['', [Validators.required]],
+      streetAddressLineTwo: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      zipCode: ['', [Validators.required]],
+      type: [CustomerType.Individual, [Validators.required]]
+    });
+  }
+
+  getCompanyId(event) {
+    console.log(event.id);
+    this.customersForm.value.handlingCompany = event.id;
+  }
+
+
+  saveCustomer() {
+    if (this.customersForm.invalid) {
+      this.formvalidationhelpers.validateAllFormFields(this.customersForm);
+      return;
+    } else if (this.customersForm.valid) {
+      this.customerservice.addCustomer(this.customersForm.value).subscribe(
+        respond => {
+          console.log(respond);
+        });
+    }
   }
 
 
