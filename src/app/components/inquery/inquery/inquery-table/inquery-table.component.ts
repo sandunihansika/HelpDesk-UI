@@ -186,7 +186,7 @@ export class InqueryTableComponent implements OnInit {
   }
 
   setInquiryRowColumns() {
-    this.inqueryGrid.dataLoading = true;
+    this.dataLoading = true;
     this.CustomerDetailsService.getAllInquiry().subscribe(
       (list: any) => {
         if(list.data !== undefined) {
@@ -197,15 +197,15 @@ export class InqueryTableComponent implements OnInit {
               });
             });
             this.inqueryGrid.rowLists = list.data;
-            this.inqueryGrid.dataLoading = false;
+            this.dataLoading = false;
           } else {
             this.inqueryGrid.rowLists = [];
-            this.inqueryGrid.dataLoading = false;
+            this.dataLoading = false;
           }
         }
       },
       error => {
-        this.inqueryGrid.dataLoading = true;
+        this.dataLoading = true;
         console.log(error);
       }
     );
@@ -222,7 +222,7 @@ export class InqueryTableComponent implements OnInit {
   viewQuotation(item) {
     try{
       this.CustomerDetailsService.selectedCustomer = item;
-      this.route.navigate(['inquiry/quotation/'+item.customerId]);
+      this.route.navigate(['inquiry/quotation/',item.customerId]);
     } catch (error) {
       return error;
     }
@@ -239,6 +239,7 @@ export class InqueryTableComponent implements OnInit {
     this.cName = event.customer.companyName;
     this.statusHistoryGrid.dataLoading = true;
     this.displayHistory = true;
+    this.inqueryGrid.selectedEntity = null;
 
     this.CustomerDetailsService.getStatusHistory(event.id).subscribe(
       (list: any) => {
@@ -264,16 +265,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedGotConsent(event.id,event.customerId).subscribe(
       (list: any) => {
           if(list) {
-            this.inqueryGrid.spinner = false;
             this.setInquiryRowColumns();
-            //this.route.navigate(['inquiry']);
-            //location.reload();
+            this.inqueryGrid.selectedEntity = null;
+            this.inqueryGrid.spinner = false;
           } else {
             this.inqueryGrid.rowLists = [];
+            this.inqueryGrid.spinner = false;
           }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -283,15 +284,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedApprove(event.id,event.customerId).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -301,15 +303,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedReject(event.id,event.customerId).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -319,15 +322,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedResend(event.id,event.customerId,event.customer.handlingCompany).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -337,15 +341,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedGotReConsent(event.id,event.customerId).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }

@@ -17,6 +17,8 @@ import {CompanyType} from './common/enum';
 })
 export class CustomerDetailsService {
   customerUrl = 'customer';
+  inquiryUrl = 'inquiry';
+  quotationUrl = 'quotation'
   selectedCustomer;
 
   constructor(
@@ -54,8 +56,7 @@ export class CustomerDetailsService {
   }
 
   getQuotation(customerId): Observable<any> {
-    //return this.quotationData.filter(quotationData => quotationData.cid === customerId);
-    return this.http.get( 'http://localhost:3000/quotation/' + customerId).pipe(
+    return this.commonHttpService.getAll( this.quotationUrl + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -63,8 +64,7 @@ export class CustomerDetailsService {
   }
 
   getAllInquiry(): Observable<any> {
-    //return this.inquiryData;
-    return this.http.get('http://localhost:3000/inquiry/inquiryDetails').pipe(
+    return this.commonHttpService.getAll(this.inquiryUrl + '/inquiryDetails').pipe(
       map(data => {
         console.log(data);
         return data;
@@ -83,8 +83,7 @@ export class CustomerDetailsService {
   }
 
   getCustomerList(): Observable<any> {
-    //return this.customerData;
-    return this.http.get('http://localhost:3000/customer/getAllCustomers').pipe(
+    return this.commonHttpService.getAll(this.customerUrl + '/getAllCustomers').pipe(
       map(data => {
         return data;
       })
@@ -92,7 +91,7 @@ export class CustomerDetailsService {
   }
 
   getStatusHistory(inquiryId): Observable<any>{
-    return this.http.get('http://localhost:3000/inquiry/getHistory/' + inquiryId).pipe(
+    return this.commonHttpService.getAll(this.inquiryUrl + '/getHistory/' + inquiryId).pipe(
       map(data => {
         return data;
       })
@@ -100,11 +99,6 @@ export class CustomerDetailsService {
   }
 
   clickedGotConsent(inquiryId, customerId): Observable<any> {
-    // return this.commonHttpService.postUploadData(this.customerUrl + '/quatation', InquiryId).pipe(
-    //   map(data => {
-    //     return data;
-    //   })
-    // );
     return this.http.put( 'http://localhost:3000/quotation/changeStatus/send/' + inquiryId + '/' + customerId, '').pipe(
       map(data => {
         return data;
