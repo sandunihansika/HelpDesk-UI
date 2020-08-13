@@ -6,7 +6,7 @@
         <div>
           <p-toolbar *ngIf="showToolBar">
             <div class="ui-toolbar-group-left">
-              <!--    <button pButton type="button" icon="pi pi-refresh" style="margin-right: .25em" class="ui-button-secondary" (click)="this.refreshClick()"></button>-->
+<!--                  <button pButton type="button" icon="pi pi-refresh" style="margin-right: .25em" class="ui-button-secondary" (click)="this.refreshClick()"></button>-->
 
               <button
                 *ngIf="addAllow"
@@ -187,17 +187,18 @@
             <!--    </ng-template>-->
 
           </p-table>
-          <div class="loader-box" *ngIf="spinner">
-            <div class="loader">
-              <div class="line bg-secondary"></div>
-              <div class="line bg-secondary"></div>
-              <div class="line bg-secondary"></div>
-              <div class="line bg-secondary"></div>
-            </div>
-          </div>
+<!--          <div class="loader-box" *ngIf="spinner">-->
+<!--            <div class="loader">-->
+<!--              <div class="line bg-secondary"></div>-->
+<!--              <div class="line bg-secondary"></div>-->
+<!--              <div class="line bg-secondary"></div>-->
+<!--              <div class="line bg-secondary"></div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </div>
     </div>
   </div>
 </p-card>
 
+<app-loader [loader]="dataLoading"></app-loader>

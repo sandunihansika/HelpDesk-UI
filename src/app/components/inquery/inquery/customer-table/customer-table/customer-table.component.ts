@@ -17,6 +17,7 @@ export class CustomerTableComponent implements OnInit {
   displayCoporate: boolean = false;
   dataSource: any[];
   CusArray:any;
+  dataLoading = false;
 
   constructor(private CustomerDetailsService: CustomerDetailsService) { }
 
@@ -164,30 +165,31 @@ export class CustomerTableComponent implements OnInit {
     // this.IndividualCompanyListGrid.rowLists = result1;
     // const result2 = this.CusArray.filter(CusArray=> CusArray.type === CustomerType.Corporate);
     // this.CorporateCompanyListGrid.rowLists = result2;
-    this.IndividualCompanyListGrid.spinner = true;
-    this.CorporateCompanyListGrid.spinner = true;
+    this.IndividualCompanyListGrid.dataLoading = true;
+    this.CorporateCompanyListGrid.dataLoading = true;
     this.CustomerDetailsService.getCustomerList().subscribe(
       (list: any) => {
-        if (list !== undefined) {
-          if (list) {
-            list.forEach((item: any) => {
+        if (list.data !== undefined) {
+          if (list.data) {
+            list.data.forEach((item: any) => {
               Object.assign(item, {
                 handlingCompanyName: this.getHandlingCompanyName(item['handlingCompany'])
               });
             });
-            this.putDataIntoTable(list);
-            this.IndividualCompanyListGrid.spinner = false;
-            this.CorporateCompanyListGrid.spinner = false;
+            this.putDataIntoTable(list.data);
+            this.IndividualCompanyListGrid.dataLoading = false;
+            this.CorporateCompanyListGrid.dataLoading = false;
           } else {
             this.IndividualCompanyListGrid.rowLists = [];
-            this.IndividualCompanyListGrid.spinner = false;
+            this.IndividualCompanyListGrid.dataLoading = false;
             this.CorporateCompanyListGrid.rowLists = [];
-            this.CorporateCompanyListGrid.spinner = false;
+            this.CorporateCompanyListGrid.dataLoading = false;
           }
         }
       },
       error => {
-        this.IndividualCompanyListGrid.spinner = true;
+        this.IndividualCompanyListGrid.dataLoading = true;
+        this.CorporateCompanyListGrid.dataLoading = true;
         console.log(error);
       }
     );

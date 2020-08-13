@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@
   selector: 'ngbd-modal-content',
   template: `
     <div class="modal-header">
-      <h4 class="modal-title">Hi there!</h4>
+      <h4 class="modal-title">Charitha</h4>
       <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -20,7 +20,6 @@ import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@
 })
 export class NgbdModalContent {
   @Input() name;
-
   constructor(public activeModal: NgbActiveModal) {}
 }
 
@@ -91,7 +90,7 @@ export class ModalComponent implements OnInit {
 
   }
 
-  open(content) {
+  open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

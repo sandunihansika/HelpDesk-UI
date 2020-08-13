@@ -1,7 +1,6 @@
 
 <app-common-grid
   #inqueryGrid
-  header="Inquiry Details"
   [addAllow]="addAllow"
   [editAllow]="editAllow"
   [showToolBar]="showToolBar"
@@ -97,10 +96,10 @@
   <app-customer-handling></app-customer-handling>
 </p-dialog>
 
-<p-dialog header="Inquiries - Customer Id: {{cId + ' / ' + 'Customer Name: ' + (fName || cName)}}" [modal]="true" [(visible)]="displayHistory">
+<p-dialog header="Inquiry Id: {{id + ' / ' + 'Customer Name: ' + (fName || cName)}}" [modal]="true" [(visible)]="displayHistory">
   <app-common-grid
-    #auditGrid
-    header="Inquiry Status"
+    #statusHistoryGrid
+    header="Status History"
     [addAllow]="addAllowHistory"
     [showToolBar]="showToolBar"
     [showSearchBox]="showSearchBox"
@@ -108,4 +107,5 @@
   </app-common-grid>
 </p-dialog>
 
+<app-loader [loader]="dataLoading"></app-loader>
 

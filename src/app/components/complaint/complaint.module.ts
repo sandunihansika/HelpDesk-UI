@@ -7,6 +7,7 @@ import {CommonGridComponent} from '../../shared/components/common-grid/common-gr
 import {DialogModule} from 'primeng/dialog';
 import {InqueryModule} from '../inquery/inquery/inquery.module';
 import {ComplaintFormComponent} from './complaint-form/complaint-form.component';
+import {CustomerDetailsModule} from '../inquery/inquery/customer-details/customer-details.module';
 
 
 
@@ -17,13 +18,14 @@ import {ComplaintFormComponent} from './complaint-form/complaint-form.component'
 
 
   ],
-  imports: [
-    ComplaintRoutingModule,
-    SharedModule,
-    DialogModule,
-    InqueryModule,
-    CommonModule
-  ],
+    imports: [
+        ComplaintRoutingModule,
+        SharedModule,
+        DialogModule,
+        InqueryModule,
+        CommonModule,
+        CustomerDetailsModule
+    ],
   providers : [],
   exports : []
 

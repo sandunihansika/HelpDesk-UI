@@ -13,11 +13,11 @@ const routes: Routes = [
         component: InqueryTableComponent,
         data: {
           title: "Inquiry",
-          breadcrumb: "Inquiry"
+          breadcrumb: ""
         },
       },
       {
-        path: 'quotation',
+        path: 'quotation/:customerId',
         component: QuatationComponent,
         data: {
           title: "Quotation",

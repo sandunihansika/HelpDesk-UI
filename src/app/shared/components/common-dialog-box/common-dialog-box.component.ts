@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {NgbdModalContent} from '../../../components/base/modal/modal.component';
 import { NgbActiveModal, NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,13 +12,28 @@ export class CommonDialogBoxComponent implements OnInit {
   constructor(private modalService : NgbModal) {
 
   }
-  @Input() showDialogBox = false;
-  @Output() addButton = new EventEmitter();
+  @ViewChild('content', { static: false }) content: any;
+  private _setDialogBox: boolean;
+  @Input() header : string;
+  @Output() closeButtonClick = new EventEmitter();
+  @Output() saveButton = new EventEmitter();
 
   ngOnInit(): void {
-
+  this._setDialogBox = false;
   }
+  closeResult: string;
 
+
+  get dialogBox(){
+    return this._setDialogBox;
+  }
+@Input()
+  set dialogBox(value){
+  this._setDialogBox =value;
+  if(value === true){
+    this.open(this.content);
+  }
+  }
 
 
   openModal() {
@@ -26,7 +41,40 @@ export class CommonDialogBoxComponent implements OnInit {
     modalRef.componentInstance.name = 'World';
   }
 
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 
+  // this.content.dismiss(){
+  //   this._setDialogBox = false;
+  // }
 
+close(){
+
+ this.content.disable;
+}
+  method(modal){
+    modal.dismiss();
+    this._setDialogBox = false;
+    this.closeButtonClick.emit(1);
+  }
+
+  save(modal){
+    modal.dismiss();
+    this.closeButtonClick.emit(1);
+  }
 
 }
