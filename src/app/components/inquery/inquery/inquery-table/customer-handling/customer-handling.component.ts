@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {FormValidationHelpers} from '../../../../../shared/helpers/form-validation-helpers';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
 import {CompanyCustomerDeails} from './CompanyCustomerDeails';
@@ -16,20 +16,19 @@ export class CustomerHandlingComponent implements OnInit {
   individualCorpCustomerForm: FormGroup;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   companyCustomerDetails: CompanyCustomerDeails;
-  customerData;
-  selectedCustomer: {
-    id: number
-  };
+  customerData: any[];
 
   new: string;
   exist: string;
   selectedValue: string;
   formEnable: boolean = true;
   display: boolean;
+  displayCop: boolean;
   cTypes: typeof CustomerType = CustomerType;
   customerType: CustomerType;
   InqueryType = [];
   companyType = [];
+
 
   constructor(
     private customerservice: CustomerDetailsService,
@@ -47,23 +46,12 @@ export class CustomerHandlingComponent implements OnInit {
       {id: CompanyType.Ingenii, name: 'Ingenii'},
       {id: CompanyType.Dimo, name: 'Dimo'},
     ];
-    this.allcustomers = [{
-      id:1, name:"rambo"
-    }]
-
   }
 
 
   customers = []; /*array of customers to get respond*/
   allcustomers = [];
-
-  putintoDropdown(id, fName) {
-    console.log(id + ',' + fName);
-    this.allcustomers = [{
-      id: id, name: fName
-    }];
-    // console.log(this.allcustomers);
-  }
+  showCustomers = [];
 
 
   ngOnInit(): void {
@@ -88,7 +76,7 @@ export class CustomerHandlingComponent implements OnInit {
       taxNumber: ['', [Validators.required]],
       vatNumber: ['', [Validators.required]],
       handlingCompany: [this.companyType[0].id, [Validators.required]], /*value by dropdown*/
-      handlingCustomer: ['', [Validators.required]], /*value by dropdown*/
+      handlingCustomer: [null, [Validators.required]], /*value by dropdown*/
       inqueryType: ['', [Validators.required]],
       customerStatus: ['exist']
     });
@@ -97,63 +85,71 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
 
-  getCustomerStuatus(status) { //radio event to select customer status
-    console.log(status.value);
-    if (status === 'new') {
+  getCustomerStuatus(status, form: FormGroupDirective) { //radio event to select customer status
+    if (status.value === 'new') {
+      // form.resetForm();
+      this.individualCorpCustomerForm.reset();
+      this.customerType = CustomerType.Individual;
+      this.displayCop = true;
       this.formEnable = false;
       // console.log(this.formEnable);
     } else {
+      this.displayCop = false;
       this.formEnable = true;
+      this.patchToCustomer(this.customers[0]);
+
       // console.log(this.formEnable);
     }
   }
 
   getCustomerId(event) { //dropdown event when select customer
-    this.selectedCustomer.id = event.id;
-    this.filterCustomerDetails(this.selectedCustomer.id);
+    this.companyCustomerDetails.id = event.id;
+    this.filterCustomerDetails(this.companyCustomerDetails.id);
+
   }
 
   getCompanySelected(event) { //dropdown event
     this.individualCorpCustomerForm.value.handlingCompany = event.id;  //when event fired need to find the relevant id customer form the array
+    this.allcustomers = [''];
     this.getCustomer();
     console.log(this.individualCorpCustomerForm.value.handlingCompany);
   }
 
-  filterCustomerDetails(cid) {
-    const customerData = this.customers.filter(c => c.id === cid); //efficiency improved
+  filterCustomerDetails(id) {
+    this.customerData = this.customers.filter(c => c.id === id);
     console.log(this.customerData[0].type);
-
+    this.customerType = this.customerData[0].type; //display
     if (this.customerData[0].type == CustomerType.Corporate) {
-      this.patchToCustomer(customerData);
+      this.patchToCustomer(this.customerData[0]);
     }
     if (this.customerData[0].type == CustomerType.Individual) {
-      this.patchToCustomer(customerData); //call for patch the individual customer
+      this.patchToCustomer(this.customerData[0]); //call for patch the individual customer
     }
 
   }
 
   patchToCustomer(customerValue) {
-    // console.log(customerValue);
+    console.log(customerValue);
     this.individualCorpCustomerForm.patchValue({
-      firstName: customerValue[0].firstName ? customerValue[0].firstName : '',
-      lastName: customerValue[0].lastName ? customerValue[0].lastName : '',
-      nic: customerValue[0].nic ? customerValue[0].nic : '',
-      email: customerValue[0].email ? customerValue[0].email : '',
-      telNo: customerValue[0].telNo ? customerValue[0].telNo : '',
-      address: customerValue[0].address ? customerValue[0].address : '',
-      type: customerValue[0].type ? customerValue[0].type : '',
-      companyName: customerValue[0].companyName ? customerValue[0].companyName : '',
-      companyRegistrationNo: customerValue[0].companyRegistrationNo ? customerValue[0].companyRegistrationNo : '',
-      streetAddressLineOne: customerValue[0].streetAddressLineOne ? customerValue[0].streetAddressLineOne : '',
-      streetAddressLineTwo: customerValue[0].streetAddressLineTwo ? customerValue[0].streetAddressLineTwo : '',
-      ppNo: customerValue[0].ppNo ? customerValue[0].ppNo : '',
-      country: customerValue[0].country ? customerValue[0].country : '',
-      city: customerValue[0].city ? customerValue[0].city : '',
-      zipCode: customerValue[0].zipCode ? customerValue[0].zipCode : '',
-      taxNumber: customerValue[0].taxNumber ? customerValue[0].taxNumber : '',
-      vatNumber: customerValue[0].vatNumber ? customerValue[0].vatNumber : '',
-      handlingCompany: customerValue[0].handlingCompany ? customerValue[0].handlingCompany : '', //dropdown values
-      handlingCustomer: customerValue[0].handlingCustomer ? customerValue[0].handlingCustomer : '', //dropdown values
+      firstName: customerValue.firstName ? customerValue.firstName : '',
+      lastName: customerValue.lastName ? customerValue.lastName : '',
+      nic: customerValue.nic ? customerValue.nic : '',
+      email: customerValue.email ? customerValue.email : '',
+      telNo: customerValue.telNo ? customerValue.telNo : '',
+      address: customerValue.address ? customerValue.address : '',
+      type: customerValue.type ? customerValue.type : '',
+      companyName: customerValue.companyName ? customerValue.companyName : '',
+      companyRegistrationNo: customerValue.companyRegistrationNo ? customerValue.companyRegistrationNo : '',
+      streetAddressLineOne: customerValue.streetAddressLineOne ? customerValue.streetAddressLineOne : '',
+      streetAddressLineTwo: customerValue.streetAddressLineTwo ? customerValue.streetAddressLineTwo : '',
+      ppNo: customerValue.ppNo ? customerValue.ppNo : '',
+      country: customerValue.country ? customerValue.country : '',
+      city: customerValue.city ? customerValue.city : '',
+      zipCode: customerValue.zipCode ? customerValue.zipCode : '',
+      taxNumber: customerValue.taxNumber ? customerValue.taxNumber : '',
+      vatNumber: customerValue.vatNumber ? customerValue.vatNumber : '',
+      handlingCompany: customerValue.handlingCompany ? customerValue.handlingCompany : '', //dropdown values
+      handlingCustomer: customerValue.handlingCustomer ? customerValue.handlingCustomer : '', //dropdown values
       // contactPerson: customerValue[0].contactPerson ? customerValue[0].contactPerson : '',
       // contactNo: customerValue[0].contactNo ? customerValue[0].contactNo : '',
 
@@ -162,25 +158,22 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   getCustomer() {
-    // if (this.individualCorpCustomerForm.invalid) {
-    //   this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
-    //   return;
-    // } else if (this.individualCorpCustomerForm.valid) {
     this.customerservice.getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany).subscribe(
       respond => {
-        this.customers = respond.data; //getting data array into customer array
-        console.log(this.customers);
+        this.customers = respond.data;
         this.customers.forEach(i => {
-          this.putintoDropdown(i.id, i.firstName);
+          this.allcustomers.push({id: i.id, name: i.firstName ? i.firstName : ''});
         });
+        this.showCustomers = this.allcustomers;
         // console.log(this.customers[0]);
         //when page load first array element get
-        this.patchToCustomer(this.customers[0]); // call to patch the selected customer
+        this.patchToCustomer(this.customers[0]); // call to patch the first customer
+      }, error => {
+
       });
-    // }
   }
 
-  saveInquery() {
+  createInquery() {
     console.log(this.individualCorpCustomerForm.value);
     if (this.individualCorpCustomerForm.invalid) {
       this.formvalidationhelpers.validateAllFormFields(this.individualCorpCustomerForm);
@@ -191,6 +184,9 @@ export class CustomerHandlingComponent implements OnInit {
           /**/
         });
     }
+  }
+
+  udpateInquery(id) {
   }
 
   get firstName() {
