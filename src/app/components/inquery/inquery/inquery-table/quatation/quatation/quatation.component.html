@@ -1,6 +1,6 @@
 <app-common-grid
   #quotationGrid
-  header="Customer Id:{{selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}"
+  header="Customer Id:{{selectedCustomer? selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName) : custId}}"
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
@@ -19,7 +19,7 @@
   style="margin-right: .25em"
   class="ui-button-info"
   (click)="viewForm()"
-  *ngIf="selectedCustomer.status.name === 'Re-send quotation '"
+  *ngIf="selectedCustomer? visible && selectedCustomer.status.name === 'Re-send quotation ': visible"
 ></button>
   <button
     pButton
@@ -28,7 +28,7 @@
     style="margin-right: .25em"
     class="ui-button-info"
     (click)="viewForm()"
-    *ngIf="selectedCustomer.status.name === 'Send quotation'"
+    *ngIf="selectedCustomer? visible && selectedCustomer.status.name === 'Send quotation' : ''"
   ></button>
 </app-common-grid>
 
@@ -40,7 +40,7 @@
 
 <app-common-dialog-box
   class="body .ui-dialog"
-  header="Quotation - Customer Id:{{selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}"
+  header="Quotation - Customer Id:{{selectedCustomer? selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName) : custId}}"
   [dialogBox]="setDialogBoxValue"
   (closeButtonClick)="close()">
   <p-card>
@@ -101,6 +101,26 @@
                       formControlName="expiryDate"
                       id="expiryDate"
                       [ngClass]="{
+                    </div>
+                    <div class="p-col">
+
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Upload File</label>
+                            <div class="p-col">
+                              <input type="file" class="form-control" formControlName="pdf" (change)="onUpload($event)">
+                            </div>
+                          </div>
+
+                    </div>
+                    <div class="p-col">
+                      <label for="expiryDate">Expiry Date<span class="form-error">* </span>
+                        <span *ngIf="expiryDate.touched && expiryDate.errors?.required"
+                              class="form-error">  Expiry Date is required!</span>
+                      </label>
+                      <app-common-calender
+                        formControlName="expiryDate"
+                        id="expiryDate"
+                        [ngClass]="{
                      'is-invalid': (expiryDate.touched ||expiryDate.dirty) && !expiryDate.valid }"></app-common-calender>
                   </div>
 
@@ -123,6 +143,24 @@
         </div>
       </div>
     </div>
+                    <div class="offset-md-2 col-md-4">
+                      <!--                  <div>-->
+                      <!--                    <button class="btn btn-primary mr-3"-->
+                      <!--                            type="submit" style="background-position:center">Save-->
+                      <!--                    </button>-->
+                      <!--                  </div>-->
+                      <div class="card-footer">
+                        <button type="submit" class="btn btn-primary mr-1" (click)="send(selectedCustomer)">Submit</button>
+                        <input type="reset" class="btn btn-light" value="Reset">
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   </p-card>
 
 </app-common-dialog-box>

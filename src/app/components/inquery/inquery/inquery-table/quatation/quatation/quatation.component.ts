@@ -5,7 +5,8 @@ import {ColumnType, TextBoxTypes, Alignment} from '../../../../../../shared/serv
 import {FormValidationHelpers} from '../../../../../../shared/helpers/form-validation-helpers';
 import {CustomerDetailsService} from '../../../../../../shared/services/customer-details.service';
 import {CommonGridComponent} from '../../../../../../shared/components/common-grid/common-grid.component';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
+import {getUrlScheme} from '@angular/compiler';
 
 @Component({
   selector: 'app-quatation',
@@ -25,30 +26,48 @@ export class QuatationComponent implements OnInit {
   setDialogBoxValue = false;
   display = false;
   dataLoading = false;
+  visible = true;
+  url;
   selectedCustomer;
+  custId;
 
 
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
     private customerservice: CustomerDetailsService,
-    public route: Router
+    public route: Router,
+    public router: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
     this.selectedCustomer = this.customerservice.selectedCustomer;
-    //console.log(this.selectedCustomer);
-    this.quatationForm = this.formbuilder.group({
-      customerId: [this.selectedCustomer.id, [Validators.required]],
-      description: ['', [Validators.required]],
-      quatationNo: ['', [Validators.required]],
-      expiryDate: ['', [Validators.required]],
-      pdf: [[Validators.required]]
-    });
+    this.router.params.subscribe(params => this.custId = parseInt(params['customerId']));
+    //console.log(this.custId);
+    if(this.selectedCustomer) {
+      //console.log(this.selectedCustomer);
+      this.quatationForm = this.formbuilder.group({
+        customerId: [this.selectedCustomer.id, [Validators.required]],
+        description: ['', [Validators.required]],
+        quatationNo: ['', [Validators.required]],
+        expiryDate: ['', [Validators.required]],
+        pdf: [[Validators.required]]
+      });
+      this.setQuotationColumns();
+      this.setQuotationRowList(this.selectedCustomer.customerId);
+    } else {
+      this.quatationForm = this.formbuilder.group({
+        customerId: [this.custId, [Validators.required]],
+        description: ['', [Validators.required]],
+        quatationNo: ['', [Validators.required]],
+        expiryDate: ['', [Validators.required]],
+        pdf: [[Validators.required]]
+      });
+      this.setQuotationColumns();
+      this.setQuotationRowList(this.custId);
+    }
 
-    this.setQuotationColumns();
-    this.setQuotationRowList(this.selectedCustomer.customerId);
   }
 
   setQuotationColumns() {
@@ -120,6 +139,7 @@ export class QuatationComponent implements OnInit {
   viewForm() {
     try {
      this.setDialogBoxValue = true;
+      //this.visible = false;
     } catch (error) {
       return error;
     }
@@ -174,6 +194,7 @@ export class QuatationComponent implements OnInit {
         console.log(res);
       },
     );
+    this.setQuotationRowList(this.selectedCustomer.customerId);
     this.display = false;
   }
   addButtonClick(){
