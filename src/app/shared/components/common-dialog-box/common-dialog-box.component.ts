@@ -13,29 +13,26 @@ export class CommonDialogBoxComponent implements OnInit {
 
   }
   @ViewChild('content', { static: false }) content: any;
-  // private _setDialogBox: boolean;
-   @Input() setDialogBox: boolean;
+   _setDialogBox: boolean;
+  // @Input() setDialogBox: boolean;
+  // @Input() setDialogBox2: boolean;
   @Input() header : string;
   @Output() closeButtonClick = new EventEmitter();
   @Output() saveButton = new EventEmitter();
 
 
   ngOnInit(): void {
-  // this._setDialogBox = false;
+   this._setDialogBox = false;
   }
   closeResult: string;
 
-
-  // get dialogBox(){
-    // return this._setDialogBox;
-  // }
-// @Input()
-//   set dialogBox(value){
-//   this._setDialogBox =value;
-//   if(value === true){
-//     this.closeButtonClick.emit(1);
-//   }
-//   }
+  get dialogBox(){
+    return this._setDialogBox;
+  }
+@Input()
+  set dialogBox(value){
+  this._setDialogBox =value;
+  }
 
 
   // openModal() {

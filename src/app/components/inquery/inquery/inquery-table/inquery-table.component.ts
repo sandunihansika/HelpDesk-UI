@@ -37,7 +37,8 @@ export class InqueryTableComponent implements OnInit {
   cName: string;
   consent = true;
   dataLoading = false;
-  setDialogBoxValue = false;
+  setDialogBoxValue1 = false;
+  setDialogBoxValue2 = false;
   vQuotation = false;
 
   constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
@@ -225,7 +226,6 @@ export class InqueryTableComponent implements OnInit {
 
   viewQuotation(item) {
     try{
-      this.setDialogBoxValue = true;
       this.CustomerDetailsService.selectedCustomer = item;
       this.route.navigate(['inquiry/quotation/'+item.customerId]);
     } catch (error) {
@@ -239,6 +239,7 @@ export class InqueryTableComponent implements OnInit {
   // }
 
   viewHistory(event) {
+    this.setDialogBoxValue2 = true;
     this.id = event.id;
     this.fName = event.customer.firstName;
     this.cName = event.customer.companyName;
@@ -355,10 +356,11 @@ export class InqueryTableComponent implements OnInit {
     );
   }
   addButtonClick(){
-    this.setDialogBoxValue = true;
+    this.setDialogBoxValue1 = true;
   }
   close(){
-    this.setDialogBoxValue = false;
+    this.setDialogBoxValue1 = false;
+    this.setDialogBoxValue2 = false;
   }
 
 }

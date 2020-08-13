@@ -22,7 +22,7 @@ export class QuatationComponent implements OnInit {
   quatation: Quatation;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   uploadedFiles: any[] = [];
-
+  setDialogBoxValue = false;
   display = false;
   dataLoading = false;
   selectedCustomer;
@@ -119,7 +119,7 @@ export class QuatationComponent implements OnInit {
 
   viewForm() {
     try {
-      this.display = true;
+     this.setDialogBoxValue = true;
     } catch (error) {
       return error;
     }
@@ -175,6 +175,12 @@ export class QuatationComponent implements OnInit {
       },
     );
     this.display = false;
+  }
+  addButtonClick(){
+    this.setDialogBoxValue = true;
+  }
+  close(){
+    this.setDialogBoxValue = false;
   }
 
 }

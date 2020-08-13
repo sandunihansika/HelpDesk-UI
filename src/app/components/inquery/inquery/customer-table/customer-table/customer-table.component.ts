@@ -18,7 +18,8 @@ export class CustomerTableComponent implements OnInit {
   dataSource: any[];
   CusArray:any;
   dataLoading = false;
-
+  setDialogBoxValue1 = false;
+  setDialogBoxValue2 = false;
   constructor(private CustomerDetailsService: CustomerDetailsService) { }
 
   ngOnInit(): void {
@@ -217,6 +218,7 @@ export class CustomerTableComponent implements OnInit {
 
   viewIndividualForm(){
     try {
+      this.setDialogBoxValue1 = true;
       this.displayIndividual = true;
     } catch (error) {
       return error;
@@ -225,10 +227,15 @@ export class CustomerTableComponent implements OnInit {
 
   viewCorporateForm(){
     try {
+      this.setDialogBoxValue2 = true;
       this.displayCoporate = true;
     } catch (error) {
       return error;
     }
+  }
+  close(){
+    this.setDialogBoxValue1 = false;
+    this.setDialogBoxValue2 = false;
   }
 
 }

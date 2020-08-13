@@ -32,90 +32,103 @@
   ></button>
 </app-common-grid>
 
-<p-dialog header="Quotation - Customer Id:{{selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}" [modal]="true"
-          [(visible)]="display">
+
+<!--<p-dialog header="Quotation - Customer Id:{{selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}" [modal]="true"-->
+<!--          [(visible)]="display">-->
+<!--</p-dialog>-->
+
+
+<app-common-dialog-box
+  class="body .ui-dialog"
+  header="Quotation - Customer Id:{{selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}"
+  [dialogBox]="setDialogBoxValue"
+  (closeButtonClick)="close()">
   <p-card>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12 ">
-            <div class="card">
-<!--              <div class="card-header">-->
-<!--                <h5>QuatationForm</h5>-->
-<!--              </div>-->
-              <div class="card-body">
-                <form novalidate
-                      (ngSubmit)="saveQuatation()"
-                      [formGroup]="quatationForm" enctype="multipart/form-data">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 ">
+          <div class="card">
+            <!--              <div class="card-header">-->
+            <!--                <h5>QuatationForm</h5>-->
+            <!--              </div>-->
+            <div class="card-body">
+              <form novalidate
+                    (ngSubmit)="saveQuatation()"
+                    [formGroup]="quatationForm" enctype="multipart/form-data">
 
-                  <div div class="p-grid p-dir-col">
-                    <div class="p-col">
-                      <label for="quatationNo">Quatation No<span class="form-error">* </span>
-                        <span *ngIf="quatationNo.touched && quatationNo.errors?.required"
-                              class="form-error">  quatationNo is required!</span>
-                      </label>
-                      <app-common-textbox
-                        [inputType]="TextBoxTypes.Text"
-                        formControlName="quatationNo"
-                        placeholder="Quatation No"
-                        rows="3"
-                        id="quatationNo"
-                        [ngClass]="{
+                <div div class="p-grid p-dir-col">
+                  <div class="p-col">
+                    <label for="quatationNo">Quatation No<span class="form-error">* </span>
+                      <span *ngIf="quatationNo.touched && quatationNo.errors?.required"
+                            class="form-error">  quatationNo is required!</span>
+                    </label>
+                    <app-common-textbox
+                      [inputType]="TextBoxTypes.Text"
+                      formControlName="quatationNo"
+                      placeholder="Quatation No"
+                      rows="3"
+                      id="quatationNo"
+                      [ngClass]="{
                      'is-invalid':(quatationNo.touched ||quatationNo.dirty) && !quatationNo.valid}"></app-common-textbox>
-                    </div>
-                    <div class="p-col">
-                      <label for="description">Description<span class="form-error">* </span>
-                        <span *ngIf="description.touched && description.errors?.required"
-                              class="form-error">  description required!</span>
-                      </label>
-                      <app-common-textarea
-                        formControlName="description"
-                        id="description"
-                        [rows]="5"
-                        [cols]="50"
-                        [ngClass]="{
+                  </div>
+                  <div class="p-col">
+                    <label for="description">Description<span class="form-error">* </span>
+                      <span *ngIf="description.touched && description.errors?.required"
+                            class="form-error">  description required!</span>
+                    </label>
+                    <app-common-textarea
+                      formControlName="description"
+                      id="description"
+                      [rows]="5"
+                      [cols]="50"
+                      [ngClass]="{
             'is-invalid': (description.touched ||description.dirty) && !description.valid }"></app-common-textarea>
-                    </div>
-                    <div class="p-col">
-
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Upload File</label>
-                            <div class=""p-col">
-                              <input type="file" class="form-control" formControlName="pdf" (change)="onUpload($event)">
-                            </div>
-                          </div>
-
-                    </div>
-                    <div class="p-col">
-                      <label for="expiryDate">Expiry Date<span class="form-error">* </span>
-                        <span *ngIf="expiryDate.touched && expiryDate.errors?.required"
-                              class="form-error">  Expiry Date is required!</span>
-                      </label>
-                      <app-common-calender
-                        formControlName="expiryDate"
-                        id="expiryDate"
-                        [ngClass]="{
-                     'is-invalid': (expiryDate.touched ||expiryDate.dirty) && !expiryDate.valid }"></app-common-calender>
-                    </div>
-
-
-                    <div class="offset-md-2 col-md-4">
-                      <!--                  <div>-->
-                      <!--                    <button class="btn btn-primary mr-3"-->
-                      <!--                            type="submit" style="background-position:center">Save-->
-                      <!--                    </button>-->
-                      <!--                  </div>-->
-                      <div class="card-footer">
-                        <button type="submit" class="btn btn-primary mr-1" (click)="send(selectedCustomer)">Submit</button>
-                        <input type="reset" class="btn btn-light" value="Reset">
+                  </div>
+                  <div class="p-col">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Upload File</label>
+                      <div class="p-col">
+                        <input type="file" class="form-control" formControlName="pdf" (change)="onUpload($event)">
                       </div>
                     </div>
-                </form>
-              </div>
+                  </div>
+                  <div class="p-col">
+                    <label for="expiryDate">Expiry Date<span class="form-error">* </span>
+                      <span *ngIf="expiryDate.touched && expiryDate.errors?.required"
+                            class="form-error">  Expiry Date is required!</span>
+                    </label>
+                    <app-common-calender
+                      formControlName="expiryDate"
+                      id="expiryDate"
+                      [ngClass]="{
+                     'is-invalid': (expiryDate.touched ||expiryDate.dirty) && !expiryDate.valid }"></app-common-calender>
+                  </div>
+
+
+                  <div class="offset-md-2 col-md-4">
+                    <!--                  <div>-->
+                    <!--                    <button class="btn btn-primary mr-3"-->
+                    <!--                            type="submit" style="background-position:center">Save-->
+                    <!--                    </button>-->
+                    <!--                  </div>-->
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-primary mr-1" (click)="send(selectedCustomer)">Submit</button>
+                      <input type="reset" class="btn btn-light" value="Reset">
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </p-card>
-</p-dialog>
+
+</app-common-dialog-box>
+
+
+
+
 
 <app-loader [loader]="dataLoading"></app-loader>
