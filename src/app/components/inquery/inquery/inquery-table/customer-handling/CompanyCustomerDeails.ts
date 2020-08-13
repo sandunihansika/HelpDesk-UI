@@ -1,6 +1,7 @@
 import {CustomerType} from '../../../../../shared/services/common/enum';
 
 export class CompanyCustomerDeails {
+  id:number;
   companyName: string;
   type: number;
   companyRegistrationNo: string;

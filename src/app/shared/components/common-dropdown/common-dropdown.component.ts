@@ -49,7 +49,7 @@ export class CommonDropdownComponent implements OnInit {
   }
 
   writeValue(value) {
-    console.log(value + '@@');
+    console.log(value);
     this.value = value;
   }
 
