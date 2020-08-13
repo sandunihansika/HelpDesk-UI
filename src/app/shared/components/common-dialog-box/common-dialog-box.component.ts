@@ -13,68 +13,74 @@ export class CommonDialogBoxComponent implements OnInit {
 
   }
   @ViewChild('content', { static: false }) content: any;
-  private _setDialogBox: boolean;
+  // private _setDialogBox: boolean;
+   @Input() setDialogBox: boolean;
   @Input() header : string;
   @Output() closeButtonClick = new EventEmitter();
   @Output() saveButton = new EventEmitter();
 
+
   ngOnInit(): void {
-  this._setDialogBox = false;
+  // this._setDialogBox = false;
   }
   closeResult: string;
 
 
-  get dialogBox(){
-    return this._setDialogBox;
-  }
-@Input()
-  set dialogBox(value){
-  this._setDialogBox =value;
-  if(value === true){
-    this.open(this.content);
-  }
-  }
+  // get dialogBox(){
+    // return this._setDialogBox;
+  // }
+// @Input()
+//   set dialogBox(value){
+//   this._setDialogBox =value;
+//   if(value === true){
+//     this.closeButtonClick.emit(1);
+//   }
+//   }
 
 
-  openModal() {
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.name = 'World';
-  }
+  // openModal() {
+  //   const modalRef = this.modalService.open(NgbdModalContent);
+  //   modalRef.componentInstance.name = 'World';
+  // }
 
-  open(content: any) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
+  // open(content: any) {
+  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+  // private getDismissReason(reason: any): string {
+  //   if (reason === ModalDismissReasons.ESC) {
+  //     return 'by pressing ESC';
+  //   } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+  //     return 'by clicking on a backdrop';
+  //   } else {
+  //     return  `with: ${reason}`;
+  //   }
+  // }
 
   // this.content.dismiss(){
   //   this._setDialogBox = false;
   // }
 
-close(){
+// close(){
+//
+//  this.content.disable;
+// }
+//   method(modal){
+//     modal.dismiss();
+//     this._setDialogBox = false;
+//     this.closeButtonClick.emit(1);
+//   }
 
- this.content.disable;
-}
-  method(modal){
-    modal.dismiss();
-    this._setDialogBox = false;
+  // save(modal){
+  //   modal.dismiss();
+  //   this.closeButtonClick.emit(1);
+  // }
+
+
+  hide(){
     this.closeButtonClick.emit(1);
   }
-
-  save(modal){
-    modal.dismiss();
-    this.closeButtonClick.emit(1);
-  }
-
 }

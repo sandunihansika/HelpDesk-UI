@@ -7,4 +7,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 })
 export class ComplaintFormComponent{
 
+  saveDetails(){
+
+  }
+
+
 }

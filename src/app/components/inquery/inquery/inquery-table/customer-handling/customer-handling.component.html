@@ -4,8 +4,7 @@
       <div class="card">
         <div class="card-body">
           <form novalidate
-                (ngSubmit)="saveInquery()"
-                [formGroup]="individualCorpCustomerForm">
+                [formGroup]="individualCorpCustomerForm" #form="ngForm">
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
                 <label>Select Inquiry Type</label>
@@ -25,7 +24,7 @@
                 <label>Select Customer</label>
                 <label>New Customer</label>
                 <p-radioButton name="customer" value="new" formControlName="customerStatus"
-                               (onClick)="getCustomerStuatus(customerStatus)"></p-radioButton>
+                               (onClick)="getCustomerStuatus(customerStatus,form)"></p-radioButton>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label>Existing Customer</label>
@@ -34,7 +33,7 @@
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <div *ngIf="formEnable">
-                  <app-common-dropdown [fields]='allcustomers' (selectChange)="getCustomerId($event)"
+                  <app-common-dropdown [fields]='showCustomers' (selectChange)="getCustomerId($event)"
                                        formControlName="handlingCustomer"></app-common-dropdown>
                 </div>
               </div>
@@ -68,7 +67,7 @@
             'is-invalid': (lastName.touched ||lastName.dirty) && !lastName.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-12" *ngIf="customerType === cTypes.Corporate">
+              <div class="p-field p-col-12 p-md-12" *ngIf="customerType === cTypes.Corporate || displayCop">
                 <label for="companyName">Company Name<span class="form-error">* </span>
                   <span *ngIf="companyName.touched && companyName.errors?.required"
                         class="form-error">  Company Name is required!</span>
@@ -96,7 +95,7 @@
             'is-invalid': (telNo.touched ||telNo.dirty) && !telNo.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate || displayCop">
                 <label for="companyRegistrationNo">Registration No<span class="form-error">* </span>
                   <span *ngIf="companyRegistrationNo.touched && companyRegistrationNo.errors?.required"
                         class="form-error">  Registration No is required!</span>
@@ -138,7 +137,7 @@
             'is-invalid': (nic.touched ||nic.dirty) && !nic.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate || displayCop">
                 <label for="taxNumber">Tax No<span class="form-error">* </span>
                   <span *ngIf="taxNumber.touched && taxNumber.errors?.required"
                         class="form-error">  Tax No is required!</span>
@@ -152,7 +151,7 @@
             'is-invalid': (taxNumber.touched ||taxNumber.dirty) && !taxNumber.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate || displayCop">
                 <label for="vatNumber">Vat No<span class="form-error">* </span>
                   <span *ngIf="vatNumber.touched && vatNumber.errors?.required"
                         class="form-error">  Vat No is required!</span>
@@ -280,11 +279,11 @@
 
             </div>
             <div class="offset-md-2 col-md-4">
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary mr-1">Submit</button>
-                <input type="reset" class="btn btn-light" value="Cancel">
+              <div>
+                <div class="card-footer">
+                  <button class="btn btn-primary mr-3" (click)="createInquery()">Submit</button>
+                </div>
               </div>
-
             </div>
           </form>
         </div>

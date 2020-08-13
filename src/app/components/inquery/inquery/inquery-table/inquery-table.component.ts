@@ -4,6 +4,7 @@ import {Alignment, ColumnType, CompanyType, Status} from '../../../../shared/ser
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
+import {CommonDialogBoxComponent} from '../../../../shared/components/common-dialog-box/common-dialog-box.component';
 
 @Component({
   selector: 'app-inquery-table',
@@ -14,10 +15,12 @@ export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
   @ViewChild('statusHistoryGrid', {static: true}) statusHistoryGrid: CommonGridComponent;
+  @ViewChild('statusHistoryDialogBox', {static: true}) statusHistoryDialogBox: CommonDialogBoxComponent
+  @ViewChild('inquiryDialogBox', {static: true}) inquiryDialogBox: CommonDialogBoxComponent
 
   customer: any[];
 
-  addAllow = true;
+  addAllow = false;
   editAllow = true;
   showToolBar = true;
   deleteAllow = false;
@@ -34,7 +37,8 @@ export class InqueryTableComponent implements OnInit {
   cName: string;
   consent = true;
   dataLoading = false;
-
+  setDialogBoxValue = false;
+  vQuotation = false;
 
   constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
 
@@ -221,6 +225,7 @@ export class InqueryTableComponent implements OnInit {
 
   viewQuotation(item) {
     try{
+      this.setDialogBoxValue = true;
       this.CustomerDetailsService.selectedCustomer = item;
       this.route.navigate(['inquiry/quotation/',item.customerId]);
     } catch (error) {
@@ -229,9 +234,9 @@ export class InqueryTableComponent implements OnInit {
 
   }
 
-  addButtonClick() {
-    this.display = true;
-  }
+  // addButtonClick() {
+  //   this.display = true;
+  // }
 
   viewHistory(event) {
     this.id = event.id;
@@ -353,6 +358,12 @@ export class InqueryTableComponent implements OnInit {
         this.inqueryGrid.spinner = true;
       }
     );
+  }
+  addButtonClick(){
+    this.setDialogBoxValue = true;
+  }
+  close(){
+    this.setDialogBoxValue = false;
   }
 
 }
