@@ -205,4 +205,5 @@ export class ComplaintTableComponent implements OnInit {
     this.setDialogBoxValue=false;
   }
 
+
 }

@@ -16,6 +16,7 @@ export class CommonDialogBoxComponent implements OnInit {
   private _setDialogBox: boolean;
   @Input() header : string;
   @Output() closeButtonClick = new EventEmitter();
+  @Output() saveButton = new EventEmitter();
 
   ngOnInit(): void {
   this._setDialogBox = false;
@@ -71,5 +72,9 @@ close(){
     this.closeButtonClick.emit(1);
   }
 
+  save(modal){
+    modal.dismiss();
+    this.closeButtonClick.emit(1);
+  }
 
 }

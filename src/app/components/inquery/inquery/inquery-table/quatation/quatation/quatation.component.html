@@ -47,22 +47,8 @@
                       (ngSubmit)="saveQuatation()"
                       [formGroup]="quatationForm" enctype="multipart/form-data">
 
-                  <div class="ui-fluid p-formgrid p-grid">
-                    <div class="p-field p-col-12 p-md-6">
-                      <label for="description">Description<span class="form-error">* </span>
-                        <span *ngIf="description.touched && description.errors?.required"
-                              class="form-error">  description required!</span>
-                      </label>
-                      <app-common-textarea
-                        formControlName="description"
-                        id="description"
-                        [rows]="5"
-                        [cols]="50"
-                        [ngClass]="{
-            'is-invalid': (description.touched ||description.dirty) && !description.valid }"></app-common-textarea>
-                    </div>
-
-                    <div class="p-field p-col-12 p-md-6">
+                  <div div class="p-grid p-dir-col">
+                    <div class="p-col">
                       <label for="quatationNo">Quatation No<span class="form-error">* </span>
                         <span *ngIf="quatationNo.touched && quatationNo.errors?.required"
                               class="form-error">  quatationNo is required!</span>
@@ -76,19 +62,30 @@
                         [ngClass]="{
                      'is-invalid':(quatationNo.touched ||quatationNo.dirty) && !quatationNo.valid}"></app-common-textbox>
                     </div>
-                    <div class="p-field p-col-12 p-md-6">
-                      <div class="row">
-                        <div class="col">
+                    <div class="p-col">
+                      <label for="description">Description<span class="form-error">* </span>
+                        <span *ngIf="description.touched && description.errors?.required"
+                              class="form-error">  description required!</span>
+                      </label>
+                      <app-common-textarea
+                        formControlName="description"
+                        id="description"
+                        [rows]="5"
+                        [cols]="50"
+                        [ngClass]="{
+            'is-invalid': (description.touched ||description.dirty) && !description.valid }"></app-common-textarea>
+                    </div>
+                    <div class="p-col">
+
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Upload File</label>
-                            <div class="col-sm-9">
+                            <div class=""p-col">
                               <input type="file" class="form-control" formControlName="pdf" (change)="onUpload($event)">
                             </div>
                           </div>
-                        </div>
-                      </div>
+
                     </div>
-                    <div class="p-field p-col-12 p-md-6">
+                    <div class="p-col">
                       <label for="expiryDate">Expiry Date<span class="form-error">* </span>
                         <span *ngIf="expiryDate.touched && expiryDate.errors?.required"
                               class="form-error">  Expiry Date is required!</span>
@@ -112,8 +109,6 @@
                         <input type="reset" class="btn btn-light" value="Reset">
                       </div>
                     </div>
-                  </div>
-
                 </form>
               </div>
             </div>
