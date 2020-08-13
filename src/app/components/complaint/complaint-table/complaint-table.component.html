@@ -7,6 +7,14 @@
   [showSearchBox]="showSearchBox"
 
 >
+  <button
+    pButton
+    type="button"
+    icon="icofont icofont-ui-add"
+    style="margin-right: .25em"
+    class="ui-button-info"
+    (click)="addButtonClick()"
+  ></button>
 <!--  <button-->
 <!--    type="button"-->
 <!--    pButton-->
@@ -17,13 +25,6 @@
 <!--    (click)="changeStatus($event)"-->
 <!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
 <!--  >Completed</button>-->
-
-  <button
-    class="btn btn-primary"
-    style="margin-left:10px"
-    iconPos="left"
-    (click)="addButtonClick()"
-  >Add</button>
 
   <button
     class="btn btn-primary"
@@ -46,18 +47,21 @@
 <!--</p-dialog>-->
 
 
-  <app-common-dialog-box
-                         #complaintDialogBox
-                         [dialogBox]="setDialogBoxValue"
-                         [header]="headerName"
-                          (closeButtonClick)="close()"
-      >
-    <app-complaint-form></app-complaint-form>
-  </app-common-dialog-box>
+<!--  <app-common-dialog-box-->
+<!--                         #complaintDialogBox-->
+<!--                         [dialogBox]="setDialogBoxValue"-->
+<!--                         [header]="headerName"-->
+<!--                          (closeButtonClick)="close()"-->
+
+<!--      >-->
+<!--    <app-corporate-details></app-corporate-details>-->
+<!--  </app-common-dialog-box>-->
 
 
 
-
+<app-common-dialog-box  class="body .ui-dialog " header="Complaint Form" [setDialogBox]="setDialogBoxValue"  (closeButtonClick)="close()">
+  <app-corporate-details></app-corporate-details>
+</app-common-dialog-box>
 
 
 
