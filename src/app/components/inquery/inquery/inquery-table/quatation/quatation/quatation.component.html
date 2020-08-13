@@ -1,6 +1,6 @@
 <app-common-grid
   #quotationGrid
-  header="Quotation Details - Customer Id:{{selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}"
+  header="Customer Id:{{selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName)}}"
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
@@ -117,3 +117,5 @@
       </div>
   </p-card>
 </p-dialog>
+
+<app-loader [loader]="dataLoading"></app-loader>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 
 @Component({
   selector: 'app-loader',
@@ -8,11 +8,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 export class LoaderComponent implements OnInit {
 
   public show: boolean = true;
+  @Input() loader = false;
 
   constructor() {
     setTimeout(() => {
       this.show = false;
-    }, 1500);
+    }, 3500);
   }
 
   ngOnInit() { }
