@@ -30,7 +30,7 @@ export class CommonHttpService {
   ) {
     this.currentUserSubject = new BehaviorSubject<LoggedUserDetails>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    // this.token = LoggedUserDetails.token;
+    // this.token = loggedSettingDetails.token;
     this.token = this.currentUserSubject.value.token;
     this.globalUserId=this.currentUserSubject.value.globalUserId;
 
@@ -44,13 +44,13 @@ export class CommonHttpService {
       .set('Authorization', 'bearer ' + this.token)
       .set('userType', UserType.AdminUser.toString())
       .set('clientId', '3')
-      .set('logedUserId', this.globalUserId);
+      .set('logedUserId', this.globalUserId.toString());
   }
 
   getMultipartHttpHeaders() {
     return new HttpHeaders()
       .set('Authorization', 'bearer ' + this.token)
-      .set('logedUserId',this.globalUserId)          //chenge loggedUser to LoggedSettingDEtails
+      .set('logedUserId',loggedSettingDetails.loginId)          //chenge loggedUser to LoggedSettingDEtails
       .set('userType', UserType.AdminUser.toString())
       .set('userType', UserType.toString());
   }
