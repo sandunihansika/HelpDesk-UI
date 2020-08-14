@@ -58,6 +58,19 @@ label {
   padding: 1em;
   background: white;
   height: 75em !important;
+  height: 80vh !important;
   width: auto;
 }
 
+.body .ui-inputtext {
+  font-size: 15px;
+  width : 120%;
+  color: #4e4748;
+  background: #ffffff;
+  padding: 0.300em;
+  border: 1px solid #c8c8c8c2 !important; ;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}

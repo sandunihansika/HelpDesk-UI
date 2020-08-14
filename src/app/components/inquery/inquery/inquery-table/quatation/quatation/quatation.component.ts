@@ -30,7 +30,7 @@ export class QuatationComponent implements OnInit {
   url;
   selectedCustomer;
   custId;
-
+  choosedFile="Choose File...."
 
   constructor(
     private formbuilder: FormBuilder,
@@ -156,6 +156,7 @@ export class QuatationComponent implements OnInit {
   onUpload(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
+      this.choosedFile = file.name;
       console.log(file);
       this.quatationForm.patchValue({
         pdf: file

@@ -9,6 +9,7 @@ import {LoggedUserDetails} from '../../../auth/logged-user-details';
 import {ToastService} from './toast.service';
 import {UserType} from './enum';
 import {StatusCodes} from './enum';
+import {loggedSettingDetails} from '../../../auth/login/logged-setting-details';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class CommonHttpService {
   private currentUserSubject: BehaviorSubject<LoggedUserDetails>;
   public currentUser: Observable<LoggedUserDetails>;
   public token: any;
+  public globalUserId : any;
 
   constructor(
     private http: HttpClient,
@@ -28,8 +30,13 @@ export class CommonHttpService {
   ) {
     this.currentUserSubject = new BehaviorSubject<LoggedUserDetails>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    this.token = LoggedUserDetails.token;
+    // this.token = LoggedUserDetails.token;
+    this.token = this.currentUserSubject.value.token;
+    this.globalUserId=this.currentUserSubject.value.globalUserId;
+
   }
+
+
 
   getHttpHeaders() {
     return new HttpHeaders()
@@ -37,13 +44,13 @@ export class CommonHttpService {
       .set('Authorization', 'bearer ' + this.token)
       .set('userType', UserType.AdminUser.toString())
       .set('clientId', '3')
-      .set('logedUserId', LoggedUserDetails.loginId);
+      .set('logedUserId', this.globalUserId);
   }
 
   getMultipartHttpHeaders() {
     return new HttpHeaders()
       .set('Authorization', 'bearer ' + this.token)
-      .set('logedUserId', LoggedUserDetails.loginId)
+      .set('logedUserId',this.globalUserId)          //chenge loggedUser to LoggedSettingDEtails
       .set('userType', UserType.AdminUser.toString())
       .set('userType', UserType.toString());
   }
