@@ -10,6 +10,7 @@ import {Quatation} from '../../components/inquery/inquery/inquery-table/quatatio
 import {CompanyCustomerDeails} from '../../components/inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails';
 import {environment} from '../../../environments/environment';
 import {CompanyType} from './common/enum';
+import {ComplaintDetails} from '../../components/complaint/complaint-form/ComplaintDetails';
 
 
 @Injectable({
@@ -18,7 +19,8 @@ import {CompanyType} from './common/enum';
 export class CustomerDetailsService {
   customerUrl = 'customer';
   inquiryUrl = 'inquiry';
-  quotationUrl = 'quotation'
+  quotationUrl = 'quotation';
+  complaintUrl = 'complain';
   selectedCustomer;
 
   constructor(
@@ -140,6 +142,14 @@ export class CustomerDetailsService {
 
   clickedSend(inquiryId, customerId): Observable<any> {
     return this.http.put( 'http://localhost:3000/quotation/changeStatus/remind/' + inquiryId + '/' + customerId,'').pipe(
+      map(data => {
+        return data;
+      })
+    );
+  }
+
+  addComplaint(addComplaint: ComplaintDetails): Observable<any> {
+    return this.commonHttpService.postData(this.complaintUrl +'/addComplain', addComplaint).pipe(
       map(data => {
         return data;
       })

@@ -1,6 +1,6 @@
 <app-common-grid
   #quotationGrid
-  header="Customer Id:{{selectedCustomer? selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName) : custId}}"
+  header="Customer Id:{{selectedCustomer? selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName) : custId + ' / ' + 'Customer Name:' + (this.firstName || this.companyName)}}"
   [addAllow]="addAllow1"
   [showToolBar]="showToolBar1"
   [showSearchBox]="showSearchBox1"
@@ -19,7 +19,7 @@
   style="margin-right: .25em"
   class="ui-button-info"
   (click)="viewForm()"
-  *ngIf="selectedCustomer? visible && selectedCustomer.status.name === 'Re-send quotation ': visible"
+  *ngIf="selectedCustomer? selectedCustomer.status.name === 'Re-send quotation ': visible"
 ></button>
   <button
     pButton
@@ -28,13 +28,13 @@
     style="margin-right: .25em"
     class="ui-button-info"
     (click)="viewForm()"
-    *ngIf="selectedCustomer? visible && selectedCustomer.status.name === 'Send quotation' : ''"
+    *ngIf="selectedCustomer? selectedCustomer.status.name === 'Send quotation' : ''"
   ></button>
 </app-common-grid>
 
 <app-common-dialog-box
   class="body .ui-dialog"
-  header="Quotation - Customer Id:{{selectedCustomer? selectedCustomer.customerId + '  ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName) : custId}}"
+  header="Quotation Form - Customer Id:{{selectedCustomer? selectedCustomer.customerId + ' / ' + 'Customer Name:' + (selectedCustomer.customer.firstName || selectedCustomer.customer.companyName) : custId + ' / ' + 'Customer Name:' + (this.firstName || this.companyName)}}"
   [dialogBox]="setDialogBoxValue"
   (closeButtonClick)="close()">
 

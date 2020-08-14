@@ -1,11 +1,10 @@
+<app-loader [loader]="dataLoading"></app-loader>
 <app-common-grid
   #complaintGrid
-  header = "Complain Details"
   [addAllow]="addAllow"
   [showToolBar]="showToolBar"
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
-
 >
   <button
     pButton
@@ -60,7 +59,7 @@
 
 
 <app-common-dialog-box  class="body .ui-dialog " header="Complaint Form" [dialogBox]="setDialogBoxValue"  (closeButtonClick)="close()">
-  <app-corporate-details></app-corporate-details>
+  <app-complaint-form></app-complaint-form>
 </app-common-dialog-box>
 
 

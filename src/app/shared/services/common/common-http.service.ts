@@ -109,6 +109,25 @@ export class CommonHttpService {
     );
   }
 
+  putData(subUrl: string) {
+    return this.http.put<any>(environment.baseUrl + subUrl, {headers: this.getHttpHeaders()}).pipe(
+      map(response => {
+        if (response && response.statusCode === StatusCodes.Success) {
+          return response;
+        } else if (response && response.statusCode === StatusCodes.Unauthorized) {
+          this.authenticationService.logOut();
+          this.router.navigate(['/auth/login']).then(() => {
+          });
+          this.toastService.error('Error', response.message);
+        } else {
+          this.toastService.error('Error', response.message);
+          return response;
+        }
+      })
+    );
+  }
+
+
 }
 
 

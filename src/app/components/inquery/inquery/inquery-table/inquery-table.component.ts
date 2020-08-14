@@ -21,7 +21,7 @@ export class InqueryTableComponent implements OnInit {
   customer: any[];
 
   addAllow = false;
-  editAllow = true;
+  editAllow = false;
   showToolBar = true;
   deleteAllow = false;
   showQuotation = true;

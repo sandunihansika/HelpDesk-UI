@@ -4,7 +4,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {ContentLayoutComponent} from './shared/components/layout/content-layout/content-layout.component';
 import {FullLayoutComponent} from './shared/components/layout/full-layout/full-layout.component';
 import {content} from './shared/routes/content-routes';
-import {full} from './shared/routes/full.routes';
+//import {full} from './shared/routes/full.routes';
 import {AdminGuard} from './shared/guard/admin.guard';
 import {CustomerDetailsComponent} from './components/inquery/inquery/customer-details/customer-details/customer-details.component';
 import {AuthLoginComponent} from './auth/auth-login/auth-login.component';
@@ -12,6 +12,7 @@ import {AuthGuard} from './auth/auth-login/auth.guard';
 import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
 import {QuatationComponent} from './components/inquery/inquery/inquery-table/quatation/quatation/quatation.component';
 import {CorporateDetailsComponent} from './components/inquery/inquery/customer-details/corporate-details/corporate-details.component';
+import {ComplaintFormComponent} from './components/complaint/complaint-form/complaint-form.component';
 
 const routes: Routes = [
   {
@@ -37,14 +38,14 @@ const routes: Routes = [
     children: content,
 
   },
-  {
-    path: '',
-    component: FullLayoutComponent,
-    // canActivate: [AuthGuard],
-    children: full,
-
-
-  },
+  // {
+  //   path: '',
+  //   component: FullLayoutComponent,
+  //   // canActivate: [AuthGuard],
+  //   children: full,
+  //
+  //
+  // },
 
   {
     path: '**',
