@@ -8,12 +8,12 @@
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
                 <label>Select Inquiry Type</label>
-                <app-common-dropdown [fields]="InqueryType" placeholder="Select inquiry type"
-                                     formControlName="inqueryType"></app-common-dropdown>
+                <app-common-dropdown [fields]="InqueryTypeArray" formControlName="inqueryType"
+                ></app-common-dropdown>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <label>Select Company</label>
-                <app-common-dropdown [fields]="companyType" (selectChange)="getCompanySelected($event)"
+                <app-common-dropdown [fields]="companyTypeArray" (selectChange)="getCompanySelected($event)"
                 ></app-common-dropdown>
               </div>
             </div>
@@ -29,12 +29,18 @@
               <div class="p-field p-col-12 p-md-6">
                 <label>Existing Customer</label>
                 <p-radioButton name="customer" value="exist" formControlName="customerStatus"
-                               (onClick)="getCustomerStuatus(customerStatus)"></p-radioButton>
+                               (onClick)="getCustomerStuatus(customerStatus,form)"></p-radioButton>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <div *ngIf="formEnable">
                   <app-common-dropdown [fields]='showCustomers' (selectChange)="getCustomerId($event)"
                                        formControlName="handlingCustomer"></app-common-dropdown>
+                </div>
+              </div>
+              <div class="p-field p-col-12 p-md-6">
+                <div *ngIf="displayTypedrop">
+                  <app-common-dropdown [fields]='customerTypeArray' (selectChange)="getCustomerTypeId($event)"
+                  ></app-common-dropdown>
                 </div>
               </div>
             </div>
@@ -67,7 +73,7 @@
             'is-invalid': (lastName.touched ||lastName.dirty) && !lastName.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-12" *ngIf="customerType === cTypes.Corporate || displayCop">
+              <div class="p-field p-col-12 p-md-12" *ngIf="customerType === cTypes.Corporate">
                 <label for="companyName">Company Name<span class="form-error">* </span>
                   <span *ngIf="companyName.touched && companyName.errors?.required"
                         class="form-error">  Company Name is required!</span>
@@ -80,7 +86,6 @@
                   [ngClass]="{
             'is-invalid': (companyName.touched ||companyName.dirty) && !companyName.valid }"></app-common-textbox>
               </div>
-
               <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
                 <label for="telNo">Contact No<span class="form-error">* </span>
                   <span *ngIf="telNo.touched && telNo.errors?.required"
@@ -95,7 +100,7 @@
             'is-invalid': (telNo.touched ||telNo.dirty) && !telNo.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate || displayCop">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
                 <label for="companyRegistrationNo">Registration No<span class="form-error">* </span>
                   <span *ngIf="companyRegistrationNo.touched && companyRegistrationNo.errors?.required"
                         class="form-error">  Registration No is required!</span>
@@ -124,20 +129,20 @@
               </div>
 
               <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Individual">
-                <label for="nic">Nic<span class="form-error">* </span>
-                  <span *ngIf="nic.touched && nic.errors?.required"
+                <label for="nicNumber">Nic<span class="form-error">* </span>
+                  <span *ngIf="nicNumber.touched && nicNumber.errors?.required"
                         class="form-error">  Nic is required!</span>
                 </label>
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
-                  formControlName="nic"
+                  formControlName="nicNumber"
                   placeholder="Nic"
-                  id="nic"
+                  id="nicNumber"
                   [ngClass]="{
-            'is-invalid': (nic.touched ||nic.dirty) && !nic.valid }"></app-common-textbox>
+            'is-invalid': (nicNumber.touched ||nicNumber.dirty) && !nicNumber.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate || displayCop">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
                 <label for="taxNumber">Tax No<span class="form-error">* </span>
                   <span *ngIf="taxNumber.touched && taxNumber.errors?.required"
                         class="form-error">  Tax No is required!</span>
@@ -151,7 +156,7 @@
             'is-invalid': (taxNumber.touched ||taxNumber.dirty) && !taxNumber.valid }"></app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate || displayCop">
+              <div class="p-field p-col-12 p-md-6" *ngIf="customerType === cTypes.Corporate">
                 <label for="vatNumber">Vat No<span class="form-error">* </span>
                   <span *ngIf="vatNumber.touched && vatNumber.errors?.required"
                         class="form-error">  Vat No is required!</span>
