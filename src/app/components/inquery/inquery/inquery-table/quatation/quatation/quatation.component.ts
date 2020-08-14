@@ -31,6 +31,7 @@ export class QuatationComponent implements OnInit {
   selectedCustomer;
   custId;
   firstName;
+  lastName;
   companyName;
 
   choosedFile="Choose File...."
@@ -148,6 +149,7 @@ export class QuatationComponent implements OnInit {
             list.data.forEach((item: any) => {
               if(customerId == item.customerId){
                 this.firstName = item.customer.firstName;
+                this.lastName = item.customer.lastName;
                 this.companyName = item.customer.companyName;
                 if(item.status.name == 'Send quotation') {
                   this.visible = true;
