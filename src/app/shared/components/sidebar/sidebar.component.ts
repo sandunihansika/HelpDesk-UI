@@ -14,6 +14,8 @@ export class SidebarComponent {
   public url: any;
   public fileurl: any;
 
+  //userName = loggedSettingDetails.displayName;
+
   constructor(private router: Router, public navServices: NavService) {
     this.navServices.items.subscribe(menuItems => {
       this.menuItems = menuItems
