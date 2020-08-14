@@ -26,10 +26,12 @@ export class QuatationComponent implements OnInit {
   setDialogBoxValue = false;
   display = false;
   dataLoading = false;
-  visible = true;
+  visible = false;
   url;
   selectedCustomer;
   custId;
+  firstName;
+  companyName;
 
 
   constructor(
@@ -66,6 +68,7 @@ export class QuatationComponent implements OnInit {
       });
       this.setQuotationColumns();
       this.setQuotationRowList(this.custId);
+      this.getStatus(this.custId);
     }
 
   }
@@ -136,6 +139,30 @@ export class QuatationComponent implements OnInit {
     );
   }
 
+  getStatus(customerId) {
+    this.customerservice.getAllInquiry().subscribe(
+      (list: any) => {
+        if(list.data !== undefined) {
+          if(list.data) {
+            list.data.forEach((item: any) => {
+              if(customerId == item.customerId){
+                this.firstName = item.customer.firstName;
+                this.companyName = item.customer.companyName;
+                if(item.status.name == 'Send quotation') {
+                  this.visible = true;
+                } else if(item.status.name == 'Re-send quotation ')  {
+                  this.visible = true;
+                } else {
+                  this.visible = false;
+                }
+              }
+            });
+          }
+        }
+      }
+    )
+  }
+
   viewForm() {
     try {
      this.setDialogBoxValue = true;
@@ -195,7 +222,7 @@ export class QuatationComponent implements OnInit {
       },
     );
     this.setQuotationRowList(this.selectedCustomer.customerId);
-    this.display = false;
+    this.close();
   }
   addButtonClick(){
     this.setDialogBoxValue = true;

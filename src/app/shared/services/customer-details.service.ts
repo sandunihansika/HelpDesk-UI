@@ -19,6 +19,7 @@ export class CustomerDetailsService {
   customerUrl = 'customer';
   inquiryUrl = 'inquiry';
   quotationUrl = 'quotation'
+  complainUrl = 'complain'
   selectedCustomer;
 
   constructor(
@@ -99,7 +100,7 @@ export class CustomerDetailsService {
   }
 
   clickedGotConsent(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/send/' + inquiryId + '/' + customerId, '').pipe(
+    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/send/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -107,7 +108,7 @@ export class CustomerDetailsService {
   }
 
   clickedApprove(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/approve/' + inquiryId + '/' + customerId, '').pipe(
+    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/approve/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -115,7 +116,7 @@ export class CustomerDetailsService {
   }
 
   clickedReject(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/reject/' + inquiryId + '/' + customerId, '').pipe(
+    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/reject/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -123,7 +124,7 @@ export class CustomerDetailsService {
   }
 
   clickedResend(inquiryId, customerId, handlingCompany): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany, '').pipe(
+    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany).pipe(
       map(data => {
         return data;
       })
@@ -131,7 +132,7 @@ export class CustomerDetailsService {
   }
 
   clickedGotReConsent(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId, '').pipe(
+    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -139,7 +140,7 @@ export class CustomerDetailsService {
   }
 
   clickedSend(inquiryId, customerId): Observable<any> {
-    return this.http.put( 'http://localhost:3000/quotation/changeStatus/remind/' + inquiryId + '/' + customerId,'').pipe(
+    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/remind/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -148,7 +149,7 @@ export class CustomerDetailsService {
 
 //get complaint details for grid
   getAllComplains(): Observable<any> {
-    return this.http.get('http://localhost:3000/complain/complainDetails').pipe(
+    return this.commonHttpService.getAll(this.complainUrl + '/complainDetails').pipe(
       map(data => {
         console.log(data);
         return data;
@@ -159,7 +160,7 @@ export class CustomerDetailsService {
   //update status of complain table
 
   updateComplainStatus(id, statusId): Observable<any> {
-    return this.http.post('http://localhost:3000/complain/changeComplainStatus', {id, statusId}).pipe(
+    return this.commonHttpService.postData(this.complainUrl + '/changeComplainStatus', {id, statusId}).pipe(
       map(data => {
         console.log(data);
         return data;

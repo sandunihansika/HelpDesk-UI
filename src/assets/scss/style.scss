@@ -202,8 +202,8 @@ body {
   overflow-x: hidden;
   color: #6a7a8c;
   background-color: #eff0f1;
-  height: 100%;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  position: relative !important;
 }
 
 .hover-pointer:hover {
@@ -284,7 +284,9 @@ body .ui-inputtext{
   padding-right: 1.5em;
 }
 
-
+body .pi {
+  font-size: 12px !important;
+}
 
 
 
