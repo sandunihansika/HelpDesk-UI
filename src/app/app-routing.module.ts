@@ -12,6 +12,7 @@ import {AuthGuard} from './auth/auth-login/auth.guard';
 import {InqueryTableComponent} from './components/inquery/inquery/inquery-table/inquery-table.component';
 import {QuatationComponent} from './components/inquery/inquery/inquery-table/quatation/quatation/quatation.component';
 import {CorporateDetailsComponent} from './components/inquery/inquery/customer-details/corporate-details/corporate-details.component';
+import {ComplaintFormComponent} from './components/complaint/complaint-form/complaint-form.component';
 
 const routes: Routes = [
   {

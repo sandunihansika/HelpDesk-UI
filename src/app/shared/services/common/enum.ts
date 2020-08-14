@@ -55,3 +55,9 @@ export enum Status {
   Completed = 8
 }
 
+export enum  ComplaintType {
+
+  SimProblem= 1,
+  DevicePromblem =2
+
+}
