@@ -1,71 +1,66 @@
 <app-common-grid
   #complaintGrid
-  header = "Complain Details"
+  header="Complain Details"
   [addAllow]="addAllow"
   [showToolBar]="showToolBar"
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
-
 >
-<!--  <button-->
-<!--    type="button"-->
-<!--    pButton-->
-<!--    style="margin-right: .25em"-->
-<!--    icon="pi pi-check-square"-->
-<!--    label="Completed"-->
-<!--    iconPos="left"-->
-<!--    (click)="changeStatus($event)"-->
-<!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
-<!--  >Completed</button>-->
+  <!--  <button-->
+  <!--    type="button"-->
+  <!--    pButton-->
+  <!--    style="margin-right: .25em"-->
+  <!--    icon="pi pi-check-square"-->
+  <!--    label="Completed"-->
+  <!--    iconPos="left"-->
+  <!--    (click)="changeStatus($event)"-->
+  <!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
+  <!--  >Completed</button>-->
 
   <button
     class="btn btn-primary"
-    style="margin-left:10px"
+    style="margin-left: 10px;"
     iconPos="left"
     (click)="addButtonClick()"
-  >Add</button>
+  >
+    Add
+  </button>
 
   <button
     class="btn btn-primary"
-    style="margin-left:10px"
+    style="margin-left: 10px;"
     iconPos="left"
     (click)="changeStatus(complaintGrid.selectedEntity)"
-    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
-  >Completed</button>
+    *ngIf="
+      complaintGrid.selectedEntity &&
+      complaintGrid.selectedEntity.status.name === 'Need consent'
+    "
+  >
+    Completed
+  </button>
   <button
     class="btn btn-success"
-    style="margin-left:10px"
+    style="margin-left: 10px;"
     iconPos="left"
     (click)="changeStatus(complaintGrid.selectedEntity)"
-    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
-  >Completed</button>
+    *ngIf="
+      complaintGrid.selectedEntity &&
+      complaintGrid.selectedEntity.status.name === 'Need consent'
+    "
+  >
+    Completed
+  </button>
 </app-common-grid>
 
 <!--<p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
 
 <!--</p-dialog>-->
 
-
-  <app-common-dialog-box
-                         #complaintDialogBox
-                         [dialogBox]="setDialogBoxValue"
-                         [header]="headerName"
-                          (closeButtonClick)="close()"
-      >
-    <app-complaint-form></app-complaint-form>
-  </app-common-dialog-box>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<app-common-dialog-box
+  #complaintDialogBox
+  [dialogBox]="setDialogBoxValue"
+  [header]="headerName"
+  (closeButtonClick)="close()"
+>
+  <app-complaint-form></app-complaint-form>
+</app-common-dialog-box>
