@@ -1,8 +1,8 @@
-export class Quatation {
+export class Quotation {
   id: number;
   customerId: number;
   description: string;
-  quatationNo: number;
+  quotationNo: number;
   pdf: any;
   expiryDate: Date;
 }

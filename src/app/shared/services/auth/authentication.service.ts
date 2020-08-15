@@ -9,6 +9,7 @@ import { UserType,StatusCodes } from '../common/enum';
 import {User} from '../../../auth/auth-login/user';
 import {LoginResult} from '../../model/e-commerce/login-result.model';
 import { AuthEvent } from 'src/app/auth/auth-login/auth-event';
+import {loggedSettingDetails} from '../../../auth/login/logged-setting-details';
 @Injectable({providedIn:"root"})
 
 
@@ -57,12 +58,13 @@ export class AuthenticationService {
               decodedToken.token = response.data.token;
               decodedToken.saveDetails = saveDetails;
               localStorage.setItem('currentUser', JSON.stringify(decodedToken));
-              LoggedUserDetails.email = decodedToken.email;
-              LoggedUserDetails.clientId = decodedToken.clientId;
-              LoggedUserDetails.displayName = decodedToken.displayName;
-              LoggedUserDetails.token = decodedToken.token;
-              LoggedUserDetails.loginId = decodedToken.globalUserId;
-              console.log( LoggedUserDetails.loginId);
+              loggedSettingDetails.email = decodedToken.email;
+              loggedSettingDetails.clientId = decodedToken.clientId;
+              loggedSettingDetails.displayName = decodedToken.displayName;
+              loggedSettingDetails.token = decodedToken.token;
+              console.log("this is token :" +  loggedSettingDetails.token);
+              loggedSettingDetails.loginId = decodedToken.globalUserId;
+              console.log( loggedSettingDetails.loginId);
               this.currentUserSubject.next(response.data);  // change the value of currentUserSubject behavior
               this.authEvent.UserLoggedIn.emit()
               return response;

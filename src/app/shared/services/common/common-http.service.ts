@@ -9,6 +9,7 @@ import {LoggedUserDetails} from '../../../auth/logged-user-details';
 import {ToastService} from './toast.service';
 import {UserType} from './enum';
 import {StatusCodes} from './enum';
+import {loggedSettingDetails} from '../../../auth/login/logged-setting-details';
 
 
 @Injectable({
@@ -19,6 +20,7 @@ export class CommonHttpService {
   private currentUserSubject: BehaviorSubject<LoggedUserDetails>;
   public currentUser: Observable<LoggedUserDetails>;
   public token: any;
+  public globalUserId : any;
 
   constructor(
     private http: HttpClient,
@@ -28,8 +30,13 @@ export class CommonHttpService {
   ) {
     this.currentUserSubject = new BehaviorSubject<LoggedUserDetails>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
-    this.token = LoggedUserDetails.token;
+    // this.token = loggedSettingDetails.token;
+    this.token = this.currentUserSubject.value.token;
+    this.globalUserId=this.currentUserSubject.value.globalUserId;
+
   }
+
+
 
   getHttpHeaders() {
     return new HttpHeaders()
@@ -37,13 +44,13 @@ export class CommonHttpService {
       .set('Authorization', 'bearer ' + this.token)
       .set('userType', UserType.AdminUser.toString())
       .set('clientId', '3')
-      .set('logedUserId', LoggedUserDetails.loginId);
+      .set('logedUserId', this.globalUserId.toString());
   }
 
   getMultipartHttpHeaders() {
     return new HttpHeaders()
       .set('Authorization', 'bearer ' + this.token)
-      .set('logedUserId', LoggedUserDetails.loginId)
+      .set('logedUserId',loggedSettingDetails.loginId)          //chenge loggedUser to LoggedSettingDEtails
       .set('userType', UserType.AdminUser.toString())
       .set('userType', UserType.toString());
   }
@@ -101,6 +108,25 @@ export class CommonHttpService {
       })
     );
   }
+
+  putData(subUrl: string) {
+    return this.http.put<any>(environment.baseUrl + subUrl, {headers: this.getHttpHeaders()}).pipe(
+      map(response => {
+        if (response && response.statusCode === StatusCodes.Success) {
+          return response;
+        } else if (response && response.statusCode === StatusCodes.Unauthorized) {
+          this.authenticationService.logOut();
+          this.router.navigate(['/auth/login']).then(() => {
+          });
+          this.toastService.error('Error', response.message);
+        } else {
+          this.toastService.error('Error', response.message);
+          return response;
+        }
+      })
+    );
+  }
+
 
 }
 

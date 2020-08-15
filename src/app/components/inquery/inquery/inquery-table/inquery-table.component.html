@@ -1,4 +1,4 @@
-
+<app-loader [loader]="dataLoading"></app-loader>
 <app-common-grid
   #inqueryGrid
   [addAllow]="addAllow"
@@ -7,7 +7,14 @@
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
   (addBtnClicked)="addButtonClick()"
->
+> <button
+  pButton
+  type="button"
+  icon="icofont icofont-ui-add"
+  style="margin-right: .25em"
+  class="ui-button-info"
+  (click)="addButtonClick()"
+></button>
   <button
   pButton
   type="button"
@@ -92,11 +99,40 @@
 </app-common-grid>
 
 
-<p-dialog header="Inquiry Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">
-  <app-customer-handling></app-customer-handling>
-</p-dialog>
+<!--<p-dialog header="Inquiry Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
+<!--  <app-customer-handling></app-customer-handling>-->
+<!--</p-dialog>-->
 
-<p-dialog header="Inquiry Id: {{id + ' / ' + 'Customer Name: ' + (fName || cName)}}" [modal]="true" [(visible)]="displayHistory">
+<!--<p-dialog header="Inquiry Id: {{id + ' / ' + 'Customer Name: ' + (fName || cName)}}" [modal]="true" [(visible)]="displayHistory">-->
+<!--  <app-common-grid-->
+<!--    #statusHistoryGrid-->
+<!--    header="Status History"-->
+<!--    [addAllow]="addAllowHistory"-->
+<!--    [showToolBar]="showToolBar"-->
+<!--    [showSearchBox]="showSearchBox"-->
+<!--  >-->
+<!--  </app-common-grid>-->
+<!--</p-dialog>-->
+
+
+<app-common-dialog-box
+  #inquiryDialogBox
+  class="body .ui-dialog "
+  header="Inquiry Form"
+  [dialogBox]="setDialogBoxValue1"
+  (closeButtonClick)="close()">
+
+  <app-customer-handling></app-customer-handling>
+</app-common-dialog-box>
+
+<app-common-dialog-box
+  #statusHistoryDialogBox
+
+  class="body .ui-dialog "
+  header="Status History"
+  [dialogBox]="setDialogBoxValue2"
+  (closeButtonClick)="close()" >
+
   <app-common-grid
     #statusHistoryGrid
     header="Status History"
@@ -105,7 +141,10 @@
     [showSearchBox]="showSearchBox"
   >
   </app-common-grid>
-</p-dialog>
+  <app-loader [loader]="dataLoading"></app-loader>
+
+</app-common-dialog-box>
+
 
 <app-loader [loader]="dataLoading"></app-loader>
 

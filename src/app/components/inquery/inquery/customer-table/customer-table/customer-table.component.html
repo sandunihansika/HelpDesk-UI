@@ -16,20 +16,12 @@
     </app-common-grid>
   </mat-tab>
 </mat-tab-group>
+<app-common-dialog-box  class="body .ui-dialog "header="Add Individual Customer" [dialogBox]="setDialogBoxValue1"  (closeButtonClick)="close()">
+  <app-customer-details></app-customer-details>
+</app-common-dialog-box>
 
-<p-dialog header="Add Individual Customer"
-          [modal]="true"
-          [(visible)]="displayIndividual"
-          [style]="{width: '50%'}"
->
-<app-customer-details></app-customer-details>
-</p-dialog>
-
-<p-dialog header="Add Corporate Company"
-          [modal]="true"
-          [(visible)]="displayCoporate"
-          [style]="{width: '50%'}"
-><app-corporate-details></app-corporate-details>
-</p-dialog>
+<app-common-dialog-box  class="body .ui-dialog "header="Add Corporate Customer" [dialogBox]="setDialogBoxValue2"  (closeButtonClick)="close()">
+  <app-corporate-details></app-corporate-details>
+</app-common-dialog-box>
 
 <app-loader [loader]="dataLoading"></app-loader>

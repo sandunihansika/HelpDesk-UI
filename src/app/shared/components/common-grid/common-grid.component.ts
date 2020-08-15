@@ -1,5 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Alignment, ColumnType, Status} from '../../services/common/enum';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { Alignment, ColumnType, Status } from "../../services/common/enum";
 
 export class ColumnDefinition {
   mappingName: string;
@@ -12,17 +19,17 @@ export class ColumnDefinition {
 }
 
 @Component({
-  selector: 'app-common-grid',
-  templateUrl: './common-grid.component.html',
-  styleUrls: ['./common-grid.component.scss']
+  selector: "app-common-grid",
+  templateUrl: "./common-grid.component.html",
+  styleUrls: ["./common-grid.component.scss"],
 })
 export class CommonGridComponent implements OnInit {
-
-  @ViewChild('grid', { static: false }) grid: any;
+  @ViewChild("grid", { static: false }) grid: any;
   @Output() addBtnClicked = new EventEmitter();
   @Output() editBtnClicked = new EventEmitter();
   @Output() refreshBtnClicked = new EventEmitter();
   @Output() deleteBtnClicked = new EventEmitter();
+  @Output() addPdfBtnClicked = new EventEmitter();
 
   // companies = [
   //   {name: 'Ingenii'},
@@ -43,7 +50,7 @@ export class CommonGridComponent implements OnInit {
   cols: any[];
   elements: any[];
   dataLoading = false;
-  selectionMode = 'single';
+  selectionMode = "single";
   selectedEntity: any;
   rowsPerPage = 10;
   rowsPerPageOptions = [10, 20, 50];
@@ -60,10 +67,9 @@ export class CommonGridComponent implements OnInit {
   // @Input() colType: string;
   @Input() header: string;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   showDialog() {
     this.display = true;
@@ -71,7 +77,7 @@ export class CommonGridComponent implements OnInit {
 
   GlobalSearchList() {
     this.globalFilterFieldList = [];
-    this.columnsList.forEach(item => {
+    this.columnsList.forEach((item) => {
       if (item) {
         if (item.mappingName) {
           this.globalFilterFieldList.push(item.mappingName);
@@ -93,4 +99,8 @@ export class CommonGridComponent implements OnInit {
     this.deleteBtnClicked.emit(1);
   }
 
+  downloadPdfClick(data) {
+    console.log(data);
+    this.addPdfBtnClicked.emit(data);
+  }
 }

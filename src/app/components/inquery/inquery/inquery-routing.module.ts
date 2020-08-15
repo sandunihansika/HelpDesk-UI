@@ -17,6 +17,14 @@ const routes: Routes = [
         },
       },
       {
+        path: 'quotation',
+        component: QuatationComponent,
+        data: {
+          title: "Quotation",
+          breadcrumb: "Quotation"
+        },
+      },
+      {
         path: 'quotation/:customerId',
         component: QuatationComponent,
         data: {

@@ -8,7 +8,8 @@ import {DialogModule} from 'primeng/dialog';
 import {InqueryModule} from '../inquery/inquery/inquery.module';
 import {ComplaintFormComponent} from './complaint-form/complaint-form.component';
 import {CustomerDetailsModule} from '../inquery/inquery/customer-details/customer-details.module';
-
+import { ButtonModule } from 'primeng/button';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import {CustomerDetailsModule} from '../inquery/inquery/customer-details/custome
         DialogModule,
         InqueryModule,
         CommonModule,
-        CustomerDetailsModule
+        CustomerDetailsModule,
+        ButtonModule,
+        ReactiveFormsModule
     ],
   providers : [],
   exports : []

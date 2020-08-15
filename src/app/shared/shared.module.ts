@@ -26,6 +26,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { CardModule } from 'primeng/card';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import {DialogModule} from 'primeng/dialog';
+
 import 'hammerjs';
 import 'mousetrap';
 
@@ -86,6 +88,7 @@ import { CommonDialogBoxComponent } from './components/common-dialog-box/common-
     CardModule,
     RadioButtonModule,
     CalendarModule,
+    DialogModule
 
   ],
     exports: [

@@ -41,6 +41,8 @@ export class ComplaintTableComponent implements OnInit {
   setDialogBoxValue=false;
   headerName = "Complaint Form"
   setDialog = false;
+  dataLoading = false;
+
   ngOnInit() {
 
    this.setComplainColomn();
@@ -123,10 +125,10 @@ export class ComplaintTableComponent implements OnInit {
    }
 
    setComplainRow() {
+    this.dataLoading = true;
      this.customerDetailsService.getAllComplains().
      subscribe((list : any)=>{
        // console.log(list.status.name);
-       this.complaintGrid.dataLoading = false;
        if(list !== undefined){
          if(list){
            list.forEach((item : any)=>{
@@ -135,14 +137,16 @@ export class ComplaintTableComponent implements OnInit {
                 })
            });
            this.complaintGrid.rowLists = list;
+           this.dataLoading = false;
          }
          else{
            this.complaintGrid.rowLists = [];
+           this.dataLoading = false;
          }
        }
      },
        error => {
-         this.complaintGrid.dataLoading = false;
+         this.dataLoading = true;
        }
      )
    }
@@ -169,6 +173,7 @@ export class ComplaintTableComponent implements OnInit {
 
   changeStatus(event){
     // this.checkButton = false;
+    this.complaintGrid.spinner = true;
     const status = Status.SendQuotation;
     const id = event.id;
     // event = null;
@@ -178,14 +183,14 @@ export class ComplaintTableComponent implements OnInit {
     try{
       this.customerDetailsService.updateComplainStatus(id,status).
       subscribe((res)=>{
-        this.ngOnInit();
-        location.reload();
-        // this.router.navigate(['complain']);
-        // window.location.reload();
+        this.setComplainRow();
+        this.complaintGrid.selectedEntity = null;
+        this.complaintGrid.spinner = false;
       })
     }
     catch (e) {
       console.log(e);
+      this.complaintGrid.spinner = true;
     }
     // try {
     //   this.inqueryGrid.rowLists[0] = this.CustomerDetailsService.clickedGotConsent(event);

@@ -4,6 +4,7 @@ import {Alignment, ColumnType, CompanyType, Status} from '../../../../shared/ser
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
+import {CommonDialogBoxComponent} from '../../../../shared/components/common-dialog-box/common-dialog-box.component';
 
 @Component({
   selector: 'app-inquery-table',
@@ -14,11 +15,13 @@ export class InqueryTableComponent implements OnInit {
 
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
   @ViewChild('statusHistoryGrid', {static: true}) statusHistoryGrid: CommonGridComponent;
+  @ViewChild('statusHistoryDialogBox', {static: true}) statusHistoryDialogBox: CommonDialogBoxComponent
+  @ViewChild('inquiryDialogBox', {static: true}) inquiryDialogBox: CommonDialogBoxComponent
 
   customer: any[];
 
-  addAllow = true;
-  editAllow = true;
+  addAllow = false;
+  editAllow = false;
   showToolBar = true;
   deleteAllow = false;
   showQuotation = true;
@@ -34,7 +37,9 @@ export class InqueryTableComponent implements OnInit {
   cName: string;
   consent = true;
   dataLoading = false;
-
+  setDialogBoxValue1 = false;
+  setDialogBoxValue2 = false;
+  vQuotation = false;
 
   constructor(public CustomerDetailsService: CustomerDetailsService, public route: Router) {
 
@@ -186,7 +191,7 @@ export class InqueryTableComponent implements OnInit {
   }
 
   setInquiryRowColumns() {
-    this.inqueryGrid.dataLoading = true;
+    this.dataLoading = true;
     this.CustomerDetailsService.getAllInquiry().subscribe(
       (list: any) => {
         if(list.data !== undefined) {
@@ -197,15 +202,15 @@ export class InqueryTableComponent implements OnInit {
               });
             });
             this.inqueryGrid.rowLists = list.data;
-            this.inqueryGrid.dataLoading = false;
+            this.dataLoading = false;
           } else {
             this.inqueryGrid.rowLists = [];
-            this.inqueryGrid.dataLoading = false;
+            this.dataLoading = false;
           }
         }
       },
       error => {
-        this.inqueryGrid.dataLoading = true;
+        this.dataLoading = true;
         console.log(error);
       }
     );
@@ -222,23 +227,25 @@ export class InqueryTableComponent implements OnInit {
   viewQuotation(item) {
     try{
       this.CustomerDetailsService.selectedCustomer = item;
-      this.route.navigate(['inquiry/quotation/'+item.customerId]);
+      this.route.navigate(['inquiry/quotation/',item.customerId]);
     } catch (error) {
       return error;
     }
 
   }
 
-  addButtonClick() {
-    this.display = true;
-  }
+  // addButtonClick() {
+  //   this.display = true;
+  // }
 
   viewHistory(event) {
+    this.setDialogBoxValue2 = true;
     this.id = event.id;
     this.fName = event.customer.firstName;
     this.cName = event.customer.companyName;
     this.statusHistoryGrid.dataLoading = true;
     this.displayHistory = true;
+    this.inqueryGrid.selectedEntity = null;
 
     this.CustomerDetailsService.getStatusHistory(event.id).subscribe(
       (list: any) => {
@@ -264,16 +271,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedGotConsent(event.id,event.customerId).subscribe(
       (list: any) => {
           if(list) {
-            this.inqueryGrid.spinner = false;
             this.setInquiryRowColumns();
-            //this.route.navigate(['inquiry']);
-            //location.reload();
+            this.inqueryGrid.selectedEntity = null;
+            this.inqueryGrid.spinner = false;
           } else {
             this.inqueryGrid.rowLists = [];
+            this.inqueryGrid.spinner = false;
           }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -283,15 +290,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedApprove(event.id,event.customerId).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -301,15 +309,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedReject(event.id,event.customerId).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -319,15 +328,16 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedResend(event.id,event.customerId,event.customer.handlingCompany).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
   }
@@ -337,17 +347,25 @@ export class InqueryTableComponent implements OnInit {
     this.CustomerDetailsService.clickedGotReConsent(event.id,event.customerId).subscribe(
       (list: any) => {
         if(list) {
-          this.inqueryGrid.spinner = false;
-          //this.consent = false;
           this.setInquiryRowColumns();
+          this.inqueryGrid.selectedEntity = null;
+          this.inqueryGrid.spinner = false;
         } else {
           this.inqueryGrid.rowLists = [];
+          this.inqueryGrid.spinner = false;
         }
       },
       error => {
-        this.inqueryGrid.spinner = false;
+        this.inqueryGrid.spinner = true;
       }
     );
+  }
+  addButtonClick(){
+    this.setDialogBoxValue1 = true;
+  }
+  close(){
+    this.setDialogBoxValue1 = false;
+    this.setDialogBoxValue2 = false;
   }
 
 }
