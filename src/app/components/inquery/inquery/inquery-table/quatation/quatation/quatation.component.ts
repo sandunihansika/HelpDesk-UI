@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Quatation} from './quatation';
+import {Quotation} from './quatation';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ColumnType, TextBoxTypes, Alignment} from '../../../../../../shared/services/common/enum';
 import {FormValidationHelpers} from '../../../../../../shared/helpers/form-validation-helpers';
@@ -20,7 +20,7 @@ export class QuatationComponent implements OnInit {
   showToolBar1 = true;
   showSearchBox1 = true;
   quatationForm: FormGroup;
-  quatation: Quatation;
+  quatation:Quotation;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   uploadedFiles: any[] = [];
   setDialogBoxValue = false;
@@ -33,12 +33,14 @@ export class QuatationComponent implements OnInit {
   firstName;
   lastName;
   companyName;
+  buttonEnable= false;
 
   choosedFile="Choose File...."
 
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
+
     private customerservice: CustomerDetailsService,
     public route: Router,
     public router: ActivatedRoute
@@ -220,13 +222,29 @@ export class QuatationComponent implements OnInit {
   }
 
   send(event) {
-    this.customerservice.clickedSend(event.id,event.customerId).subscribe(
-      (res) => {
-        console.log(res);
-      },
-    );
-    this.setQuotationRowList(this.selectedCustomer.customerId);
-    this.close();
+    try{
+      if (this.quatationForm.invalid) {
+        this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
+        return;
+      }
+      else{
+        this.customerservice.sendQuotationDetails(this.quatationForm.value,this.selectedCustomer.id).
+        subscribe(res=>{
+          console.log(res)
+        })
+        this.customerservice.clickedSend(event.id,event.customerId).subscribe(
+          (res) => {
+            console.log(res);
+          },
+        );
+        this.setQuotationRowList(this.selectedCustomer.customerId);
+        this.close();
+      }
+    }catch(e){
+      console.log(e);
+    }
+
+
   }
   addButtonClick(){
     this.setDialogBoxValue = true;

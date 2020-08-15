@@ -6,7 +6,7 @@ import {CustomerDetails} from '../../components/inquery/inquery/customer-details
 import {Router} from '@angular/router';
 import {AuthenticationService} from './auth/authentication.service';
 import {CommonHttpService} from './common/common-http.service';
-import {Quatation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
+import {Quotation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
 import {CompanyCustomerDeails} from '../../components/inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails';
 import {environment} from '../../../environments/environment';
 import {CompanyType} from './common/enum';
@@ -40,7 +40,7 @@ export class CustomerDetailsService {
     );
   }
 
-  addQuatation(quatation: Quatation, customerId): Observable<any> {
+  addQuatation(quatation: Quotation, customerId): Observable<any> {
     quatation.customerId = customerId;
     return this.commonHttpService.postUploadData(this.customerUrl + '/quatation', quatation).pipe(
       map(data => {
@@ -58,7 +58,7 @@ export class CustomerDetailsService {
   }
 
   getQuotation(customerId): Observable<any> {
-    return this.commonHttpService.getAll( this.quotationUrl + '/' + customerId).pipe(
+    return this.commonHttpService.getAll(this.quotationUrl + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -92,7 +92,7 @@ export class CustomerDetailsService {
     );
   }
 
-  getStatusHistory(inquiryId): Observable<any>{
+  getStatusHistory(inquiryId): Observable<any> {
     return this.commonHttpService.getAll(this.inquiryUrl + '/getHistory/' + inquiryId).pipe(
       map(data => {
         return data;
@@ -101,7 +101,7 @@ export class CustomerDetailsService {
   }
 
   clickedGotConsent(inquiryId, customerId): Observable<any> {
-    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/send/' + inquiryId + '/' + customerId).pipe(
+    return this.commonHttpService.putData(this.quotationUrl + '/changeStatus/send/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -109,7 +109,7 @@ export class CustomerDetailsService {
   }
 
   clickedApprove(inquiryId, customerId): Observable<any> {
-    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/approve/' + inquiryId + '/' + customerId).pipe(
+    return this.commonHttpService.putData(this.quotationUrl + '/changeStatus/approve/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -117,7 +117,7 @@ export class CustomerDetailsService {
   }
 
   clickedReject(inquiryId, customerId): Observable<any> {
-    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/reject/' + inquiryId + '/' + customerId).pipe(
+    return this.commonHttpService.putData(this.quotationUrl + '/changeStatus/reject/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -125,7 +125,7 @@ export class CustomerDetailsService {
   }
 
   clickedResend(inquiryId, customerId, handlingCompany): Observable<any> {
-    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany).pipe(
+    return this.commonHttpService.putData(this.quotationUrl + '/changeStatus/resend/' + inquiryId + '/' + customerId + '/' + handlingCompany).pipe(
       map(data => {
         return data;
       })
@@ -133,7 +133,7 @@ export class CustomerDetailsService {
   }
 
   clickedGotReConsent(inquiryId, customerId): Observable<any> {
-    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId).pipe(
+    return this.commonHttpService.putData(this.quotationUrl + '/changeStatus/resend_ingenii/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -141,7 +141,7 @@ export class CustomerDetailsService {
   }
 
   clickedSend(inquiryId, customerId): Observable<any> {
-    return this.commonHttpService.putData( this.quotationUrl + '/changeStatus/remind/' + inquiryId + '/' + customerId).pipe(
+    return this.commonHttpService.putData(this.quotationUrl + '/changeStatus/remind/' + inquiryId + '/' + customerId).pipe(
       map(data => {
         return data;
       })
@@ -149,7 +149,7 @@ export class CustomerDetailsService {
   }
 
   addComplaint(addComplaint: ComplaintDetails): Observable<any> {
-    return this.commonHttpService.postData(this.complaintUrl +'/addComplain', addComplaint).pipe(
+    return this.commonHttpService.postData(this.complaintUrl + '/addComplain', addComplaint).pipe(
       map(data => {
         return data;
       })
@@ -177,4 +177,14 @@ export class CustomerDetailsService {
     );
   }
 
+  //send quotation form detail
+  sendQuotationDetails(quotation: Quotation, inquiryId): Observable<any> {
+    console.log(quotation);
+    return this.commonHttpService.postData(this.quotationUrl + '/upload/' + inquiryId, quotation).pipe(
+      map(data => {
+        console.log(data);
+        return data;
+      })
+    );
+  }
 }
