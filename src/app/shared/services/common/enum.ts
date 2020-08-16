@@ -12,7 +12,6 @@ export enum StatusCodes {
 export enum CustomerType {
   Individual = 1,
   Corporate = 2,
-  New = 3
 }
 
 export enum UserType {
