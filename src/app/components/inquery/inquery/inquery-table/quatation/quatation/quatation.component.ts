@@ -40,6 +40,7 @@ export class QuatationComponent implements OnInit {
   lastName;
   companyName;
   buttonEnable = false;
+  visibleAlert = false;
 
   choosedFile = "Choose File....";
 
@@ -268,29 +269,12 @@ export class QuatationComponent implements OnInit {
     console.log(quotationNo);
     try {
       if (this.selectedCustomer) {
-        this.customerservice
-          .downloadPdf(this.selectedCustomer.customerId, qNo)
-          .subscribe((res) => {
-            console.log(res);
-          });
+        this.downloadPdfFile(this.selectedCustomer.customerId, quotationNo);
       } else {
-        this.customerservice
-          .downloadPdf(this.custId, qNo)
-          .subscribe((response) => {
-            console.log(response);
-            //create blob object with file content in response
-            let blob: any = new Blob([response], {
-              type: "application/json",
-            });
-            const url = window.URL.createObjectURL(blob);
-            //window.open(url);
-            // window.location.href = response.url;
-            fileSaver.saveAs(blob, qNo + ".pdf");
-          }),
-          (error) => console.log("Error downloading the file"),
-          () => console.info("File downloaded successfully");
+        this.downloadPdfFile(this.custId, quotationNo);
       }
     } catch (e) {
+      console.log("download fails!!");
       console.log(e);
     }
   }
@@ -301,5 +285,26 @@ export class QuatationComponent implements OnInit {
 
   close() {
     this.setDialogBoxValue = false;
+  }
+
+  downloadPdfFile(customerId, quotationNo) {
+    this.customerservice.downloadPdf(customerId, quotationNo).subscribe(
+      (response) => {
+        console.log(response);
+        //create blob object with file content in response
+        let blob: any = new Blob([response], {
+          type: "application/json",
+        });
+        const url = window.URL.createObjectURL(blob);
+        //window.open(url);
+        // window.location.href = response.url;
+        fileSaver.saveAs(blob, quotationNo + ".pdf");
+      },
+      (error) => {
+        this.visibleAlert = true;
+        console.log("Error downloading the file");
+      },
+      () => console.info("File downloaded successfully")
+    );
   }
 }
