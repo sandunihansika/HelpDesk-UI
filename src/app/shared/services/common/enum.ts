@@ -43,6 +43,11 @@ export enum CompanyType {
   Ingenii = 3
 }
 
+export enum ComplaintType {
+  SimProblem = 1,
+  DevicePromblem =2
+}
+
 export enum Status {
   NeedConsent = 1,
   SendQuotation = 2,
@@ -52,11 +57,4 @@ export enum Status {
   ReRemindCustomer = 6,
   Pending = 7,
   Completed = 8
-}
-
-export enum  ComplaintType {
-
-  SimProblem= 1,
-  DevicePromblem =2
-
 }

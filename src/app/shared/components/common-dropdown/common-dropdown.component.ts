@@ -1,4 +1,11 @@
-import {Component, Input, OnInit, Output, EventEmitter, forwardRef} from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  forwardRef,
+} from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -8,37 +15,33 @@ import {
   FormArray,
   FormControl,
   NG_VALUE_ACCESSOR,
-  ControlValueAccessor
-} from '@angular/forms';
+  ControlValueAccessor,
+} from "@angular/forms";
 
 @Component({
-  selector: 'app-common-dropdown',
-  templateUrl: './common-dropdown.component.html',
+  selector: "app-common-dropdown",
+  templateUrl: "./common-dropdown.component.html",
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CommonDropdownComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  styleUrls: ['./common-dropdown.component.scss']
+  styleUrls: ["./common-dropdown.component.scss"],
 })
 export class CommonDropdownComponent implements OnInit {
-
-  @Input('value') _value = '';
-  @Input() placeholder:string;
+  @Input("value") _value = "";
+  @Input() placeholder: string;
   @Input() fields = [];
+  @Input() labelName;
   @Output() selectChange = new EventEmitter<string>();
-  onModelChange: Function = () => {
-  };
-  onModelTouched: Function = () => {
-  };
+  onModelChange: Function = () => {};
+  onModelTouched: Function = () => {};
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   registerOnChange(fn) {
     this.onModelChange = fn;
@@ -67,5 +70,4 @@ export class CommonDropdownComponent implements OnInit {
   handleChange(val) {
     this.value = val.value;
   }
-
 }

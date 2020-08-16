@@ -1,5 +1,20 @@
 <div>
-  <input [type]="inputType"  [value]="value" (change)="handleChange($event)" (input)="handleChange($event)" class="form-control">
+  <label>{{ labelName }}</label>
+  <input
+    [class.is-invalid]="getCommonInput().invalid && getCommonInput().touched"
+    (change)="handleChange($event)"
+    (input)="handleChange($event)"
+    [type]="inputType"
+    [value]="value"
+    [placeholder]="placeholder"
+    class="form-control"
+    [formControl]="getCommonInput()"
+  />
+
+  <div
+    *ngIf="getCommonInput().touched && getCommonInput().errors?.required"
+    class="text text-danger"
+  >
+    {{ labelName }} is required
+  </div>
 </div>
-
-
