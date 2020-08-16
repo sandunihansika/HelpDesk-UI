@@ -12,6 +12,7 @@ import { CommonGridComponent } from "../../../../../../shared/components/common-
 import { ActivatedRoute, Router } from "@angular/router";
 import * as fileSaver from "file-saver";
 import { HttpResponse } from "@angular/common/http";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-quatation",
@@ -49,7 +50,8 @@ export class QuatationComponent implements OnInit {
     private formvalidationhelpers: FormValidationHelpers,
     private customerservice: CustomerDetailsService,
     public route: Router,
-    public router: ActivatedRoute
+    public router: ActivatedRoute,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -299,12 +301,23 @@ export class QuatationComponent implements OnInit {
         //window.open(url);
         // window.location.href = response.url;
         fileSaver.saveAs(blob, quotationNo + ".pdf");
+        this.success();
       },
       (error) => {
-        this.visibleAlert = true;
+        this.danger();
         console.log("Error downloading the file");
       },
       () => console.info("File downloaded successfully")
+    );
+  }
+
+  success() {
+    this.toastrService.success("pdf Downloaded Successfuly!", "Success!");
+  }
+  danger() {
+    this.toastrService.error(
+      "Download Failed! This file cannot be found!",
+      "Error!"
     );
   }
 }
