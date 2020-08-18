@@ -132,21 +132,21 @@ export class NavService {
 		// 		{ path: '/gallery/hover-effect', title: 'Hover Effect', type: 'link' }
 		// 	]
 		// },
-		// {
-		// 	title: 'Forms', icon: 'file-text', type: 'sub', active: false, children: [
-		// 		{
-		// 			title: 'Form Controls', type: 'sub', children: [
-		// 				{ path: '/form/validation', title: 'Form Validation', type: 'link' },
-		// 				{ path: '/form/inputs', title: 'Base Inputs', type: 'link' },
-		// 				{ path: '/form/checkbox-radio', title: 'Checkbox & Radio', type: 'link' },
-		// 				{ path: '/form/input-groups', title: 'Input Groups', type: 'link' },
-		// 				{ path: '/form/mega-options', title: 'Mega Options', type: 'link' }
-		// 			]
-		// 		},
-		// 		{ path: '/form/form-default', title: 'Form Default', type: 'link' },
-		// 		{ path: '/form/wizard', title: 'Ngx Wizard', type: 'link' }
-		// 	]
-		// },
+		{
+			title: 'Forms', icon: 'file-text', type: 'sub', active: false, children: [
+				{
+					title: 'Form Controls', type: 'sub', children: [
+						{ path: '/form/validation', title: 'Form Validation', type: 'link' },
+						{ path: '/form/inputs', title: 'Base Inputs', type: 'link' },
+						{ path: '/form/checkbox-radio', title: 'Checkbox & Radio', type: 'link' },
+						{ path: '/form/input-groups', title: 'Input Groups', type: 'link' },
+						{ path: '/form/mega-options', title: 'Mega Options', type: 'link' }
+					]
+				},
+				{ path: '/form/form-default', title: 'Form Default', type: 'link' },
+				{ path: '/form/wizard', title: 'Ngx Wizard', type: 'link' }
+			]
+		},
     //
 		// {
 		// 	title: 'Tables', icon: 'server', type: 'sub', active: false, children: [

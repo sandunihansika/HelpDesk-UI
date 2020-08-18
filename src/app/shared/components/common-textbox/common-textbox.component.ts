@@ -6,11 +6,12 @@ import {
   Output,
   EventEmitter,
   forwardRef,
+  NgModule
 } from "@angular/core";
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
-  FormGroup, Validators, FormControl, FormBuilder,
+  FormGroup, Validators, FormControl, FormBuilder, FormsModule, AbstractControl, NG_VALIDATORS
 } from '@angular/forms';
 import { TextBoxTypes } from "../../services/common/enum";
 
@@ -39,16 +40,7 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   onModelTouched = () => {};
   @Input() labelName;
 
-  ngOnInit(): void {
-    this.commonTextBox = this.fb.group({
-      commonInput: ['', [Validators.required,
-        Validators.pattern("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$"),]]
-    })
-  }
-
- getCommonInput(){
-    return this.commonTextBox.get('commonInput')
- }
+  ngOnInit(): void { }
 
   registerOnChange(fn) {
     this.onModelChange = fn;
@@ -58,9 +50,34 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
     this.onModelTouched = fn;
   }
 
+  // host: {
+  //   '(change)': '_onChange($event.target.value)'
+  //   '(blur)': '_onTouched()'
+  // }
+
   writeValue(value) {
     this.value = value;
   }
+
+  //My additionssss.......................***********************
+
+  // writeValue(input: string) {
+  //   this.input.setValue(input);
+  // }
+  // subscriptions = [];
+  // registerOnChange(fn: any): void {
+  //   this.subscriptions.push(
+  //     this.input.valueChanges.subscribe(fn)
+  //   );
+  // }
+  // ngOnDestroy() {
+  //   this.subscriptions.forEach(sub => sub.unsubscribe());
+  // }
+  // onTouch: any = () => {}
+  // registerOnTouched(fn: any): void {
+  //   this.onTouch = fn;
+  // }
+//////////////////////////////////////////////////
 
   set value(val) {
     this.onModelChange(val);
@@ -73,7 +90,12 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
     return this._value;
   }
 
-  handleChange(val) {
+  handleChange(val){
     this.value = val.target.value;
   }
+
 }
+
+
+
+
