@@ -1,3 +1,11 @@
 <div>
-  <textarea  [value]="value" (change)="handleChange($event)" class="form-control" [rows]="rows"  [cols]="cols"></textarea>
+  <label> {{ labelName }} </label>
+  <textarea
+    (change)="handleChange($event)"
+    [cols]="cols"
+    [placeholder]="placeholder"
+    [rows]="rows"
+    [value]="value"
+    class="form-control"
+  ></textarea>
 </div>

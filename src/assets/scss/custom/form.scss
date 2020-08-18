@@ -57,8 +57,8 @@ label {
 .ui-card-body {
   padding: 1em;
   background: white;
-  height: 75em !important;
-  height: 80vh !important;
+  //height: 75em !important;
+  height: 90vh !important;
   width: auto;
 }
 
@@ -68,9 +68,50 @@ label {
   color: #4e4748;
   background: #ffffff;
   padding: 0.300em;
-  border: 1px solid #c8c8c8c2 !important; ;
   transition: border-color 0.2s, box-shadow 0.2s;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.form-control{
+  background-color: #f2f5f6 !important;
+
+}
+
+.ui-fluid .ui-dropdown, .ui-fluid p-dropdown {
+  background-color: #f2f5f6 !important;
+  .pi-chevron-down:before {
+    background-color: #f2f5f6 !important;
+  }
+}
+
+.body .ui-dropdown .ui-dropdown-trigger {
+  background-color: #f2f5f6 !important;
+}
+.p-field > label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  margin-left: 1px !important;
+}
+.body .ui-inputtext {
+  font-size: 15px;
+  width: 120%;
+  color: #4e4748;
+  background: #f1e8e8;
+  padding: 0.300em;
+  border: 1px solid #eaf0f1 !important;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #f2f5f6 !important;
+}
+
+.custom-file-label {
+  line-height: 1.5;
+  color: #f2f5f6 !important;
+  background-color: #f2f5f6 !important;
+  border: 1px solid #f2f5f6 !important;
+  border-radius: 0.25rem;
 }

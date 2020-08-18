@@ -1,4 +1,12 @@
 <div>
-  <p-dropdown [options]="fields" [selectId]="value" optionLabel="name" [placeholder]="placeholder" [filter]="true"
-              (onChange)="handleChange($event)" (input)="handleChange($event)"></p-dropdown>
+  <label style="margin-left: 1px;"> {{ labelName }} </label>
+  <p-dropdown
+    [options]="fields"
+    [selectId]="value"
+    optionLabel="name"
+    [placeholder]="placeholder"
+    [filter]="true"
+    (onChange)="handleChange($event)"
+    (input)="handleChange($event)"
+  ></p-dropdown>
 </div>

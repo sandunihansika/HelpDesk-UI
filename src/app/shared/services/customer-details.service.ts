@@ -1,25 +1,26 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { CustomerDetails } from "../../components/inquery/inquery/customer-details/customer-details/customer-details";
 import { Router } from "@angular/router";
 import { AuthenticationService } from "./auth/authentication.service";
 import { CommonHttpService } from "./common/common-http.service";
-import { Quatation } from "../../components/inquery/inquery/inquery-table/quatation/quatation/quatation";
+import { Quotation } from "../../components/inquery/inquery/inquery-table/quatation/quatation/quatation";
 import { CompanyCustomerDeails } from "../../components/inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { environment } from "../../../environments/environment";
 import { CompanyType } from "./common/enum";
 import { ComplaintDetails } from "../../components/complaint/complaint-form/ComplaintDetails";
+import { ResponseContentType } from "@angular/http";
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root'
 })
 export class CustomerDetailsService {
-  customerUrl = "customer";
-  inquiryUrl = "inquiry";
-  quotationUrl = "quotation";
-  complaintUrl = "complain";
+  customerUrl = 'customer';
+  inquiryUrl = 'inquiry';
+  quotationUrl = 'quotation';
+  complaintUrl = 'complain';
   selectedCustomer;
 
   constructor(
@@ -41,10 +42,10 @@ export class CustomerDetailsService {
       );
   }
 
-  addQuatation(quatation: Quatation, customerId): Observable<any> {
-    quatation.customerId = customerId;
+  addQuatation(quotation: Quotation, customerId): Observable<any> {
+    quotation.customerId = customerId;
     return this.commonHttpService
-      .postUploadData(this.customerUrl + "/quatation", quatation)
+      .postUploadData(this.customerUrl + "/quatation", quotation)
       .pipe(
         map((data) => {
           return data;
@@ -53,13 +54,11 @@ export class CustomerDetailsService {
   }
 
   addInquery(inquery: CompanyCustomerDeails): Observable<any> {
-    return this.commonHttpService
-      .postData(this.customerUrl + "/inquery", inquery)
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
+    return this.commonHttpService.postData(this.customerUrl + '/inquery', inquery).pipe(
+      map(data => {
+        return data;
+      })
+    );
   }
 
   getQuotation(customerId): Observable<any> {
@@ -228,6 +227,14 @@ export class CustomerDetailsService {
           return data;
         })
       );
+    return this.commonHttpService
+      .getAll(this.complaintUrl + "/complainDetails")
+      .pipe(
+        map((data) => {
+          console.log(data);
+          return data;
+        })
+      );
   }
 
   //update status of complain table
@@ -291,5 +298,48 @@ export class CustomerDetailsService {
           return data;
         })
       );
+    return this.commonHttpService
+      .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
+      .pipe(
+        map((data) => {
+          console.log(data);
+          return data;
+        })
+      );
+  }
+
+  //send quotation form detail
+  sendQuotationDetails(
+    quotation: Quotation,
+    customerId,
+    inquiryId
+  ): Observable<any> {
+    // console.log(quotation, inquiryId);
+    quotation.customerId = customerId;
+    console.log(quotation);
+    return this.commonHttpService
+      .postUploadData(this.quotationUrl + "/upload/" + inquiryId, quotation)
+      .pipe(
+        map((data) => {
+          console.log(data);
+          return data;
+        })
+      );
+  }
+
+  //to download pdf
+  downloadPdf(customerId, quotationNo): Observable<any> {
+    console.log(customerId, quotationNo);
+    return this.http.get(
+      "http://localhost:3000/" +
+        this.quotationUrl +
+        "/download/" +
+        customerId +
+        "/" +
+        quotationNo,
+      {
+        responseType: "blob",
+      }
+    );
   }
 }

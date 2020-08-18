@@ -1,7 +1,5 @@
-import {CustomerType} from '../../../../../shared/services/common/enum';
-
 export class CompanyCustomerDeails {
-  id:number;
+  id: number;
   companyName: string;
   type: number;
   companyRegistrationNo: string;
@@ -25,5 +23,6 @@ export class CompanyCustomerDeails {
   handlingCompany: string;
   handlingCustomer: string;
   inqueryType: number;
+  customerStatus: string;
 
 }

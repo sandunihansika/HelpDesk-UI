@@ -57,13 +57,13 @@ export const content: Routes = [
   //     breadcrumb: "Timeline"
   //   }
   // },
-  // {
-  //   path: 'form',
-  //   loadChildren: () => import('../../components/forms/forms.module').then(m => m.FormModule),
-  //   data: {
-  //     breadcrumb: "Form"
-  //   }
-  // },
+  {
+    path: 'form',
+    loadChildren: () => import('../../components/forms/forms.module').then(m => m.FormModule),
+    data: {
+      breadcrumb: "Form"
+    }
+  },
   // {
   //   path: 'gallery',
   //   loadChildren: () => import('../../components/gallery/gallery.module').then(m => m.GalleryDemoModule),
@@ -246,5 +246,9 @@ export const content: Routes = [
       breadcrumb: "Complaint"
     }
   },
+  {
+    path: 'add_complain',
+    loadChildren: () => import('../../components/complaint/complaint.module').then()
+  }
 
 ];

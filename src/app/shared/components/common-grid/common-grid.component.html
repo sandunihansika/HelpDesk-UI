@@ -5,14 +5,14 @@
         <div>
           <p-toolbar *ngIf="showToolBar">
             <div class="ui-toolbar-group-left">
-<!--                  <button pButton type="button" icon="pi pi-refresh" style="margin-right: .25em" class="ui-button-secondary" (click)="this.refreshClick()"></button>-->
+              <!--                  <button pButton type="button" icon="pi pi-refresh" style="margin-right: .25em" class="ui-button-secondary" (click)="this.refreshClick()"></button>-->
 
               <button
                 *ngIf="addAllow"
                 pButton
                 type="button"
                 icon="icofont icofont-ui-add"
-                style="margin-right: .25em"
+                style="margin-right: 0.25em;"
                 class="ui-button-info"
                 (click)="addClick()"
               ></button>
@@ -21,7 +21,7 @@
                 pButton
                 type="button"
                 icon="pi pi-user-edit"
-                style="margin-right: .25em"
+                style="margin-right: 0.25em;"
                 class="ui-button-success"
                 (click)="this.editClick()"
               ></button>
@@ -30,14 +30,14 @@
                 pButton
                 type="button"
                 icon="pi pi-trash"
-                style="margin-right: .25em"
+                style="margin-right: 0.25em;"
                 class="ui-button-danger"
                 (click)="this.deleteClick()"
               ></button>
               <ng-content></ng-content>
             </div>
             <div class="ui-toolbar-group-right">
-              <i class="fa fa-search" style="margin:4px -30px 0 0"></i>
+              <i class="fa fa-search" style="margin: 4px -30px 0 0;"></i>
               <input
                 *ngIf="showSearchBox"
                 type="text"
@@ -45,29 +45,30 @@
                 size="30"
                 placeholder="Global Search"
                 (input)="grid.filterGlobal($event.target.value, 'contains')"
-                style="width:auto"/>
+                style="width: auto;"
+              />
             </div>
-
           </p-toolbar>
 
-          <p-table [columns]="columnsList"
-                   [value]="rowLists"
-                   [resizableColumns]="true"
-                   columnResizeMode="expand"
-                   [scrollable]="true"
-                   [rowsPerPageOptions]="rowsPerPageOptions"
-                   [paginator]="defaultPaginationEnabled"
-                   [rows]="rowsPerPage"
-                   [loading]="spinner"
-                   [rowHover]="true"
-                   [showCurrentPageReport]="true"
-                   [selectionMode]="selectionMode"
-                   [responsive]="true"
-                   currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                   [(selection)]="selectedEntity"
-                   [globalFilterFields]="GlobalSearchList()"
-                   #grid>
-
+          <p-table
+            [columns]="columnsList"
+            [value]="rowLists"
+            [resizableColumns]="true"
+            columnResizeMode="expand"
+            [scrollable]="true"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            [paginator]="defaultPaginationEnabled"
+            [rows]="rowsPerPage"
+            [loading]="spinner"
+            [rowHover]="true"
+            [showCurrentPageReport]="true"
+            [selectionMode]="selectionMode"
+            [responsive]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [(selection)]="selectedEntity"
+            [globalFilterFields]="GlobalSearchList()"
+            #grid
+          >
             <!--    <div class="ui-helper-clearfix" style="text-align: left">-->
             <!--      <button type="button" pButton icon="pi pi-plus" iconPos="left" label="Add" style="margin-right: 0.5em;"></button>-->
             <!--      <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" style="margin-right: 0.5em;" class="ui-button-success"></button>-->
@@ -82,11 +83,15 @@
                   [pSortableColumn]="col.mappingName"
                   pResizableColumn
                   pReorderableColumn
-                  [ngStyle]="{ 'min-width': col.columnWidth + 'px', width: col.columnWidth + 'px', display: col.columnType === 8 ? 'none' : '' }"
+                  [ngStyle]="{
+                    'min-width': col.columnWidth + 'px',
+                    width: col.columnWidth + 'px',
+                    display: col.columnType === 8 ? 'none' : ''
+                  }"
                 >
                   {{ col.columnName }}
                   <!--<p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>-->
-<!--                  <p-sortIcon [field]="col.mappingName"></p-sortIcon>-->
+                  <!--                  <p-sortIcon [field]="col.mappingName"></p-sortIcon>-->
                 </th>
               </tr>
 
@@ -112,51 +117,77 @@
               <!--            <th>-->
               <!--                <app-custom-dropdown [fields]="statuses" (selectChange)="filterStatus($event)" styleClass="ui-column-filter" placeholder="Select a Status"></app-custom-dropdown>-->
               <!--            </th>-->
-
             </ng-template>
 
-            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <ng-template
+              pTemplate="body"
+              let-rowData
+              let-columns="columns"
+              let-rowIndex="rowIndex"
+            >
               <tr [pSelectableRow]="rowData" [pSelectableRowIndex]="rowIndex">
                 <td
                   *ngFor="let col of columns"
                   class="ui-resizable-column"
-                  [ngStyle]="{width: col.columnWidth + 'px',display: col.columnType === 8 ? 'none' : ''}"
+                  [ngStyle]="{
+                    width: col.columnWidth + 'px',
+                    display: col.columnType === 8 ? 'none' : ''
+                  }"
                 >
-                  <div style="display: inline">
+                  <div style="display: inline;">
                     <span
                       *ngIf="col.columnType == 1"
-                      style="display: inline-block"
+                      style="display: inline-block;"
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                        {{
-                      col.subMappingName && rowData[col.mappingName]
-                        ? rowData[col.mappingName][col.subMappingName]
-                        : rowData[col.mappingName]
+                      {{
+                        col.subMappingName && rowData[col.mappingName]
+                          ? rowData[col.mappingName][col.subMappingName]
+                          : rowData[col.mappingName]
                       }}
                     </span>
                     <span
                       *ngIf="col.columnType == 2"
-                      style="display: inline-block"
+                      style="display: inline-block;"
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                        {{
-                      col.subMappingName && rowData[col.mappingName]
-                        ? rowData[col.mappingName][col.subMappingName]
-                        :(rowData[col.mappingName] | number: col.columnFormat)}}
+                      {{
+                        col.subMappingName && rowData[col.mappingName]
+                          ? rowData[col.mappingName][col.subMappingName]
+                          : (rowData[col.mappingName]
+                            | number: col.columnFormat)
+                      }}
                     </span>
                     <span
                       *ngIf="col.columnType == 3"
-                      style="display: inline-block"
+                      style="display: inline-block;"
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                         {{
-                      col.subMappingName && rowData[col.mappingName]
-                        ? rowData[col.mappingName][col.subMappingName]
-                        :(rowData[col.mappingName] | date: col.columnFormat)}}
-                     </span>
+                      {{
+                        col.subMappingName && rowData[col.mappingName]
+                          ? rowData[col.mappingName][col.subMappingName]
+                          : (rowData[col.mappingName] | date: col.columnFormat)
+                      }}
+                    </span>
+
+                    <span
+                      *ngIf="col.columnType == 5"
+                      style="display: inline-block;"
+                      attr.name="{{ col.mappingName }}"
+                      attr.id="{{ rowData[col.mappingName] }}"
+                    >
+                      <button
+                        pButton
+                        type="button"
+                        icon="pi pi-download"
+                        style="margin-left: 1vw; background-color: #1a8b99;"
+                        (click)="downloadPdfClick(rowData.quotationNo)"
+                      ></button>
+                    </span>
+
                     <!--                         <span-->
                     <!--                         *ngIf="colType==pdf">-->
                     <!--                             <button-->
@@ -185,16 +216,15 @@
             <!--            Selected Customer: {{selectedEntity ? selectedEntity.id + ' - ' + selectedEntity.name : 'none' }}-->
             <!--        </div>-->
             <!--    </ng-template>-->
-
           </p-table>
-<!--          <div class="loader-box" *ngIf="spinner">-->
-<!--            <div class="loader">-->
-<!--              <div class="line bg-secondary"></div>-->
-<!--              <div class="line bg-secondary"></div>-->
-<!--              <div class="line bg-secondary"></div>-->
-<!--              <div class="line bg-secondary"></div>-->
-<!--            </div>-->
-<!--          </div>-->
+          <!--          <div class="loader-box" *ngIf="spinner">-->
+          <!--            <div class="loader">-->
+          <!--              <div class="line bg-secondary"></div>-->
+          <!--              <div class="line bg-secondary"></div>-->
+          <!--              <div class="line bg-secondary"></div>-->
+          <!--              <div class="line bg-secondary"></div>-->
+          <!--            </div>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>

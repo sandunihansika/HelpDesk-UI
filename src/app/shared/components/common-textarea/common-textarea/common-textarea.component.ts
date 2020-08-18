@@ -1,38 +1,39 @@
-import {Component, OnInit, Input, Output, EventEmitter, forwardRef} from '@angular/core';
 import {
-  NG_VALUE_ACCESSOR,
-  ControlValueAccessor
-} from '@angular/forms';
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  forwardRef,
+} from "@angular/core";
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 @Component({
-  selector: 'app-common-textarea',
-  templateUrl: './common-textarea.component.html',
+  selector: "app-common-textarea",
+  templateUrl: "./common-textarea.component.html",
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CommonTextareaComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
-  styleUrls: ['./common-textarea.component.scss']
+  styleUrls: ["./common-textarea.component.scss"],
 })
 export class CommonTextareaComponent implements OnInit, ControlValueAccessor {
-
-  constructor() {
-  }
+  constructor() {}
 
   // tslint:disable-next-line:variable-name no-input-rename
-  @Input('value') _value = '';
+  @Input("value") _value = "";
   @Input() rows;
   @Input() cols;
+  @Input() labelName;
+  @Input() placeholder;
   // @Output() inputModelChange = new EventEmitter<string>();
-  onModelChange = (x) => {
-  }
-  onModelTouched = () => {
-  }
+  onModelChange = (x) => {};
+  onModelTouched = () => {};
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   registerOnChange(fn) {
     this.onModelChange = fn;
@@ -60,5 +61,4 @@ export class CommonTextareaComponent implements OnInit, ControlValueAccessor {
   handleChange(val) {
     this.value = val.target.value;
   }
-
 }

@@ -196,6 +196,7 @@
 
 @import "custom/form";
 @import "custom/grid";
+@import "custom/dropdown";
 
 body {
   margin: 0;
@@ -264,7 +265,6 @@ body .ui-dialog {
 body .ui-inputtext{
   //left: ;
   width: 200px;
-  margin-left: 45px;
 }
 
 .p-field > label {
