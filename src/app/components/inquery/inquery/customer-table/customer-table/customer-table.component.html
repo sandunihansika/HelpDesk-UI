@@ -1,3 +1,4 @@
+<app-loader [loader]="dataLoading"></app-loader>
 <mat-tab-group>
   <mat-tab label="Individual">
     <app-common-grid
@@ -23,5 +24,3 @@
 <app-common-dialog-box  class="body .ui-dialog "header="Add Corporate Customer" [dialogBox]="setDialogBoxValue2"  (closeButtonClick)="close()">
   <app-corporate-details></app-corporate-details>
 </app-common-dialog-box>
-
-<app-loader [loader]="dataLoading"></app-loader>

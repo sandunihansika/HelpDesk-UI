@@ -14,6 +14,8 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./auth-login.component.scss"],
 })
 export class AuthLoginComponent implements OnInit {
+  dataLoading = false;
+
   constructor(
     private authService: AuthenticationService,
     private passwordHash: PasswordHash,
@@ -58,7 +60,7 @@ export class AuthLoginComponent implements OnInit {
   }
 
   login() {
-    this.spinner = true;
+    this.dataLoading = true;
     try {
       if (this.loginForm.invalid) {
         this.formValidationHelper.validateAllFormFields(this.loginForm);
@@ -75,10 +77,12 @@ export class AuthLoginComponent implements OnInit {
             this.success();
             console.log("login success");
             this.router.navigate([this.url]);
+            this.dataLoading = false;
           }
         });
     } catch (err) {
       console.log(err);
+      this.dataLoading = true;
     }
   }
 

@@ -48,21 +48,21 @@
                         </div>
                         <br><br>
 
-                          <button  class="btn btn-primary mb-4" (click)="login()">Login</button>
-
-                      </form>
-                    </div>
-
-                  </div>
-                </div>
+                <button class="btn btn-primary mb-4" (click)="login()">
+                  Login
+                </button>
+              </form>
+            </div>
+            <div *ngIf="dataLoading" class="loader-login-wrapper">
+              <div class="loader-login">
+                <div class="whirly-loader"></div>
+              </div>
             </div>
           </div>
-            <div *ngIf="spinner" class="col-md-6" style="margin-left: 13% !important;">
-              <div class="loader-box"><span class="rotate dashed"></span></div>
-            </div>
+        </div>
+      </div>
+    </div>
   </div>
-
 </div>
-
 
 <router-outlet></router-outlet>

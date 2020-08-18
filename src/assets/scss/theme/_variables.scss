@@ -4,6 +4,7 @@ $theme-body-font-color: #313131;
 $theme-body-sub-title-color: #777777;
 
 // Theme colors variables
+//$primary-color: #04a9f5;
 $primary-color: #4466f2;
 $secondary-color: #1ea6ec ;
 $success-color: #22af47 ;
@@ -28,6 +29,8 @@ $flower-pink: #fb6d9d;
 $dark-sky: #536dfe;
 $color-scarpa: #4c5667;
 $color-fiord: #455a64;
+
+$dark-layout: #212224;
 
 $black : #000;
 $white:#fff;
@@ -86,6 +89,8 @@ $code-tag-bg-color: $light-color;
 $code-tag-padding: 3px;
 $code-tag-margin: 0 3px;
 $code-tag-border-radious: 2px;
+
+$color-menu-color: $primary-color, #ff5252, #9575CD ,#23b7e5,lighten($dark-layout,7%);
 
 $blockquote-padding : 15px;
 $blockquote-border : 4px solid $light-gray;
