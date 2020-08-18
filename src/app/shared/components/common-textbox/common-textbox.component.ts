@@ -35,6 +35,8 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   @Input() inputType: TextBoxTypes;
   @Input() placeholder;
   @Input() class;
+
+  getInvalid: any;
   // @Output() inputModelChange = new EventEmitter<string>();
   onModelChange = (x) => {};
   onModelTouched = () => {};
@@ -50,10 +52,10 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
     this.onModelTouched = fn;
   }
 
-  // host: {
-  //   '(change)': '_onChange($event.target.value)'
-  //   '(blur)': '_onTouched()'
-  // }
+  host: {
+    // '(change)': '_onChange($event.target.value)'
+    '(blur)': 'onModelTouched()'
+  }
 
   writeValue(value) {
     this.value = value;

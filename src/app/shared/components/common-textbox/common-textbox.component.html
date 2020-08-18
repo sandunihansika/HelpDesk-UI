@@ -6,6 +6,8 @@
     [type]="inputType"
     [value]="value"
     [placeholder]="placeholder"
+    (blur) = "onModelTouched()"
+
     class="form-control"
   >
 <!--  <div *ngIf="com.value == ''">Error</div>-->
