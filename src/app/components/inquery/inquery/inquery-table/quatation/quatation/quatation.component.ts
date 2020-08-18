@@ -26,8 +26,8 @@ export class QuatationComponent implements OnInit {
   addAllow1 = false;
   showToolBar1 = true;
   showSearchBox1 = true;
-  quatationForm: FormGroup;
-  quatation: Quotation;
+  quotationForm: FormGroup;
+  quotation: Quotation;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   uploadedFiles: any[] = [];
   setDialogBoxValue = false;
@@ -59,23 +59,23 @@ export class QuatationComponent implements OnInit {
     this.router.params.subscribe(
       (params) => (this.custId = parseInt(params["customerId"]))
     );
-    //console.log(this.custId);
+    console.log(this.custId);
     if (this.selectedCustomer) {
-      //console.log(this.selectedCustomer);
-      this.quatationForm = this.formbuilder.group({
+      console.log(this.selectedCustomer);
+      this.quotationForm = this.formbuilder.group({
         customerId: [this.selectedCustomer.id, [Validators.required]],
         description: ["", [Validators.required]],
-        quatationNo: ["", [Validators.required]],
+        quotationNo: ["", [Validators.required]],
         expiryDate: ["", [Validators.required]],
         pdf: [[Validators.required]],
       });
       this.setQuotationColumns();
       this.setQuotationRowList(this.selectedCustomer.customerId);
     } else {
-      this.quatationForm = this.formbuilder.group({
+      this.quotationForm = this.formbuilder.group({
         customerId: [this.custId, [Validators.required]],
         description: ["", [Validators.required]],
-        quatationNo: ["", [Validators.required]],
+        quotationNo: ["", [Validators.required]],
         expiryDate: ["", [Validators.required]],
         pdf: [[Validators.required]],
       });
@@ -204,20 +204,20 @@ export class QuatationComponent implements OnInit {
       const file = event.target.files[0];
       this.choosedFile = file.name;
       console.log(file);
-      this.quatationForm.patchValue({
+      this.quotationForm.patchValue({
         pdf: file,
       });
     }
   }
 
   saveQuatation() {
-    console.log(this.quatationForm.value);
-    if (this.quatationForm.invalid) {
-      this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
+    console.log(this.quotationForm.value);
+    if (this.quotationForm.invalid) {
+      this.formvalidationhelpers.validateAllFormFields(this.quotationForm);
       return;
-    } else if (this.quatationForm.invalid) {
+    } else if (this.quotationForm.invalid) {
       this.customerservice
-        .addQuatation(this.quatationForm.value, this.quatation.customerId)
+        .addQuatation(this.quotationForm.value, this.quotation.customerId)
         .subscribe((respond) => {
           /**/
         });
@@ -225,38 +225,42 @@ export class QuatationComponent implements OnInit {
   }
 
   get description() {
-    return this.quatationForm.get("description");
+    return this.quotationForm.get("description");
   }
 
-  get quatationNo() {
-    return this.quatationForm.get("quatationNo");
+  get quotationNo() {
+    return this.quotationForm.get("quotationNo");
   }
 
   get expiryDate() {
-    return this.quatationForm.get("expiryDate");
+    return this.quotationForm.get("expiryDate");
   }
 
   send(event) {
     try {
-      if (this.quatationForm.invalid) {
-        this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
+      if (this.quotationForm.invalid) {
+        this.formvalidationhelpers.validateAllFormFields(this.quotationForm);
         return;
       } else {
+        console.log(this.selectedCustomer.customerId);
         this.customerservice
           .sendQuotationDetails(
-            this.quatationForm.value,
+            this.quotationForm.value,
+            this.selectedCustomer.customerId,
             this.selectedCustomer.id
           )
           .subscribe((res) => {
             console.log(res);
           });
+
         this.customerservice
           .clickedSend(event.id, event.customerId)
           .subscribe((res) => {
             console.log(res);
           });
-        this.setQuotationRowList(this.selectedCustomer.customerId);
+        this.quotationForm.reset();
         this.close();
+        location.reload();
       }
     } catch (e) {
       console.log(e);
