@@ -288,6 +288,45 @@ body .pi {
   font-size: 12px !important;
 }
 
+//.b-bg {
+//  background: $color-menu-color,$i !important;
+//  i {
+//    color: #fff;
+//    -webkit-text-fill-color: unset;
+//  }
+//}
 
+.b-title {
+  color: rgba(255, 255, 255, 0.85) !important;
+  margin-left: 8% !important;
+  font-size: medium !important;
+  letter-spacing: 2px !important;
+}
 
+.b-bg {
+    background: linear-gradient(-135deg,#1de9b6 0,#1dc4e9 100%);
+    border-radius: 10px;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recent-notification .media .media-body p {
+  color: #999;
+  width: 150px !important;
+}
+
+.fifty-chars {
+  width: 50ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+//.pull-right {
+//  float: right;
+//  margin-right: -20% !important;
+//}
 

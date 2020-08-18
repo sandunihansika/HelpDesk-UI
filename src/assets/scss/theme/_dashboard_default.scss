@@ -447,8 +447,9 @@ div.review canvas {
       margin-top: 10px;
     }
     .media-body{
-      padding-left: 50px;
+      padding-left: 80px;
       position: relative;
+      margin-left: -50% !important;
       &:before{
         position: absolute;
         content: '';
