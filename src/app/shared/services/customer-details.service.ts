@@ -42,10 +42,10 @@ export class CustomerDetailsService {
       );
   }
 
-  addQuatation(quotation: Quotation, customerId): Observable<any> {
-    quotation.customerId = customerId;
+  addQuatation(quatation: Quotation, customerId): Observable<any> {
+    quatation.customerId = customerId;
     return this.commonHttpService
-      .postUploadData(this.customerUrl + "/quatation", quotation)
+      .postUploadData(this.customerUrl + "/quatation", quatation)
       .pipe(
         map((data) => {
           return data;
@@ -55,7 +55,7 @@ export class CustomerDetailsService {
 
   addInquery(inquery: CompanyCustomerDeails): Observable<any> {
     return this.commonHttpService
-      .postData(this.customerUrl + "/inquery", inquery)
+      .postData(this.customerUrl + "/add", inquery)
       .pipe(
         map((data) => {
           return data;
@@ -245,16 +245,10 @@ export class CustomerDetailsService {
   }
 
   //send quotation form detail
-  sendQuotationDetails(
-    quotation: Quotation,
-    customerId,
-    inquiryId
-  ): Observable<any> {
-    // console.log(quotation, inquiryId);
-    quotation.customerId = customerId;
+  sendQuotationDetails(quotation: Quotation, inquiryId): Observable<any> {
     console.log(quotation);
     return this.commonHttpService
-      .postUploadData(this.quotationUrl + "/upload/" + inquiryId, quotation)
+      .postData(+this.quotationUrl + "/upload/" + inquiryId, quotation)
       .pipe(
         map((data) => {
           console.log(data);

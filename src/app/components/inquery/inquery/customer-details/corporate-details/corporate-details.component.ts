@@ -6,6 +6,7 @@ import {FormValidationHelpers} from '../../../../../shared/helpers/form-validati
 import {CompanyType, TextBoxTypes} from 'src/app/shared/services/common/enum';
 import {CustomerType} from 'src/app/shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -23,7 +24,8 @@ export class CorporateDetailsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private formValidationHelper: FormValidationHelpers,
-    private customerservice: CustomerDetailsService
+    private customerservice: CustomerDetailsService,
+    private toastservice: ToastrService
   ) {
     this.companyType = [
       {id: CompanyType.Ingenii, name: 'Ingenii'},
@@ -122,8 +124,13 @@ export class CorporateDetailsComponent implements OnInit {
       this.customerservice.addCustomer(this.corporateForm.value).subscribe(
         respond => {
           console.log(respond);
+          this.showSuccess();
         });
     }
+  }
+
+  showSuccess() {
+    this.toastservice.success("Success", "Inquery Created Succesfully");
   }
 
 }

@@ -1,92 +1,89 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="card">
-        <div class="card-body">
-          <form [formGroup]="complaintForm" class="theme-form">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="complaintForm" class="theme-form">
+              <!--            <div>-->
+              <!--              <label>Handling Company</label>-->
+              <!--              <app-common-textbox-->
+              <!--                [inputType]="TextBoxTypes.Text"-->
+              <!--                formControlName="handlingCompany"-->
+              <!--                id="handlingCompany" >-->
+              <!--              </app-common-textbox>-->
+              <!--            </div>-->
+
+              <div class="ui-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-6">
+                  <app-common-dropdown
+                    labelName="Complaint Type"
+                    (selectChange)="getComplaintSelected($event)"
+                    [fields]="complainTypeId"
+                  ></app-common-dropdown>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <app-common-dropdown
+                    labelName="Customer"
+                    (selectChange)="getCustomerId($event)"
+                    [fields]="showCustomers"
+                    formControlName="handlingCustomer"
+                  ></app-common-dropdown>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="contactPerson"
+                    id="contactPerson"
+                    labelName="Contact person"
+                    placeholder="Contact person"
+                  ></app-common-textbox>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <app-common-textbox
+                    labelName="Contact Number"
+                    placeholder="Conact Number"
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="contactPersonNumber"
+                    id="contactPersonNumber"
+                  ></app-common-textbox>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <app-common-textbox
+                    labelName="Designation"
+                    placeholder="Designation"
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="designation"
+                    id="designation"
+                  ></app-common-textbox>
+                </div>
+
+                <div>
+                  <app-common-textarea
+                    placeholder="Typer here..."
+                    labelName="Description"
+                    [rows]="5"
+                    formControlName="description"
+                    id="description"
+                  ></app-common-textarea>
+                </div>
 
 
-            <div class="ui-fluid p-formgrid p-grid">
-              <div>
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="handlingCompany"
-                  labelName="Handling Company"
-                  placeholder="Handling Company"
-                  id="handlingCompany" >
-                </app-common-textbox>
               </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <app-common-dropdown
-                  labelName="Complaint Type"
-                  (selectChange)="getComplaintSelected($event)"
-                  [fields]="complainTypeId"
-                ></app-common-dropdown>
+              <div class="offset-md-2 col-md-4">
+                <div class="card-footer">
+                  <button (click)="addComplaint()" class="btn btn-primary mr-3">
+                    Submit
+                  </button>
+                </div>
               </div>
-
-              <div class="p-field p-col-12 p-md-6">
-                <app-common-dropdown
-                  labelName="Customer"
-                  (selectChange)="getCustomerId($event)"
-                  [fields]="showCustomers"
-                  formControlName="handlingCustomer"
-                ></app-common-dropdown>
-              </div>
-              <div class="p-field p-col-12 p-md-6">
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="contactPerson"
-                  id="contactPerson"
-                  labelName="Contact person"
-                  placeholder="Contact person"
-                ></app-common-textbox>
-
-                <small class="text text-danger" *ngIf="contactPerson.invalid && contactPerson.touched">Contact person is required</small>
-
-              </div>
-
-              <div class="p-field p-col-12 p-md-6">
-                <app-common-textbox
-                  labelName="Contact Number"
-                  placeholder="Contact Number"
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="contactPersonNumber"
-                  id="contactPersonNumber"
-                ></app-common-textbox>
-              </div>
-
-              <div class="p-field p-col-12 p-md-6">
-                <app-common-textbox
-                  labelName="Designation"
-                  placeholder="Designation"
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="designation"
-                  id="designation"
-                ></app-common-textbox>
-              </div>
-
-
-            </div>
-            <div class="text-area">
-              <app-common-textarea
-                placeholder="Typer here..."
-                labelName="Description"
-                [rows]="5"
-                formControlName="description"
-                id="description"
-              ></app-common-textarea>
-            </div>
-
-
-            <div class="offset-md-2 col-md-4">
-              <div class="card-footer">
-                <button (click)="addComplaint()" class="btn btn-primary mr-3">
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

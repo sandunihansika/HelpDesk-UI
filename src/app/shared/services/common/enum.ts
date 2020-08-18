@@ -1,12 +1,12 @@
 export enum TextBoxTypes {
-  Text = "text",
-  Password = "password",
-  Email = "email",
+  Text = 'text',
+  Password = 'password',
+  Email = 'email'
 }
 
 export enum StatusCodes {
   Success = 200,
-  Unauthorized = 401,
+  Unauthorized = 401
 }
 
 export enum CustomerType {
@@ -16,36 +16,36 @@ export enum CustomerType {
 
 export enum UserType {
   AdminUser = 1,
-  HelpDeskUser = 5,
+  HelpDeskUser = 5
 }
 
 export enum InqueryType {
   Details = 1,
   Quotation = 2,
-  Quotation_with_details = 3,
+  Quotation_with_details = 3
 }
 
 export enum Alignment {
   Left = 1,
   Center = 2,
-  Right = 3,
+  Right = 3
 }
 
 export enum ColumnType {
   Text = 1,
   Number = 2,
   Date = 3,
-  Custom = 5,
+  Custom = 5
 }
 
 export enum CompanyType {
   Dimo = 2,
-  Ingenii = 3,
+  Ingenii = 3
 }
 
 export enum ComplaintType {
   SimProblem = 1,
-  DevicePromblem = 2,
+  DevicePromblem =2
 }
 
 export enum Status {
@@ -55,6 +55,6 @@ export enum Status {
   ReNeedConsent = 4,
   ReSendQuotation = 5,
   ReRemindCustomer = 6,
-  Pending = 8,
-  Completed = 9,
+  Pending = 7,
+  Completed = 8
 }

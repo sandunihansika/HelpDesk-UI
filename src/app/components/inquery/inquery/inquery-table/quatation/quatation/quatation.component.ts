@@ -26,8 +26,8 @@ export class QuatationComponent implements OnInit {
   addAllow1 = false;
   showToolBar1 = true;
   showSearchBox1 = true;
-  quotationForm: FormGroup;
-  quotation: Quotation;
+  quatationForm: FormGroup;
+  quatation: Quotation;
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   uploadedFiles: any[] = [];
   setDialogBoxValue = false;
@@ -59,23 +59,23 @@ export class QuatationComponent implements OnInit {
     this.router.params.subscribe(
       (params) => (this.custId = parseInt(params["customerId"]))
     );
-    console.log(this.custId);
+    //console.log(this.custId);
     if (this.selectedCustomer) {
-      console.log(this.selectedCustomer);
-      this.quotationForm = this.formbuilder.group({
+      //console.log(this.selectedCustomer);
+      this.quatationForm = this.formbuilder.group({
         customerId: [this.selectedCustomer.id, [Validators.required]],
         description: ["", [Validators.required]],
-        quotationNo: ["", [Validators.required]],
+        quatationNo: ["", [Validators.required]],
         expiryDate: ["", [Validators.required]],
         pdf: [[Validators.required]],
       });
       this.setQuotationColumns();
       this.setQuotationRowList(this.selectedCustomer.customerId);
     } else {
-      this.quotationForm = this.formbuilder.group({
+      this.quatationForm = this.formbuilder.group({
         customerId: [this.custId, [Validators.required]],
         description: ["", [Validators.required]],
-        quotationNo: ["", [Validators.required]],
+        quatationNo: ["", [Validators.required]],
         expiryDate: ["", [Validators.required]],
         pdf: [[Validators.required]],
       });
@@ -204,20 +204,20 @@ export class QuatationComponent implements OnInit {
       const file = event.target.files[0];
       this.choosedFile = file.name;
       console.log(file);
-      this.quotationForm.patchValue({
+      this.quatationForm.patchValue({
         pdf: file,
       });
     }
   }
 
   saveQuatation() {
-    console.log(this.quotationForm.value);
-    if (this.quotationForm.invalid) {
-      this.formvalidationhelpers.validateAllFormFields(this.quotationForm);
+    console.log(this.quatationForm.value);
+    if (this.quatationForm.invalid) {
+      this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
       return;
-    } else if (this.quotationForm.invalid) {
+    } else if (this.quatationForm.invalid) {
       this.customerservice
-        .addQuatation(this.quotationForm.value, this.quotation.customerId)
+        .addQuatation(this.quatationForm.value, this.quatation.customerId)
         .subscribe((respond) => {
           /**/
         });
@@ -225,42 +225,38 @@ export class QuatationComponent implements OnInit {
   }
 
   get description() {
-    return this.quotationForm.get("description");
+    return this.quatationForm.get("description");
   }
 
-  get quotationNo() {
-    return this.quotationForm.get("quotationNo");
+  get quatationNo() {
+    return this.quatationForm.get("quatationNo");
   }
 
   get expiryDate() {
-    return this.quotationForm.get("expiryDate");
+    return this.quatationForm.get("expiryDate");
   }
 
   send(event) {
     try {
-      if (this.quotationForm.invalid) {
-        this.formvalidationhelpers.validateAllFormFields(this.quotationForm);
+      if (this.quatationForm.invalid) {
+        this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
         return;
       } else {
-        console.log(this.selectedCustomer.customerId);
         this.customerservice
           .sendQuotationDetails(
-            this.quotationForm.value,
-            this.selectedCustomer.customerId,
+            this.quatationForm.value,
             this.selectedCustomer.id
           )
           .subscribe((res) => {
             console.log(res);
           });
-
         this.customerservice
           .clickedSend(event.id, event.customerId)
           .subscribe((res) => {
             console.log(res);
           });
-        this.quotationForm.reset();
+        this.setQuotationRowList(this.selectedCustomer.customerId);
         this.close();
-        location.reload();
       }
     } catch (e) {
       console.log(e);
