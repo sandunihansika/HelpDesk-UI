@@ -9,8 +9,6 @@ import { FormValidationHelpers } from "../../../shared/helpers/form-validation-h
 import { CustomerDetailsService } from "../../../shared/services/customer-details.service";
 import { CompanyCustomerDeails } from "../../inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { ComplaintDetails } from "./ComplaintDetails";
-import {myValidator} from '../../../shared/custom validators/my.validator';
-
 @Component({
   selector: "app-complaint-form",
   templateUrl: "./complaint-form.component.html",
@@ -43,26 +41,28 @@ export class ComplaintFormComponent {
     this.complaintForm = this.formbuilder.group({
       customerId: ["", [Validators.required]],
       complainTypeId: [this.complainTypeId[0].id, [Validators.required]],
-      handlingCustomer: ["", [Validators.required]],
-      handlingCompany: ["ww", [Validators.required]],
+      //handlingCustomer: ["", [Validators.required]],
+      handlingCompany: ["", [Validators.required]],
       contactPerson: ["", [Validators.required]],
       contactPersonNumber: ["", [Validators.required]],
       designation: ["", [Validators.required]],
-      description: ["", [Validators.required]],
+      description: [""],
     });
-    //this.getCustomers();
+    this.getCustomers();
   }
 
   get contactPerson() { return this.complaintForm.get('contactPerson'); }
 
   addComplaint() {
-    console.log("working");
-    console.log(this.complaintForm.value);
     this.customerservice
       .addComplaint(this.complaintForm.value)
       .subscribe((res) => {
-        console.log("Submitted successfully.......!!!!");
+        this.complaintForm.reset()
       });
+  }
+
+  resetForm() {
+    this.complaintForm.reset()
   }
 
   getComplaintSelected(event) {

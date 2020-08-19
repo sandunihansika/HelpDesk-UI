@@ -4,19 +4,7 @@
       <div class="card">
         <div class="card-body">
           <form [formGroup]="complaintForm" class="theme-form">
-
-
             <div class="ui-fluid p-formgrid p-grid">
-              <div>
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="handlingCompany"
-                  labelName="Handling Company"
-                  placeholder="Handling Company"
-                  id="handlingCompany" >
-                </app-common-textbox>
-              </div>
-
               <div class="p-field p-col-12 p-md-6">
                 <app-common-dropdown
                   labelName="Complaint Type"
@@ -37,13 +25,11 @@
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="contactPerson"
+                  [c]="complaintForm.controls.contactPerson"
                   id="contactPerson"
                   labelName="Contact person"
                   placeholder="Contact person"
                 ></app-common-textbox>
-
-                <small class="text text-danger" *ngIf="contactPerson.invalid && contactPerson.touched">Contact person is required</small>
-
               </div>
 
               <div class="p-field p-col-12 p-md-6">
@@ -52,6 +38,7 @@
                   placeholder="Contact Number"
                   [inputType]="TextBoxTypes.Text"
                   formControlName="contactPersonNumber"
+                  [c]="complaintForm.controls.contactPersonNumber"
                   id="contactPersonNumber"
                 ></app-common-textbox>
               </div>
@@ -62,11 +49,10 @@
                   placeholder="Designation"
                   [inputType]="TextBoxTypes.Text"
                   formControlName="designation"
+                  [c]="complaintForm.controls.designation"
                   id="designation"
                 ></app-common-textbox>
               </div>
-
-
             </div>
             <div class="text-area">
               <app-common-textarea
@@ -78,13 +64,13 @@
               ></app-common-textarea>
             </div>
 
-
             <div class="offset-md-2 col-md-4">
-              <div class="card-footer">
-                <button (click)="addComplaint()" class="btn btn-primary mr-3">
-                  Submit
-                </button>
-              </div>
+              <button [disabled]="!complaintForm.valid"
+                (click)="addComplaint()"
+                class="btn btn-primary mr-3 myBtn"
+              > Submit
+              </button>
+<!--              <button (click)="resetForm()" class="btn btn-primary mr-3 myBtn"> Reset </button>-->
             </div>
           </form>
         </div>

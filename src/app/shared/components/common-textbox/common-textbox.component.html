@@ -1,13 +1,12 @@
 <div>
   <label>{{ labelName }}</label>
-  <input
+  <input [class.is-invalid]="c.pristine && c.touched"
     (change)="handleChange($event)"
     (input)="handleChange($event)"
     [type]="inputType"
     [value]="value"
     [placeholder]="placeholder"
     (blur) = "onModelTouched()"
-
     class="form-control"
   >
 <!--  <div *ngIf="com.value == ''">Error</div>-->
@@ -18,7 +17,9 @@
 <!--  >-->
 <!--    {{ labelName }} is required-->
 <!--  </div>-->
-<!--  <small [class.d-none]="getCommonInput().valid || getCommonInput().untouched" class="text-danger">{{ labelName }} is required</small>-->
+<!--  <small [class.d-none]="getControlName.valid || getControlName.untouched" class="text-danger">{{ labelName }} is required</small>-->
+
+  <small *ngIf="c.pristine && c.touched" class="text-danger">{{ labelName }} is required</small>
 </div>
 
 

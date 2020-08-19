@@ -6,8 +6,8 @@ import {
   Output,
   EventEmitter,
   forwardRef,
-  NgModule
-} from "@angular/core";
+  NgModule, ViewChild, ElementRef
+} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
@@ -29,20 +29,39 @@ import { TextBoxTypes } from "../../services/common/enum";
 })
 export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
   constructor( private fb: FormBuilder) {}
-  commonTextBox : FormGroup;
   // tslint:disable-next-line:variable-name
   @Input("value") _value = "";
   @Input() inputType: TextBoxTypes;
   @Input() placeholder;
   @Input() class;
 
-  getInvalid: any;
+  @Input() c:FormControl = new FormControl();
+  @ViewChild('input')  inputRef:ElementRef;
+
   // @Output() inputModelChange = new EventEmitter<string>();
   onModelChange = (x) => {};
   onModelTouched = () => {};
   @Input() labelName;
 
   ngOnInit(): void { }
+
+  ngAfterViewInit(){
+    // // set placeholder default value when no input given to pH property
+    // if(this.pH === undefined){
+    //   this.pH = "Enter "+this.text;
+    // }
+
+    // RESET the custom input form control UI when the form control is RESET
+    // this.c.valueChanges.subscribe(
+    //   () => {
+    //     // check condition if the form control is RESET
+    //     if (this.c.value == "") {
+    //       this._value = "";
+    //       this.inputRef.nativeElement.value = "";
+    //     }
+    //   }
+    // );
+  }
 
   registerOnChange(fn) {
     this.onModelChange = fn;
@@ -61,25 +80,8 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
     this.value = value;
   }
 
-  //My additionssss.......................***********************
+  propagateChange = (_: any) => { }
 
-  // writeValue(input: string) {
-  //   this.input.setValue(input);
-  // }
-  // subscriptions = [];
-  // registerOnChange(fn: any): void {
-  //   this.subscriptions.push(
-  //     this.input.valueChanges.subscribe(fn)
-  //   );
-  // }
-  // ngOnDestroy() {
-  //   this.subscriptions.forEach(sub => sub.unsubscribe());
-  // }
-  // onTouch: any = () => {}
-  // registerOnTouched(fn: any): void {
-  //   this.onTouch = fn;
-  // }
-//////////////////////////////////////////////////
 
   set value(val) {
     this.onModelChange(val);
