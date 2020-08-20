@@ -16,28 +16,28 @@
   ></button>
 <!--  <button-->
 <!--    type="button"-->
-<!--    pButton-->
-<!--    style="margin-right: .25em"-->
-<!--    icon="pi pi-check-square"-->
-<!--    label="Completed"-->
-<!--    iconPos="left"-->
-<!--    (click)="changeStatus($event)"-->
-<!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
-<!--  >Completed</button>-->
+  <!--    pButton-->
+  <!--    style="margin-right: .25em"-->
+  <!--    icon="pi pi-check-square"-->
+  <!--    label="Completed"-->
+  <!--    iconPos="left"-->
+  <!--    (click)="changeStatus($event)"-->
+  <!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
+  <!--  >Completed</button>-->
 
-  <button
-    class="btn btn-primary"
-    style="margin-left:10px"
-    iconPos="left"
-    (click)="changeStatus(complaintGrid.selectedEntity)"
-    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
-  >Completed</button>
+  <!--  <button-->
+  <!--    class="btn btn-primary"-->
+  <!--    style="margin-left:10px"-->
+  <!--    iconPos="left"-->
+  <!--    (click)="changeStatus(complaintGrid.selectedEntity)"-->
+  <!--    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Pending'"-->
+  <!--  >Completed</button>-->
   <button
     class="btn btn-success"
     style="margin-left:10px"
     iconPos="left"
     (click)="changeStatus(complaintGrid.selectedEntity)"
-    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
+    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Pending'"
   >Completed</button>
 </app-common-grid>
 

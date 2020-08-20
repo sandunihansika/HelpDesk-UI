@@ -1,26 +1,23 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { HttpClient, HttpResponse } from "@angular/common/http";
-import { map } from "rxjs/operators";
-import { CustomerDetails } from "../../components/inquery/inquery/customer-details/customer-details/customer-details";
-import { Router } from "@angular/router";
-import { AuthenticationService } from "./auth/authentication.service";
-import { CommonHttpService } from "./common/common-http.service";
-import { Quotation } from "../../components/inquery/inquery/inquery-table/quatation/quatation/quatation";
-import { CompanyCustomerDeails } from "../../components/inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
-import { environment } from "../../../environments/environment";
-import { CompanyType } from "./common/enum";
-import { ComplaintDetails } from "../../components/complaint/complaint-form/ComplaintDetails";
-import { ResponseContentType } from "@angular/http";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {CustomerDetails} from '../../components/inquery/inquery/customer-details/customer-details/customer-details';
+import {Router} from '@angular/router';
+import {AuthenticationService} from './auth/authentication.service';
+import {CommonHttpService} from './common/common-http.service';
+import {Quotation} from '../../components/inquery/inquery/inquery-table/quatation/quatation/quatation';
+import {CompanyCustomerDeails} from '../../components/inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails';
+import {ComplaintDetails} from '../../components/complaint/complaint-form/ComplaintDetails';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class CustomerDetailsService {
-  customerUrl = "customer";
-  inquiryUrl = "inquiry";
-  quotationUrl = "quotation";
-  complaintUrl = "complain";
+  customerUrl = 'customer';
+  inquiryUrl = 'inquiry';
+  quotationUrl = 'quotation';
+  complaintUrl = 'complain';
   selectedCustomer;
 
   constructor(
@@ -284,7 +281,7 @@ export class CustomerDetailsService {
 
   getComplaintDateCount(): Observable<any> {
     return this.commonHttpService
-      .getAll(this.complaintUrl + "/getComplaintDateCount")
+      .getAll(this.complaintUrl + '/getComplaintDateCount')
       .pipe(
         map((data) => {
           return data;
@@ -292,23 +289,23 @@ export class CustomerDetailsService {
       );
   }
 
-  getDateDifference(): Observable<any> {
-    return this.commonHttpService
-      .getAll(this.inquiryUrl + "/getDifference")
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
-    return this.commonHttpService
-      .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
-      .pipe(
-        map((data) => {
-          console.log(data);
-          return data;
-        })
-      );
-  }
+  // getDateDifference(): Observable<any> {
+  //   return this.commonHttpService
+  //     .getAll(this.inquiryUrl + "/getDifference")
+  //     .pipe(
+  //       map((data) => {
+  //         return data;
+  //       })
+  //     );
+  //   return this.commonHttpService
+  //     .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
+  //     .pipe(
+  //       map((data) => {
+  //         console.log(data);
+  //         return data;
+  //       })
+  //     );
+  // }
 
   //send quotation form detail
   sendQuotationDetails(

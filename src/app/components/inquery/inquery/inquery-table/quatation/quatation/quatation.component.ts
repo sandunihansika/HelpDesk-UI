@@ -1,26 +1,21 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { Quotation } from "./quatation";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {
-  Alignment,
-  ColumnType,
-  TextBoxTypes,
-} from "../../../../../../shared/services/common/enum";
-import { FormValidationHelpers } from "../../../../../../shared/helpers/form-validation-helpers";
-import { CustomerDetailsService } from "../../../../../../shared/services/customer-details.service";
-import { CommonGridComponent } from "../../../../../../shared/components/common-grid/common-grid.component";
-import { ActivatedRoute, Router } from "@angular/router";
-import * as fileSaver from "file-saver";
-import { HttpResponse } from "@angular/common/http";
-import { ToastrService } from "ngx-toastr";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Quotation} from './quatation';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Alignment, ColumnType, TextBoxTypes,} from '../../../../../../shared/services/common/enum';
+import {FormValidationHelpers} from '../../../../../../shared/helpers/form-validation-helpers';
+import {CustomerDetailsService} from '../../../../../../shared/services/customer-details.service';
+import {CommonGridComponent} from '../../../../../../shared/components/common-grid/common-grid.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import * as fileSaver from 'file-saver';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: "app-quatation",
-  templateUrl: "./quatation.component.html",
-  styleUrls: ["./quatation.component.scss"],
+  selector: 'app-quatation',
+  templateUrl: './quatation.component.html',
+  styleUrls: ['./quatation.component.scss'],
 })
 export class QuatationComponent implements OnInit {
-  @ViewChild("quotationGrid", { static: true })
+  @ViewChild('quotationGrid', {static: true})
   quotationGrid: CommonGridComponent;
 
   addAllow1 = false;
@@ -245,6 +240,7 @@ export class QuatationComponent implements OnInit {
         this.customerservice
           .sendQuotationDetails(
             this.quatationForm.value,
+            this.selectedCustomer.customerId,
             this.selectedCustomer.id
           )
           .subscribe((res) => {
