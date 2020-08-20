@@ -88,6 +88,11 @@
                 ></app-common-textbox>
               </div>
 
+              <div *ngIf="dataLoading">
+                <div class="loader-login">
+                  <div class="whirly-loader"></div>
+                </div>
+              </div>
               <div
                 class="p-field p-col-12 p-md-6"
                 *ngIf="customerType === cTypes.Individual"

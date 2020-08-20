@@ -10,41 +10,38 @@
     pButton
     type="button"
     icon="icofont icofont-ui-add"
-    style="margin-right: .25em"
+    style="margin-right: 0.25em;"
     class="ui-button-info"
     (click)="addButtonClick()"
   ></button>
-<!--  <button-->
-<!--    type="button"-->
-<!--    pButton-->
-<!--    style="margin-right: .25em"-->
-<!--    icon="pi pi-check-square"-->
-<!--    label="Completed"-->
-<!--    iconPos="left"-->
-<!--    (click)="changeStatus($event)"-->
-<!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
-<!--  >Completed</button>-->
+  <!--  <button-->
+  <!--    type="button"-->
+  <!--    pButton-->
+  <!--    style="margin-right: .25em"-->
+  <!--    icon="pi pi-check-square"-->
+  <!--    label="Completed"-->
+  <!--    iconPos="left"-->
+  <!--    (click)="changeStatus($event)"-->
+  <!--    *ngIf = "complaintGrid.selectedEntity && complaintGrid.selectedEntity.status === this.status "-->
+  <!--  >Completed</button>-->
 
   <button
-    class="btn btn-primary"
-    style="margin-left:10px"
-    iconPos="left"
-    (click)="changeStatus(complaintGrid.selectedEntity)"
-    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
-  >Completed</button>
-  <button
     class="btn btn-success"
-    style="margin-left:10px"
+    style="margin-left: 10px;"
     iconPos="left"
     (click)="changeStatus(complaintGrid.selectedEntity)"
-    *ngIf="complaintGrid.selectedEntity && complaintGrid.selectedEntity.status.name === 'Need consent'"
-  >Completed</button>
+    *ngIf="
+      complaintGrid.selectedEntity &&
+      complaintGrid.selectedEntity.status.name === 'Pending'
+    "
+  >
+    Completed
+  </button>
 </app-common-grid>
 
 <!--<p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
 
 <!--</p-dialog>-->
-
 
 <!--  <app-common-dialog-box-->
 <!--                         #complaintDialogBox-->
@@ -56,19 +53,11 @@
 <!--    <app-corporate-details></app-corporate-details>-->
 <!--  </app-common-dialog-box>-->
 
-
-
-<app-common-dialog-box  class="body .ui-dialog " header="Complaint Form" [dialogBox]="setDialogBoxValue"  (closeButtonClick)="close()">
-  <app-complaint-form></app-complaint-form>
+<app-common-dialog-box
+  class="body .ui-dialog"
+  header="Complaint Form"
+  [dialogBox]="setDialogBoxValue"
+  (closeButtonClick)="close()"
+>
+  <app-complaint-form (submitClicked)="SubmitClick()"></app-complaint-form>
 </app-common-dialog-box>
-
-
-
-
-
-
-
-
-
-
-

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
 import {
   CompanyType,
   ComplaintType,
@@ -9,7 +9,7 @@ import { FormValidationHelpers } from "../../../shared/helpers/form-validation-h
 import { CustomerDetailsService } from "../../../shared/services/customer-details.service";
 import { CompanyCustomerDeails } from "../../inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { ComplaintDetails } from "./ComplaintDetails";
-import {myValidator} from '../../../shared/custom validators/my.validator';
+import { myValidator } from "../../../shared/custom validators/my.validator";
 
 @Component({
   selector: "app-complaint-form",
@@ -26,6 +26,8 @@ export class ComplaintFormComponent {
   companyCustomerDetails: CompanyCustomerDeails;
   complaintDetails: ComplaintDetails;
   customerData: any[];
+
+  @Output() submitClicked = new EventEmitter();
 
   constructor(
     private formbuilder: FormBuilder,
@@ -50,10 +52,12 @@ export class ComplaintFormComponent {
       designation: ["", [Validators.required]],
       description: ["", [Validators.required]],
     });
-    //this.getCustomers();
+    this.getCustomers();
   }
 
-  get contactPerson() { return this.complaintForm.get('contactPerson'); }
+  get contactPerson() {
+    return this.complaintForm.get("contactPerson");
+  }
 
   addComplaint() {
     console.log("working");
@@ -63,6 +67,7 @@ export class ComplaintFormComponent {
       .subscribe((res) => {
         console.log("Submitted successfully.......!!!!");
       });
+    this.submitClicked.emit(1);
   }
 
   getComplaintSelected(event) {
@@ -87,7 +92,7 @@ export class ComplaintFormComponent {
   }
 
   patchToCustomer(customerValue) {
-    console.log(customerValue)
+    console.log(customerValue);
     this.complaintForm.patchValue({
       customerId: customerValue.id ? customerValue.id : "",
       handlingCompany: customerValue.handlingCompany

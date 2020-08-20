@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Quotation } from "./quatation";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import {
-  Alignment,
   ColumnType,
   TextBoxTypes,
+  Alignment,
 } from "../../../../../../shared/services/common/enum";
 import { FormValidationHelpers } from "../../../../../../shared/helpers/form-validation-helpers";
 import { CustomerDetailsService } from "../../../../../../shared/services/customer-details.service";

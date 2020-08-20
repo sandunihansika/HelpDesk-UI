@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -26,6 +26,8 @@ export class CustomerHandlingComponent implements OnInit {
   companyCustomerDetails: CompanyCustomerDeails;
   customerData: any[];
 
+  @Output() submitClicked = new EventEmitter();
+
   new: string;
   exist: string;
   selectedValue: string;
@@ -38,6 +40,7 @@ export class CustomerHandlingComponent implements OnInit {
   InqueryTypeArray = [];
   companyTypeArray = [];
   customerTypeArray = [];
+  dataLoading = false;
 
   constructor(
     private customerservice: CustomerDetailsService,
@@ -206,12 +209,12 @@ export class CustomerHandlingComponent implements OnInit {
         : "", //dropdown values
       // contactPerson: customerValue[0].contactPerson ? customerValue[0].contactPerson : '',
       // contactNo: customerValue[0].contactNo ? customerValue[0].contactNo : '',
-
       /*no need to patch for contactNo and contact person*/
     });
   }
 
   getCustomer() {
+    this.dataLoading = true;
     console.log(this.allcustomers);
     this.customerservice
       .getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany)
@@ -229,6 +232,9 @@ export class CustomerHandlingComponent implements OnInit {
           if (this.individualCorpCustomerForm.value.customerStatus == "exist") {
             //if user exists then patch, otherwise do not patch if respond reached
             this.patchToCustomer(this.customers[0]);
+            this.dataLoading = false;
+          } else {
+            this.dataLoading = false;
           }
         },
         (error) => {}
@@ -249,6 +255,7 @@ export class CustomerHandlingComponent implements OnInit {
           /**/
         });
     }
+    this.submitClicked.emit(1);
   }
 
   resetFormControls() {

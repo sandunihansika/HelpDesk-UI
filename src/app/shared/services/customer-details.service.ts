@@ -14,13 +14,13 @@ import { ComplaintDetails } from "../../components/complaint/complaint-form/Comp
 import { ResponseContentType } from "@angular/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class CustomerDetailsService {
-  customerUrl = 'customer';
-  inquiryUrl = 'inquiry';
-  quotationUrl = 'quotation';
-  complaintUrl = 'complain';
+  customerUrl = "customer";
+  inquiryUrl = "inquiry";
+  quotationUrl = "quotation";
+  complaintUrl = "complain";
   selectedCustomer;
 
   constructor(
@@ -54,16 +54,18 @@ export class CustomerDetailsService {
   }
 
   addInquery(inquery: CompanyCustomerDeails): Observable<any> {
-    return this.commonHttpService.postData(this.customerUrl + '/inquery', inquery).pipe(
-      map(data => {
-        return data;
-      })
-    );
+    return this.commonHttpService
+      .postData(this.customerUrl + "/inquery", inquery)
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
   }
 
   getQuotation(customerId): Observable<any> {
     return this.commonHttpService
-      .getAll(this.quotationUrl + "/" + customerId)
+      .getAll(this.quotationUrl + "/getQuotations/" + customerId)
       .pipe(
         map((data) => {
           return data;
@@ -227,14 +229,6 @@ export class CustomerDetailsService {
           return data;
         })
       );
-    return this.commonHttpService
-      .getAll(this.complaintUrl + "/complainDetails")
-      .pipe(
-        map((data) => {
-          console.log(data);
-          return data;
-        })
-      );
   }
 
   //update status of complain table
@@ -290,23 +284,23 @@ export class CustomerDetailsService {
       );
   }
 
-  getDateDifference(): Observable<any> {
-    return this.commonHttpService
-      .getAll(this.inquiryUrl + "/getDifference")
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
-    return this.commonHttpService
-      .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
-      .pipe(
-        map((data) => {
-          console.log(data);
-          return data;
-        })
-      );
-  }
+  // getDateDifference(): Observable<any> {
+  //   return this.commonHttpService
+  //     .getAll(this.inquiryUrl + "/getDifference")
+  //     .pipe(
+  //       map((data) => {
+  //         return data;
+  //       })
+  //     );
+  //   return this.commonHttpService
+  //     .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
+  //     .pipe(
+  //       map((data) => {
+  //         console.log(data);
+  //         return data;
+  //       })
+  //     );
+  // }
 
   //send quotation form detail
   sendQuotationDetails(
