@@ -9,6 +9,7 @@ import { FormValidationHelpers } from "../../../shared/helpers/form-validation-h
 import { CustomerDetailsService } from "../../../shared/services/customer-details.service";
 import { CompanyCustomerDeails } from "../../inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { ComplaintDetails } from "./ComplaintDetails";
+import {json} from '@angular-devkit/core';
 @Component({
   selector: "app-complaint-form",
   templateUrl: "./complaint-form.component.html",

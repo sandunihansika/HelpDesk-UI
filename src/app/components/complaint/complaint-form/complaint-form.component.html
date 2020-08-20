@@ -1,10 +1,21 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="card">
+      <div class="card myCard">
         <div class="card-body">
           <form [formGroup]="complaintForm" class="theme-form">
             <div class="ui-fluid p-formgrid p-grid">
+<!--              <div class="p-field p-col-12 p-md-6">-->
+<!--                <app-common-textbox-->
+<!--                  labelName="Handling company"-->
+<!--                  placeholder="Handling company"-->
+<!--                  [inputType]="TextBoxTypes.Text"-->
+<!--                  formControlName="handlingCompany"-->
+<!--                  [c]="complaintForm.controls.handlingCompany"-->
+<!--                  id="handlingCompany"-->
+<!--                ></app-common-textbox>-->
+<!--              </div>-->
+
               <div class="p-field p-col-12 p-md-6">
                 <app-common-dropdown
                   labelName="Complaint Type"
@@ -18,7 +29,6 @@
                   labelName="Customer"
                   (selectChange)="getCustomerId($event)"
                   [fields]="showCustomers"
-                  formControlName="handlingCustomer"
                 ></app-common-dropdown>
               </div>
               <div class="p-field p-col-12 p-md-6">
@@ -30,6 +40,9 @@
                   labelName="Contact person"
                   placeholder="Contact person"
                 ></app-common-textbox>
+
+<!--                <input type="text" formControlName="contactPerson">-->
+<!--                <small *ngIf="(contactPerson.invalid && contactPerson.touched)" class="text-danger">Contact person is required</small>-->
               </div>
 
               <div class="p-field p-col-12 p-md-6">
@@ -64,10 +77,10 @@
               ></app-common-textarea>
             </div>
 
-            <div class="offset-md-2 col-md-4">
+            <div class="centreBtn">
               <button [disabled]="!complaintForm.valid"
                 (click)="addComplaint()"
-                class="btn btn-primary mr-3 myBtn"
+                class="btn btn-primary myBtn"
               > Submit
               </button>
 <!--              <button (click)="resetForm()" class="btn btn-primary mr-3 myBtn"> Reset </button>-->

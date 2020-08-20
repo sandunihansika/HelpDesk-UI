@@ -52,16 +52,17 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
     // }
 
     // RESET the custom input form control UI when the form control is RESET
-    // this.c.valueChanges.subscribe(
-    //   () => {
-    //     // check condition if the form control is RESET
-    //     if (this.c.value == "") {
-    //       this._value = "";
-    //       this.inputRef.nativeElement.value = "";
-    //     }
-    //   }
-    // );
+    this.c.valueChanges.subscribe(
+      () => {
+        // check condition if the form control is RESET
+        if (this.c.value == "" || this.c.value == null || this.c.value == undefined) {
+          this._value = "";
+          this.inputRef.nativeElement.value = "";
+        }
+      }
+    );
   }
+
 
   registerOnChange(fn) {
     this.onModelChange = fn;
@@ -80,14 +81,19 @@ export class CommonTextboxComponent implements OnInit, ControlValueAccessor {
     this.value = value;
   }
 
-  propagateChange = (_: any) => { }
-
-
   set value(val) {
-    this.onModelChange(val);
-    this.onModelTouched();
-    this._value = val;
+    // this.onModelChange(val);
+    // this.onModelTouched();
+    // this._value = val;
     // this.inputModelChange.emit(val);
+    if (val !== this._value) {
+      this.onModelChange(val);
+      this._value = val;
+    } else{
+      this.onModelChange(val);
+      this.onModelTouched();
+      this._value = val;
+    }
   }
 
   get value() {

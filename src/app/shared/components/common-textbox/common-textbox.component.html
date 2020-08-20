@@ -1,6 +1,6 @@
 <div>
   <label>{{ labelName }}</label>
-  <input [class.is-invalid]="c.pristine && c.touched"
+  <input #input [class.is-invalid]="c.invalid && c.touched"
     (change)="handleChange($event)"
     (input)="handleChange($event)"
     [type]="inputType"
@@ -19,7 +19,8 @@
 <!--  </div>-->
 <!--  <small [class.d-none]="getControlName.valid || getControlName.untouched" class="text-danger">{{ labelName }} is required</small>-->
 
-  <small *ngIf="c.pristine && c.touched" class="text-danger">{{ labelName }} is required</small>
+<!--  <small *ngIf="(c.invalid && c.touched) || (c.dirty && c.invalid)" class="text-danger">{{ labelName }} is required</small>-->
+  <small *ngIf="(c.invalid && c.touched)" class="text-danger">{{ labelName }} is required</small>
 </div>
 
 
