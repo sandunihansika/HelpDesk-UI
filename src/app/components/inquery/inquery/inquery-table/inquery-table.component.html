@@ -7,28 +7,29 @@
   [deleteAllow]="deleteAllow"
   [showSearchBox]="showSearchBox"
   (addBtnClicked)="addButtonClick()"
-> <button
-  pButton
-  type="button"
-  icon="icofont icofont-ui-add"
-  style="margin-right: .25em"
-  class="ui-button-info"
-  (click)="addButtonClick()"
-></button>
-  <button
-  pButton
-  type="button"
-  icon="fa fa-file-text-o"
-  style="margin-right: .25em"
-  class="btn-quotation"
-  label="Quotation"
-  (click)="viewQuotation(this.inqueryGrid.selectedEntity)"
-  *ngIf="this.inqueryGrid.selectedEntity && showQuotation"
-></button>
+>
   <button
     pButton
     type="button"
-    style="margin-right: .25em"
+    icon="icofont icofont-ui-add"
+    style="margin-right: 0.25em;"
+    class="ui-button-info"
+    (click)="addButtonClick()"
+  ></button>
+  <button
+    pButton
+    type="button"
+    icon="fa fa-file-text-o"
+    style="margin-right: 0.25em;"
+    class="btn-quotation"
+    label="Quotation"
+    (click)="viewQuotation(this.inqueryGrid.selectedEntity)"
+    *ngIf="this.inqueryGrid.selectedEntity && showQuotation"
+  ></button>
+  <button
+    pButton
+    type="button"
+    style="margin-right: 0.25em;"
     icon="fa fa-history"
     class="btn-history"
     label="View Status History"
@@ -36,68 +37,90 @@
     *ngIf="this.inqueryGrid.selectedEntity"
   ></button>
   <button
-  type="button"
-  pButton
-  style="margin-right: .25em"
-  icon="fa fa-check-square-o"
-  label="Got Consent"
-  iconPos="left"
-  (click)="gotConsent(this.inqueryGrid.selectedEntity)"
-  *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Need consent'"
-></button>
+    type="button"
+    pButton
+    style="margin-right: 0.25em;"
+    icon="fa fa-check-square-o"
+    label="Got Consent"
+    iconPos="left"
+    (click)="gotConsent(this.inqueryGrid.selectedEntity)"
+    *ngIf="
+      inqueryGrid.selectedEntity &&
+      inqueryGrid.selectedEntity.status.name === 'Need consent'
+    "
+  ></button>
   <button
     type="button"
     pButton
-    style="margin-right: .25em"
+    style="margin-right: 0.25em;"
     icon="fa fa-check-square-o"
     label="Got Reconsent"
     iconPos="left"
     (click)="gotReConsent(this.inqueryGrid.selectedEntity)"
-    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Re-need consent'"
+    *ngIf="
+      inqueryGrid.selectedEntity &&
+      inqueryGrid.selectedEntity.status.name === 'Re-need consent'
+    "
   ></button>
   <button
     type="button"
     pButton
-    style="margin-right: .25em"
+    style="margin-right: 0.25em;"
     icon="fa fa-check-square-o"
     label="Approved Quotation"
     iconPos="left"
     (click)="approve(this.inqueryGrid.selectedEntity)"
-    *ngIf="inqueryGrid.selectedEntity && (inqueryGrid.selectedEntity.status.name === 'Remind customer' || inqueryGrid.selectedEntity.status.name === 'Re-remind customer')"
+    *ngIf="
+      inqueryGrid.selectedEntity &&
+      (inqueryGrid.selectedEntity.status.name === 'Remind customer' ||
+        inqueryGrid.selectedEntity.status.name === 'Re-remind customer')
+    "
   ></button>
   <button
     type="button"
     pButton
-    style="margin-right: .25em"
+    style="margin-right: 0.25em;"
     icon="fa fa-times"
     label="Rejected Quotation"
     iconPos="left"
     class="btn-reject"
     (click)="reject(this.inqueryGrid.selectedEntity)"
-    *ngIf="inqueryGrid.selectedEntity && (inqueryGrid.selectedEntity.status.name === 'Remind customer' || inqueryGrid.selectedEntity.status.name === 'Re-remind customer')"
+    *ngIf="
+      inqueryGrid.selectedEntity &&
+      (inqueryGrid.selectedEntity.status.name === 'Remind customer' ||
+        inqueryGrid.selectedEntity.status.name === 'Re-remind customer')
+    "
   ></button>
   <button
     type="button"
     pButton
-    style="margin-right: .25em"
+    style="margin-right: 0.25em;"
     icon="fa fa-share-square-o"
     label="Resend Quotation"
     iconPos="left"
     class="btn-resend"
     (click)="resend(this.inqueryGrid.selectedEntity)"
-    *ngIf="inqueryGrid.selectedEntity && (inqueryGrid.selectedEntity.status.name === 'Remind customer' || inqueryGrid.selectedEntity.status.name === 'Re-remind customer')"
+    *ngIf="
+      inqueryGrid.selectedEntity &&
+      (inqueryGrid.selectedEntity.status.name === 'Remind customer' ||
+        inqueryGrid.selectedEntity.status.name === 'Re-remind customer')
+    "
   ></button>
-<!--  <button-->
-<!--    type="button"-->
-<!--    pButton-->
-<!--    style="margin-right: .25em"-->
-<!--    icon="fa fa-check"-->
-<!--    label="Mark As Done"-->
-<!--    iconPos="left"-->
-<!--    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Other'"-->
-<!--  ></button>-->
+  <!--  <button-->
+  <!--    type="button"-->
+  <!--    pButton-->
+  <!--    style="margin-right: .25em"-->
+  <!--    icon="fa fa-check"-->
+  <!--    label="Mark As Done"-->
+  <!--    iconPos="left"-->
+  <!--    *ngIf="inqueryGrid.selectedEntity && inqueryGrid.selectedEntity.status.name === 'Other'"-->
+  <!--  ></button>-->
+  <!--  <div>-->
+  <!--    <div class="loader-status">-->
+  <!--      <div class="whirly-loader"></div>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </app-common-grid>
-
 
 <!--<p-dialog header="Inquiry Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
 <!--  <app-customer-handling></app-customer-handling>-->
@@ -114,25 +137,25 @@
 <!--  </app-common-grid>-->
 <!--</p-dialog>-->
 
-
 <app-common-dialog-box
   #inquiryDialogBox
-  class="body .ui-dialog "
+  class="body .ui-dialog"
   header="Inquiry Form"
   [dialogBox]="setDialogBoxValue1"
-  (closeButtonClick)="close()">
-
-  <app-customer-handling></app-customer-handling>
+  (closeButtonClick)="close()"
+>
+  <app-customer-handling
+    (submitClicked)="submitClick()"
+  ></app-customer-handling>
 </app-common-dialog-box>
 
 <app-common-dialog-box
   #statusHistoryDialogBox
-
-  class="body .ui-dialog "
+  class="body .ui-dialog"
   header="Status History"
   [dialogBox]="setDialogBoxValue2"
-  (closeButtonClick)="close()" >
-
+  (closeButtonClick)="close()"
+>
   <app-common-grid
     #statusHistoryGrid
     header="Status History"
@@ -140,11 +163,10 @@
     [showToolBar]="showToolBar"
     [showSearchBox]="showSearchBox"
   >
+    <div *ngIf="dataLoading1">
+      <div class="loader-history">
+        <div class="whirly-loader"></div>
+      </div>
+    </div>
   </app-common-grid>
-  <app-loader [loader]="dataLoading"></app-loader>
-
 </app-common-dialog-box>
-
-
-<app-loader [loader]="dataLoading"></app-loader>
-

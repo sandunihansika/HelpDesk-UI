@@ -42,10 +42,10 @@ export class CustomerDetailsService {
       );
   }
 
-  addQuatation(quatation: Quotation, customerId): Observable<any> {
-    quatation.customerId = customerId;
+  addQuatation(quotation: Quotation, customerId): Observable<any> {
+    quotation.customerId = customerId;
     return this.commonHttpService
-      .postUploadData(this.customerUrl + "/quatation", quatation)
+      .postUploadData(this.customerUrl + "/quatation", quotation)
       .pipe(
         map((data) => {
           return data;
@@ -55,7 +55,7 @@ export class CustomerDetailsService {
 
   addInquery(inquery: CompanyCustomerDeails): Observable<any> {
     return this.commonHttpService
-      .postData(this.customerUrl + "/inquery", inquery)
+      .postData(this.customerUrl + "/add", inquery)
       .pipe(
         map((data) => {
           return data;
@@ -78,7 +78,7 @@ export class CustomerDetailsService {
       .getAll(this.inquiryUrl + "/inquiryDetails")
       .pipe(
         map((data) => {
-          console.log(data);
+          // console.log(data);
           return data;
         })
       );
@@ -225,7 +225,7 @@ export class CustomerDetailsService {
       .getAll(this.complaintUrl + "/complainDetails")
       .pipe(
         map((data) => {
-          console.log(data);
+          // console.log(data);
           return data;
         })
       );
@@ -244,11 +244,75 @@ export class CustomerDetailsService {
       );
   }
 
+  getStatusCount(): Observable<any> {
+    return this.commonHttpService
+      .getAll(this.inquiryUrl + "/getStatusCount")
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
+  }
+
+  getComplaintStatusCount(): Observable<any> {
+    return this.commonHttpService
+      .getAll(this.complaintUrl + "/getComplaintStatusCount")
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
+  }
+
+  getDateCount(): Observable<any> {
+    return this.commonHttpService
+      .getAll(this.inquiryUrl + "/getDateCount")
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
+  }
+
+  getComplaintDateCount(): Observable<any> {
+    return this.commonHttpService
+      .getAll(this.complaintUrl + "/getComplaintDateCount")
+      .pipe(
+        map((data) => {
+          return data;
+        })
+      );
+  }
+
+  // getDateDifference(): Observable<any> {
+  //   return this.commonHttpService
+  //     .getAll(this.inquiryUrl + "/getDifference")
+  //     .pipe(
+  //       map((data) => {
+  //         return data;
+  //       })
+  //     );
+  //   return this.commonHttpService
+  //     .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
+  //     .pipe(
+  //       map((data) => {
+  //         console.log(data);
+  //         return data;
+  //       })
+  //     );
+  // }
+
   //send quotation form detail
-  sendQuotationDetails(quotation: Quotation, inquiryId): Observable<any> {
+  sendQuotationDetails(
+    quotation: Quotation,
+    customerId,
+    inquiryId
+  ): Observable<any> {
+    // console.log(quotation, inquiryId);
+    quotation.customerId = customerId;
     console.log(quotation);
     return this.commonHttpService
-      .postData(+this.quotationUrl + "/upload/" + inquiryId, quotation)
+      .postUploadData(this.quotationUrl + "/upload/" + inquiryId, quotation)
       .pipe(
         map((data) => {
           console.log(data);

@@ -1,9 +1,12 @@
+<app-loader [loader]="dataLoading"></app-loader>
 <mat-tab-group>
+  <!--  [selectedIndex]="selectedTabIndex"-->
+  <!--  (selectedIndexChange)="onTabChange($event)"-->
   <mat-tab label="Individual">
     <app-common-grid
       #IndividualCompanyListGrid
       [addAllow]="addAllow"
-      (addBtnClicked) = "viewIndividualForm()"
+      (addBtnClicked)="viewIndividualForm()"
     >
     </app-common-grid>
   </mat-tab>
@@ -11,17 +14,27 @@
     <app-common-grid
       #CorporateCompanyListGrid
       [addAllow]="addAllow"
-      (addBtnClicked) = "viewCorporateForm()"
+      (addBtnClicked)="viewCorporateForm()"
     >
     </app-common-grid>
   </mat-tab>
 </mat-tab-group>
-<app-common-dialog-box  class="body .ui-dialog "header="Add Individual Customer" [dialogBox]="setDialogBoxValue1"  (closeButtonClick)="close()">
-  <app-customer-details></app-customer-details>
+<app-common-dialog-box
+  class="body .ui-dialog"
+  header="Add Individual Customer"
+  [dialogBox]="setDialogBoxValue1"
+  (closeButtonClick)="close()"
+>
+  <app-customer-details (submitClicked)="submitClick1()"></app-customer-details>
 </app-common-dialog-box>
 
-<app-common-dialog-box  class="body .ui-dialog "header="Add Corporate Customer" [dialogBox]="setDialogBoxValue2"  (closeButtonClick)="close()">
-  <app-corporate-details></app-corporate-details>
+<app-common-dialog-box
+  class="body .ui-dialog"
+  header="Add Corporate Customer"
+  [dialogBox]="setDialogBoxValue2"
+  (closeButtonClick)="close()"
+>
+  <app-corporate-details
+    (submitClicked)="submitClick2()"
+  ></app-corporate-details>
 </app-common-dialog-box>
-
-<app-loader [loader]="dataLoading"></app-loader>

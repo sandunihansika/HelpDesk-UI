@@ -1,7 +1,7 @@
 export enum TextBoxTypes {
-  Text = 'text',
-  Password = 'password',
-  Email = 'email'
+  Text = "text",
+  Password = "password",
+  Email = "email",
 }
 
 export enum StatusCodes {
@@ -12,6 +12,7 @@ export enum StatusCodes {
 export enum CustomerType {
   Individual = 1,
   Corporate = 2,
+  New = 3
 }
 
 export enum UserType {
@@ -40,21 +41,37 @@ export enum ColumnType {
 
 export enum CompanyType {
   Dimo = 2,
-  Ingenii = 3
-}
-
-export enum ComplaintType {
-  SimProblem = 1,
-  DevicePromblem =2
+  Ingenii = 3,
 }
 
 export enum Status {
   NeedConsent = 1,
   SendQuotation = 2,
   RemindCustomer = 3,
-  ReNeedConsent = 4,
-  ReSendQuotation = 5,
-  ReRemindCustomer = 6,
-  Pending = 7,
-  Completed = 8
+  ApprovedCustomer = 4,
+  RejectedCustomer = 5,
+  ReSendQuotation = 6,
+  ReNeedConsent = 7,
+  Pending = 8,
+  Completed = 9,
+}
+
+export enum ComplaintType {
+  SimProblem = 1,
+  DevicePromblem = 2,
+}
+
+export enum MonthType {
+  January = 1,
+  February = 2,
+  March = 3,
+  April = 4,
+  May = 5,
+  June = 6,
+  July = 7,
+  August = 8,
+  September = 9,
+  October = 10,
+  November = 11,
+  December = 12,
 }

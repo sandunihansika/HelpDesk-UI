@@ -34,8 +34,8 @@ export class ToastService {
     this.messageService.add({
       severity: 'success',
       key: 'general',
-      summary,
-      detail,
+      summary : summary,
+      detail : detail,
       life: this.messageFadeoutTime
     });
   }

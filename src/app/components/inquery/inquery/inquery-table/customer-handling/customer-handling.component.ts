@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +14,7 @@ import {
   InqueryType,
   TextBoxTypes,
 } from "../../../../../shared/services/common/enum";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-customer-handling",
@@ -26,10 +27,12 @@ export class CustomerHandlingComponent implements OnInit {
   companyCustomerDetails: CompanyCustomerDeails;
   customerData: any[];
 
+  @Output() submitClicked = new EventEmitter();
+
   new: string;
   exist: string;
   selectedValue: string;
-  formEnable: boolean = true;
+  formEnable = true;
   display: boolean;
   displayCop: boolean;
   displayTypedrop: boolean;
@@ -38,11 +41,14 @@ export class CustomerHandlingComponent implements OnInit {
   InqueryTypeArray = [];
   companyTypeArray = [];
   customerTypeArray = [];
+  TypeArray = [];
+  dataLoading = false;
 
   constructor(
     private customerservice: CustomerDetailsService,
     private formbuilder: FormBuilder,
-    private formvalidationhelpers: FormValidationHelpers
+    private formvalidationhelpers: FormValidationHelpers,
+    private toastservice: ToastrService
   ) {
     this.companyCustomerDetails = new CompanyCustomerDeails();
     this.InqueryTypeArray = [
@@ -107,22 +113,34 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   getCustomerStuatus(status) {
-    //radio event to select customer status
-    if (status.value === "new") {
+    // radio event to select customer status
+    this.customerType = CustomerType.Individual;
+    if (status.value === 'new') {
+      // switch from exists to new
+      this.customerTypeArray = [
+        { id: 1, name: 'Individual' },
+        { id: 2, name: 'Corporate' },
+      ];
       console.log(status.value);
       console.log(this.customerType);
       this.individualCorpCustomerForm.value.customerStatus = status.value;
       // this.individualCorpCustomerForm.value.handlingCompany = this.companyTypeArray[0].id; //new handling company fixed, dont change this
-      // this.customerType = CustomerType.Individual;
-      this.resetFormControls();
-      this.displayTypedrop = true;
+      this.resetForm(CustomerType.Individual); // new Form need this get the selected company first customer type
       this.formEnable = false;
     } else {
       console.log(status.value);
-      // this.displayCop = false;
       this.formEnable = true;
-      this.customerType = this.customers[0].type; //reset custom type to customers[0]
+      this.customerType = this.customers[0].type; // reset custom type to customers[0]  //this will fire when select new to get the
       this.patchToCustomer(this.customers[0]);
+      if (this.customerType == CustomerType.Individual) {
+        // switch from new to exist
+        this.TypeArray = [{ id: 1, name: 'Individual' }];
+        this.customerTypeArray = this.TypeArray;
+      }
+      if (this.customerType == CustomerType.Corporate) {
+        this.TypeArray = [{ id: 2, name: 'Corporate' }];
+        this.customerTypeArray = this.TypeArray;
+      }
     }
   }
 
@@ -130,10 +148,12 @@ export class CustomerHandlingComponent implements OnInit {
     if (event.id === CustomerType.Individual) {
       this.customerType = CustomerType.Individual;
       // this.individualCorpCustomerForm.value.type = event.id;
+      this.resetForm(this.customerType); // reset the entered values and set the type
       console.log(this.individualCorpCustomerForm.value.type);
     }
     if (event.id === CustomerType.Corporate) {
       this.customerType = CustomerType.Corporate;
+      this.resetForm(this.customerType); // reset the entered values and set the type
       // this.individualCorpCustomerForm.value.type = event.id;
       // this.individualCorpCustomerForm.value.type = CustomerType.Corporate;
       console.log(this.customerType);
@@ -165,10 +185,12 @@ export class CustomerHandlingComponent implements OnInit {
     console.log(this.customerData[0].type);
     this.customerType = this.customerData[0].type; //display
     if (this.customerData[0].type == CustomerType.Corporate) {
+      this.customerTypeArray = [{ id: 2, name: 'Corporate' }];
       this.patchToCustomer(this.customerData[0]);
     }
     if (this.customerData[0].type == CustomerType.Individual) {
-      this.patchToCustomer(this.customerData[0]); //call for patch the individual customer
+      this.patchToCustomer(this.customerData[0]); // call for patch the individual customer
+      this.customerTypeArray = [{ id: 1, name: 'Individual' }];
     }
   }
 
@@ -212,6 +234,7 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   getCustomer() {
+    this.dataLoading = true;
     console.log(this.allcustomers);
     this.customerservice
       .getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany)
@@ -226,9 +249,22 @@ export class CustomerHandlingComponent implements OnInit {
           });
           this.showCustomers = this.allcustomers;
           this.customerType = this.customers[0].type;
-          if (this.individualCorpCustomerForm.value.customerStatus == "exist") {
-            //if user exists then patch, otherwise do not patch if respond reached
+
+          if (this.individualCorpCustomerForm.value.customerStatus == 'exist') {
+            // if user exists then patch, otherwise do not patch if respond reached
+            if (this.customerType == CustomerType.Individual) {
+              // page loading select dropdown value
+              this.TypeArray = [{ id: 1, name: 'Individual' }];
+              this.customerTypeArray = this.TypeArray;
+            }
+            if (this.customerType == CustomerType.Corporate) {
+              this.TypeArray = [{ id: 2, name: 'Corporate' }];
+              this.customerTypeArray = this.TypeArray;
+            }
             this.patchToCustomer(this.customers[0]);
+            this.dataLoading = false;
+          } else {
+            this.dataLoading = false;
           }
         },
         (error) => {}
@@ -246,37 +282,45 @@ export class CustomerHandlingComponent implements OnInit {
       this.customerservice
         .addInquery(this.individualCorpCustomerForm.value)
         .subscribe((respond) => {
+          this.showSuccess();
+          // this.individualCorpCustomerForm.reset();
           /**/
         });
     }
+    this.submitClicked.emit(1);
   }
 
-  resetFormControls() {
+  showSuccess() {
+    this.toastservice.success('Success', 'Inquery Created Succesfully');
+  }
+
+  resetForm(data) {
     this.individualCorpCustomerForm.patchValue({
       id: null,
-      firstName: null,
-      lastName: null,
-      nicNumber: null,
-      email: "",
-      telNo: "",
-      type: this.individualCorpCustomerForm.value.type,
-      contactPerson: "",
-      contactNo: "",
-      companyName: "",
-      companyRegistrationNo: "",
-      streetAddressLineOne: "",
-      streetAddressLineTwo: "",
-      ppNo: "",
-      country: "",
-      city: "",
-      zipCode: "",
-      taxNumber: "",
-      vatNumber: "",
-      handlingCompany: this.individualCorpCustomerForm.value.handlingCompany, //this is given a array;
-      handlingCustomer: "",
-      inqueryType: InqueryType.Quotation,
-      customerStatus: "new",
+      firstName: '',
+      lastName: '',
+      nicNumber: '',
+      email: '',
+      telNo: '',
+      type: data,
+      contactPerson: '',
+      contactNo: '',
+      companyName: '',
+      companyRegistrationNo: '',
+      streetAddressLineOne: '',
+      streetAddressLineTwo: '',
+      ppNo: '',
+      country: '',
+      city: '',
+      zipCode: '',
+      taxNumber: '',
+      vatNumber: '',
+      handlingCompany: this.individualCorpCustomerForm.value.handlingCompany, // this is given a array;
+      handlingCustomer: '',
+      inquiryType: InqueryType.Quotation,
+      customerStatus: 'new',
     });
+    console.log(this.individualCorpCustomerForm.value);
   }
 
   get id() {
