@@ -13,12 +13,14 @@ import { FormValidationHelpers } from "../../../../../shared/helpers/form-valida
 import { CompanyType, TextBoxTypes } from "src/app/shared/services/common/enum";
 import { CustomerType } from "src/app/shared/services/common/enum";
 import { CustomerDetailsService } from "../../../../../shared/services/customer-details.service";
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: "app-corporate-details",
   templateUrl: "./corporate-details.component.html",
   styleUrls: ["./corporate-details.component.scss"],
 })
+
 export class CorporateDetailsComponent implements OnInit {
   companyType = [];
 
@@ -29,11 +31,12 @@ export class CorporateDetailsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private formValidationHelper: FormValidationHelpers,
-    private customerservice: CustomerDetailsService
+    private customerservice: CustomerDetailsService,
+    private toastservice: ToastrService
   ) {
     this.companyType = [
-      { id: CompanyType.Ingenii, name: "Ingenii" },
-      { id: CompanyType.Dimo, name: "Dimo" },
+      {id: CompanyType.Ingenii, name: 'Ingenii'},
+      {id: CompanyType.Dimo, name: 'Dimo'},
     ];
   }
 
@@ -98,18 +101,19 @@ export class CorporateDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.corporateForm = this.formBuilder.group({
-      companyName: ["", Validators.required],
-      companyRegistrationNo: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      streetAddressLineOne: ["", Validators.required],
-      streetAddressLineTwo: ["", Validators.required],
+      companyName: ['', Validators.required],
+      companyRegistrationNo: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      streetAddressLineOne: ['', Validators.required],
+      streetAddressLineTwo: ['', Validators.required],
       handlingCompany: [this.companyType[0].id, [Validators.required]],
-      country: ["", Validators.required],
-      city: ["", Validators.required],
-      zipCode: ["", Validators.required],
-      taxNumber: ["", Validators.required],
-      vatNumber: ["", Validators.required],
-      type: [CustomerType.Corporate, [Validators.required]],
+      country: ['', Validators.required],
+      city: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      taxNumber: ['', Validators.required],
+      vatNumber: ['', Validators.required],
+      type: [CustomerType.Corporate, [Validators.required]]
+
     });
   }
 
@@ -117,6 +121,7 @@ export class CorporateDetailsComponent implements OnInit {
     console.log(event.id);
     this.corporateForm.value.handlingCompany = event.id;
   }
+
 
   saveCorporteDetails() {
     if (this.corporateForm.invalid) {
@@ -127,8 +132,14 @@ export class CorporateDetailsComponent implements OnInit {
         .addCustomer(this.corporateForm.value)
         .subscribe((respond) => {
           console.log(respond);
+          this.showSuccess();
         });
     }
     this.submitClicked.emit(1);
   }
+
+  showSuccess() {
+    this.toastservice.success("Success", "Inquery Created Succesfully");
+  }
+
 }

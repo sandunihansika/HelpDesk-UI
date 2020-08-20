@@ -25,7 +25,6 @@
 
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
-                <label>Select Customer</label>
                 <label>New Customer</label>
                 <p-radioButton
                   name="customer"
@@ -43,6 +42,8 @@
                   (onClick)="getCustomerStuatus(customerStatus)"
                 ></p-radioButton>
               </div>
+            </div>
+            <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
                 <div *ngIf="formEnable">
                   <app-common-dropdown
@@ -53,13 +54,12 @@
                 </div>
               </div>
               <div class="p-field p-col-12 p-md-6">
-                <div *ngIf="displayTypedrop">
-                  <app-common-dropdown
-                    [fields]="customerTypeArray"
-                    (selectChange)="getCustomerTypeId($event)"
-                    formControlName="type"
-                  ></app-common-dropdown>
-                </div>
+                <!--                <div *ngIf="displayTypedrop">-->
+                <app-common-dropdown
+                  [fields]="customerTypeArray"
+                  (selectChange)="getCustomerTypeId($event)"
+                ></app-common-dropdown>
+                <!--                </div>-->
               </div>
             </div>
             <div class="ui-fluid p-formgrid p-grid">

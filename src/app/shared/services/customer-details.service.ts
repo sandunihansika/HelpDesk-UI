@@ -55,7 +55,7 @@ export class CustomerDetailsService {
 
   addInquery(inquery: CompanyCustomerDeails): Observable<any> {
     return this.commonHttpService
-      .postData(this.customerUrl + "/inquery", inquery)
+      .postData(this.customerUrl + "/add", inquery)
       .pipe(
         map((data) => {
           return data;

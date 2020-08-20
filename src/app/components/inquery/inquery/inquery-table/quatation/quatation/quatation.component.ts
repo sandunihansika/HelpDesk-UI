@@ -242,7 +242,6 @@ export class QuatationComponent implements OnInit {
         this.formvalidationhelpers.validateAllFormFields(this.quotationForm);
         return;
       } else {
-        console.log(this.selectedCustomer.customerId);
         this.customerservice
           .sendQuotationDetails(
             this.quotationForm.value,
@@ -252,15 +251,13 @@ export class QuatationComponent implements OnInit {
           .subscribe((res) => {
             console.log(res);
           });
-
         this.customerservice
           .clickedSend(event.id, event.customerId)
           .subscribe((res) => {
             console.log(res);
           });
-        this.quotationForm.reset();
+        this.setQuotationRowList(this.selectedCustomer.customerId);
         this.close();
-        location.reload();
       }
     } catch (e) {
       console.log(e);

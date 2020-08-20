@@ -92,7 +92,7 @@ export class ComplaintFormComponent {
   }
 
   patchToCustomer(customerValue) {
-    console.log(customerValue);
+    console.log(customerValue)
     this.complaintForm.patchValue({
       customerId: customerValue.id ? customerValue.id : "",
       handlingCompany: customerValue.handlingCompany
