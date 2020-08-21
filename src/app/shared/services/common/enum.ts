@@ -1,7 +1,7 @@
 export enum TextBoxTypes {
-  Text = 'text',
-  Password = 'password',
-  Email = 'email'
+  Text = "text",
+  Password = "password",
+  Email = "email",
 }
 
 export enum StatusCodes {

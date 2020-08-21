@@ -65,7 +65,7 @@ export class CustomerDetailsService {
 
   getQuotation(customerId): Observable<any> {
     return this.commonHttpService
-      .getAll(this.quotationUrl + "/" + customerId)
+      .getAll(this.quotationUrl + "/getQuotations/" + customerId)
       .pipe(
         map((data) => {
           return data;
@@ -226,14 +226,6 @@ export class CustomerDetailsService {
       .pipe(
         map((data) => {
           // console.log(data);
-          return data;
-        })
-      );
-    return this.commonHttpService
-      .getAll(this.complaintUrl + "/complainDetails")
-      .pipe(
-        map((data) => {
-          console.log(data);
           return data;
         })
       );

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import {
   FormGroup,
   FormBuilder,
@@ -27,6 +27,8 @@ export class CustomerDetailsComponent implements OnInit {
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   companyType = [];
 
+  @Output() submitClicked = new EventEmitter();
+
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
@@ -38,6 +40,7 @@ export class CustomerDetailsComponent implements OnInit {
       { id: CompanyType.Dimo, name: "Dimo" },
     ];
   }
+
 
   get firstName() {
     return this.customersForm.get("firstName");
@@ -89,19 +92,19 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customersForm = this.formbuilder.group({
-      firstName: ["", [Validators.required]],
-      lastName: ["", [Validators.required]],
-      nicNumber: [""],
-      ppNo: [""],
-      email: ["", [Validators.required, Validators.email]],
-      telNo: ["", [Validators.required]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      nicNumber: [''],
+      ppNo: [''],
+      email: ['', [Validators.required, Validators.email]],
+      telNo: ['', [Validators.required]],
       handlingCompany: [this.companyType[0].id, [Validators.required]],
-      streetAddressLineOne: ["", [Validators.required]],
-      streetAddressLineTwo: ["", [Validators.required]],
-      country: ["", [Validators.required]],
-      city: ["", [Validators.required]],
-      zipCode: ["", [Validators.required]],
-      type: [CustomerType.Individual, [Validators.required]],
+      streetAddressLineOne: ['', [Validators.required]],
+      streetAddressLineTwo: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      city: ['', [Validators.required]],
+      zipCode: ['', [Validators.required]],
+      type: [CustomerType.Individual, [Validators.required]]
     });
   }
 
@@ -109,6 +112,7 @@ export class CustomerDetailsComponent implements OnInit {
     console.log(event.id);
     this.customersForm.value.handlingCompany = event.id;
   }
+
 
   saveCustomer() {
     if (this.customersForm.invalid) {
@@ -122,6 +126,7 @@ export class CustomerDetailsComponent implements OnInit {
           this.showSuccess();
         });
     }
+    this.submitClicked.emit(1);
   }
 
   showSuccess() {

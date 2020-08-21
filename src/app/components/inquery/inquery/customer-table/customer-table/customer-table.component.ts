@@ -1,160 +1,195 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {CommonGridComponent} from '../../../../../shared/components/common-grid/common-grid.component';
-import {Alignment, ColumnType, CompanyType, CustomerType} from '../../../../../shared/services/common/enum';
-import {CustomerDetailsService} from '../../../../../shared/services/customer-details.service';
+import { Component, OnInit, ViewChild, OnDestroy } from "@angular/core";
+import { CommonGridComponent } from "../../../../../shared/components/common-grid/common-grid.component";
+import {
+  Alignment,
+  ColumnType,
+  CompanyType,
+  CustomerType,
+} from "../../../../../shared/services/common/enum";
+import { CustomerDetailsService } from "../../../../../shared/services/customer-details.service";
+import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 
 @Component({
-  selector: 'app-customer-table',
-  templateUrl: './customer-table.component.html',
-  styleUrls: ['./customer-table.component.scss']
+  selector: "app-customer-table",
+  templateUrl: "./customer-table.component.html",
+  styleUrls: ["./customer-table.component.scss"],
 })
 export class CustomerTableComponent implements OnInit {
-  @ViewChild('IndividualCompanyListGrid', { static: true }) IndividualCompanyListGrid: CommonGridComponent;
-  @ViewChild('CorporateCompanyListGrid', { static: true }) CorporateCompanyListGrid: CommonGridComponent;
+  @ViewChild("IndividualCompanyListGrid", { static: true })
+  IndividualCompanyListGrid: CommonGridComponent;
+  @ViewChild("CorporateCompanyListGrid", { static: true })
+  CorporateCompanyListGrid: CommonGridComponent;
 
   addAllow = true;
   displayIndividual: boolean = false;
   displayCoporate: boolean = false;
   dataSource: any[];
-  CusArray:any;
+  CusArray: any;
   dataLoading = false;
   setDialogBoxValue1 = false;
   setDialogBoxValue2 = false;
-  constructor(private CustomerDetailsService: CustomerDetailsService) { }
+  selectedTabIndex: number;
+  mySubscription: any;
+
+  constructor(
+    private CustomerDetailsService: CustomerDetailsService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.mySubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        // Trick the Router into believing it's last link wasn't previously loaded
+        this.router.navigated = false;
+      }
+    });
+  }
 
   ngOnInit(): void {
+    // this.selectedTabIndex = parseInt(
+    //   this.route.snapshot.queryParamMap.get("tab"),
+    //   10
+    // );
+    // if (isNaN(this.selectedTabIndex) || this.selectedTabIndex < 0) {
+    //   this.selectedTabIndex = 0;
+    // }
     this.setIndividualCompanyColumns();
     this.setCorporateCompanyColumns();
     this.setCustomerRowList();
+  }
+  ngOnDestroy() {
+    if (this.mySubscription) {
+      this.mySubscription.unsubscribe();
+    }
   }
 
   setIndividualCompanyColumns() {
     this.IndividualCompanyListGrid.columnsList = [
       {
-        mappingName: 'firstName',
-        columnName: 'First Name',
+        mappingName: "firstName",
+        columnName: "First Name",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'lastName',
-        columnName: 'Last Name',
+        mappingName: "lastName",
+        columnName: "Last Name",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'nicNumber',
-        columnName: 'NIC',
+        mappingName: "nicNumber",
+        columnName: "NIC",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 75,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'email',
-        columnName: 'Email',
+        mappingName: "email",
+        columnName: "Email",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'handlingCompanyName',
-        columnName: 'Handling Company',
+        mappingName: "handlingCompanyName",
+        columnName: "Handling Company",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 120,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'city',
-        columnName: 'City',
+        mappingName: "city",
+        columnName: "City",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 75,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'streetAddressLineOne',
-        columnName: 'Address Line One',
+        mappingName: "streetAddressLineOne",
+        columnName: "Address Line One",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 110,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'streetAddressLineTwo',
-        columnName: 'Address Line Two',
+        mappingName: "streetAddressLineTwo",
+        columnName: "Address Line Two",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 110,
-        columnFormat: null
-      }
+        columnFormat: null,
+      },
     ];
   }
 
   setCorporateCompanyColumns() {
     this.CorporateCompanyListGrid.columnsList = [
       {
-        mappingName: 'companyName',
-        columnName: 'Name',
+        mappingName: "companyName",
+        columnName: "Name",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 75,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'companyRegistrationNo',
-        columnName: 'Registration No',
+        mappingName: "companyRegistrationNo",
+        columnName: "Registration No",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 75,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'telNo',
-        columnName: 'Contact No',
+        mappingName: "telNo",
+        columnName: "Contact No",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 100,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'handlingCompanyName',
-        columnName: 'Handling Company',
+        mappingName: "handlingCompanyName",
+        columnName: "Handling Company",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 120,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'city',
-        columnName: 'City',
+        mappingName: "city",
+        columnName: "City",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 75,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'streetAddressLineOne',
-        columnName: 'Address Line One',
+        mappingName: "streetAddressLineOne",
+        columnName: "Address Line One",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 110,
-        columnFormat: null
+        columnFormat: null,
       },
       {
-        mappingName: 'streetAddressLineTwo',
-        columnName: 'Address Line Two',
+        mappingName: "streetAddressLineTwo",
+        columnName: "Address Line Two",
         columnType: ColumnType.Text,
         columnAlignment: Alignment.Left,
         columnWidth: 110,
-        columnFormat: null
-      }
+        columnFormat: null,
+      },
     ];
   }
 
@@ -166,31 +201,33 @@ export class CustomerTableComponent implements OnInit {
     // this.IndividualCompanyListGrid.rowLists = result1;
     // const result2 = this.CusArray.filter(CusArray=> CusArray.type === CustomerType.Corporate);
     // this.CorporateCompanyListGrid.rowLists = result2;
-    this.IndividualCompanyListGrid.dataLoading = true;
-    this.CorporateCompanyListGrid.dataLoading = true;
+    this.dataLoading = true;
+    this.dataLoading = true;
     this.CustomerDetailsService.getCustomerList().subscribe(
       (list: any) => {
         if (list.data !== undefined) {
           if (list.data) {
             list.data.forEach((item: any) => {
               Object.assign(item, {
-                handlingCompanyName: this.getHandlingCompanyName(item['handlingCompany'])
+                handlingCompanyName: this.getHandlingCompanyName(
+                  item["handlingCompany"]
+                ),
               });
             });
             this.putDataIntoTable(list.data);
-            this.IndividualCompanyListGrid.dataLoading = false;
-            this.CorporateCompanyListGrid.dataLoading = false;
+            this.dataLoading = false;
+            this.dataLoading = false;
           } else {
             this.IndividualCompanyListGrid.rowLists = [];
-            this.IndividualCompanyListGrid.dataLoading = false;
+            this.dataLoading = false;
             this.CorporateCompanyListGrid.rowLists = [];
-            this.CorporateCompanyListGrid.dataLoading = false;
+            this.dataLoading = false;
           }
         }
       },
-      error => {
-        this.IndividualCompanyListGrid.dataLoading = true;
-        this.CorporateCompanyListGrid.dataLoading = true;
+      (error) => {
+        this.dataLoading = true;
+        this.dataLoading = true;
         console.log(error);
       }
     );
@@ -199,7 +236,7 @@ export class CustomerTableComponent implements OnInit {
   putDataIntoTable(data) {
     this.IndividualCompanyListGrid.rowLists = [];
     this.CorporateCompanyListGrid.rowLists = [];
-    data.forEach(item => {
+    data.forEach((item) => {
       if (item.type === CustomerType.Individual) {
         this.IndividualCompanyListGrid.rowLists.push(item);
       } else if (item.type === CustomerType.Corporate) {
@@ -210,13 +247,13 @@ export class CustomerTableComponent implements OnInit {
 
   getHandlingCompanyName(item: number) {
     if (item === CompanyType.Dimo) {
-      return 'Dimo';
+      return "Dimo";
     } else if (item === CompanyType.Ingenii) {
-      return 'Ingenii';
+      return "Ingenii";
     }
   }
 
-  viewIndividualForm(){
+  viewIndividualForm() {
     try {
       this.setDialogBoxValue1 = true;
       this.displayIndividual = true;
@@ -225,7 +262,7 @@ export class CustomerTableComponent implements OnInit {
     }
   }
 
-  viewCorporateForm(){
+  viewCorporateForm() {
     try {
       this.setDialogBoxValue2 = true;
       this.displayCoporate = true;
@@ -233,9 +270,37 @@ export class CustomerTableComponent implements OnInit {
       return error;
     }
   }
-  close(){
+  close() {
     this.setDialogBoxValue1 = false;
     this.setDialogBoxValue2 = false;
   }
 
+  submitClick1() {
+    this.setDialogBoxValue1 = false;
+    // this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    // this.router.onSameUrlNavigation = "reload";
+    // this.setCustomerRowList();
+    // this.router.navigate(["/inquiry/customer"]);
+    this.router.navigate([this.route.url]);
+  }
+
+  submitClick2() {
+    this.setDialogBoxValue2 = false;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = "reload";
+    this.setCustomerRowList();
+    //this.router.navigate(["/inquiry/customer"]);
+    this.router.navigate(["inquiry/customer"]);
+  }
+
+  onTabChange(selectedTabIndex: number): void {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        tab: selectedTabIndex,
+      },
+    });
+    this.selectedTabIndex = selectedTabIndex;
+    console.log(this.selectedTabIndex);
+  }
 }

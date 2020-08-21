@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
 import {
   CompanyType,
   ComplaintType,
@@ -9,6 +9,7 @@ import { FormValidationHelpers } from "../../../shared/helpers/form-validation-h
 import { CustomerDetailsService } from "../../../shared/services/customer-details.service";
 import { CompanyCustomerDeails } from "../../inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { ComplaintDetails } from "./ComplaintDetails";
+import { myValidator } from "../../../shared/custom validators/my.validator";
 
 @Component({
   selector: "app-complaint-form",
@@ -26,6 +27,8 @@ export class ComplaintFormComponent {
   complaintDetails: ComplaintDetails;
   customerData: any[];
 
+  @Output() submitClicked = new EventEmitter();
+
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
@@ -42,14 +45,18 @@ export class ComplaintFormComponent {
     this.complaintForm = this.formbuilder.group({
       customerId: ["", [Validators.required]],
       complainTypeId: [this.complainTypeId[0].id, [Validators.required]],
-      handlingCustomer: [null, [Validators.required]],
-      handlingCompany: ["", [Validators.required]],
+      handlingCustomer: ["", [Validators.required]],
+      handlingCompany: ["ww", [Validators.required]],
       contactPerson: ["", [Validators.required]],
       contactPersonNumber: ["", [Validators.required]],
       designation: ["", [Validators.required]],
       description: ["", [Validators.required]],
     });
     this.getCustomers();
+  }
+
+  get contactPerson() {
+    return this.complaintForm.get("contactPerson");
   }
 
   addComplaint() {
@@ -60,6 +67,7 @@ export class ComplaintFormComponent {
       .subscribe((res) => {
         console.log("Submitted successfully.......!!!!");
       });
+    this.submitClicked.emit(1);
   }
 
   getComplaintSelected(event) {
@@ -84,7 +92,7 @@ export class ComplaintFormComponent {
   }
 
   patchToCustomer(customerValue) {
-    console.log(customerValue);
+    console.log(customerValue)
     this.complaintForm.patchValue({
       customerId: customerValue.id ? customerValue.id : "",
       handlingCompany: customerValue.handlingCompany
