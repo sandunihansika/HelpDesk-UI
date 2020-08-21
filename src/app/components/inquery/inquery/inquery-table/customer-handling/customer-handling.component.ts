@@ -43,6 +43,7 @@ export class CustomerHandlingComponent implements OnInit {
   selectedHandlingCompany: any;
   hidedrop: boolean;
   showDropFilter = true;
+  dataLoading = false;
 
   constructor(
     private customerservice: CustomerDetailsService,
@@ -259,6 +260,7 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   getCustomer() {
+    this.dataLoading = true;
     console.log(this.allcustomers);
     try {
       this.customerservice
@@ -278,6 +280,7 @@ export class CustomerHandlingComponent implements OnInit {
             this.hidedrop = true;
             // if user exists then patch, otherwise do not patch if respond reached
             this.customerType = this.customers[0].type;
+            this.dataLoading = false;
             if (this.customerType === CustomerType.Individual) {
               // page loading select dropdown value
               this.TypeArray = [{ id: 1, name: "Individual" }];
@@ -293,6 +296,7 @@ export class CustomerHandlingComponent implements OnInit {
             console.log(this.individualCorpCustomerForm.controls);
           } else {
             this.hidedrop = false;
+            this.dataLoading = false;
           }
         });
     } catch (error) {
