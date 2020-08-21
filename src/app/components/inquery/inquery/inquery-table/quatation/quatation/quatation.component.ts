@@ -236,32 +236,32 @@ export class QuatationComponent implements OnInit {
     return this.quatationForm.get("expiryDate");
   }
 
-  send(event) {
-    try {
-      if (this.quatationForm.invalid) {
-        this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
-        return;
-      } else {
-        this.customerservice
-          .sendQuotationDetails(
-            this.quatationForm.value,
-            this.selectedCustomer.id
-          )
-          .subscribe((res) => {
-            console.log(res);
-          });
-        this.customerservice
-          .clickedSend(event.id, event.customerId)
-          .subscribe((res) => {
-            console.log(res);
-          });
-        this.setQuotationRowList(this.selectedCustomer.customerId);
-        this.close();
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  // send(event) {
+  //   try {
+  //     if (this.quatationForm.invalid) {
+  //       this.formvalidationhelpers.validateAllFormFields(this.quatationForm);
+  //       return;
+  //     } else {
+  //       this.customerservice
+  //         .sendQuotationDetails(
+  //           this.quatationForm.value,
+  //           this.selectedCustomer.id
+  //         )
+  //         .subscribe((res) => {
+  //           console.log(res);
+  //         });
+  //       this.customerservice
+  //         .clickedSend(event.id, event.customerId)
+  //         .subscribe((res) => {
+  //           console.log(res);
+  //         });
+  //       this.setQuotationRowList(this.selectedCustomer.customerId);
+  //       this.close();
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
   addButtonClick() {
     this.setDialogBoxValue = true;
   }

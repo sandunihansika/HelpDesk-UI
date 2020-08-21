@@ -24,5 +24,6 @@ export class CompanyCustomerDeails {
   handlingCustomer: string;
   inqueryType: number;
   customerStatus: string;
+  description: string;
 
 }

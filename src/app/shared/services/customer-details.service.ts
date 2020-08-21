@@ -292,23 +292,23 @@ export class CustomerDetailsService {
       );
   }
 
-  getDateDifference(): Observable<any> {
-    return this.commonHttpService
-      .getAll(this.inquiryUrl + "/getDifference")
-      .pipe(
-        map((data) => {
-          return data;
-        })
-      );
-    return this.commonHttpService
-      .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
-      .pipe(
-        map((data) => {
-          console.log(data);
-          return data;
-        })
-      );
-  }
+  // getDateDifference(): Observable<any> {
+  //   return this.commonHttpService
+  //     .getAll(this.inquiryUrl + "/getDifference")
+  //     .pipe(
+  //       map((data) => {
+  //         return data;
+  //       })
+  //     );
+  //   return this.commonHttpService
+  //     .postData(this.complaintUrl + "/changeComplainStatus", { id, statusId })
+  //     .pipe(
+  //       map((data) => {
+  //         console.log(data);
+  //         return data;
+  //       })
+  //     );
+  // }
 
   //send quotation form detail
   sendQuotationDetails(

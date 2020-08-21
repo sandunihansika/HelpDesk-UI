@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, ViewChild, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, ViewChild, EventEmitter, OnDestroy} from '@angular/core';
 import {CommonGridComponent} from '../../../../shared/components/common-grid/common-grid.component';
 import {Alignment, ColumnType, CompanyType, Status} from '../../../../shared/services/common/enum';
 import {CustomerDetailsService} from '../../../../shared/services/customer-details.service';
@@ -6,12 +6,13 @@ import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {CommonDialogBoxComponent} from '../../../../shared/components/common-dialog-box/common-dialog-box.component';
 
+
 @Component({
   selector: 'app-inquery-table',
   templateUrl: './inquery-table.component.html',
   styleUrls: ['./inquery-table.component.scss']
 })
-export class InqueryTableComponent implements OnInit {
+export class InqueryTableComponent implements OnInit,OnDestroy{
 
   @ViewChild('inqueryGrid', {static: true}) inqueryGrid: CommonGridComponent;
   @ViewChild('statusHistoryGrid', {static: true}) statusHistoryGrid: CommonGridComponent;
@@ -52,6 +53,10 @@ export class InqueryTableComponent implements OnInit {
     this.setStatusHistoryColumns();
 
   }
+
+  ngOnDestroy() {
+  }
+
 
   setInquiryColumns() {
     this.inqueryGrid.columnsList = [
@@ -362,10 +367,14 @@ export class InqueryTableComponent implements OnInit {
   }
   addButtonClick(){
     this.setDialogBoxValue1 = true;
+
+
   }
   close(){
+    this.ngOnDestroy();
     this.setDialogBoxValue1 = false;
     this.setDialogBoxValue2 = false;
+
   }
 
 }
