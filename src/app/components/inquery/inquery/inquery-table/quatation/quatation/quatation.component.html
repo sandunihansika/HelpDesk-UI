@@ -64,22 +64,22 @@
   <!--            <div class="card-body">-->
   <!--              <form novalidate-->
   <!--                    (ngSubmit)="saveQuatation()"-->
-  <!--                    [formGroup]="quatationForm" enctype="multipart/form-data">-->
+  <!--                    [formGroup]="quotationForm" enctype="multipart/form-data">-->
 
   <!--                <div div class="p-grid p-dir-col">-->
   <!--                  <div class="p-col">-->
-  <!--                    <label for="quatationNo">Quatation No<span class="form-error">* </span>-->
-  <!--                      <span *ngIf="quatationNo.touched && quatationNo.errors?.required"-->
-  <!--                            class="form-error">  quatationNo is required!</span>-->
+  <!--                    <label for="quotationNo">Quatation No<span class="form-error">* </span>-->
+  <!--                      <span *ngIf="quotationNo.touched && quotationNo.errors?.required"-->
+  <!--                            class="form-error">  quotationNo is required!</span>-->
   <!--                    </label>-->
   <!--                    <app-common-textbox-->
   <!--                      [inputType]="TextBoxTypes.Text"-->
-  <!--                      formControlName="quatationNo"-->
+  <!--                      formControlName="quotationNo"-->
   <!--                      placeholder="Quatation No"-->
   <!--                      rows="3"-->
-  <!--                      id="quatationNo"-->
+  <!--                      id="quotationNo"-->
   <!--                      [ngClass]="{-->
-  <!--                     'is-invalid':(quatationNo.touched ||quatationNo.dirty) && !quatationNo.valid}"></app-common-textbox>-->
+  <!--                     'is-invalid':(quotationNo.touched ||quotationNo.dirty) && !quotationNo.valid}"></app-common-textbox>-->
   <!--                  </div>-->
   <!--                  <div class="p-col">-->
   <!--                    <label for="description">Description<span class="form-error">* </span>-->
@@ -137,33 +137,33 @@
             <form
               novalidate
               (ngSubmit)="saveQuatation()"
-              [formGroup]="quatationForm"
+              [formGroup]="quotationForm"
               enctype="multipart/form-data"
             >
               <div class="form-row">
                 <div class="p-col">
                   <div class="p-col">
-                    <label for="quatationNo"
+                    <label for="quotationNo"
                       >Quatation No<span class="form-error">* </span>
                       <span
                         *ngIf="
-                          quatationNo.touched && quatationNo.errors?.required
+                          quotationNo.touched && quotationNo.errors?.required
                         "
                         class="form-error"
                       >
-                        quatationNo is required!</span
+                        quotationNo is required!</span
                       >
                     </label>
                     <app-common-textbox
                       [inputType]="TextBoxTypes.Text"
-                      formControlName="quatationNo"
+                      formControlName="quotationNo"
                       placeholder="Quatation No"
                       rows="3"
-                      id="quatationNo"
+                      id="quotationNo"
                       [ngClass]="{
                         'is-invalid':
-                          (quatationNo.touched || quatationNo.dirty) &&
-                          !quatationNo.valid
+                          (quotationNo.touched || quotationNo.dirty) &&
+                          !quotationNo.valid
                       }"
                     ></app-common-textbox>
                   </div>
@@ -231,7 +231,7 @@
                       <button
                         type="submit"
                         class="btn btn-primary mr-2"
-                        [disabled]="quatationForm.invalid"
+                        [disabled]="quotationForm.invalid"
                         (click)="send(selectedCustomer)"
                       >
                         Submit
@@ -242,7 +242,7 @@
                       <button
                         type="submit"
                         class="btn btn-primary mr-2"
-                        (click)="clear(quatationForm)"
+                        (click)="clear(quotationForm)"
                       >
                         Reset
                       </button>
@@ -252,7 +252,7 @@
                     <!--                      <button-->
                     <!--                        type="submit"-->
                     <!--                        class="btn btn-primary mr-2"-->
-                    <!--                        (click)="clear(quatationForm)"-->
+                    <!--                        (click)="clear(quotationForm)"-->
                     <!--                      >-->
                     <!--                        Reset-->
                     <!--                      </button>-->

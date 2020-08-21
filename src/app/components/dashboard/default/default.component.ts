@@ -106,7 +106,7 @@ export class DefaultComponent implements OnInit {
       borderWidth: 1,
     },
     {
-      backgroundColor: "#79ccf7",
+      backgroundColor: "#26c6da",
       borderColor: "#79ccf7",
       borderWidth: 1,
     },
