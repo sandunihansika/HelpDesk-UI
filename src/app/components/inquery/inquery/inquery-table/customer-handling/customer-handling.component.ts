@@ -175,9 +175,10 @@ export class CustomerHandlingComponent implements OnInit {
 
   getCustomerId(event) {
     // dropdown event when select customer
-    if (this.individualCorpCustomerForm.value.customerStatus == "exist")
+    if (this.individualCorpCustomerForm.value.customerStatus == "exist"){
       this.companyCustomerDetails.id = event.id;
-    this.filterCustomerDetails(this.companyCustomerDetails.id);
+      this.filterCustomerDetails(this.companyCustomerDetails.id);
+    }
   }
 
   getCompanySelected(event) {
