@@ -491,25 +491,6 @@ export class CustomerHandlingComponent implements OnInit {
     contactNumber.reset();
   }
 
-  // resetCustomerTypeChange(){
-  //   const email = this.individualCorpCustomerForm.get('email');
-  //   email.reset();
-  //   const country = this.individualCorpCustomerForm.get('country');
-  //   country.reset();
-  //   const city = this.individualCorpCustomerForm.get('city');
-  //   city.reset();
-  //   const zipCode = this.individualCorpCustomerForm.get('zipCode');
-  //   zipCode.reset();
-  //   const streetAddressLineOne = this.individualCorpCustomerForm.get('streetAddressLineOne');
-  //   streetAddressLineOne.reset();
-  //   const streetAddressLineTwo = this.individualCorpCustomerForm.get('streetAddressLineTwo');
-  //   streetAddressLineTwo.reset();
-  //   const contactPerson = this.individualCorpCustomerForm.get('contactPerson');
-  //   contactPerson.reset();
-  //   const contactPersonNumber = this.individualCorpCustomerForm.get('contactPersonNumber');
-  //   contactPersonNumber.reset();
-  // }
-
   get id() {
     return this.individualCorpCustomerForm.get('id');
   }
