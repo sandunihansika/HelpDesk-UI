@@ -242,15 +242,29 @@ export class QuatationComponent implements OnInit {
         this.formvalidationhelpers.validateAllFormFields(this.quotationForm);
         return;
       } else {
-        this.customerservice
-          .sendQuotationDetails(
-            this.quotationForm.value,
-            this.selectedCustomer.customerId,
-            this.selectedCustomer.id
-          )
-          .subscribe((res) => {
-            console.log(res);
-          });
+
+        if(this.selectedCustomer){
+          this.customerservice
+            .sendQuotationDetails(
+              this.quotationForm.value,
+              this.selectedCustomer.customerId,
+              this.selectedCustomer.id
+            )
+            .subscribe((res) => {
+              console.log(res);
+            });
+        }else{
+          this.customerservice
+            .sendQuotationDetails(
+              this.quotationForm.value,
+              this.custId,
+              this.selectedCustomer.id
+            )
+            .subscribe((res) => {
+              console.log(res);
+            });
+        }
+
         this.customerservice
           .clickedSend(event.id, event.customerId)
           .subscribe((res) => {
@@ -268,7 +282,7 @@ export class QuatationComponent implements OnInit {
   }
 
   downloadPdf(quotationNo) {
-    const qNo = parseInt(quotationNo);
+   // const qNo = parseInt(quotationNo);
     console.log(quotationNo);
     try {
       if (this.selectedCustomer) {
@@ -321,4 +335,9 @@ export class QuatationComponent implements OnInit {
       "Error!"
     );
   }
+
+
+
+
+
 }
