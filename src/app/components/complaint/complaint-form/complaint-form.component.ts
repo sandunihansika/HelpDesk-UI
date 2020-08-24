@@ -58,7 +58,9 @@ export class ComplaintFormComponent {
     this.customerservice
       .addComplaint(this.complaintForm.value)
       .subscribe((res) => {
-        this.complaintForm.reset()
+        this.complaintForm.reset();
+        this.complaintForm.controls.complainTypeId.patchValue(this.complainTypeId[0].id);
+        this.getCustomers();
       });
   }
 
@@ -74,6 +76,7 @@ export class ComplaintFormComponent {
     console.log("working");
     this.customerservice.getCustomerList().subscribe((respond) => {
       this.customers = respond.data;
+      //this.customers = respond.data;
       this.customers.forEach((i) => {
         this.allCustomers.push({
           id: i.id,
