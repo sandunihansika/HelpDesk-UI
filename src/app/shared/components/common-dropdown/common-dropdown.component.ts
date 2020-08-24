@@ -35,6 +35,8 @@ export class CommonDropdownComponent implements OnInit {
   @Input() placeholder: string;
   @Input() fields = [];
   @Input() labelName;
+  @Input() disable : boolean;
+  @Input() filter: boolean;
   @Output() selectChange = new EventEmitter<string>();
   onModelChange: Function = () => {};
   onModelTouched: Function = () => {};

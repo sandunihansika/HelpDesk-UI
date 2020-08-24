@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
-  FormGroupDirective,
   Validators,
 } from "@angular/forms";
 import { FormValidationHelpers } from "../../../../../shared/helpers/form-validation-helpers";
@@ -14,7 +14,7 @@ import {
   InqueryType,
   TextBoxTypes,
 } from "../../../../../shared/services/common/enum";
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-customer-handling",
@@ -26,8 +26,6 @@ export class CustomerHandlingComponent implements OnInit {
   TextBoxTypes: typeof TextBoxTypes = TextBoxTypes;
   companyCustomerDetails: CompanyCustomerDeails;
   customerData: any[];
-
-  @Output() submitClicked = new EventEmitter();
 
   new: string;
   exist: string;
@@ -42,6 +40,9 @@ export class CustomerHandlingComponent implements OnInit {
   companyTypeArray = [];
   customerTypeArray = [];
   TypeArray = [];
+  selectedHandlingCompany: any;
+  hidedrop: boolean;
+  showDropFilter = true;
   dataLoading = false;
 
   constructor(
@@ -78,67 +79,76 @@ export class CustomerHandlingComponent implements OnInit {
   ngOnInit(): void {
     this.individualCorpCustomerForm = this.formbuilder.group({
       id: [null],
-      firstName: ["", [Validators.required]],
-      lastName: ["", [Validators.required]],
-      nicNumber: [""],
-      email: ["", [Validators.required, Validators.email]],
-      telNo: ["", [Validators.required, Validators.minLength(10)]],
+      firstName: ["", Validators.required],
+      lastName: ["", Validators.required],
+      nicNumber: ["", Validators.required],
+      email: ["", [Validators.required]],
+      telNo: ["", [Validators.required]],
       type: ["", [Validators.required]],
-      contactPerson: [""],
-      contactNo: ["", [Validators.minLength(10)]],
-      companyName: ["", [Validators.required]],
-      companyRegistrationNo: ["", [Validators.required]],
+      contactPerson: ["", Validators.required],
+      contactPersonNumber: ["", [Validators.required]],
+      companyName: ["", Validators.required],
+      companyRegistrationNo: ["", Validators.required],
       streetAddressLineOne: ["", [Validators.required]],
-      streetAddressLineTwo: ["", [Validators.required]],
-      ppNo: "",
+      streetAddressLineTwo: [""],
+      ppNo: ["", Validators.required],
       country: ["", [Validators.required]],
       city: ["", [Validators.required]],
       zipCode: ["", [Validators.required]],
-      taxNumber: ["", [Validators.required]],
-      vatNumber: ["", [Validators.required]],
+      taxNumber: ["", Validators.required],
+      vatNumber: ["", Validators.required],
       handlingCompany: [
         this.companyTypeArray[0].id,
         [Validators.required],
       ] /*value by dropdown*/,
-      handlingCustomer: [
-        "",
-        [Validators.required],
-      ] /*customer value by dropdown*/,
-      inqueryType: [InqueryType.Quotation, [Validators.required]],
+      handlingCustomer: [""] /*customer value by dropdown*/,
+      inquiryType: [InqueryType.Quotation, [Validators.required]],
       customerStatus: ["exist"],
+      description: [""],
     });
     console.log(this.individualCorpCustomerForm.value.handlingCompany);
     console.log(this.individualCorpCustomerForm.value.customerStatus);
-    this.getCustomer(); //send the handlingcompany
+    this.getCustomer(); // send the handlingcompany
   }
 
   getCustomerStuatus(status) {
-    // radio event to select customer status
-    this.customerType = CustomerType.Individual;
-    if (status.value === 'new') {
+    if (status.value === "new") {
       // switch from exists to new
       this.customerTypeArray = [
-        { id: 1, name: 'Individual' },
-        { id: 2, name: 'Corporate' },
+        { id: 1, name: "Individual" },
+        { id: 2, name: "Corporate" },
       ];
       console.log(status.value);
       console.log(this.customerType);
-      this.individualCorpCustomerForm.value.customerStatus = status.value;
-      // this.individualCorpCustomerForm.value.handlingCompany = this.companyTypeArray[0].id; //new handling company fixed, dont change this
-      this.resetForm(CustomerType.Individual); // new Form need this get the selected company first customer type
+      this.customerType = CustomerType.Individual;
+      this.individualFormChangesOnload(this.customerType);
+      this.individualCorpCustomerForm.reset();
+      this.hidedrop = false;
+      this.individualCorpCustomerForm.patchValue({
+        type: this.customerType,
+        handlingCompany: this.selectedHandlingCompany, // this is given a array;
+        inquiryType: InqueryType.Quotation,
+        customerStatus: "new",
+      });
       this.formEnable = false;
     } else {
       console.log(status.value);
       this.formEnable = true;
+      this.hidedrop = true;
       this.customerType = this.customers[0].type; // reset custom type to customers[0]  //this will fire when select new to get the
+      this.individualFormChangesOnload(this.customerType);
       this.patchToCustomer(this.customers[0]);
+      this.individualCorpCustomerForm.patchValue({
+        handlingCompany: this.selectedHandlingCompany,
+        customerStatus: "exist",
+      });
       if (this.customerType == CustomerType.Individual) {
         // switch from new to exist
-        this.TypeArray = [{ id: 1, name: 'Individual' }];
+        this.TypeArray = [{ id: 1, name: "Individual" }];
         this.customerTypeArray = this.TypeArray;
       }
       if (this.customerType == CustomerType.Corporate) {
-        this.TypeArray = [{ id: 2, name: 'Corporate' }];
+        this.TypeArray = [{ id: 2, name: "Corporate" }];
         this.customerTypeArray = this.TypeArray;
       }
     }
@@ -147,34 +157,48 @@ export class CustomerHandlingComponent implements OnInit {
   getCustomerTypeId(event) {
     if (event.id === CustomerType.Individual) {
       this.customerType = CustomerType.Individual;
-      // this.individualCorpCustomerForm.value.type = event.id;
-      this.resetForm(this.customerType); // reset the entered values and set the type
+      this.individualFormChangesOnload(this.customerType);
+      this.individualCorpCustomerForm.patchValue({
+        type: this.customerType,
+      });
       console.log(this.individualCorpCustomerForm.value.type);
     }
     if (event.id === CustomerType.Corporate) {
       this.customerType = CustomerType.Corporate;
-      this.resetForm(this.customerType); // reset the entered values and set the type
-      // this.individualCorpCustomerForm.value.type = event.id;
-      // this.individualCorpCustomerForm.value.type = CustomerType.Corporate;
+      this.individualFormChangesOnload(this.customerType);
+      console.log(this.individualCorpCustomerForm.controls);
+      this.individualCorpCustomerForm.patchValue({
+        type: this.customerType,
+      });
       console.log(this.customerType);
     }
   }
 
   getCustomerId(event) {
-    //dropdown event when select customer
-    this.companyCustomerDetails.id = event.id;
-    this.filterCustomerDetails(this.companyCustomerDetails.id);
+    // dropdown event when select customer
+    if (this.individualCorpCustomerForm.value.customerStatus == "exist"){
+      this.companyCustomerDetails.id = event.id;
+      this.filterCustomerDetails(this.companyCustomerDetails.id);
+    }
   }
 
   getCompanySelected(event) {
+    this.selectedHandlingCompany = event.id;
     if (this.individualCorpCustomerForm.value.customerStatus == "exist") {
-      //patch or not
-      this.individualCorpCustomerForm.value.handlingCompany = event.id; //when event fired need to find the relevant id customer from the array
+      // patch or not
+      this.individualCorpCustomerForm.patchValue({
+        // when event fired need to find the relevant id customer from the array
+        handlingCompany: this.selectedHandlingCompany,
+      });
       this.allcustomers = [];
       this.getCustomer();
       console.log(this.individualCorpCustomerForm.value.handlingCompany);
     } else {
-      this.individualCorpCustomerForm.value.handlingCompany = event.id; // to select new customer company
+      console.log(this.individualCorpCustomerForm.value.customerStatus);
+      this.individualCorpCustomerForm.patchValue({
+        // to select new customer company
+        handlingCompany: this.selectedHandlingCompany,
+      });
       this.allcustomers = []; // empty the array to get the triggered company customers
       this.getCustomer();
     }
@@ -183,14 +207,19 @@ export class CustomerHandlingComponent implements OnInit {
   filterCustomerDetails(id) {
     this.customerData = this.customers.filter((c) => c.id === id);
     console.log(this.customerData[0].type);
-    this.customerType = this.customerData[0].type; //display
-    if (this.customerData[0].type == CustomerType.Corporate) {
-      this.customerTypeArray = [{ id: 2, name: 'Corporate' }];
+    // this.individualFormChangesOnSelect();
+    this.customerType = this.customerData[0].type; // display
+    if (this.customerData[0].type === CustomerType.Corporate) {
+      this.customerTypeArray = [{ id: 2, name: "Corporate" }];
+      this.individualFormChangesOnload(this.customerData[0].type);
+      console.log(this.individualCorpCustomerForm.controls);
       this.patchToCustomer(this.customerData[0]);
     }
-    if (this.customerData[0].type == CustomerType.Individual) {
+    if (this.customerData[0].type === CustomerType.Individual) {
       this.patchToCustomer(this.customerData[0]); // call for patch the individual customer
-      this.customerTypeArray = [{ id: 1, name: 'Individual' }];
+      this.individualFormChangesOnload(this.customerData[0].type);
+      console.log(this.individualCorpCustomerForm.controls);
+      this.customerTypeArray = [{ id: 1, name: "Individual" }];
     }
   }
 
@@ -203,7 +232,7 @@ export class CustomerHandlingComponent implements OnInit {
       nicNumber: customerValue.nicNumber ? customerValue.nicNumber : "",
       email: customerValue.email ? customerValue.email : "",
       telNo: customerValue.telNo ? customerValue.telNo : "",
-      type: customerValue.type ? customerValue.type : "", //need to patch for exists
+      type: customerValue.type ? customerValue.type : "", // need to patch for exists
       companyName: customerValue.companyName ? customerValue.companyName : "",
       companyRegistrationNo: customerValue.companyRegistrationNo
         ? customerValue.companyRegistrationNo
@@ -222,24 +251,23 @@ export class CustomerHandlingComponent implements OnInit {
       vatNumber: customerValue.vatNumber ? customerValue.vatNumber : "",
       handlingCompany: customerValue.handlingCompany
         ? customerValue.handlingCompany
-        : "", //dropdown values
+        : "",
       handlingCustomer: customerValue.handlingCustomer
         ? customerValue.handlingCustomer
-        : "", //dropdown values
-      // contactPerson: customerValue[0].contactPerson ? customerValue[0].contactPerson : '',
-      // contactNo: customerValue[0].contactNo ? customerValue[0].contactNo : '',
-
-      /*no need to patch for contactNo and contact person*/
+        : "",
+      description: customerValue.description ? customerValue.description : "",
     });
   }
 
   getCustomer() {
     this.dataLoading = true;
     console.log(this.allcustomers);
-    this.customerservice
-      .getCustomerDetails(this.individualCorpCustomerForm.value.handlingCompany)
-      .subscribe(
-        (respond) => {
+    try {
+      this.customerservice
+        .getCustomerDetails(
+          this.individualCorpCustomerForm.value.handlingCompany
+        )
+        .subscribe((respond) => {
           this.customers = respond.data;
           this.customers.forEach((i) => {
             this.allcustomers.push({
@@ -248,79 +276,159 @@ export class CustomerHandlingComponent implements OnInit {
             });
           });
           this.showCustomers = this.allcustomers;
-          this.customerType = this.customers[0].type;
-
-          if (this.individualCorpCustomerForm.value.customerStatus == 'exist') {
+          if (this.individualCorpCustomerForm.value.customerStatus == "exist") {
+            this.hidedrop = true;
             // if user exists then patch, otherwise do not patch if respond reached
-            if (this.customerType == CustomerType.Individual) {
-              // page loading select dropdown value
-              this.TypeArray = [{ id: 1, name: 'Individual' }];
-              this.customerTypeArray = this.TypeArray;
-            }
-            if (this.customerType == CustomerType.Corporate) {
-              this.TypeArray = [{ id: 2, name: 'Corporate' }];
-              this.customerTypeArray = this.TypeArray;
-            }
-            this.patchToCustomer(this.customers[0]);
+            this.customerType = this.customers[0].type;
             this.dataLoading = false;
+            if (this.customerType === CustomerType.Individual) {
+              // page loading select dropdown value
+              this.TypeArray = [{ id: 1, name: "Individual" }];
+              this.customerTypeArray = this.TypeArray;
+            }
+            if (this.customerType === CustomerType.Corporate) {
+              this.TypeArray = [{ id: 2, name: "Corporate" }];
+              this.customerTypeArray = this.TypeArray;
+            }
+            // this.individualFormChanges();
+            this.individualFormChangesOnload(this.customers[0].type);
+            this.patchToCustomer(this.customers[0]);
+            console.log(this.individualCorpCustomerForm.controls);
           } else {
+            this.hidedrop = false;
             this.dataLoading = false;
           }
-        },
-        (error) => {}
-      );
+        });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   createInquery() {
-    console.log(this.individualCorpCustomerForm.value);
-    if (this.individualCorpCustomerForm.invalid) {
-      this.formvalidationhelpers.validateAllFormFields(
-        this.individualCorpCustomerForm
-      );
-      return;
-    } else if (this.individualCorpCustomerForm.valid) {
-      this.customerservice
-        .addInquery(this.individualCorpCustomerForm.value)
-        .subscribe((respond) => {
-          this.showSuccess();
-          // this.individualCorpCustomerForm.reset();
-          /**/
-        });
+    try {
+      if (
+        this.individualCorpCustomerForm.value.type == CustomerType.Individual
+      ) {
+        // this.removeValidatorsIndividual();
+        console.log(this.individualCorpCustomerForm.value);
+        if (this.individualCorpCustomerForm.invalid) {
+          this.formvalidationhelpers.validateAllFormFields(
+            this.individualCorpCustomerForm
+          );
+          return;
+        }
+        {
+          this.customerservice
+            .addInquery(this.individualCorpCustomerForm.value)
+            .subscribe((respond) => {
+              console.log(respond);
+              this.showSuccess();
+            });
+        }
+      } else if (
+        this.individualCorpCustomerForm.value.type == CustomerType.Corporate
+      ) {
+        console.log(this.individualCorpCustomerForm.value);
+        if (this.individualCorpCustomerForm.invalid) {
+          this.formvalidationhelpers.validateAllFormFields(
+            this.individualCorpCustomerForm
+          );
+          return;
+        }
+        {
+          this.customerservice
+            .addInquery(this.individualCorpCustomerForm.value)
+            .subscribe((respond) => {
+              this.showSuccess();
+            });
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
-    this.submitClicked.emit(1);
   }
 
   showSuccess() {
-    this.toastservice.success('Success', 'Inquery Created Succesfully');
+    this.toastservice.success("Success", "Inquery Created Succesfully");
   }
 
-  resetForm(data) {
-    this.individualCorpCustomerForm.patchValue({
-      id: null,
-      firstName: '',
-      lastName: '',
-      nicNumber: '',
-      email: '',
-      telNo: '',
-      type: data,
-      contactPerson: '',
-      contactNo: '',
-      companyName: '',
-      companyRegistrationNo: '',
-      streetAddressLineOne: '',
-      streetAddressLineTwo: '',
-      ppNo: '',
-      country: '',
-      city: '',
-      zipCode: '',
-      taxNumber: '',
-      vatNumber: '',
-      handlingCompany: this.individualCorpCustomerForm.value.handlingCompany, // this is given a array;
-      handlingCustomer: '',
-      inquiryType: InqueryType.Quotation,
-      customerStatus: 'new',
-    });
-    console.log(this.individualCorpCustomerForm.value);
+  individualFormChangesOnload(type) {
+    if (type === CustomerType.Individual) {
+      if (this.individualCorpCustomerForm.get("firstName") === null) {
+        this.individualCorpCustomerForm.addControl(
+          "firstName",
+          new FormControl("")
+        );
+      }
+      if (this.individualCorpCustomerForm.get("lastName") === null) {
+        this.individualCorpCustomerForm.addControl(
+          "lastName",
+          new FormControl("")
+        );
+      }
+      if (this.individualCorpCustomerForm.get("nicNumber") === null) {
+        this.individualCorpCustomerForm.addControl(
+          "nicNumber",
+          new FormControl("")
+        );
+      }
+      if (this.individualCorpCustomerForm.get("ppNo") === null) {
+        this.individualCorpCustomerForm.addControl("ppNo", new FormControl(""));
+      }
+
+      if (this.individualCorpCustomerForm.get("companyName")) {
+        this.individualCorpCustomerForm.removeControl("companyName");
+      }
+      if (this.individualCorpCustomerForm.get("companyRegistrationNo")) {
+        this.individualCorpCustomerForm.removeControl("companyRegistrationNo");
+      }
+      if (this.individualCorpCustomerForm.get("taxNumber")) {
+        this.individualCorpCustomerForm.removeControl("taxNumber");
+      }
+      if (this.individualCorpCustomerForm.get("vatNumber")) {
+        this.individualCorpCustomerForm.removeControl("vatNumber");
+      }
+    } else if (type === CustomerType.Corporate) {
+      if (this.individualCorpCustomerForm.get("companyName") === null) {
+        this.individualCorpCustomerForm.addControl(
+          "companyName",
+          new FormControl("")
+        );
+      }
+      if (
+        this.individualCorpCustomerForm.get("companyRegistrationNo") === null
+      ) {
+        this.individualCorpCustomerForm.addControl(
+          "companyRegistrationNo",
+          new FormControl("")
+        );
+      }
+      if (this.individualCorpCustomerForm.get("taxNumber") === null) {
+        this.individualCorpCustomerForm.addControl(
+          "taxNumber",
+          new FormControl("")
+        );
+      }
+      if (this.individualCorpCustomerForm.get("vatNumber") === null) {
+        this.individualCorpCustomerForm.addControl(
+          "vatNumber",
+          new FormControl("")
+        );
+      }
+
+      if (this.individualCorpCustomerForm.get("firstName")) {
+        this.individualCorpCustomerForm.removeControl("firstName");
+      }
+      if (this.individualCorpCustomerForm.get("lastName")) {
+        this.individualCorpCustomerForm.removeControl("lastName");
+      }
+      if (this.individualCorpCustomerForm.get("nicNumber")) {
+        this.individualCorpCustomerForm.removeControl("nicNumber");
+      }
+      if (this.individualCorpCustomerForm.get("ppNo")) {
+        this.individualCorpCustomerForm.removeControl("ppNo");
+      }
+    }
   }
 
   get id() {
@@ -395,8 +503,8 @@ export class CustomerHandlingComponent implements OnInit {
     return this.individualCorpCustomerForm.get("contactPerson");
   }
 
-  get contactNo() {
-    return this.individualCorpCustomerForm.get("contactNo");
+  get contactPersonNumber() {
+    return this.individualCorpCustomerForm.get("contactPersonNumber");
   }
 
   get handlingCustomer() {
@@ -407,11 +515,15 @@ export class CustomerHandlingComponent implements OnInit {
     return this.individualCorpCustomerForm.get("handlingCompany");
   }
 
-  get inqueryType() {
+  get inquiryType() {
     return this.individualCorpCustomerForm.get("inqueryType");
   }
 
   get customerStatus() {
     return this.individualCorpCustomerForm.get("customerStatus");
+  }
+
+  get description() {
+    return this.individualCorpCustomerForm.get("description");
   }
 }

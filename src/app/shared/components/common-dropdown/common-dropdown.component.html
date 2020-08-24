@@ -5,8 +5,9 @@
     [selectId]="value"
     optionLabel="name"
     [placeholder]="placeholder"
-    [filter]="true"
+    [filter]="filter"
     (onChange)="handleChange($event)"
     (input)="handleChange($event)"
+    [disabled]="disable"
   ></p-dropdown>
 </div>

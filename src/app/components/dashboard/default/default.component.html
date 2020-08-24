@@ -153,6 +153,7 @@
             <div class="card-header">
               <h5>Calculation</h5>
             </div>
+
             <!--        <div class="card-body">-->
             <!--          <div class="show-value-top d-flex">-->
             <!--            <div class="value-left d-inline-block">-->
@@ -175,6 +176,14 @@
 
             <!--        </div>-->
             <div class="card-body chart-block">
+              <div class="show-value-top d-flex">
+                <div class="value-left d-inline-block">
+                  <div class="square bg-primary d-inline-block"></div><span>Inquiry</span>
+                </div>
+                <div class="value-right d-inline-block">
+                  <div class="square d-inline-block bg-secondary"></div><span>Complaint</span>
+                </div>
+              </div>
               <canvas
                 baseChart
                 class="chart"
@@ -193,7 +202,7 @@
       </div>
     </div>
     <div class="col-xl-4 xl-50">
-      <div class="card height-equal gradient-line-1" style="height: 231vh;">
+      <div class="card height-equal gradient-line-1" style="height: 237vh;">
         <div class="card-header">
           <h5>Notifications</h5>
         </div>
@@ -218,7 +227,8 @@
                 <div class="upcoming-event">
                   <div class="upcoming-innner media">
                     <div class="media-body">
-                      <div *ngFor="let rem of reminders">
+                      <div class = "gradient-line-1"
+                           *ngFor="let rem of reminders">
                         <h9 class="f-w-400"
                           >{{ rem.customer?.firstName }}
                           {{ rem.customer?.lastName }}
