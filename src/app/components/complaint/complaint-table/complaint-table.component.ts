@@ -189,7 +189,7 @@ export class ComplaintTableComponent implements OnInit {
   changeStatus(event){
     // this.checkButton = false;
     this.complaintGrid.spinner = true;
-    const status = Status.SendQuotation;
+    const status = Status.Completed;
     const id = event.id;
     // event = null;
 
