@@ -133,6 +133,7 @@ export class CustomerHandlingComponent implements OnInit {
       });
       this.formEnable = false;
     } else {
+      this.getCustomer();
       console.log(status.value);
       this.resetcNumbercPerson();  //reset cPerson & cCustomer when select exist
       this.formEnable = true;
@@ -157,11 +158,15 @@ export class CustomerHandlingComponent implements OnInit {
   }
 
   getCustomerTypeId(event) {
+    this.individualCorpCustomerForm.reset();
     if (event.id === CustomerType.Individual) {
       this.customerType = CustomerType.Individual;
       this.individualFormChangesOnload(this.customerType);
       this.individualCorpCustomerForm.patchValue({
         type: this.customerType,
+        handlingCompany: this.selectedHandlingCompany,
+        inquiryType: InqueryType.Quotation,
+        customerStatus: 'new'
       });
       console.log(this.individualCorpCustomerForm.value.type);
     }
@@ -171,6 +176,9 @@ export class CustomerHandlingComponent implements OnInit {
       console.log(this.individualCorpCustomerForm.controls);
       this.individualCorpCustomerForm.patchValue({
         type: this.customerType,
+        handlingCompany: this.selectedHandlingCompany,
+        inquiryType: InqueryType.Quotation,
+        customerStatus: 'new'
       });
       console.log(this.customerType);
     }
@@ -205,7 +213,7 @@ export class CustomerHandlingComponent implements OnInit {
         handlingCompany: this.selectedHandlingCompany,
       });
       this.allcustomers = []; // empty the array to get the triggered company customers
-      this.getCustomer();
+      // this.getCustomer();
     }
   }
 
@@ -320,17 +328,19 @@ export class CustomerHandlingComponent implements OnInit {
           return;
         }
         {
+          this.selectedHandlingCompany = this.individualCorpCustomerForm.value.handlingCompany;
           this.customerservice
             .addInquery(this.individualCorpCustomerForm.value)
             .subscribe((respond) => {
               this.individualCorpCustomerForm.reset();
               this.individualCorpCustomerForm.patchValue({
-                handlingCompany: CompanyType.Ingenii,
+                handlingCompany: this.selectedHandlingCompany,
                 customerStatus: 'exist',
                 inquiryType: InqueryType.Quotation
-              })
+              });
               this.resetcNumbercPerson();
               this.getCustomer();
+              this.formEnable = true;
               console.log(respond);
               this.showSuccess();
             });
@@ -349,12 +359,13 @@ export class CustomerHandlingComponent implements OnInit {
             .subscribe((respond) => {
               this.individualCorpCustomerForm.reset();
               this.individualCorpCustomerForm.patchValue({
-                handlingCompany: CompanyType.Ingenii,
+                handlingCompany: this.selectedHandlingCompany,
                 customerStatus: 'exist',
                 inquiryType: InqueryType.Quotation
-              })
+              });
               this.resetcNumbercPerson();
               this.getCustomer();
+              this.formEnable = true;
               console.log(respond);
               this.showSuccess();
             });
@@ -364,17 +375,6 @@ export class CustomerHandlingComponent implements OnInit {
       console.log(error);
     }
   }
-
-  // closeForm(){
-  //   this.individualCorpCustomerForm.reset();
-  //   this.individualCorpCustomerForm.patchValue({
-  //     handlingCompany: CompanyType.Ingenii,
-  //     customerStatus: 'exist',
-  //     inquiryType: InqueryType.Quotation
-  //   })
-  //   this.resetcNumbercPerson();
-  //   this.getCustomer();
-  // }
 
   showSuccess() {
     this.toastservice.success('Success', 'Inquery Created Succesfully');
@@ -387,22 +387,38 @@ export class CustomerHandlingComponent implements OnInit {
           'firstName',
           new FormControl('')
         );
+        const fname = this.individualCorpCustomerForm.get('firstName');
+        fname.setValidators(Validators.required);
       }
       if (this.individualCorpCustomerForm.get('lastName') === null) {
         this.individualCorpCustomerForm.addControl(
           'lastName',
           new FormControl('')
         );
+        const lName = this.individualCorpCustomerForm.get('lastName');
+        lName.setValidators(Validators.required);
       }
       if (this.individualCorpCustomerForm.get('nicNumber') === null) {
         this.individualCorpCustomerForm.addControl(
           'nicNumber',
           new FormControl('')
         );
+        const nicNumber = this.individualCorpCustomerForm.get('nicNumber');
+        nicNumber.setValidators(Validators.required);
       }
       if (this.individualCorpCustomerForm.get('ppNo') === null) {
         this.individualCorpCustomerForm.addControl('ppNo', new FormControl(''));
+        const ppNo = this.individualCorpCustomerForm.get('ppNo');
+        ppNo.setValidators(Validators.required);
       }
+
+
+      if (this.individualCorpCustomerForm.get('telNo') === null) {
+        this.individualCorpCustomerForm.addControl('telNo', new FormControl(''));
+        const telNo = this.individualCorpCustomerForm.get('telNo');
+        telNo.setValidators(Validators.required);
+      }
+
 
       if (this.individualCorpCustomerForm.get('companyName')) {
         this.individualCorpCustomerForm.removeControl('companyName');
@@ -422,26 +438,32 @@ export class CustomerHandlingComponent implements OnInit {
           'companyName',
           new FormControl('')
         );
+        const companyName = this.individualCorpCustomerForm.get('companyName');
+        companyName.setValidators(Validators.required);
       }
-      if (
-        this.individualCorpCustomerForm.get('companyRegistrationNo') === null
-      ) {
+      if (this.individualCorpCustomerForm.get('companyRegistrationNo') === null) {
         this.individualCorpCustomerForm.addControl(
           'companyRegistrationNo',
           new FormControl('')
         );
+        const companyRegistrationNo = this.individualCorpCustomerForm.get('companyRegistrationNo');
+        companyRegistrationNo.setValidators(Validators.required);
       }
       if (this.individualCorpCustomerForm.get('taxNumber') === null) {
         this.individualCorpCustomerForm.addControl(
           'taxNumber',
           new FormControl('')
         );
+        const taxNumber = this.individualCorpCustomerForm.get('taxNumber');
+        taxNumber.setValidators(Validators.required);
       }
       if (this.individualCorpCustomerForm.get('vatNumber') === null) {
         this.individualCorpCustomerForm.addControl(
           'vatNumber',
           new FormControl('')
         );
+        const vatNumber = this.individualCorpCustomerForm.get('vatNumber');
+        vatNumber.setValidators(Validators.required);
       }
 
       if (this.individualCorpCustomerForm.get('firstName')) {
@@ -456,6 +478,9 @@ export class CustomerHandlingComponent implements OnInit {
       if (this.individualCorpCustomerForm.get('ppNo')) {
         this.individualCorpCustomerForm.removeControl('ppNo');
       }
+      if (this.individualCorpCustomerForm.get('telNo')) {
+        this.individualCorpCustomerForm.removeControl('telNo');
+      }
     }
   }
 
@@ -465,6 +490,25 @@ export class CustomerHandlingComponent implements OnInit {
     const contactNumber = this.individualCorpCustomerForm.get('contactPersonNumber');
     contactNumber.reset();
   }
+
+  // resetCustomerTypeChange(){
+  //   const email = this.individualCorpCustomerForm.get('email');
+  //   email.reset();
+  //   const country = this.individualCorpCustomerForm.get('country');
+  //   country.reset();
+  //   const city = this.individualCorpCustomerForm.get('city');
+  //   city.reset();
+  //   const zipCode = this.individualCorpCustomerForm.get('zipCode');
+  //   zipCode.reset();
+  //   const streetAddressLineOne = this.individualCorpCustomerForm.get('streetAddressLineOne');
+  //   streetAddressLineOne.reset();
+  //   const streetAddressLineTwo = this.individualCorpCustomerForm.get('streetAddressLineTwo');
+  //   streetAddressLineTwo.reset();
+  //   const contactPerson = this.individualCorpCustomerForm.get('contactPerson');
+  //   contactPerson.reset();
+  //   const contactPersonNumber = this.individualCorpCustomerForm.get('contactPersonNumber');
+  //   contactPersonNumber.reset();
+  // }
 
   get id() {
     return this.individualCorpCustomerForm.get('id');
