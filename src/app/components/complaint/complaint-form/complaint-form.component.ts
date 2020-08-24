@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from "@angular/core";
+import {Component, Output} from '@angular/core';
 import {
   CompanyType,
   ComplaintType,
@@ -9,8 +9,7 @@ import { FormValidationHelpers } from "../../../shared/helpers/form-validation-h
 import { CustomerDetailsService } from "../../../shared/services/customer-details.service";
 import { CompanyCustomerDeails } from "../../inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { ComplaintDetails } from "./ComplaintDetails";
-import { myValidator } from "../../../shared/custom validators/my.validator";
-
+import {json} from '@angular-devkit/core';
 @Component({
   selector: "app-complaint-form",
   templateUrl: "./complaint-form.component.html",
@@ -26,8 +25,6 @@ export class ComplaintFormComponent {
   companyCustomerDetails: CompanyCustomerDeails;
   complaintDetails: ComplaintDetails;
   customerData: any[];
-
-  @Output() submitClicked = new EventEmitter();
 
   constructor(
     private formbuilder: FormBuilder,
@@ -45,29 +42,28 @@ export class ComplaintFormComponent {
     this.complaintForm = this.formbuilder.group({
       customerId: ["", [Validators.required]],
       complainTypeId: [this.complainTypeId[0].id, [Validators.required]],
-      handlingCustomer: ["", [Validators.required]],
-      handlingCompany: ["ww", [Validators.required]],
+      //handlingCustomer: ["", [Validators.required]],
+      handlingCompany: ["", [Validators.required]],
       contactPerson: ["", [Validators.required]],
       contactPersonNumber: ["", [Validators.required]],
       designation: ["", [Validators.required]],
-      description: ["", [Validators.required]],
+      description: [""],
     });
     this.getCustomers();
   }
 
-  get contactPerson() {
-    return this.complaintForm.get("contactPerson");
-  }
+  get contactPerson() { return this.complaintForm.get('contactPerson'); }
 
   addComplaint() {
-    console.log("working");
-    console.log(this.complaintForm.value);
     this.customerservice
       .addComplaint(this.complaintForm.value)
       .subscribe((res) => {
-        console.log("Submitted successfully.......!!!!");
+        this.complaintForm.reset()
       });
-    this.submitClicked.emit(1);
+  }
+
+  resetForm() {
+    this.complaintForm.reset()
   }
 
   getComplaintSelected(event) {

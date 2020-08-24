@@ -1,59 +1,15 @@
-<!--<div>-->
-<!--  <input-->
-<!--    [type]="inputType"-->
-<!--    [value]="value"-->
-<!--    (change)="handleChange($event)"-->
-<!--    (input)="handleChange($event)"-->
-<!--    class="form-control"-->
-<!--  />-->
-<!--</div>-->
-
 <div>
   <label>{{ labelName }}</label>
-  <input #input [class.is-invalid]="(c.invalid && c.touched)"
-         (change)="handleChange($event)"
-         (input)="handleChange($event)"
-         [type]="inputType"
-         [value]="value"
-         [placeholder]="placeholder"
-         (blur) = "onModelTouched()"
-         class="form-control"
+  <input #input [class.is-invalid]="c.invalid && c.touched"
+    (change)="handleChange($event)"
+    (input)="handleChange($event)"
+    [type]="inputType"
+    [value]="value"
+    [placeholder]="placeholder"
+    (blur) = "onModelTouched()"
+    class="form-control"
   >
-  <!--  <div *ngIf="com.value == ''">Error</div>-->
-
-  <!--  <div-->
-  <!--    *ngIf="getCommonInput().touched && getCommonInput().errors?.required"-->
-  <!--    class="text text-danger"-->
-  <!--  >-->
-  <!--    {{ labelName }} is required-->
-  <!--  </div>-->
-  <!--  <small [class.d-none]="getControlName.valid || getControlName.untouched" class="text-danger">{{ labelName }} is required</small>-->
-
-  <!--  <small *ngIf="(c.invalid && c.touched) || (c.dirty && c.invalid)" class="text-danger">{{ labelName }} is required</small>-->
-  <small *ngIf="(c.invalid && c.touched)" class="text-danger">{{ labelName }} is required</small>
-</div>
-
-
-
-
-<!--[class.is-invalid]="getCommonInput().invalid && getCommonInput().touched"-->
-
-
-
-
-
-<!--<div>-->
-<!--  <label>{{ labelName }}</label>-->
-<!--  <input-->
-<!--    [class.is-invalid]="getCommonInput().invalid && getCommonInput().touched"-->
-<!--    (change)="handleChange($event)"-->
-<!--    (input)="handleChange($event)"-->
-<!--    [type]="inputType"-->
-<!--    [value]="value"-->
-<!--    [placeholder]="placeholder"-->
-<!--    class="form-control"-->
-<!--    [formControl]="getCommonInput()"-->
-<!--  />-->
+<!--  <div *ngIf="com.value == ''">Error</div>-->
 
 <!--  <div-->
 <!--    *ngIf="getCommonInput().touched && getCommonInput().errors?.required"-->
@@ -61,4 +17,12 @@
 <!--  >-->
 <!--    {{ labelName }} is required-->
 <!--  </div>-->
-<!--</div>-->
+<!--  <small [class.d-none]="getControlName.valid || getControlName.untouched" class="text-danger">{{ labelName }} is required</small>-->
+
+<!--  <small *ngIf="(c.invalid && c.touched) || (c.dirty && c.invalid)" class="text-danger">{{ labelName }} is required</small>-->
+  <small *ngIf="(c.invalid && c.touched)" class="text-danger">{{ labelName }} is required</small>
+</div>
+
+
+
+<!--[class.is-invalid]="getCommonInput().invalid && getCommonInput().touched"-->
