@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output, EventEmitter, ViewChild, Inject} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,6 +15,10 @@ import {
   TextBoxTypes,
 } from '../../../../../shared/services/common/enum';
 import {ToastrService} from 'ngx-toastr';
+import {CommonDialogBoxComponent} from '../../../../../shared/components/common-dialog-box/common-dialog-box.component';
+import {MatDialogRef} from '@angular/material/dialog';
+import {Subscription} from 'rxjs';
+
 
 @Component({
   selector: 'app-customer-handling',
@@ -27,6 +31,7 @@ export class CustomerHandlingComponent implements OnInit {
   companyCustomerDetails: CompanyCustomerDeails;
   customerData: any[];
   @Output() submitClicked = new EventEmitter();
+
 
   new: string;
   exist: string;
@@ -50,7 +55,8 @@ export class CustomerHandlingComponent implements OnInit {
     private customerservice: CustomerDetailsService,
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
-    private toastservice: ToastrService
+    private toastservice: ToastrService,
+    public dialogRef: MatDialogRef<CustomerHandlingComponent>,
   ) {
     this.companyCustomerDetails = new CompanyCustomerDeails();
     this.InqueryTypeArray = [
@@ -72,7 +78,7 @@ export class CustomerHandlingComponent implements OnInit {
       {id: CustomerType.Corporate, name: 'Corporate'},
     ];
   }
-
+  @ViewChild('inquiryAddDialog',{ static: true }) inquiryAddDialog :CommonDialogBoxComponent
   customers = []; /*array of customers to get respond*/
   allcustomers = [];
   showCustomers = [];
@@ -333,17 +339,18 @@ export class CustomerHandlingComponent implements OnInit {
             this.customerservice
               .addInquery(this.individualCorpCustomerForm.value)
               .subscribe((respond) => {
-                this.individualCorpCustomerForm.reset();
-                this.individualCorpCustomerForm.patchValue({
-                  handlingCompany: this.selectedHandlingCompany,
-                  customerStatus: 'exist',
-                  inquiryType: InqueryType.Quotation
-                });
-                this.resetcNumbercPerson();
-                this.getCustomer();
+                // this.individualCorpCustomerForm.reset();
+                // this.individualCorpCustomerForm.patchValue({
+                //   handlingCompany: this.selectedHandlingCompany,
+                //   customerStatus: 'exist',
+                //   inquiryType: InqueryType.Quotation
+                // });
+                // this.resetcNumbercPerson();
+                // this.getCustomer();
                 this.formEnable = true;
                 console.log(respond);
                 this.showSuccess();
+                this.closeDialog(true);
               });
           }
         } else if (this.individualCorpCustomerForm.value.type === CustomerType.Corporate) {
@@ -358,17 +365,18 @@ export class CustomerHandlingComponent implements OnInit {
             this.customerservice
               .addInquery(this.individualCorpCustomerForm.value)
               .subscribe((respond) => {
-                this.individualCorpCustomerForm.reset();
-                this.individualCorpCustomerForm.patchValue({
-                  handlingCompany: this.selectedHandlingCompany,
-                  customerStatus: 'exist',
-                  inquiryType: InqueryType.Quotation
-                });
-                this.resetcNumbercPerson();
-                this.getCustomer();
+                // this.individualCorpCustomerForm.reset();
+                // this.individualCorpCustomerForm.patchValue({
+                //   handlingCompany: this.selectedHandlingCompany,
+                //   customerStatus: 'exist',
+                //   inquiryType: InqueryType.Quotation
+                // });
+                // this.resetcNumbercPerson();
+                // this.getCustomer();
                 this.formEnable = true;
                 console.log(respond);
                 this.showSuccess();
+                this.closeDialog(true);
               });
           }
         }
@@ -387,17 +395,18 @@ export class CustomerHandlingComponent implements OnInit {
             this.customerservice
               .addInquery(this.individualCorpCustomerForm.value)
               .subscribe((respond) => {
-                this.individualCorpCustomerForm.reset();
-                this.individualCorpCustomerForm.patchValue({
-                  handlingCompany: this.selectedHandlingCompany,
-                  customerStatus: 'new',
-                  inquiryType: InqueryType.Quotation
-                });
-                this.resetcNumbercPerson();
-                this.getCustomer();
+                // this.individualCorpCustomerForm.reset();
+                // this.individualCorpCustomerForm.patchValue({
+                //   handlingCompany: this.selectedHandlingCompany,
+                //   customerStatus: 'new',
+                //   inquiryType: InqueryType.Quotation
+                // });
+                // this.resetcNumbercPerson();
+                // this.getCustomer();
                 this.formEnable = false;
                 console.log(respond);
                 this.showSuccess();
+                this.closeDialog(true);
               });
           }
         } else if (this.individualCorpCustomerForm.value.type === CustomerType.Corporate) {
@@ -412,17 +421,18 @@ export class CustomerHandlingComponent implements OnInit {
             this.customerservice
               .addInquery(this.individualCorpCustomerForm.value)
               .subscribe((respond) => {
-                this.individualCorpCustomerForm.reset();
-                this.individualCorpCustomerForm.patchValue({
-                  handlingCompany: this.selectedHandlingCompany,
-                  customerStatus: 'new',
-                  inquiryType: InqueryType.Quotation
-                });
-                this.resetcNumbercPerson();
-                this.getCustomer();
+                // this.individualCorpCustomerForm.reset();
+                // this.individualCorpCustomerForm.patchValue({
+                //   handlingCompany: this.selectedHandlingCompany,
+                //   customerStatus: 'new',
+                //   inquiryType: InqueryType.Quotation
+                // });
+                // this.resetcNumbercPerson();
+                // this.getCustomer();
                 this.formEnable = false;
                 console.log(respond);
                 this.showSuccess();
+                this.closeDialog(true);
               });
           }
         }
@@ -430,6 +440,9 @@ export class CustomerHandlingComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+  closeDialog(bool?) {
+    this.dialogRef.close(bool);
   }
 
   showSuccess() {

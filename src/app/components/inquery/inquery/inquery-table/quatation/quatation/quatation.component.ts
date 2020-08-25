@@ -13,6 +13,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import * as fileSaver from "file-saver";
 import { HttpResponse } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {CustomerHandlingComponent} from '../../customer-handling/customer-handling.component';
 
 @Component({
   selector: "app-quatation",
@@ -51,7 +53,9 @@ export class QuatationComponent implements OnInit {
     private customerservice: CustomerDetailsService,
     public route: Router,
     public router: ActivatedRoute,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    public dialogService:MatDialog,
+    public dialogRef: MatDialogRef<QuatationComponent>
   ) {}
 
   ngOnInit(): void {
@@ -83,6 +87,10 @@ export class QuatationComponent implements OnInit {
       this.setQuotationRowList(this.custId);
       this.getStatus(this.custId);
     }
+  }
+
+  closeDialog(bool?) {
+    this.dialogRef.close(bool);
   }
 
   setQuotationColumns() {
@@ -183,12 +191,22 @@ export class QuatationComponent implements OnInit {
   }
 
   viewForm() {
-    try {
-      this.setDialogBoxValue = true;
-      //this.visible = false;
-    } catch (error) {
-      return error;
-    }
+    const dialogRef = this.dialogService.open(QuatationComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
+    // try {
+    //   this.setDialogBoxValue = true;
+    //   //this.visible = false;
+    // } catch (error) {
+    //   return error;
+    // }
   }
 
   back() {

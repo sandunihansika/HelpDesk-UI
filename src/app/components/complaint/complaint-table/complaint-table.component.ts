@@ -23,6 +23,9 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import { CommonDialogBoxComponent } from "../../../shared/components/common-dialog-box/common-dialog-box.component";
 import {async} from 'rxjs-compat/scheduler/async';
+import {MatDialog} from '@angular/material/dialog';
+import {CorporateDetailsComponent} from '../../inquery/inquery/customer-details/corporate-details/corporate-details.component';
+import {ComplaintFormComponent} from '../complaint-form/complaint-form.component';
 
 @Component({
   selector: "app-complaint-table",
@@ -40,6 +43,7 @@ export class ComplaintTableComponent implements OnInit {
   constructor(
     private customerDetailsService: CustomerDetailsService,
     private router: Router,
+    public dialogService:MatDialog,
     private route: ActivatedRoute,
     private modalService: NgbModal,
     config: NgbModalConfig
@@ -216,10 +220,20 @@ export class ComplaintTableComponent implements OnInit {
 
   //add dialog box
   addButtonClick() {
-    // this.setDialog = true;
-    this.setDialogBoxValue = true;
-    // this.display = true;
-    // this.showDialogBox = true;
+    const dialogRef = this.dialogService.open(ComplaintFormComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
+    // // this.setDialog = true;
+    // this.setDialogBoxValue = true;
+    // // this.display = true;
+    // // this.showDialogBox = true;
   }
   close() {
     this.setDialogBoxValue = false;

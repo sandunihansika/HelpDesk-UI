@@ -8,6 +8,10 @@ import {
 } from "../../../../../shared/services/common/enum";
 import { CustomerDetailsService } from "../../../../../shared/services/customer-details.service";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import {MatDialog} from '@angular/material/dialog';
+import {CustomerHandlingComponent} from '../../inquery-table/customer-handling/customer-handling.component';
+import {CustomerDetailsComponent} from '../../customer-details/customer-details/customer-details.component';
+import {CorporateDetailsComponent} from '../../customer-details/corporate-details/corporate-details.component';
 
 @Component({
   selector: "app-customer-table",
@@ -34,7 +38,8 @@ export class CustomerTableComponent implements OnInit {
   constructor(
     private CustomerDetailsService: CustomerDetailsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialogService:MatDialog
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
@@ -254,21 +259,41 @@ export class CustomerTableComponent implements OnInit {
   }
 
   viewIndividualForm() {
-    try {
-      this.setDialogBoxValue1 = true;
-      this.displayIndividual = true;
-    } catch (error) {
-      return error;
-    }
+    const dialogRef = this.dialogService.open(CustomerDetailsComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
+    // try {
+    //   this.setDialogBoxValue1 = true;
+    //   this.displayIndividual = true;
+    // } catch (error) {
+    //   return error;
+    // }
   }
 
   viewCorporateForm() {
-    try {
-      this.setDialogBoxValue2 = true;
-      this.displayCoporate = true;
-    } catch (error) {
-      return error;
-    }
+    const dialogRef = this.dialogService.open(CorporateDetailsComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
+    // try {
+    //   this.setDialogBoxValue2 = true;
+    //   this.displayCoporate = true;
+    // } catch (error) {
+    //   return error;
+    // }
   }
   close() {
     this.setDialogBoxValue1 = false;

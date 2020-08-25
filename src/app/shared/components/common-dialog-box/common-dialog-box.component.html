@@ -1,7 +1,40 @@
 
-  <p-dialog [header]="header" [modal]="true" [(visible)]="_setDialogBox" (onHide)="hide()" [draggable]="false" [resizable]="false" >
-    <ng-content></ng-content>
-  </p-dialog>
+<!--  <p-dialog [header]="header" [modal]="true" [(visible)]="_setDialogBox" (onHide)="hide()" [draggable]="false" [resizable]="false" >-->
+<!--    <ng-content></ng-content>-->
+<!--  </p-dialog>-->
+<p-card>
+  <p-header cdkDrag cdkDragRootElement=".cdk-overlay-pane" class="p-0">
+    <div id="commonDialogHeader" cdkDragHandle>
+      <div class="d-flex flex-row align-items-center w-100">
+        <div class="title-box p-2">
+          <span class="title-header pl-2">{{ title }}</span>
+        </div>s
+        <div class="d-flex justify-content-end" style="width: calc(100% - 17rem);height: 2.5rem">
+          <div  class="pi pi-times" style="font-size: 20px" (click)="closeDialog()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </p-header>
+  <ng-content></ng-content>
+  <p-footer>
+<!--    <div class="buttons-row" style="float: right;">-->
+<!--      <div *ngFor="let button of buttons">-->
+<!--        <button-->
+<!--          style="margin-left: 5px;"-->
+<!--          (click)="onButtonClickEvent($event, {}, button.buttonName)"-->
+<!--          nbButton-->
+<!--          size="small"-->
+<!--          status="{{ button.status }}"-->
+<!--          *ngIf="button['dialogMode'] ? button['dialogMode'] === button['btnMode'] : true"-->
+<!--        >-->
+<!--          {{ button.buttonName }}-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+  </p-footer>
+</p-card>
+
 
 
 

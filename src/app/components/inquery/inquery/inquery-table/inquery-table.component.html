@@ -137,36 +137,30 @@
 <!--  </app-common-grid>-->
 <!--</p-dialog>-->
 
-<app-common-dialog-box
-  #inquiryDialogBox
-  class="body .ui-dialog"
-  header="Inquiry Form"
-  [dialogBox]="setDialogBoxValue1"
-  (closeButtonClick)="close()"
->
-  <app-customer-handling
-    (submitClicked)="submitClick()"
-  ></app-customer-handling>
-</app-common-dialog-box>
+<!--<app-common-dialog-box-->
+<!--  #inquiryDialogBox-->
+<!--  class="body .ui-dialog"-->
+<!--  header="Inquiry Form">-->
 
-<app-common-dialog-box
-  #statusHistoryDialogBox
-  class="body .ui-dialog"
-  header="Status History"
-  [dialogBox]="setDialogBoxValue2"
-  (closeButtonClick)="close()"
->
-  <app-common-grid
-    #statusHistoryGrid
-    header="Status History"
-    [addAllow]="addAllowHistory"
-    [showToolBar]="showToolBar"
-    [showSearchBox]="showSearchBox"
-  >
-    <div *ngIf="dataLoading1">
-      <div class="loader-history">
-        <div class="whirly-loader"></div>
-      </div>
-    </div>
-  </app-common-grid>
-</app-common-dialog-box>
+<!--</app-common-dialog-box>-->
+
+
+
+<!--<app-common-dialog-box-->
+<!--  #statusHistoryDialogBox-->
+<!--  class="body .ui-dialog"-->
+<!--  header="Status History"-->
+<!--&gt;-->
+<!--  <app-common-grid-->
+<!--    #statusHistoryGrid-->
+<!--    header="Status History"-->
+<!--    [addAllow]="addAllowHistory"-->
+<!--    [showToolBar]="showToolBar"-->
+<!--    [showSearchBox]="showSearchBox">-->
+<!--    <div *ngIf="dataLoading1">-->
+<!--      <div class="loader-history">-->
+<!--        <div class="whirly-loader"></div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </app-common-grid>-->
+<!--</app-common-dialog-box>-->

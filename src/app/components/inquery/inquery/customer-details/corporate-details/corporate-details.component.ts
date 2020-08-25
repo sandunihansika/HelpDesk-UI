@@ -14,6 +14,7 @@ import { CompanyType, TextBoxTypes } from "src/app/shared/services/common/enum";
 import { CustomerType } from "src/app/shared/services/common/enum";
 import { CustomerDetailsService } from "../../../../../shared/services/customer-details.service";
 import {ToastrService} from 'ngx-toastr';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: "app-corporate-details",
@@ -32,7 +33,8 @@ export class CorporateDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private formValidationHelper: FormValidationHelpers,
     private customerservice: CustomerDetailsService,
-    private toastservice: ToastrService
+    private toastservice: ToastrService,
+    public dialogRef: MatDialogRef<CorporateDetailsComponent>,
   ) {
     this.companyType = [
       {id: CompanyType.Ingenii, name: 'Ingenii'},
@@ -103,7 +105,7 @@ export class CorporateDetailsComponent implements OnInit {
     this.corporateForm = this.formBuilder.group({
       companyName: ['', Validators.required],
       companyRegistrationNo: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       streetAddressLineOne: ['', Validators.required],
       streetAddressLineTwo: ['', Validators.required],
       handlingCompany: [this.companyType[0].id, [Validators.required]],
@@ -119,7 +121,9 @@ export class CorporateDetailsComponent implements OnInit {
 
   getCompanyId(event) {
     console.log(event.id);
-    this.corporateForm.value.handlingCompany = event.id;
+    this.corporateForm.patchValue({
+      handlingCompany:event.id
+    })
   }
 
 
@@ -140,6 +144,10 @@ export class CorporateDetailsComponent implements OnInit {
 
   showSuccess() {
     this.toastservice.success("Success", "Inquery Created Succesfully");
+  }
+
+  closeDialog(bool?) {
+    this.dialogRef.close(bool);
   }
 
 }
