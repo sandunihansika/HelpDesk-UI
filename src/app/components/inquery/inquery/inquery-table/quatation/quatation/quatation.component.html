@@ -1,4 +1,4 @@
-<app-loader [loader]="dataLoading"></app-loader>
+<!--<app-loader [loader]="dataLoading"></app-loader>-->
 <app-common-grid
   #quotationGrid
   header="Customer Name - {{
@@ -45,6 +45,11 @@
     "
   ></button>
 </app-common-grid>
+<div *ngIf="dataLoading">
+  <div class="loader-table">
+    <div class="whirly-loader"></div>
+  </div>
+</div>
 
 <app-common-dialog-box
   class="body .ui-dialog"

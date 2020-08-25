@@ -12,6 +12,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CustomerDetailsComponent} from './customer-details/customer-details/customer-details.component';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {FormsModule} from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [InqueryTableComponent, CustomerHandlingComponent],
   imports: [
@@ -25,7 +26,8 @@ import {FormsModule} from '@angular/forms';
     InqueryRoutingModule,
     CustomerTableModule,
     RadioButtonModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
   exports: [InqueryTableComponent, CustomerHandlingComponent]
 })

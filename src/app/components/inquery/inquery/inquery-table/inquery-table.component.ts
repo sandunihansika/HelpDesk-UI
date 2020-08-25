@@ -4,8 +4,8 @@ import {
   OnInit,
   Output,
   ViewChild,
-  EventEmitter,
-} from "@angular/core";
+  EventEmitter, Inject,
+} from '@angular/core';
 import { CommonGridComponent } from "../../../../shared/components/common-grid/common-grid.component";
 import {
   Alignment,
@@ -17,6 +17,8 @@ import { CustomerDetailsService } from "../../../../shared/services/customer-det
 import { Router } from "@angular/router";
 import { FormControl } from "@angular/forms";
 import { CommonDialogBoxComponent } from "../../../../shared/components/common-dialog-box/common-dialog-box.component";
+import { CommonConfirmBoxHelper } from '../../../../shared/components/common-confirm-box/common-confirm-box-helper';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: "app-inquery-table",
@@ -58,7 +60,8 @@ export class InqueryTableComponent implements OnInit {
 
   constructor(
     public CustomerDetailsService: CustomerDetailsService,
-    public route: Router
+    public route: Router,
+    public confirmBoxHelper: CommonConfirmBoxHelper
   ) {}
 
   ngOnInit(): void {
@@ -282,114 +285,120 @@ export class InqueryTableComponent implements OnInit {
   }
 
   gotConsent(event) {
-    this.inqueryGrid.spinner = true;
-    this.CustomerDetailsService.clickedGotConsent(
-      event.id,
-      event.customerId
-    ).subscribe(
-      (list: any) => {
-        if (list) {
-          this.setInquiryRowColumns();
-          this.inqueryGrid.selectedEntity = null;
-          this.inqueryGrid.spinner = false;
-        } else {
-          this.inqueryGrid.rowLists = [];
-          this.inqueryGrid.spinner = false;
+    this.confirmBoxHelper.customConfirmation(() => {
+      this.dataLoading = true;
+      this.CustomerDetailsService.clickedGotConsent(
+        event.id,
+        event.customerId
+      ).subscribe(
+        (list: any) => {
+          if (list) {
+            this.setInquiryRowColumns();
+            this.inqueryGrid.selectedEntity = null;
+          } else {
+            this.inqueryGrid.rowLists = [];
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.dataLoading = true;
         }
-      },
-      (error) => {
-        this.inqueryGrid.spinner = true;
-      }
-    );
+      );
+    }, 'Did you get consent?')
+
   }
 
   approve(event) {
-    this.inqueryGrid.spinner = true;
-    this.CustomerDetailsService.clickedApprove(
-      event.id,
-      event.customerId
-    ).subscribe(
-      (list: any) => {
-        if (list) {
-          this.setInquiryRowColumns();
-          this.inqueryGrid.selectedEntity = null;
-          this.inqueryGrid.spinner = false;
-        } else {
-          this.inqueryGrid.rowLists = [];
-          this.inqueryGrid.spinner = false;
+    this.confirmBoxHelper.customConfirmation(() => {
+      this.dataLoading = true;
+      this.CustomerDetailsService.clickedApprove(
+        event.id,
+        event.customerId
+      ).subscribe(
+        (list: any) => {
+          if (list) {
+            this.setInquiryRowColumns();
+            this.inqueryGrid.selectedEntity = null;
+          } else {
+            this.inqueryGrid.rowLists = [];
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        this.inqueryGrid.spinner = true;
-      }
-    );
+      );
+    }, 'Do you want to approve?')
+
   }
 
   reject(event) {
-    this.inqueryGrid.spinner = true;
-    this.CustomerDetailsService.clickedReject(
-      event.id,
-      event.customerId
-    ).subscribe(
-      (list: any) => {
-        if (list) {
-          this.setInquiryRowColumns();
-          this.inqueryGrid.selectedEntity = null;
-          this.inqueryGrid.spinner = false;
-        } else {
-          this.inqueryGrid.rowLists = [];
-          this.inqueryGrid.spinner = false;
+    this.confirmBoxHelper.customConfirmation(() => {
+      this.dataLoading = true;
+      this.CustomerDetailsService.clickedReject(
+        event.id,
+        event.customerId
+      ).subscribe(
+        (list: any) => {
+          if (list) {
+            this.setInquiryRowColumns();
+            this.inqueryGrid.selectedEntity = null;
+          } else {
+            this.inqueryGrid.rowLists = [];
+          }
+        },
+        (error) => {
+          this.dataLoading = true;
         }
-      },
-      (error) => {
-        this.inqueryGrid.spinner = true;
-      }
-    );
+      );
+    }, 'Do you want to reject?')
+
   }
 
   resend(event) {
-    this.inqueryGrid.spinner = true;
-    this.CustomerDetailsService.clickedResend(
-      event.id,
-      event.customerId,
-      event.customer.handlingCompany
-    ).subscribe(
-      (list: any) => {
-        if (list) {
-          this.setInquiryRowColumns();
-          this.inqueryGrid.selectedEntity = null;
-          this.inqueryGrid.spinner = false;
-        } else {
-          this.inqueryGrid.rowLists = [];
-          this.inqueryGrid.spinner = false;
+    this.confirmBoxHelper.customConfirmation(() => {
+      this.dataLoading = true;
+      this.CustomerDetailsService.clickedResend(
+        event.id,
+        event.customerId,
+        event.customer.handlingCompany
+      ).subscribe(
+        (list: any) => {
+          if (list) {
+            this.setInquiryRowColumns();
+            this.inqueryGrid.selectedEntity = null;
+          } else {
+            this.inqueryGrid.rowLists = [];
+          }
+        },
+        (error) => {
+          this.dataLoading = true;
         }
-      },
-      (error) => {
-        this.inqueryGrid.spinner = true;
-      }
-    );
+      );
+    }, 'Do you want to resend quotation?')
+
   }
 
   gotReConsent(event) {
-    this.inqueryGrid.spinner = true;
-    this.CustomerDetailsService.clickedGotReConsent(
-      event.id,
-      event.customerId
-    ).subscribe(
-      (list: any) => {
-        if (list) {
-          this.setInquiryRowColumns();
-          this.inqueryGrid.selectedEntity = null;
-          this.inqueryGrid.spinner = false;
-        } else {
-          this.inqueryGrid.rowLists = [];
-          this.inqueryGrid.spinner = false;
+    this.confirmBoxHelper.customConfirmation(() => {
+      this.dataLoading = true;
+      this.CustomerDetailsService.clickedGotReConsent(
+        event.id,
+        event.customerId
+      ).subscribe(
+        (list: any) => {
+          if (list) {
+            this.setInquiryRowColumns();
+            this.inqueryGrid.selectedEntity = null;
+          } else {
+            this.inqueryGrid.rowLists = [];
+          }
+        },
+        (error) => {
+          this.dataLoading = true;
         }
-      },
-      (error) => {
-        this.inqueryGrid.spinner = true;
-      }
-    );
+      );
+    }, 'Did you get reconsent?')
+
   }
   addButtonClick() {
     this.setDialogBoxValue1 = true;

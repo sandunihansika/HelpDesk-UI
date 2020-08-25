@@ -1,4 +1,4 @@
-<app-loader [loader]="dataLoading"></app-loader>
+<!--<app-loader [loader]="dataLoading"></app-loader>-->
 <app-common-grid
   #inqueryGrid
   [addAllow]="addAllow"
@@ -72,8 +72,7 @@
     (click)="approve(this.inqueryGrid.selectedEntity)"
     *ngIf="
       inqueryGrid.selectedEntity &&
-      (inqueryGrid.selectedEntity.status.name === 'Remind customer' ||
-        inqueryGrid.selectedEntity.status.name === 'Re-remind customer')
+      inqueryGrid.selectedEntity.status.name === 'Remind customer'
     "
   ></button>
   <button
@@ -121,6 +120,11 @@
   <!--    </div>-->
   <!--  </div>-->
 </app-common-grid>
+<div *ngIf="dataLoading">
+  <div class="loader-table">
+    <div class="whirly-loader"></div>
+  </div>
+</div>
 
 <!--<p-dialog header="Inquiry Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
 <!--  <app-customer-handling></app-customer-handling>-->
@@ -170,3 +174,5 @@
     </div>
   </app-common-grid>
 </app-common-dialog-box>
+
+
