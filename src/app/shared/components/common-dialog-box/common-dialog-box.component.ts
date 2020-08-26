@@ -40,7 +40,7 @@
 // }
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import {DialogMode} from '../../services/common/enum';
+
 
 export class ButtonClickEvent {
   data: any;
@@ -48,12 +48,7 @@ export class ButtonClickEvent {
   event: any;
 }
 
-interface Button {
-  buttonName: string;
-  status: string;
-  btnMode?: DialogMode;
-  dialogMode?: DialogMode;
-}
+
 
 @Component({
   selector: 'app-common-dialog-box',
@@ -63,7 +58,7 @@ interface Button {
 export class CommonDialogBoxComponent implements OnInit {
   public onButtonClick: EventEmitter<any> = new EventEmitter();
   @Input() title: any;
-  @Input() buttons: Button[];
+
 
   constructor(public dialogRef: MatDialogRef<CommonDialogBoxComponent>) {}
 

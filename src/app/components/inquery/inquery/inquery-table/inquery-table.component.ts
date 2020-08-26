@@ -4,8 +4,8 @@ import {
   OnInit,
   Output,
   ViewChild,
-  EventEmitter, Inject,
-} from '@angular/core';
+  EventEmitter,
+} from "@angular/core";
 import { CommonGridComponent } from "../../../../shared/components/common-grid/common-grid.component";
 import {
   Alignment,
@@ -17,6 +17,8 @@ import { CustomerDetailsService } from "../../../../shared/services/customer-det
 import { Router } from "@angular/router";
 import { FormControl } from "@angular/forms";
 import { CommonDialogBoxComponent } from "../../../../shared/components/common-dialog-box/common-dialog-box.component";
+import {CustomerHandlingComponent} from './customer-handling/customer-handling.component';
+import {MatDialog} from '@angular/material/dialog';
 import { CommonConfirmBoxHelper } from '../../../../shared/components/common-confirm-box/common-confirm-box-helper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -61,7 +63,9 @@ export class InqueryTableComponent implements OnInit {
   constructor(
     public CustomerDetailsService: CustomerDetailsService,
     public route: Router,
-    public confirmBoxHelper: CommonConfirmBoxHelper
+    public confirmBoxHelper: CommonConfirmBoxHelper,
+    public customerHandling : CustomerHandlingComponent,
+    public dialogService:MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -402,10 +406,12 @@ export class InqueryTableComponent implements OnInit {
   }
   addButtonClick() {
     this.setDialogBoxValue1 = true;
+    this.openInquiryWindow();
   }
   close() {
     this.setDialogBoxValue1 = false;
     this.setDialogBoxValue2 = false;
+    this.setInquiryRowColumns();
   }
 
   submitClick() {
@@ -414,5 +420,18 @@ export class InqueryTableComponent implements OnInit {
     this.route.onSameUrlNavigation = "reload";
     this.setInquiryRowColumns();
     this.route.navigate(["/inquiry"]);
+  }
+
+  openInquiryWindow() {
+    const dialogRef = this.dialogService.open(CustomerHandlingComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
   }
 }

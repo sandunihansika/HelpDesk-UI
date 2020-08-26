@@ -18,6 +18,7 @@ import {ToastrService} from 'ngx-toastr';
 import {CommonDialogBoxComponent} from '../../../../../shared/components/common-dialog-box/common-dialog-box.component';
 import {MatDialogRef} from '@angular/material/dialog';
 import {Subscription} from 'rxjs';
+import {CommonConfirmBoxHelper} from '../../../../../shared/components/common-confirm-box/common-confirm-box-helper';
 
 
 @Component({
@@ -57,6 +58,7 @@ export class CustomerHandlingComponent implements OnInit {
     private formvalidationhelpers: FormValidationHelpers,
     private toastservice: ToastrService,
     public dialogRef: MatDialogRef<CustomerHandlingComponent>,
+    public confirmBoxHelper: CommonConfirmBoxHelper,
   ) {
     this.companyCustomerDetails = new CompanyCustomerDeails();
     this.InqueryTypeArray = [
@@ -325,118 +327,120 @@ export class CustomerHandlingComponent implements OnInit {
 
   createInquery() {
     try {
-      if(this.individualCorpCustomerForm.value.customerStatus === 'exist'){
-        if (this.individualCorpCustomerForm.value.type === CustomerType.Individual) {
-          console.log(this.individualCorpCustomerForm.value);
-          if (this.individualCorpCustomerForm.invalid) {
-            this.formvalidationhelpers.validateAllFormFields(
-              this.individualCorpCustomerForm
-            );
-            return;
-          }
-          {
-            this.selectedHandlingCompany = this.individualCorpCustomerForm.value.handlingCompany;
-            this.customerservice
-              .addInquery(this.individualCorpCustomerForm.value)
-              .subscribe((respond) => {
-                // this.individualCorpCustomerForm.reset();
-                // this.individualCorpCustomerForm.patchValue({
-                //   handlingCompany: this.selectedHandlingCompany,
-                //   customerStatus: 'exist',
-                //   inquiryType: InqueryType.Quotation
-                // });
-                // this.resetcNumbercPerson();
-                // this.getCustomer();
-                this.formEnable = true;
-                console.log(respond);
-                this.showSuccess();
-                this.closeDialog(true);
-              });
-          }
-        } else if (this.individualCorpCustomerForm.value.type === CustomerType.Corporate) {
-          console.log(this.individualCorpCustomerForm.value);
-          if (this.individualCorpCustomerForm.invalid) {
-            this.formvalidationhelpers.validateAllFormFields(
-              this.individualCorpCustomerForm
-            );
-            return;
-          }
-          {
-            this.customerservice
-              .addInquery(this.individualCorpCustomerForm.value)
-              .subscribe((respond) => {
-                // this.individualCorpCustomerForm.reset();
-                // this.individualCorpCustomerForm.patchValue({
-                //   handlingCompany: this.selectedHandlingCompany,
-                //   customerStatus: 'exist',
-                //   inquiryType: InqueryType.Quotation
-                // });
-                // this.resetcNumbercPerson();
-                // this.getCustomer();
-                this.formEnable = true;
-                console.log(respond);
-                this.showSuccess();
-                this.closeDialog(true);
-              });
-          }
-        }
+     this.confirmBoxHelper.saveConfirmation(()=>{
+       if(this.individualCorpCustomerForm.value.customerStatus === 'exist'){
+         if (this.individualCorpCustomerForm.value.type === CustomerType.Individual) {
+           console.log(this.individualCorpCustomerForm.value);
+           if (this.individualCorpCustomerForm.invalid) {
+             this.formvalidationhelpers.validateAllFormFields(
+               this.individualCorpCustomerForm
+             );
+             return;
+           }
+           {
+             this.selectedHandlingCompany = this.individualCorpCustomerForm.value.handlingCompany;
+             this.customerservice
+               .addInquery(this.individualCorpCustomerForm.value)
+               .subscribe((respond) => {
+                 // this.individualCorpCustomerForm.reset();
+                 // this.individualCorpCustomerForm.patchValue({
+                 //   handlingCompany: this.selectedHandlingCompany,
+                 //   customerStatus: 'exist',
+                 //   inquiryType: InqueryType.Quotation
+                 // });
+                 // this.resetcNumbercPerson();
+                 // this.getCustomer();
+                 this.formEnable = true;
+                 console.log(respond);
+                 this.showSuccess();
+                 this.closeDialog(true);
+               });
+           }
+         } else if (this.individualCorpCustomerForm.value.type === CustomerType.Corporate) {
+           console.log(this.individualCorpCustomerForm.value);
+           if (this.individualCorpCustomerForm.invalid) {
+             this.formvalidationhelpers.validateAllFormFields(
+               this.individualCorpCustomerForm
+             );
+             return;
+           }
+           {
+             this.customerservice
+               .addInquery(this.individualCorpCustomerForm.value)
+               .subscribe((respond) => {
+                 // this.individualCorpCustomerForm.reset();
+                 // this.individualCorpCustomerForm.patchValue({
+                 //   handlingCompany: this.selectedHandlingCompany,
+                 //   customerStatus: 'exist',
+                 //   inquiryType: InqueryType.Quotation
+                 // });
+                 // this.resetcNumbercPerson();
+                 // this.getCustomer();
+                 this.formEnable = true;
+                 console.log(respond);
+                 this.showSuccess();
+                 this.closeDialog(true);
+               });
+           }
+         }
 
-      } else if(this.individualCorpCustomerForm.value.customerStatus === 'new'){
-        if (this.individualCorpCustomerForm.value.type === CustomerType.Individual) {
-          console.log(this.individualCorpCustomerForm.value);
-          if (this.individualCorpCustomerForm.invalid) {
-            this.formvalidationhelpers.validateAllFormFields(
-              this.individualCorpCustomerForm
-            );
-            return;
-          }
-          {
-            this.selectedHandlingCompany = this.individualCorpCustomerForm.value.handlingCompany;
-            this.customerservice
-              .addInquery(this.individualCorpCustomerForm.value)
-              .subscribe((respond) => {
-                // this.individualCorpCustomerForm.reset();
-                // this.individualCorpCustomerForm.patchValue({
-                //   handlingCompany: this.selectedHandlingCompany,
-                //   customerStatus: 'new',
-                //   inquiryType: InqueryType.Quotation
-                // });
-                // this.resetcNumbercPerson();
-                // this.getCustomer();
-                this.formEnable = false;
-                console.log(respond);
-                this.showSuccess();
-                this.closeDialog(true);
-              });
-          }
-        } else if (this.individualCorpCustomerForm.value.type === CustomerType.Corporate) {
-          console.log(this.individualCorpCustomerForm.value);
-          if (this.individualCorpCustomerForm.invalid) {
-            this.formvalidationhelpers.validateAllFormFields(
-              this.individualCorpCustomerForm
-            );
-            return;
-          }
-          {
-            this.customerservice
-              .addInquery(this.individualCorpCustomerForm.value)
-              .subscribe((respond) => {
-                // this.individualCorpCustomerForm.reset();
-                // this.individualCorpCustomerForm.patchValue({
-                //   handlingCompany: this.selectedHandlingCompany,
-                //   customerStatus: 'new',
-                //   inquiryType: InqueryType.Quotation
-                // });
-                // this.resetcNumbercPerson();
-                // this.getCustomer();
-                this.formEnable = false;
-                console.log(respond);
-                this.showSuccess();
-                this.closeDialog(true);
-              });
-          }
-        }
-      }
+       } else if(this.individualCorpCustomerForm.value.customerStatus === 'new'){
+         if (this.individualCorpCustomerForm.value.type === CustomerType.Individual) {
+           console.log(this.individualCorpCustomerForm.value);
+           if (this.individualCorpCustomerForm.invalid) {
+             this.formvalidationhelpers.validateAllFormFields(
+               this.individualCorpCustomerForm
+             );
+             return;
+           }
+           {
+             this.selectedHandlingCompany = this.individualCorpCustomerForm.value.handlingCompany;
+             this.customerservice
+               .addInquery(this.individualCorpCustomerForm.value)
+               .subscribe((respond) => {
+                 // this.individualCorpCustomerForm.reset();
+                 // this.individualCorpCustomerForm.patchValue({
+                 //   handlingCompany: this.selectedHandlingCompany,
+                 //   customerStatus: 'new',
+                 //   inquiryType: InqueryType.Quotation
+                 // });
+                 // this.resetcNumbercPerson();
+                 // this.getCustomer();
+                 this.formEnable = false;
+                 console.log(respond);
+                 this.showSuccess();
+                 this.closeDialog(true);
+               });
+           }
+         } else if (this.individualCorpCustomerForm.value.type === CustomerType.Corporate) {
+           console.log(this.individualCorpCustomerForm.value);
+           if (this.individualCorpCustomerForm.invalid) {
+             this.formvalidationhelpers.validateAllFormFields(
+               this.individualCorpCustomerForm
+             );
+             return;
+           }
+           {
+             this.customerservice
+               .addInquery(this.individualCorpCustomerForm.value)
+               .subscribe((respond) => {
+                 // this.individualCorpCustomerForm.reset();
+                 // this.individualCorpCustomerForm.patchValue({
+                 //   handlingCompany: this.selectedHandlingCompany,
+                 //   customerStatus: 'new',
+                 //   inquiryType: InqueryType.Quotation
+                 // });
+                 // this.resetcNumbercPerson();
+                 // this.getCustomer();
+                 this.formEnable = false;
+                 console.log(respond);
+                 this.showSuccess();
+                 this.closeDialog(true);
+               });
+           }
+         }
+       }
+     })
     } catch (error) {
       console.log(error);
     }

@@ -27,7 +27,9 @@ import { ToolbarModule } from "primeng/toolbar";
 import { CardModule } from "primeng/card";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { DialogModule } from "primeng/dialog";
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
+import {CommonConfirmBoxComponent} from './components/common-confirm-box/common-confirm-box.component';
 
 import "hammerjs";
 import "mousetrap";
@@ -47,7 +49,6 @@ import { CommonTextareaComponent } from "./components/common-textarea/common-tex
 import { CommonCalenderComponent } from "./components/common-calender/common-calender/common-calender.component";
 import { CalendarModule } from "primeng/calendar";
 import { CommonDialogBoxComponent } from "./components/common-dialog-box/common-dialog-box.component";
-import { CommonConfirmBoxComponent } from './components/common-confirm-box/common-confirm-box.component';
 import {CommonConfirmBoxHelper} from './components/common-confirm-box/common-confirm-box-helper';
 
 @NgModule({
@@ -92,6 +93,7 @@ import {CommonConfirmBoxHelper} from './components/common-confirm-box/common-con
     CalendarModule,
     DialogModule,
     ReactiveFormsModule,
+    MatDialogModule,
     MatCardModule
   ],
   exports: [
