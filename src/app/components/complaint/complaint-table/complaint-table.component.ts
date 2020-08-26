@@ -22,6 +22,8 @@ import {
   NgbModalConfig,
 } from "@ng-bootstrap/ng-bootstrap";
 import { CommonDialogBoxComponent } from "../../../shared/components/common-dialog-box/common-dialog-box.component";
+import { CommonConfirmBoxHelper } from '../../../shared/components/common-confirm-box/common-confirm-box-helper';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {async} from 'rxjs-compat/scheduler/async';
 import {MatDialog} from '@angular/material/dialog';
 import {CorporateDetailsComponent} from '../../inquery/inquery/customer-details/corporate-details/corporate-details.component';
@@ -46,7 +48,8 @@ export class ComplaintTableComponent implements OnInit {
     public dialogService:MatDialog,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    config: NgbModalConfig
+    config: NgbModalConfig,
+    public confirmBoxHelper: CommonConfirmBoxHelper
   ) {}
 
   addAllow = false;
@@ -192,7 +195,6 @@ export class ComplaintTableComponent implements OnInit {
 
   changeStatus(event){
     // this.checkButton = false;
-    this.complaintGrid.spinner = true;
     const status = Status.Completed;
     const id = event.id;
     // event = null;
@@ -200,16 +202,18 @@ export class ComplaintTableComponent implements OnInit {
     console.log(event);
 
     try{
-      this.customerDetailsService.updateComplainStatus(id,status).
-      subscribe((res)=>{
-        this.setComplainRow();
-        this.complaintGrid.selectedEntity = null;
-        this.complaintGrid.spinner = false;
-      })
+      this.confirmBoxHelper.customConfirmation(() => {
+        this.dataLoading = true;
+        this.customerDetailsService.updateComplainStatus(id,status).
+        subscribe((res)=>{
+          this.setComplainRow();
+          this.complaintGrid.selectedEntity = null;
+        });
+      }, 'Are you sure?')
     }
     catch (e) {
       console.log(e);
-      this.complaintGrid.spinner = true;
+      this.dataLoading = true;
     }
     // try {
     //   this.inqueryGrid.rowLists[0] = this.CustomerDetailsService.clickedGotConsent(event);

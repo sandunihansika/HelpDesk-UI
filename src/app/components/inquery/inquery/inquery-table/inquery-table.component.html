@@ -121,6 +121,11 @@
   <!--    </div>-->
   <!--  </div>-->
 </app-common-grid>
+<div *ngIf="dataLoading">
+  <div class="loader-table">
+    <div class="whirly-loader"></div>
+  </div>
+</div>
 
 <!--<p-dialog header="Inquiry Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
 <!--  <app-customer-handling></app-customer-handling>-->
@@ -144,19 +149,20 @@
 
 <!--</app-common-dialog-box>-->
 
-
-
 <!--<app-common-dialog-box-->
 <!--  #statusHistoryDialogBox-->
 <!--  class="body .ui-dialog"-->
 <!--  header="Status History"-->
+<!--  [dialogBox]="setDialogBoxValue2"-->
+<!--  (closeButtonClick)="close()"-->
 <!--&gt;-->
 <!--  <app-common-grid-->
 <!--    #statusHistoryGrid-->
 <!--    header="Status History"-->
 <!--    [addAllow]="addAllowHistory"-->
 <!--    [showToolBar]="showToolBar"-->
-<!--    [showSearchBox]="showSearchBox">-->
+<!--    [showSearchBox]="showSearchBox"-->
+<!--  >-->
 <!--    <div *ngIf="dataLoading1">-->
 <!--      <div class="loader-history">-->
 <!--        <div class="whirly-loader"></div>-->

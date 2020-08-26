@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import * as chartData from "./../../../shared/data/dashboard/default";
-import * as chartDataPie from "../../../shared/data/chart/chartjs";
+import * as chartDataPie from '../../../shared/data/chart/chartjs';
 import { CustomerDetailsService } from "../../../shared/services/customer-details.service";
 import { BehaviorSubject, Observable } from "rxjs";
 import { LoggedUserDetails } from "../../../auth/logged-user-details";
@@ -142,38 +142,6 @@ export class DefaultComponent implements OnInit {
   public chartHovered(e: any): void {}
 
   setDoughnutData() {
-    // this.CustomerDetailsService.getAllInquiry().subscribe((list: any) => {
-    //   if (list.data !== undefined) {
-    //     if (list.data) {
-    //       //this.listData.next(list.data);
-    //       list.data.forEach((item: any) => {
-    //         if (item.status.name == "Need consent") {
-    //           this.needConsent++;
-    //         } else if (item.status.name == "Send quotation") {
-    //           this.sendQuotation++;
-    //         } else if (item.status.name == "Remind customer") {
-    //           this.remindCustomer++;
-    //         } else if (item.status.name == "Approved quotation") {
-    //           this.approvedQuotation++;
-    //         } else if (item.status.name == "Rejected quotation") {
-    //           this.rejectedQuotation++;
-    //         } else if (item.status.name == "Re-send quotation ") {
-    //           this.resendQuotation++;
-    //         } else if (item.status.name == "Re-need consent") {
-    //           this.reneedConsent++;
-    //         }
-    //       });
-    //
-    //       // this.doughnutChartData1[0] = this.needConsent;
-    //       // this.doughnutChartData1[1] = this.sendQuotation;
-    //       // this.doughnutChartData1[2] = this.remindCustomer;
-    //       // this.doughnutChartData1[3] = this.approvedQuotation;
-    //       // this.doughnutChartData1[4] = this.rejectedQuotation;
-    //       // this.doughnutChartData1[5] = this.resendQuotation;
-    //       // this.doughnutChartData1[6] = this.reneedConsent;
-    //     }
-    //   }
-    // });
     this.dataLoading = true;
     this.CustomerDetailsService.getStatusCount().subscribe(
       (list: any) => {
@@ -197,7 +165,6 @@ export class DefaultComponent implements OnInit {
               } else if (item.statusId === Status.ReNeedConsent) {
                 this.doughnutChartData1[6] = item.count;
               }
-              //this.doughnutChartData1.push(parseInt(item.count));
               this.dataLoading = false;
             });
             //console.log(this.doughnutChartData1);

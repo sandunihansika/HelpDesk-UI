@@ -29,7 +29,8 @@ export class CustomerTableComponent implements OnInit {
   displayCoporate: boolean = false;
   dataSource: any[];
   CusArray: any;
-  dataLoading = false;
+  dataLoading1 = false;
+  dataLoading2 = false;
   setDialogBoxValue1 = false;
   setDialogBoxValue2 = false;
   selectedTabIndex: number;
@@ -206,8 +207,8 @@ export class CustomerTableComponent implements OnInit {
     // this.IndividualCompanyListGrid.rowLists = result1;
     // const result2 = this.CusArray.filter(CusArray=> CusArray.type === CustomerType.Corporate);
     // this.CorporateCompanyListGrid.rowLists = result2;
-    this.dataLoading = true;
-    this.dataLoading = true;
+    this.dataLoading1 = true;
+    this.dataLoading2 = true;
     this.CustomerDetailsService.getCustomerList().subscribe(
       (list: any) => {
         if (list.data !== undefined) {
@@ -220,19 +221,19 @@ export class CustomerTableComponent implements OnInit {
               });
             });
             this.putDataIntoTable(list.data);
-            this.dataLoading = false;
-            this.dataLoading = false;
+           this.dataLoading1 = false;
+           this.dataLoading2 = false;
           } else {
             this.IndividualCompanyListGrid.rowLists = [];
-            this.dataLoading = false;
+            this.dataLoading1 = false;
             this.CorporateCompanyListGrid.rowLists = [];
-            this.dataLoading = false;
+            this.dataLoading2 = false;
           }
         }
       },
       (error) => {
-        this.dataLoading = true;
-        this.dataLoading = true;
+        this.dataLoading1 = true;
+        this.dataLoading2 = true;
         console.log(error);
       }
     );

@@ -147,21 +147,21 @@ export class QuatationComponent implements OnInit {
   }
 
   setQuotationRowList(customerId) {
-    this.quotationGrid.dataLoading = true;
+    this.dataLoading = true;
     this.customerservice.getQuotation(customerId).subscribe(
       (list: any) => {
         if (list.data !== undefined) {
           if (list.data) {
             this.quotationGrid.rowLists = list.data;
-            this.quotationGrid.dataLoading = false;
+            this.dataLoading = false;
           } else {
             this.quotationGrid.rowLists = [];
-            this.quotationGrid.dataLoading = false;
+            this.dataLoading = false;
           }
         }
       },
       (error) => {
-        this.quotationGrid.dataLoading = true;
+        this.dataLoading = true;
         console.log(error);
       }
     );

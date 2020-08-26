@@ -1,0 +1,14 @@
+<mat-card style="width: 20vw">
+  <mat-card-header>
+    <mat-card-title style="font-size: medium;color: #757575;"> {{ dialogMessage }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p></p>
+  </mat-card-content >
+  <mat-card-actions align="center">
+    <div class="row">
+    <button type="button" style="margin-left: 55%;padding-left: 15px;padding-right: 15px;padding-top: 1px;padding-bottom: 1px;" class="btn btn-primary" (click)="submit()">Yes</button>
+    <button type="button" style="margin-left: 5px;padding-left: 15px;padding-right: 15px;padding-top: 1px;padding-bottom: 1px;" class="btn btn-danger" (click)="cancel()">No</button>
+    </div>
+  </mat-card-actions>
+</mat-card>
