@@ -23,6 +23,7 @@ import {
 } from "@ng-bootstrap/ng-bootstrap";
 import { CommonDialogBoxComponent } from "../../../shared/components/common-dialog-box/common-dialog-box.component";
 import {async} from 'rxjs-compat/scheduler/async';
+import {ComplaintFormComponent} from '../complaint-form/complaint-form.component';
 
 @Component({
   selector: "app-complaint-table",
@@ -42,7 +43,8 @@ export class ComplaintTableComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private modalService: NgbModal,
-    config: NgbModalConfig
+    config: NgbModalConfig,
+
   ) {}
 
   addAllow = false;
@@ -223,7 +225,8 @@ export class ComplaintTableComponent implements OnInit {
   }
   close() {
     this.setDialogBoxValue = false;
-    this.setComplainRow()
+    this.setComplainRow();
+
   }
 
   SubmitClick() {
