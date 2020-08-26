@@ -152,11 +152,28 @@
                       attr.name="{{ col.mappingName }}"
                       attr.id="{{ rowData[col.mappingName] }}"
                     >
-                         {{
-                      col.subMappingName && rowData[col.mappingName]
-                        ? rowData[col.mappingName][col.subMappingName]
-                        :(rowData[col.mappingName] | date: col.columnFormat)}}
-                     </span>
+                      {{
+                        col.subMappingName && rowData[col.mappingName]
+                          ? rowData[col.mappingName][col.subMappingName]
+                          : (rowData[col.mappingName] | date: col.columnFormat)
+                      }}
+                    </span>
+
+                    <span
+                      *ngIf="col.columnType == 5"
+                      style="display: inline-block;"
+                      attr.name="{{ col.mappingName }}"
+                      attr.id="{{ rowData[col.mappingName] }}"
+                    >
+                      <button
+                        pButton
+                        type="button"
+                        icon="pi pi-download"
+                        style="margin-left: 1vw; background-color: #1a8b99;"
+                        (click)="downloadPdfClick(rowData.quotationNo)"
+                      ></button>
+                    </span>
+
                     <!--                         <span-->
                     <!--                         *ngIf="colType==pdf">-->
                     <!--                             <button-->

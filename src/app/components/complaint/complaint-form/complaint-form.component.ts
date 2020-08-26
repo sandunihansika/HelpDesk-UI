@@ -66,12 +66,6 @@ export class ComplaintFormComponent {
       });
   }
 
-  afterClose(){
-    this.complaintForm.reset();
-    this.complaintForm.controls.complainTypeId.patchValue(this.complainTypeId[0].id);
-    this.getCustomers();
-  }
-
   resetForm() {
     this.complaintForm.reset()
   }
