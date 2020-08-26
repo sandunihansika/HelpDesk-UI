@@ -1,20 +1,23 @@
-<body>
+
+
+<app-common-dialog-box title="Add Complaint">
+  <body>
   <div class="container-fluid">
     <div class="row">
       <div class="card myCard">
         <div class="card-body">
           <form [formGroup]="complaintForm" class="theme-form">
             <div class="ui-fluid p-formgrid p-grid">
-<!--              <div class="p-field p-col-12 p-md-6">-->
-<!--                <app-common-textbox-->
-<!--                  labelName="Handling company"-->
-<!--                  placeholder="Handling company"-->
-<!--                  [inputType]="TextBoxTypes.Text"-->
-<!--                  formControlName="handlingCompany"-->
-<!--                  [c]="complaintForm.controls.handlingCompany"-->
-<!--                  id="handlingCompany"-->
-<!--                ></app-common-textbox>-->
-<!--              </div>-->
+              <!--              <div class="p-field p-col-12 p-md-6">-->
+              <!--                <app-common-textbox-->
+              <!--                  labelName="Handling company"-->
+              <!--                  placeholder="Handling company"-->
+              <!--                  [inputType]="TextBoxTypes.Text"-->
+              <!--                  formControlName="handlingCompany"-->
+              <!--                  [c]="complaintForm.controls.handlingCompany"-->
+              <!--                  id="handlingCompany"-->
+              <!--                ></app-common-textbox>-->
+              <!--              </div>-->
 
               <div class="p-field p-col-12 p-md-6">
                 <app-common-dropdown
@@ -41,8 +44,8 @@
                   placeholder="Contact person"
                 ></app-common-textbox>
 
-<!--                <input type="text" formControlName="contactPerson">-->
-<!--                <small *ngIf="(contactPerson.invalid && contactPerson.touched)" class="text-danger">Contact person is required</small>-->
+                <!--                <input type="text" formControlName="contactPerson">-->
+                <!--                <small *ngIf="(contactPerson.invalid && contactPerson.touched)" class="text-danger">Contact person is required</small>-->
               </div>
 
               <div class="p-field p-col-12 p-md-6">
@@ -79,15 +82,16 @@
 
             <div class="centreBtn">
               <button [disabled]="!complaintForm.valid"
-                (click)="addComplaint()"
-                class="btn btn-primary myBtn"
+                      (click)="addComplaint()"
+                      class="btn btn-primary myBtn"
               > Submit
               </button>
-<!--              <button (click)="resetForm()" class="btn btn-primary mr-3 myBtn"> Reset </button>-->
+              <!--              <button (click)="resetForm()" class="btn btn-primary mr-3 myBtn"> Reset </button>-->
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-</body>
+  </body>
+</app-common-dialog-box>

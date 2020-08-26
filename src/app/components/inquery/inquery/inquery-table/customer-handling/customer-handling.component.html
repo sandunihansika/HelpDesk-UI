@@ -1,477 +1,480 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="card">
-        <div class="card-body">
-          <form novalidate [formGroup]="individualCorpCustomerForm">
-            <div class="ui-fluid p-formgrid p-grid">
-              <div class="p-field p-col-12 p-md-6">
-                <label>Select Inquiry Type</label>
-                <app-common-dropdown
-                  [fields]="InqueryTypeArray"
-                ></app-common-dropdown>
-              </div>
-              <div class="p-field p-col-12 p-md-6">
-                <label>Select Company</label>
-                <app-common-dropdown
-                  [fields]="companyTypeArray"
-                  (selectChange)="getCompanySelected($event)" [filter]="!showDropFilter"
-                ></app-common-dropdown>
-              </div>
-            </div>
-            <br />
-            <br />
-
-            <div class="ui-fluid p-formgrid p-grid">
-              <div class="p-field p-col-12 p-md-6">
-                <label>New Customer</label>
-                <p-radioButton
-                  name="customer"
-                  value="new"
-                  formControlName="customerStatus"
-                  (onClick)="getCustomerStuatus(customerStatus)"
-                ></p-radioButton>
-              </div>
-              <div class="p-field p-col-12 p-md-6">
-                <label>Existing Customer</label>
-                <p-radioButton
-                  name="customer"
-                  value="exist"
-                  formControlName="customerStatus"
-                  (onClick)="getCustomerStuatus(customerStatus)"
-                ></p-radioButton>
-              </div>
-            </div>
-            <div class="ui-fluid p-formgrid p-grid">
-              <div class="p-field p-col-12 p-md-6">
-                <div *ngIf="formEnable">
+<app-common-dialog-box>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <form novalidate [formGroup]="individualCorpCustomerForm">
+              <div class="ui-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-6">
+                  <label>Select Inquiry Type</label>
                   <app-common-dropdown
-                    [fields]="showCustomers"
-                    (selectChange)="getCustomerId($event)" [filter]="showDropFilter"
+                    [fields]="InqueryTypeArray"
+                  ></app-common-dropdown>
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <label>Select Company</label>
+                  <app-common-dropdown
+                    [fields]="companyTypeArray"
+                    (selectChange)="getCompanySelected($event)" [filter]="!showDropFilter"
                   ></app-common-dropdown>
                 </div>
               </div>
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <div *ngIf="displayTypedrop">-->
-                <app-common-dropdown
-                  [fields]="customerTypeArray"
-                  (selectChange)="getCustomerTypeId($event)" [disable]="hidedrop" [filter]="!showDropFilter"
-                ></app-common-dropdown>
-                <!--                </div>-->
-              </div>
-            </div>
-            <div class="ui-fluid p-formgrid p-grid">
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Individual"
-              >
-                <!--                <label for="firstName"-->
-                <!--                  >First name<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="firstName.touched && firstName.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    First name is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="firstName"
-                  placeholder="First name"
-                  id="firstName"
-                  labelName="First Name"
-                  [c]="individualCorpCustomerForm.controls.firstName"
-                ></app-common-textbox>
-              </div>
-              <div *ngIf="dataLoading">
-                <div class="loader-login">
-                  <div class="whirly-loader"></div>
+              <br />
+              <br />
+
+              <div class="ui-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-6">
+                  <label>New Customer</label>
+                  <p-radioButton
+                    name="customer"
+                    value="new"
+                    formControlName="customerStatus"
+                    (onClick)="getCustomerStuatus(customerStatus)"
+                  ></p-radioButton>
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <label>Existing Customer</label>
+                  <p-radioButton
+                    name="customer"
+                    value="exist"
+                    formControlName="customerStatus"
+                    (onClick)="getCustomerStuatus(customerStatus)"
+                  ></p-radioButton>
                 </div>
               </div>
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Individual"
-              >
-                <!--                <label for="lastName"-->
-                <!--                  >Last name<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="lastName.touched && lastName.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Last name is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="lastName"
-                  placeholder="Last name"
-                  id="lastName"
-                  labelName="Last Name"
-                  [c]="individualCorpCustomerForm.controls.lastName"
-                ></app-common-textbox>
+              <div class="ui-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12 p-md-6">
+                  <div *ngIf="formEnable">
+                    <app-common-dropdown #dropdown
+                                         [fields]="showCustomers"
+                                         (selectChange)="getCustomerId($event)" [filter]="showDropFilter"
+                    ></app-common-dropdown>
+                  </div>
+                </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <div *ngIf="displayTypedrop">-->
+                  <app-common-dropdown
+                    [fields]="customerTypeArray"
+                    (selectChange)="getCustomerTypeId($event)" [disable]="hidedrop" [filter]="!showDropFilter"
+                  ></app-common-dropdown>
+                  <!--                </div>-->
+                </div>
               </div>
+              <div class="ui-fluid p-formgrid p-grid">
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Individual"
+                >
+                  <!--                <label for="firstName"-->
+                  <!--                  >First name<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="firstName.touched && firstName.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    First name is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="firstName"
+                    placeholder="First name"
+                    id="firstName"
+                    labelName="First Name"
+                    [c]="individualCorpCustomerForm.controls.firstName"
+                  ></app-common-textbox>
+                </div>
+                <div *ngIf="dataLoading">
+                  <div class="loader-form">
+                    <div class="whirly-loader"></div>
+                  </div>
+                </div>
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Individual"
+                >
+                  <!--                <label for="lastName"-->
+                  <!--                  >Last name<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="lastName.touched && lastName.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Last name is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
 
-              <div
-                class="p-field p-col-12 p-md-12"
-                *ngIf="customerType === cTypes.Corporate"
-              >
-                <!--                <label for="companyName"-->
-                <!--                  >Company Name<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="companyName.touched && companyName.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Company Name is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="companyName"
-                  placeholder="Company Name"
-                  id="companyName"
-                  labelName="Company Name"
-                  [c]="individualCorpCustomerForm.controls.companyName"
-                ></app-common-textbox>
-              </div>
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Individual"
-              >
-                <!--                <label for="telNo"-->
-                <!--                  >Contact No<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="telNo.touched && telNo.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Contact No is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="telNo"
-                  placeholder="Contact No"
-                  id="telNo"
-                  labelName="Contact No"
-                  [c]="individualCorpCustomerForm.controls.telNo"
-                ></app-common-textbox>
-              </div>
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="lastName"
+                    placeholder="Last name"
+                    id="lastName"
+                    labelName="Last Name"
+                    [c]="individualCorpCustomerForm.controls.lastName"
+                  ></app-common-textbox>
+                </div>
 
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Corporate"
-              >
-                <!--                <label for="companyRegistrationNo"-->
-                <!--                  >Registration No<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="-->
-                <!--                      companyRegistrationNo.touched &&-->
-                <!--                      companyRegistrationNo.errors?.required-->
-                <!--                    "-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Registration No is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="companyRegistrationNo"
-                  placeholder="Registration No"
-                  id="companyRegistrationNo"
-                  labelName="Company RegNo"
-                  [c]="
+                <div
+                  class="p-field p-col-12 p-md-12"
+                  *ngIf="customerType === cTypes.Corporate"
+                >
+                  <!--                <label for="companyName"-->
+                  <!--                  >Company Name<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="companyName.touched && companyName.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Company Name is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="companyName"
+                    placeholder="Company Name"
+                    id="companyName"
+                    labelName="Company Name"
+                    [c]="individualCorpCustomerForm.controls.companyName"
+                  ></app-common-textbox>
+                </div>
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Individual"
+                >
+                  <!--                <label for="telNo"-->
+                  <!--                  >Contact No<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="telNo.touched && telNo.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Contact No is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="telNo"
+                    placeholder="Contact No"
+                    id="telNo"
+                    labelName="Contact No"
+                    [c]="individualCorpCustomerForm.controls.telNo"
+                  ></app-common-textbox>
+                </div>
+
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Corporate"
+                >
+                  <!--                <label for="companyRegistrationNo"-->
+                  <!--                  >Registration No<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="-->
+                  <!--                      companyRegistrationNo.touched &&-->
+                  <!--                      companyRegistrationNo.errors?.required-->
+                  <!--                    "-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Registration No is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="companyRegistrationNo"
+                    placeholder="Registration No"
+                    id="companyRegistrationNo"
+                    labelName="Company RegNo"
+                    [c]="
                     individualCorpCustomerForm.controls.companyRegistrationNo
                   "
-                ></app-common-textbox>
-              </div>
+                  ></app-common-textbox>
+                </div>
 
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Individual"
-              >
-                <!--                <label for="ppNo"-->
-                <!--                  >Passport No<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="ppNo.touched && ppNo.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Passport No is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="ppNo"
-                  placeholder="Passport No"
-                  id="ppNo"
-                  labelName="Passport No"
-                  [c]="individualCorpCustomerForm.controls.ppNo"
-                ></app-common-textbox>
-              </div>
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Individual"
+                >
+                  <!--                <label for="ppNo"-->
+                  <!--                  >Passport No<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="ppNo.touched && ppNo.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Passport No is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="ppNo"
+                    placeholder="Passport No"
+                    id="ppNo"
+                    labelName="Passport No"
+                    [c]="individualCorpCustomerForm.controls.ppNo"
+                  ></app-common-textbox>
+                </div>
 
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Individual"
-              >
-                <!--                <label for="nicNumber"-->
-                <!--                  >Nic<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="nicNumber.touched && nicNumber.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Nic is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="nicNumber"
-                  placeholder="Nic"
-                  id="nicNumber"
-                  labelName="Nic"
-                  [c]="individualCorpCustomerForm.controls.nicNumber"
-                ></app-common-textbox>
-              </div>
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Individual"
+                >
+                  <!--                <label for="nicNumber"-->
+                  <!--                  >Nic<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="nicNumber.touched && nicNumber.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Nic is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="nicNumber"
+                    placeholder="Nic"
+                    id="nicNumber"
+                    labelName="Nic"
+                    [c]="individualCorpCustomerForm.controls.nicNumber"
+                  ></app-common-textbox>
+                </div>
 
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Corporate"
-              >
-                <!--                <label for="taxNumber"-->
-                <!--                  >Tax No<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="taxNumber.touched && taxNumber.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Tax No is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="taxNumber"
-                  placeholder="Tax No"
-                  id="taxNumber"
-                  labelName="Tax Number"
-                  [c]="individualCorpCustomerForm.controls.taxNumber"
-                ></app-common-textbox>
-              </div>
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Corporate"
+                >
+                  <!--                <label for="taxNumber"-->
+                  <!--                  >Tax No<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="taxNumber.touched && taxNumber.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Tax No is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="taxNumber"
+                    placeholder="Tax No"
+                    id="taxNumber"
+                    labelName="Tax Number"
+                    [c]="individualCorpCustomerForm.controls.taxNumber"
+                  ></app-common-textbox>
+                </div>
 
-              <div
-                class="p-field p-col-12 p-md-6"
-                *ngIf="customerType === cTypes.Corporate"
-              >
-                <!--                <label for="vatNumber"-->
-                <!--                  >Vat No<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="vatNumber.touched && vatNumber.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Vat No is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="vatNumber"
-                  placeholder="Vat No"
-                  id="vatNumber"
-                  labelName="Vat Number"
-                  [c]="individualCorpCustomerForm.controls.vatNumber"
-                ></app-common-textbox>
-              </div>
+                <div
+                  class="p-field p-col-12 p-md-6"
+                  *ngIf="customerType === cTypes.Corporate"
+                >
+                  <!--                <label for="vatNumber"-->
+                  <!--                  >Vat No<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="vatNumber.touched && vatNumber.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Vat No is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="vatNumber"
+                    placeholder="Vat No"
+                    id="vatNumber"
+                    labelName="Vat Number"
+                    [c]="individualCorpCustomerForm.controls.vatNumber"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="email"-->
-                <!--                  >Email<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="email.touched && email.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Email is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="email"
-                  placeholder="Email"
-                  id="email"
-                  labelName="Email"
-                  [c]="individualCorpCustomerForm.controls.email"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="email"-->
+                  <!--                  >Email<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="email.touched && email.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Email is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="email"
+                    placeholder="Email"
+                    id="email"
+                    labelName="Email"
+                    [c]="individualCorpCustomerForm.controls.email"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="country"-->
-                <!--                  >Country<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="country.touched && country.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Country is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="country"
-                  placeholder="Country"
-                  id="country"
-                  labelName="Country"
-                  [c]="individualCorpCustomerForm.controls.country"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="country"-->
+                  <!--                  >Country<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="country.touched && country.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Country is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="country"
+                    placeholder="Country"
+                    id="country"
+                    labelName="Country"
+                    [c]="individualCorpCustomerForm.controls.country"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="city"-->
-                <!--                  >City<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="city.touched && city.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    City is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="city"
-                  placeholder="City"
-                  id="city"
-                  labelName="City"
-                  [c]="individualCorpCustomerForm.controls.city"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="city"-->
+                  <!--                  >City<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="city.touched && city.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    City is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="city"
+                    placeholder="City"
+                    id="city"
+                    labelName="City"
+                    [c]="individualCorpCustomerForm.controls.city"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="zipCode"-->
-                <!--                  >Zip<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="zipCode.touched && zipCode.errors?.required"-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Zip is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="zipCode"
-                  placeholder="Zip"
-                  id="zipCode"
-                  labelName="Zip"
-                  [c]="individualCorpCustomerForm.controls.zipCode"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="zipCode"-->
+                  <!--                  >Zip<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="zipCode.touched && zipCode.errors?.required"-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Zip is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="zipCode"
+                    placeholder="Zip"
+                    id="zipCode"
+                    labelName="Zip"
+                    [c]="individualCorpCustomerForm.controls.zipCode"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="streetAddressLineOne"-->
-                <!--                  >AddressLine 1<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="-->
-                <!--                      streetAddressLineOne.touched &&-->
-                <!--                      streetAddressLineOne.errors?.required-->
-                <!--                    "-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    AddressLine 1 is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="streetAddressLineOne"
-                  placeholder="AddressLine 1"
-                  id="streetAddressLineOne"
-                  labelName="AddressLine One"
-                  [c]="individualCorpCustomerForm.controls.streetAddressLineOne"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="streetAddressLineOne"-->
+                  <!--                  >AddressLine 1<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="-->
+                  <!--                      streetAddressLineOne.touched &&-->
+                  <!--                      streetAddressLineOne.errors?.required-->
+                  <!--                    "-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    AddressLine 1 is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="streetAddressLineOne"
+                    placeholder="AddressLine 1"
+                    id="streetAddressLineOne"
+                    labelName="AddressLine One"
+                    [c]="individualCorpCustomerForm.controls.streetAddressLineOne"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="streetAddressLineTwo"-->
-                <!--                  >AddressLine 2<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="-->
-                <!--                      streetAddressLineTwo.touched &&-->
-                <!--                      streetAddressLineTwo.errors?.required-->
-                <!--                    "-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    AddressLine 2 is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="streetAddressLineTwo"
-                  placeholder="AddressLine 2"
-                  id="streetAddressLineTwo"
-                  labelName="AddressLine Two"
-                  [c]="individualCorpCustomerForm.controls.streetAddressLineTwo"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="streetAddressLineTwo"-->
+                  <!--                  >AddressLine 2<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="-->
+                  <!--                      streetAddressLineTwo.touched &&-->
+                  <!--                      streetAddressLineTwo.errors?.required-->
+                  <!--                    "-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    AddressLine 2 is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="streetAddressLineTwo"
+                    placeholder="AddressLine 2"
+                    id="streetAddressLineTwo"
+                    labelName="AddressLine Two"
+                    [c]="individualCorpCustomerForm.controls.streetAddressLineTwo"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="contactPerson"-->
-                <!--                  >Contact Person<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="-->
-                <!--                      contactPerson.touched && contactPerson.errors?.required-->
-                <!--                    "-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Contact Person is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="contactPerson"
-                  placeholder="Contact Person"
-                  id="contactPerson"
-                  labelName="Contact Person"
-                  [c]="individualCorpCustomerForm.controls.contactPerson"
-                ></app-common-textbox>
-              </div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="contactPerson"-->
+                  <!--                  >Contact Person<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="-->
+                  <!--                      contactPerson.touched && contactPerson.errors?.required-->
+                  <!--                    "-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Contact Person is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="contactPerson"
+                    placeholder="Contact Person"
+                    id="contactPerson"
+                    labelName="Contact Person"
+                    [c]="individualCorpCustomerForm.controls.contactPerson"
+                  ></app-common-textbox>
+                </div>
 
-              <div class="p-field p-col-12 p-md-6">
-                <!--                <label for="contactPersonNumber"-->
-                <!--                  >Contact No<span class="form-error">* </span>-->
-                <!--                  <span-->
-                <!--                    *ngIf="-->
-                <!--                      contactPersonNumber.touched &&-->
-                <!--                      contactPersonNumber.errors?.required-->
-                <!--                    "-->
-                <!--                    class="form-error"-->
-                <!--                  >-->
-                <!--                    Contact No is required!</span-->
-                <!--                  >-->
-                <!--                </label>-->
-                <app-common-textbox
-                  [inputType]="TextBoxTypes.Text"
-                  formControlName="contactPersonNumber"
-                  placeholder="Contact No"
-                  id="contactPersonNumber"
-                  labelName="Contact Person Number"
-                  [c]="individualCorpCustomerForm.controls.contactPersonNumber"
-                ></app-common-textbox>
-              </div>
-              <div class="p-field p-col-12 p-md-6"></div>
+                <div class="p-field p-col-12 p-md-6">
+                  <!--                <label for="contactPersonNumber"-->
+                  <!--                  >Contact No<span class="form-error">* </span>-->
+                  <!--                  <span-->
+                  <!--                    *ngIf="-->
+                  <!--                      contactPersonNumber.touched &&-->
+                  <!--                      contactPersonNumber.errors?.required-->
+                  <!--                    "-->
+                  <!--                    class="form-error"-->
+                  <!--                  >-->
+                  <!--                    Contact No is required!</span-->
+                  <!--                  >-->
+                  <!--                </label>-->
+                  <app-common-textbox
+                    [inputType]="TextBoxTypes.Text"
+                    formControlName="contactPersonNumber"
+                    placeholder="Contact No"
+                    id="contactPersonNumber"
+                    labelName="Contact Person Number"
+                    [c]="individualCorpCustomerForm.controls.contactPersonNumber"
+                  ></app-common-textbox>
+                </div>
+                <div class="p-field p-col-12 p-md-6"></div>
 
-              <div class="p-field p-col-12 p-md-12">
-                <app-common-textarea
-                  formControlName="description"
-                  id="description"
-                  placeholder="Type here.."
-                  labelName="Description"
-                  [rows]="5"
-                  [cols]="100"
-                ></app-common-textarea>
-              </div>
-            </div>
-            <div class="offset-md-2 col-md-4">
-              <div>
-                <div class="card-footer">
-                  <button [disabled]="!individualCorpCustomerForm.valid"
-                    class="btn btn-primary mr-3" (click)="createInquery()">Submit
-                  </button>
+                <div class="p-field p-col-12 p-md-12">
+                  <app-common-textarea
+                    formControlName="description"
+                    id="description"
+                    placeholder="Type here.."
+                    labelName="Description"
+                    [rows]="5"
+                    [cols]="100"
+                  ></app-common-textarea>
                 </div>
               </div>
-            </div>
-          </form>
+              <div class="offset-md-2 col-md-4">
+                <div>
+                  <div class="card-footer">
+                    <button [disabled]="!individualCorpCustomerForm.valid"
+                            class="btn btn-primary mr-3" (click)="createInquery()">Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</app-common-dialog-box>
+

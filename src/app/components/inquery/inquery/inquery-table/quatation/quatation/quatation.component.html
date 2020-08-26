@@ -1,4 +1,4 @@
-<app-loader [loader]="dataLoading"></app-loader>
+<!--<app-loader [loader]="dataLoading"></app-loader>-->
 <app-common-grid
   #quotationGrid
   header="Customer Name - {{
@@ -45,18 +45,23 @@
     "
   ></button>
 </app-common-grid>
+<div *ngIf="dataLoading">
+  <div class="loader-table">
+    <div class="whirly-loader"></div>
+  </div>
+</div>
 
-<app-common-dialog-box
-  class="body .ui-dialog"
-  header="Quotation Form - {{
-    selectedCustomer
-      ? selectedCustomer.customer.firstName + '_' + selectedCustomer.lastName ||
-        selectedCustomer.customer.companyName
-      : this.firstName + '_' + this.lastName || this.companyName
-  }}"
-  [dialogBox]="setDialogBoxValue"
-  (closeButtonClick)="close()"
->
+<app-common-dialog-box>
+
+<!--  class="body .ui-dialog"-->
+<!--  header="Quotation Form - {{-->
+<!--  selectedCustomer-->
+<!--    ? selectedCustomer.customer.firstName + '_' + selectedCustomer.lastName ||-->
+<!--    selectedCustomer.customer.companyName-->
+<!--    : this.firstName + '_' + this.lastName || this.companyName-->
+<!--  }}"-->
+
+  <!--  [dialogBox]="setDialogBoxValue" (closeButtonClick)="close()"-->
   <!--    <div class="container-fluid">-->
   <!--      <div class="row">-->
   <!--        <div class="col-sm-12 ">-->

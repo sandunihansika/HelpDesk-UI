@@ -16,6 +16,7 @@ import {
 import { CustomerDetailsService } from "../../../../../shared/services/customer-details.service";
 import { CustomerType } from "../../../../../shared/services/common/enum";
 import { ToastrService } from "ngx-toastr";
+import { MatDialogRef } from "@angular/material/dialog";
 
 @Component({
   selector: "app-customer-details",
@@ -33,7 +34,8 @@ export class CustomerDetailsComponent implements OnInit {
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
     private customerservice: CustomerDetailsService,
-    private toastservice: ToastrService
+    private toastservice: ToastrService,
+    public dialogRef: MatDialogRef<CustomerDetailsComponent>
   ) {
     this.companyType = [
       { id: CompanyType.Ingenii, name: "Ingenii" },
@@ -41,6 +43,9 @@ export class CustomerDetailsComponent implements OnInit {
     ];
   }
 
+  closeDialog(bool?) {
+    this.dialogRef.close(bool);
+  }
 
   get firstName() {
     return this.customersForm.get("firstName");
@@ -92,27 +97,28 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customersForm = this.formbuilder.group({
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      nicNumber: [''],
-      ppNo: [''],
-      email: ['', [Validators.required, Validators.email]],
-      telNo: ['', [Validators.required]],
+      firstName: ["", [Validators.required]],
+      lastName: ["", [Validators.required]],
+      nicNumber: [""],
+      ppNo: [""],
+      email: ["", [Validators.required]],
+      telNo: ["", [Validators.required]],
       handlingCompany: [this.companyType[0].id, [Validators.required]],
-      streetAddressLineOne: ['', [Validators.required]],
-      streetAddressLineTwo: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]],
-      type: [CustomerType.Individual, [Validators.required]]
+      streetAddressLineOne: ["", [Validators.required]],
+      streetAddressLineTwo: ["", [Validators.required]],
+      country: ["", [Validators.required]],
+      city: ["", [Validators.required]],
+      zipCode: ["", [Validators.required]],
+      type: [CustomerType.Individual, [Validators.required]],
     });
   }
 
   getCompanyId(event) {
     console.log(event.id);
-    this.customersForm.value.handlingCompany = event.id;
+    this.customersForm.patchValue({
+      handlingCompany: event.id,
+    });
   }
-
 
   saveCustomer() {
     if (this.customersForm.invalid) {

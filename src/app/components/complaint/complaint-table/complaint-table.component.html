@@ -1,4 +1,4 @@
-<app-loader [loader]="dataLoading"></app-loader>
+<!--<app-loader [loader]="dataLoading"></app-loader>-->
 <app-common-grid
   #complaintGrid
   [addAllow]="addAllow"
@@ -38,6 +38,11 @@
     Completed
   </button>
 </app-common-grid>
+<div *ngIf="dataLoading">
+  <div class="loader-table">
+    <div class="whirly-loader"></div>
+  </div>
+</div>
 
 <!--<p-dialog header="Compalint Form" [modal]="true" [(visible)]="display" [baseZIndex]="10000" [modal]="true">-->
 
@@ -54,14 +59,6 @@
 <!--    <app-corporate-details></app-corporate-details>-->
 <!--  </app-common-dialog-box>-->
 
-<app-common-dialog-box
-  class="body .ui-dialog"
-  header="Complaint Form"
-  [dialogBox]="setDialogBoxValue"
-  (closeButtonClick)="close()"
->
-  <app-complaint-form (submitClicked)="SubmitClick()"></app-complaint-form>
-</app-common-dialog-box>
 
 
 
