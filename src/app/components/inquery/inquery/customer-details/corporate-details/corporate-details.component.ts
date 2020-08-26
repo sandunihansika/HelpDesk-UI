@@ -135,11 +135,16 @@ export class CorporateDetailsComponent implements OnInit {
           this.showSuccess();
         });
     }
+    this.clear();
     this.submitClicked.emit(1);
   }
 
   showSuccess() {
     this.toastservice.success("Success", "Inquery Created Succesfully");
+  }
+
+  clear(){
+    this.corporateForm.reset();
   }
 
 }

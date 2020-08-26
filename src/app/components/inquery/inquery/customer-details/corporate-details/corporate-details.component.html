@@ -1,15 +1,15 @@
+<body>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12 ">
-      <div class="card">
+<div class="row">
+      <div class="card myCard">
         <div class="card-body">
           <form [formGroup]="corporateForm" class="theme-form">
             <div class="ui-fluid p-formgrid p-grid">
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="companyName">Company Name<span class="form-error"></span>-->
-<!--                  <span *ngIf="companyName.touched && companyName.errors?.required"-->
-<!--                        class="form-error"> Company name is required!</span>-->
-<!--                </label>-->
+                <!--                <label for="companyName">Company Name<span class="form-error"></span>-->
+                <!--                  <span *ngIf="companyName.touched && companyName.errors?.required"-->
+                <!--                        class="form-error"> Company name is required!</span>-->
+                <!--                </label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="companyName"
@@ -22,7 +22,7 @@
               </div>
 
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="companyRegistrationNo">Company Registration Number</label>-->
+                <!--                <label for="companyRegistrationNo">Company Registration Number</label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="companyRegistrationNo"
@@ -30,10 +30,10 @@
                   labelName="Company Registration No"
                   [c]="corporateForm.controls.companyRegistrationNo"
                   id="companyRegistrationNo"
-                  ></app-common-textbox>
+                ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="companyName">Vat Number</label>-->
+                <!--                <label for="companyName">Vat Number</label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   labelName="Vat Number"
@@ -41,10 +41,10 @@
                   formControlName="vatNumber"
                   id="vatNumber"
                   [c]="corporateForm.controls.vatNumber"
-                 ></app-common-textbox>
+                ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="taxNumber">Tax Number</label>-->
+                <!--                <label for="taxNumber">Tax Number</label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="taxNumber"
@@ -52,13 +52,13 @@
                   labelName="Tax Number"
                   id="taxNumber"
                   [c]="corporateForm.controls.taxNumber"
-                 ></app-common-textbox>
+                ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="email">Email<span class="form-error"></span>-->
-<!--                  <span *ngIf="email.touched && email.errors?.required"-->
-<!--                        class="form-error"> Email is required!</span>-->
-<!--                </label>-->
+                <!--                <label for="email">Email<span class="form-error"></span>-->
+                <!--                  <span *ngIf="email.touched && email.errors?.required"-->
+                <!--                        class="form-error"> Email is required!</span>-->
+                <!--                </label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="email"
@@ -67,17 +67,17 @@
                   id="email"
                 ></app-common-textbox>
               </div>
-<!--              <div class="p-field p-col-12 p-md-6">-->
-<!--                <label>Select Company</label>-->
-<!--                <app-common-dropdown [fields]="companyType"-->
-<!--                                     (selectChange)="getCompanyId($event)"-->
-<!--                ></app-common-dropdown>-->
-<!--              </div>-->
+              <!--              <div class="p-field p-col-12 p-md-6">-->
+              <!--                <label>Select Company</label>-->
+              <!--                <app-common-dropdown [fields]="companyType"-->
+              <!--                                     (selectChange)="getCompanyId($event)"-->
+              <!--                ></app-common-dropdown>-->
+              <!--              </div>-->
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="country">Country<span class="form-error"></span>-->
-<!--                  <span *ngIf="country.touched && country.errors?.required"-->
-<!--                        class="form-error"> Country is required!</span>-->
-<!--                </label>-->
+                <!--                <label for="country">Country<span class="form-error"></span>-->
+                <!--                  <span *ngIf="country.touched && country.errors?.required"-->
+                <!--                        class="form-error"> Country is required!</span>-->
+                <!--                </label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="country"
@@ -89,10 +89,10 @@
                      'is-invalid': (country.touched ||country.dirty) && (!country.valid) }"></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--               <label for="city">City<span class="form-error"></span>-->
-<!--                  <span *ngIf="city.touched && city.errors?.required"-->
-<!--                        class="form-error"> Country is required!</span>-->
-<!--                </label>-->
+                <!--               <label for="city">City<span class="form-error"></span>-->
+                <!--                  <span *ngIf="city.touched && city.errors?.required"-->
+                <!--                        class="form-error"> Country is required!</span>-->
+                <!--                </label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="city"
@@ -103,10 +103,10 @@
                 ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="streetAddressLineOne">Address Line One<span class="form-error"></span>-->
-<!--                  <span *ngIf="streetAddressLineOne.touched && streetAddressLineOne.errors?.required"-->
-<!--                        class="form-error"> Address Line One is required!</span>-->
-<!--                </label>-->
+                <!--                <label for="streetAddressLineOne">Address Line One<span class="form-error"></span>-->
+                <!--                  <span *ngIf="streetAddressLineOne.touched && streetAddressLineOne.errors?.required"-->
+                <!--                        class="form-error"> Address Line One is required!</span>-->
+                <!--                </label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="streetAddressLineOne"
@@ -114,10 +114,10 @@
                   labelName="Street Address Line One"
                   placeholder="Street Address Line One"
                   [c]="corporateForm.controls.streetAddressLineOne"
-                  ></app-common-textbox>
+                ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="streetAddressLineTwo">Address Line Two</label>-->
+                <!--                <label for="streetAddressLineTwo">Address Line Two</label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="streetAddressLineTwo"
@@ -125,44 +125,47 @@
                   labelName="Street Address line Two"
                   placeholder="Street Address Line Two"
                   [c]="corporateForm.controls.streetAddressLineTwo"
-                 ></app-common-textbox>
+                ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
-<!--                <label for="zipCode">Zip Code<span class="form-error"></span>-->
-<!--                  <span *ngIf="zipCode.touched && zipCode.errors?.required"-->
-<!--                        class="form-error"> Zip Code is required!</span>-->
-<!--                </label>-->
+                <!--                <label for="zipCode">Zip Code<span class="form-error"></span>-->
+                <!--                  <span *ngIf="zipCode.touched && zipCode.errors?.required"-->
+                <!--                        class="form-error"> Zip Code is required!</span>-->
+                <!--                </label>-->
                 <app-common-textbox
                   [inputType]="TextBoxTypes.Text"
                   formControlName="zipCode"
                   id="zipCode"
                   placeholder="Zip Code"
                   labelName="Zip Code"
-                 ></app-common-textbox>
+                ></app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
                 <app-common-dropdown [fields]="companyType" labelName="Select Company"
                                      (selectChange)="getCompanyId($event)"
                                      formControlName="handlingCompany()"
-                                     [c]="corporateForm.controls.handlingCompany"
                 ></app-common-dropdown>
               </div>
 
             </div><br><br>
-            <div class="offset-md-2 col-md-4">
-              <div>
-                <button class="btn btn-primary mr-3"
-                        (click)="saveCorporteDetails()">Save
-                </button>
-              </div>
-
+            <div class="centreBtn">
+              <button
+                (click)="saveCorporteDetails()"
+                class="btn btn-primary myBtn"
+              > Submit
+              </button>
+              <!--              <button (click)="resetForm()" class="btn btn-primary mr-3 myBtn"> Reset </button>-->
             </div>
+
+
           </form>
 
         </div>
       </div>
-    </div>
-  </div>
+</div>
+
 </div>
 
 
+
+</body>
