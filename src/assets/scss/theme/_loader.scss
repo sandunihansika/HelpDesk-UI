@@ -38,11 +38,12 @@
   background-color: $white;
   z-index: 1001;
   top: 0;
+  left: 0;
 
   .loader-login {
     position: absolute;
     top: 50%;
-    left: 0;
+    left: 50%;
     text-align: center;
     right: 80%;
     margin: 0 auto;

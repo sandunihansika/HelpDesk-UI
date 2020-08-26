@@ -16,6 +16,7 @@ import { ToastrService } from "ngx-toastr";
 export class AuthLoginComponent implements OnInit {
   dataLoading = false;
 
+  authError:any;
   constructor(
     private authService: AuthenticationService,
     private passwordHash: PasswordHash,
@@ -27,8 +28,12 @@ export class AuthLoginComponent implements OnInit {
     this.url = "/dashboard/default";
   }
 
+
   ngOnInit(): void {
     this.getFormDetails();
+    // this.authService.eventAuthError$.subscribe( data => {
+    //   this.authError=data;
+    // })
   }
 
   loginForm: FormGroup;
@@ -60,16 +65,15 @@ export class AuthLoginComponent implements OnInit {
   }
 
   login() {
-    this.dataLoading = true;
+
     try {
       if (this.loginForm.invalid) {
         this.formValidationHelper.validateAllFormFields(this.loginForm);
         this.danger();
         return;
       }
-
+       this.dataLoading = true;
       this.newPassword = this.passwordHash.hashPassword(this.password.value);
-
       this.authService
         .login(this.email.value, this.newPassword, this.saveDetails.value)
         .subscribe((response) => {
@@ -77,12 +81,18 @@ export class AuthLoginComponent implements OnInit {
             this.success();
             console.log("login success");
             this.router.navigate([this.url]);
-            this.dataLoading = false;
           }
+          else{
+            this.router.navigate(['/auth/login']);
+          }
+          this.loginForm.reset();
+           this.dataLoading = false;
         });
     } catch (err) {
+       this.dataLoading = false;
       console.log(err);
-      this.dataLoading = true;
+      // location.reload();
+
     }
   }
 

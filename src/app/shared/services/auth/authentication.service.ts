@@ -10,6 +10,7 @@ import {User} from '../../../auth/auth-login/user';
 import {LoginResult} from '../../model/e-commerce/login-result.model';
 import { AuthEvent } from 'src/app/auth/auth-login/auth-event';
 import {loggedSettingDetails} from '../../../auth/login/logged-setting-details';
+import { ToastrService } from "ngx-toastr";
 @Injectable({providedIn:"root"})
 
 
@@ -18,6 +19,9 @@ import {loggedSettingDetails} from '../../../auth/login/logged-setting-details';
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  // private eventAuthError = new BehaviorSubject<string>("")
+  // eventAuthError$ = this.eventAuthError.asObservable();
   private currentUserSubject: BehaviorSubject<LoggedUserDetails>;  //create a logged user object
   private currentUser: Observable<LoggedUserDetails>;    //create a currentUser observable
   AuthEvent: any;
@@ -25,6 +29,7 @@ export class AuthenticationService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private toastrService :ToastrService,
     private authEvent: AuthEvent) {
     if (localStorage.getItem('currentUser') && JSON.parse(localStorage.getItem('currentUser')).saveDetails === false) {
       localStorage.removeItem('currentUser');
@@ -69,10 +74,14 @@ export class AuthenticationService {
               this.authEvent.UserLoggedIn.emit()
               return response;
 
-    }
-    else if(response && response.statusCode == StatusCodes.Unauthorized){
-      console.log(response.message);
-    }
+            } else if(response && response.statusCode == StatusCodes.Unauthorized){
+                 console.log(response.message);
+                 this.toastrService.error(response.message, 'Error');
+            }else if(response && response.message && response.message !== ''){
+              this.toastrService.error(response.message, 'Error');
+            } else {
+              this.toastrService.error(response.message, 'Error');
+            }
   })
 )
 }

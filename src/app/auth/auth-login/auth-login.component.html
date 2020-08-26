@@ -18,28 +18,25 @@
                         <div  class="ui-fluid p-formgrid p-grid">
 
                           <div class="p-field p-col-12 p-md-11">
-                              <label style="margin-left: 5px !important;" class="col-form-label pt-0" for="Email">Email<span class="form-error"></span>
-                                <span *ngIf="email.touched && email.errors?.required"
-                                      class="form-error">  email is required!</span>
-                              </label>
                             <app-common-textbox
                               [inputType]="TextBoxTypes.Email"
+                              labelName="Email"
+                              placeholder="Email"
                               formControlName="email"
                               id="email"
-                              [ngClass]="{
-                                  'is-invalid': (email.touched ||email.dirty) && (!email.valid) }"></app-common-textbox>
+                              [c]="email"
+                            ></app-common-textbox>
                           </div>
                           <br><br>
                           <div   class="p-field p-col-12 p-md-11">
-                            <label style="margin-left: 5px !important;" class="col-form-label pt-0" for="Email">Password<span class="form-error"></span>
-                              <span *ngIf=" password.touched &&  password.errors?.required"
-                                    class="form-error">  Password is required!</span>
-                            </label>
                             <app-common-textbox
                               [inputType]="TextBoxTypes.Password"
                               formControlName="password"
                               id="password"
-                              [ngClass]="{'is-invalid': (password.touched ||password.dirty) && (!password.valid) }"></app-common-textbox>
+                              labelName="Password"
+                              placeholder="password"
+                              [c]="password"
+                            ></app-common-textbox>
                           </div>
                           <div class="checkbox p-0" style="">
                             <input id="checkbox1" type="checkbox" name="checkboxa1" formControlName="saveDetails">
@@ -48,7 +45,7 @@
                         </div>
                         <br><br>
 
-                <button class="btn btn-primary mb-4" (click)="login()">
+                <button class="btn btn-primary mb-4" (click)="login()" [disabled]="loginForm.invalid">
                   Login
                 </button>
               </form>
