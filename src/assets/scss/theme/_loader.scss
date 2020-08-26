@@ -58,6 +58,25 @@
     }
   }
 }
+.loader-form {
+  position: absolute;
+  top: 40%;
+  bottom: 50%;
+  left: 50%;
+  text-align: center;
+  right: 50%;
+  margin: 0 auto;
+
+  h4 {
+    margin-top: 50px;
+    margin-bottom: 0;
+
+    span {
+      font-size: 34px;
+      color: #FFC107;
+    }
+  }
+}
 .loader-table {
   position: absolute;
   top: 40%;

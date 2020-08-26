@@ -231,7 +231,7 @@ export class ComplaintTableComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.refreshGrid();
+        this.setComplainRow();
       }
     });
     // // this.setDialog = true;

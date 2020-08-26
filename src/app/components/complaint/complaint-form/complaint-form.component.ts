@@ -44,7 +44,7 @@ export class ComplaintFormComponent {
     this.complaintForm = this.formbuilder.group({
       customerId: ["", [Validators.required]],
       complainTypeId: [this.complainTypeId[0].id, [Validators.required]],
-      //handlingCustomer: ["", [Validators.required]],
+      handlingCustomer: ["", [Validators.required]],
       handlingCompany: ["", [Validators.required]],
       contactPerson: ["", [Validators.required]],
       contactPersonNumber: ["", [Validators.required]],

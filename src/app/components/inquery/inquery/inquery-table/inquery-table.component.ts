@@ -430,7 +430,7 @@ export class InqueryTableComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // this.refreshGrid();
+        this.setInquiryRowColumns();
       }
     });
   }
