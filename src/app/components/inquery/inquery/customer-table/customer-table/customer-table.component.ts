@@ -8,6 +8,10 @@ import {
 } from "../../../../../shared/services/common/enum";
 import { CustomerDetailsService } from "../../../../../shared/services/customer-details.service";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
+import {MatDialog} from '@angular/material/dialog';
+import {CustomerHandlingComponent} from '../../inquery-table/customer-handling/customer-handling.component';
+import {CustomerDetailsComponent} from '../../customer-details/customer-details/customer-details.component';
+import {CorporateDetailsComponent} from '../../customer-details/corporate-details/corporate-details.component';
 
 @Component({
   selector: "app-customer-table",
@@ -25,7 +29,8 @@ export class CustomerTableComponent implements OnInit {
   displayCoporate: boolean = false;
   dataSource: any[];
   CusArray: any;
-  dataLoading = false;
+  dataLoading1 = false;
+  dataLoading2 = false;
   setDialogBoxValue1 = false;
   setDialogBoxValue2 = false;
   selectedTabIndex: number;
@@ -34,7 +39,8 @@ export class CustomerTableComponent implements OnInit {
   constructor(
     private CustomerDetailsService: CustomerDetailsService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialogService:MatDialog
   ) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.mySubscription = this.router.events.subscribe((event) => {
@@ -201,8 +207,8 @@ export class CustomerTableComponent implements OnInit {
     // this.IndividualCompanyListGrid.rowLists = result1;
     // const result2 = this.CusArray.filter(CusArray=> CusArray.type === CustomerType.Corporate);
     // this.CorporateCompanyListGrid.rowLists = result2;
-    this.dataLoading = true;
-    this.dataLoading = true;
+    this.dataLoading1 = true;
+    this.dataLoading2 = true;
     this.CustomerDetailsService.getCustomerList().subscribe(
       (list: any) => {
         if (list.data !== undefined) {
@@ -215,19 +221,19 @@ export class CustomerTableComponent implements OnInit {
               });
             });
             this.putDataIntoTable(list.data);
-            this.dataLoading = false;
-            this.dataLoading = false;
+           this.dataLoading1 = false;
+           this.dataLoading2 = false;
           } else {
             this.IndividualCompanyListGrid.rowLists = [];
-            this.dataLoading = false;
+            this.dataLoading1 = false;
             this.CorporateCompanyListGrid.rowLists = [];
-            this.dataLoading = false;
+            this.dataLoading2 = false;
           }
         }
       },
       (error) => {
-        this.dataLoading = true;
-        this.dataLoading = true;
+        this.dataLoading1 = true;
+        this.dataLoading2 = true;
         console.log(error);
       }
     );
@@ -254,21 +260,41 @@ export class CustomerTableComponent implements OnInit {
   }
 
   viewIndividualForm() {
-    try {
-      this.setDialogBoxValue1 = true;
-      this.displayIndividual = true;
-    } catch (error) {
-      return error;
-    }
+    const dialogRef = this.dialogService.open(CustomerDetailsComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
+    // try {
+    //   this.setDialogBoxValue1 = true;
+    //   this.displayIndividual = true;
+    // } catch (error) {
+    //   return error;
+    // }
   }
 
   viewCorporateForm() {
-    try {
-      this.setDialogBoxValue2 = true;
-      this.displayCoporate = true;
-    } catch (error) {
-      return error;
-    }
+    const dialogRef = this.dialogService.open(CorporateDetailsComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // this.refreshGrid();
+      }
+    });
+    // try {
+    //   this.setDialogBoxValue2 = true;
+    //   this.displayCoporate = true;
+    // } catch (error) {
+    //   return error;
+    // }
   }
   close() {
     this.setDialogBoxValue1 = false;

@@ -1,3 +1,4 @@
+<app-common-dialog-box title="Add Corporate Customer">
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 ">
@@ -15,10 +16,8 @@
                   formControlName="companyName"
                   placeholder="Company Name"
                   labelName="Company Name"
-                  [c]="corporateForm.controls.companyName"
-                  id="companyName"
-                  [ngClass]="{
-                     'is-invalid': (companyName.touched ||companyName.dirty) && (!companyName.valid) }"></app-common-textbox>
+                  [c]="corporateForm.controls.companyName">
+                  </app-common-textbox>
               </div>
 
               <div class="p-field p-col-12 p-md-6">
@@ -84,9 +83,8 @@
                   id="country"
                   placeholder="Country"
                   labelName="Country"
-                  [c]="corporateForm.controls.country"
-                  [ngClass]="{
-                     'is-invalid': (country.touched ||country.dirty) && (!country.valid) }"></app-common-textbox>
+                  [c]="corporateForm.controls.country">
+                  </app-common-textbox>
               </div>
               <div class="p-field p-col-12 p-md-6">
 <!--               <label for="city">City<span class="form-error"></span>-->
@@ -143,8 +141,6 @@
               <div class="p-field p-col-12 p-md-6">
                 <app-common-dropdown [fields]="companyType" labelName="Select Company"
                                      (selectChange)="getCompanyId($event)"
-                                     formControlName="handlingCompany()"
-                                     [c]="corporateForm.controls.handlingCompany"
                 ></app-common-dropdown>
               </div>
 
@@ -164,5 +160,6 @@
     </div>
   </div>
 </div>
+</app-common-dialog-box>
 
 

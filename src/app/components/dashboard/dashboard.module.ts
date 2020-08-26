@@ -13,20 +13,20 @@ import { SharedModule } from "../../shared/shared.module";
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DefaultComponent } from './default/default.component';
-import { ECommerceComponent } from './e-commerce/e-commerce.component';
-import { UniversityComponent } from './university/university.component';
-import { BitcoinComponent } from './bitcoin/bitcoin.component';
-import { ServerComponent } from './server/server.component';
-import { ProjectComponent } from './project/project.component';
+// import { ECommerceComponent } from './e-commerce/e-commerce.component';
+// import { UniversityComponent } from './university/university.component';
+// import { BitcoinComponent } from './bitcoin/bitcoin.component';
+// import { ServerComponent } from './server/server.component';
+// import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
-    DefaultComponent, 
-    ECommerceComponent, 
-    UniversityComponent, 
-    BitcoinComponent, 
-    ServerComponent, 
-    ProjectComponent
+    DefaultComponent,
+    // ECommerceComponent,
+    // UniversityComponent,
+    // BitcoinComponent,
+    // ServerComponent,
+    // ProjectComponent
   ],
   imports: [
     CommonModule,

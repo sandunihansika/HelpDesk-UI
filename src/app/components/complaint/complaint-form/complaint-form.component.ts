@@ -10,6 +10,7 @@ import { CustomerDetailsService } from "../../../shared/services/customer-detail
 import { CompanyCustomerDeails } from "../../inquery/inquery/inquery-table/customer-handling/CompanyCustomerDeails";
 import { ComplaintDetails } from "./ComplaintDetails";
 import {json} from '@angular-devkit/core';
+import {MatDialogRef} from '@angular/material/dialog';
 @Component({
   selector: "app-complaint-form",
   templateUrl: "./complaint-form.component.html",
@@ -29,7 +30,8 @@ export class ComplaintFormComponent {
   constructor(
     private formbuilder: FormBuilder,
     private formvalidationhelpers: FormValidationHelpers,
-    private customerservice: CustomerDetailsService
+    private customerservice: CustomerDetailsService,
+    public dialogRef: MatDialogRef<ComplaintFormComponent>
   ) {
     this.complainTypeId = [
       { id: ComplaintType.SimProblem, name: "Sim Problem" },
@@ -76,6 +78,10 @@ export class ComplaintFormComponent {
 
   getComplaintSelected(event) {
     this.complaintForm.value.complainTypeId = event.id;
+  }
+
+  closeDialog(bool?) {
+    this.dialogRef.close(bool);
   }
 
   getCustomers() {

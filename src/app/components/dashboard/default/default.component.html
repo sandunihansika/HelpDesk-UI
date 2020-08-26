@@ -12,7 +12,7 @@
                     <h3 class="mb-0">
                       <span
                         class="counter"
-                        [CountTo]="needConsent"
+                        [CountTo]="needConsent !== 0 ? needConsent : '0'"
                         [from]="0"
                         [duration]="2"
                       ></span>
@@ -38,7 +38,7 @@
                     <h3 class="mb-0">
                       <span
                         class="counter"
-                        [CountTo]="remindCustomer"
+                        [CountTo]="remindCustomer !== 0 ? remindCustomer : '0'"
                         [from]="0"
                         [duration]="2"
                       ></span>
@@ -64,7 +64,7 @@
                     <h3 class="mb-0">
                       <span
                         class="counter"
-                        [CountTo]="pendingComplaints"
+                        [CountTo]="pendingComplaints !== 0 ? pendingComplaints : '0'"
                         [from]="0"
                         [duration]="2"
                       ></span>
@@ -100,8 +100,10 @@
         <!--              </div>-->
         <!--            </div>-->
         <!--          </div>-->
-        <div class="col-lg-12">
-          <div class="card">
+        <div class="row">
+        <div class="col-lg-12 col-xl-6">
+<!--        <div class="col-lg-12">-->
+          <div class="card" style="height: 70vh">
             <div class="card-header">
               <h5>Total Inquiries</h5>
             </div>
@@ -124,8 +126,8 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-12">
-          <div class="card">
+        <div class="col-lg-12 col-xl-6">
+          <div class="card" style="height: 70vh">
             <div class="card-header">
               <h5>Total Complaints</h5>
             </div>
@@ -147,6 +149,7 @@
               ></canvas>
             </div>
           </div>
+        </div>
         </div>
         <div class="col-sm-12">
           <div class="card">
@@ -202,11 +205,11 @@
       </div>
     </div>
     <div class="col-xl-4 xl-50">
-      <div class="card height-equal gradient-line-1" style="height: 237vh;">
+      <div class="card height-equal">
         <div class="card-header">
           <h5>Notifications</h5>
         </div>
-        <div class="card-body activity-scroll">
+        <div class="card-body" style="height: 157vh">
           <div class="activity">
             <div class="media">
               <div class="gradient-round m-r-30 gradient-line-1">
@@ -224,11 +227,10 @@
                   ></span>
                 </h6>
 
-                <div class="upcoming-event">
+                <div class="upcoming-event activity-scroll" style="height: 62vh;margin-right: -25px;">
                   <div class="upcoming-innner media">
                     <div class="media-body">
-                      <div class = "gradient-line-1"
-                           *ngFor="let rem of reminders">
+                      <div *ngFor="let rem of reminders" style="padding-right: 10px;">
                         <h9 class="f-w-400"
                           >{{ rem.customer?.firstName }}
                           {{ rem.customer?.lastName }}
@@ -262,12 +264,13 @@
                     ></i
                   ></span>
                 </h6>
-                <div class="upcoming-event">
+                <div class="upcoming-event activity-scroll" style="height: 62vh;margin-right: -25px;">
                   <div class="upcoming-innner media">
                     <div class="media-body">
                       <div
                         class="recent-notification"
                         *ngFor="let com of complaints"
+                        style="padding-right: 10px;"
                       >
                         <h9 class="f-w-400"
                           >{{ com.customer?.firstName }}
