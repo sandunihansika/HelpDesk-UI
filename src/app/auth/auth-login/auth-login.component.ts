@@ -25,7 +25,7 @@ export class AuthLoginComponent implements OnInit {
     private formValidationHelper: FormValidationHelpers,
     private toastrService: ToastrService
   ) {
-    this.url = "/dashboard/default";
+    this.url = "/dashboard";
   }
 
 

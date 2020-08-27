@@ -1,0 +1,15 @@
+<app-common-dialog-box title="Customer Name: {{(fName +'_'+ lName || cName) + ' / ' + 'Inquiry Id: ' + id}}">
+<app-common-grid
+  #statusHistoryGrid
+  header="Status History"
+  [addAllow]="addAllowHistory"
+  [showToolBar]="showToolBar"
+  [showSearchBox]="showSearchBox"
+>
+</app-common-grid>
+  <div *ngIf="dataLoading1">
+    <div class="loader-table">
+      <div class="whirly-loader"></div>
+    </div>
+  </div>
+</app-common-dialog-box>
