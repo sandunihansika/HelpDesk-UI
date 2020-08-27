@@ -1,0 +1,144 @@
+
+<app-common-dialog-box title="Quotation Form">
+  <div class="container-fluid" style="width: auto !important;">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <form
+              novalidate
+              [formGroup]="quotationForm"
+              enctype="multipart/form-data"
+            >
+              <div class="form-row">
+                <div class="p-col">
+                  <div class="p-col">
+                    <label for="quotationNo"
+                    >Quatation No<span class="form-error">* </span>
+                      <span
+                        *ngIf="
+                          quotationNo.touched && quotationNo.errors?.required
+                        "
+                        class="form-error"
+                      >
+                        quotationNo is required!</span
+                      >
+                    </label>
+                    <app-common-textbox
+                      [inputType]="TextBoxTypes.Text"
+                      formControlName="quotationNo"
+                      placeholder="Quatation No"
+                      rows="3"
+                      id="quotationNo"
+                      [ngClass]="{
+                        'is-invalid':
+                          (quotationNo.touched || quotationNo.dirty) &&
+                          !quotationNo.valid
+                      }"
+                    ></app-common-textbox>
+                  </div>
+                  <div class="p-col">
+                    <label for="description"
+                    >Description<span class="form-error">* </span>
+                      <span
+                        *ngIf="
+                          description.touched && description.errors?.required
+                        "
+                        class="form-error"
+                      >
+                        description required!</span
+                      >
+                    </label>
+                    <app-common-textarea
+                      formControlName="description"
+                      id="description"
+                      [rows]="5"
+                      [cols]="50"
+                      [ngClass]="{
+                        'is-invalid':
+                          (description.touched || description.dirty) &&
+                          !description.valid
+                      }"
+                    ></app-common-textarea>
+                  </div>
+                  <div class="p-col">
+                    <label for="UploadFile">Upload File</label>
+                    <div class="custom-file">
+                      <input
+                        type="file"
+                        class="custom-file-input"
+                        formControlName="pdf"
+                        (change)="onUpload($event)"
+                      />
+                      <label
+                        class="custom-file-label"
+                        for="validationCustom03"
+                      >{{ choosedFile }}</label
+                      >
+                    </div>
+                  </div>
+                  <br />
+                  <div class="p-col">
+                    <label for="expiryDate"
+                    >Expiry Date<span class="form-error">* </span></label
+                    >
+                    <app-common-calender
+                      formControlName="expiryDate"
+                      id="expiryDate"
+                      [ngClass]="{
+                        'is-invalid':
+                          (expiryDate.touched || expiryDate.dirty) &&
+                          !expiryDate.valid
+                      }"
+                    ></app-common-calender>
+                  </div>
+                </div>
+              </div>
+              <div class="offset-md-2 col-md-4">
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <button
+                        type="submit"
+                        class="btn btn-primary mr-2"
+                        [disabled]="quotationForm.invalid"
+                        (click)="send(selectedCustomer)"
+                      >
+                        Submit
+                      </button>
+                    </div>
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-3">
+                      <button
+                        type="submit"
+                        class="btn btn-primary mr-2"
+                        (click)="clear(quotationForm)"
+                      >
+                        Reset
+                      </button>
+                    </div>
+
+                    <!--                    <div class="col-sm-3">-->
+                    <!--                      <button-->
+                    <!--                        type="submit"-->
+                    <!--                        class="btn btn-primary mr-2"-->
+                    <!--                        (click)="clear(quotationForm)"-->
+                    <!--                      >-->
+                    <!--                        Reset-->
+                    <!--                      </button>-->
+                    <!--                    </div>-->
+
+                    <!--                    <div class="col-md-6 mb-6">-->
+                    <!--                      <input type="reset" class="btn btn-light" value="Reset" />-->
+                    <!--                    </div>-->
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-common-dialog-box>
+

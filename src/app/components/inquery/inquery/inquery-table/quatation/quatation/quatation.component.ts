@@ -15,6 +15,7 @@ import { HttpResponse } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {CustomerHandlingComponent} from '../../customer-handling/customer-handling.component';
+import {QuotationFormComponent} from '../quotation-form/quotation-form.component';
 
 @Component({
   selector: "app-quatation",
@@ -191,7 +192,7 @@ export class QuatationComponent implements OnInit {
   }
 
   viewForm() {
-    const dialogRef = this.dialogService.open(QuatationComponent, {
+    const dialogRef = this.dialogService.open(QuotationFormComponent, {
       data: null,
       width: '900px',
       disableClose: true

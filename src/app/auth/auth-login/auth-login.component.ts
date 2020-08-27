@@ -81,18 +81,20 @@ export class AuthLoginComponent implements OnInit {
             this.success();
             console.log("login success");
             this.router.navigate([this.url]);
+            this.dataLoading = false;
           }
           else{
+            this.dataLoading = false;
+            this.loginForm.reset();
             this.router.navigate(['/auth/login']);
           }
-          this.loginForm.reset();
-           this.dataLoading = false;
+
+        },error => {
+          this.dataLoading= false;
         });
     } catch (err) {
        this.dataLoading = false;
       console.log(err);
-      // location.reload();
-
     }
   }
 
