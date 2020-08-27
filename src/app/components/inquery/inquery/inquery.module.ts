@@ -13,8 +13,9 @@ import {DialogModule} from 'primeng/dialog';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CustomerDetailsComponent} from './customer-details/customer-details/customer-details.component';
 import {MatDialogModule,MatDialogRef} from '@angular/material/dialog';
+import { StatusHistoryComponent } from './inquery-table/status-history/status-history.component';
 @NgModule({
-  declarations: [InqueryTableComponent, CustomerHandlingComponent],
+  declarations: [InqueryTableComponent, CustomerHandlingComponent, StatusHistoryComponent],
   imports: [
     CommonModule,
     CustomerDetailsModule,
@@ -31,7 +32,7 @@ import {MatDialogModule,MatDialogRef} from '@angular/material/dialog';
   ],
   exports: [InqueryTableComponent],
   entryComponents:[],
-  providers: [CustomerHandlingComponent,{
+  providers: [CustomerHandlingComponent,StatusHistoryComponent,{
     provide: MatDialogRef,
     useValue: {}
   },],

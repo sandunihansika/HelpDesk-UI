@@ -18,6 +18,7 @@ import { Router } from "@angular/router";
 import { FormControl } from "@angular/forms";
 import { CommonDialogBoxComponent } from "../../../../shared/components/common-dialog-box/common-dialog-box.component";
 import {CustomerHandlingComponent} from './customer-handling/customer-handling.component';
+import {StatusHistoryComponent} from './status-history/status-history.component';
 import {MatDialog} from '@angular/material/dialog';
 import { CommonConfirmBoxHelper } from '../../../../shared/components/common-confirm-box/common-confirm-box-helper';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -29,12 +30,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class InqueryTableComponent implements OnInit {
   @ViewChild("inqueryGrid", { static: true }) inqueryGrid: CommonGridComponent;
-  @ViewChild("statusHistoryGrid", { static: true })
-  statusHistoryGrid: CommonGridComponent;
-  @ViewChild("statusHistoryDialogBox", { static: true })
-  statusHistoryDialogBox: CommonDialogBoxComponent;
-  @ViewChild("inquiryDialogBox", { static: true })
-  inquiryDialogBox: CommonDialogBoxComponent;
+  // @ViewChild("inquiryDialogBox", { static: true })
+  // inquiryDialogBox: CommonDialogBoxComponent;
 
   customer: any[];
 
@@ -55,7 +52,6 @@ export class InqueryTableComponent implements OnInit {
   cName: string;
   consent = true;
   dataLoading = false;
-  dataLoading1 = false;
   setDialogBoxValue1 = false;
   setDialogBoxValue2 = false;
   vQuotation = false;
@@ -65,13 +61,13 @@ export class InqueryTableComponent implements OnInit {
     public route: Router,
     public confirmBoxHelper: CommonConfirmBoxHelper,
     public customerHandling : CustomerHandlingComponent,
+    public statusHistory: StatusHistoryComponent,
     public dialogService:MatDialog
   ) {}
 
   ngOnInit(): void {
     this.setInquiryColumns();
     this.setInquiryRowColumns();
-    this.setStatusHistoryColumns();
   }
 
   setInquiryColumns() {
@@ -181,36 +177,6 @@ export class InqueryTableComponent implements OnInit {
     ];
   }
 
-  setStatusHistoryColumns() {
-    this.statusHistoryGrid.columnsList = [
-      {
-        mappingName: "id",
-        columnName: "Id",
-        columnType: ColumnType.Number,
-        columnAlignment: Alignment.Left,
-        columnWidth: 20,
-        columnFormat: null,
-      },
-      {
-        mappingName: "createdAt",
-        columnName: "Created Date",
-        columnType: ColumnType.Date,
-        columnAlignment: Alignment.Left,
-        columnWidth: 50,
-        columnFormat: "yyyy-MM-dd",
-      },
-      {
-        mappingName: "status",
-        subMappingName: "name",
-        columnName: "Status",
-        columnType: ColumnType.Text,
-        columnAlignment: Alignment.Left,
-        columnWidth: 50,
-        columnFormat: null,
-      },
-    ];
-  }
-
   setInquiryRowColumns() {
     this.dataLoading = true;
     this.CustomerDetailsService.getAllInquiry().subscribe(
@@ -261,31 +227,13 @@ export class InqueryTableComponent implements OnInit {
   // }
 
   viewHistory(event) {
-    this.setDialogBoxValue2 = true;
-    this.id = event.id;
-    this.fName = event.customer.firstName;
-    this.cName = event.customer.companyName;
-    this.displayHistory = true;
     this.inqueryGrid.selectedEntity = null;
-    this.dataLoading1 = true;
-
-    this.CustomerDetailsService.getStatusHistory(event.id).subscribe(
-      (list: any) => {
-        if (list.data !== undefined) {
-          if (list.data) {
-            this.statusHistoryGrid.rowLists = list.data;
-            this.dataLoading1 = false;
-          } else {
-            this.statusHistoryGrid.rowLists = [];
-            this.dataLoading1 = false;
-          }
-        }
-      },
-      (error) => {
-        this.dataLoading1 = true;
-        console.log(error);
-      }
-    );
+    try {
+      this.CustomerDetailsService.selectedCustomer = event;
+      this.openHistoryWindow();
+    } catch (error) {
+      return error;
+    }
   }
 
   gotConsent(event) {
@@ -432,6 +380,14 @@ export class InqueryTableComponent implements OnInit {
       if (result) {
         this.setInquiryRowColumns();
       }
+    });
+  }
+
+  openHistoryWindow() {
+    this.dialogService.open(StatusHistoryComponent, {
+      data: null,
+      width: '900px',
+      disableClose: true
     });
   }
 }

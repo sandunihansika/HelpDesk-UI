@@ -39,14 +39,15 @@ export class NavService {
 
 	MENUITEMS: Menu[] = [
 		{
-			title: 'Dashboard', icon: 'home', type: 'sub', badgeType: 'primary', badgeValue: 'new', active: false, children: [
-				{ path: '/dashboard/default', title: 'Default', type: 'link' },
+      path: '/dashboard', title: 'Dashboard', icon: 'home', type: 'link', active: true
+      // children: [
+			  // 	{ path: '/dashboard/default', title: 'Default', type: 'link' },
 				// { path: '/dashboard/e-commerce', title: 'E-Commerce', type: 'link', },
 				// { path: '/dashboard/university', title: 'University', type: 'link' },
 				// { path: '/dashboard/bitcoin', title: 'Crypto', type: 'link' },
 				// { path: '/dashboard/server', title: 'Server', type: 'link' },
 				// { path: '/dashboard/project', title: 'Project', type: 'link' }
-			]
+			// ]
 		},
 		// {
 		// 	title: 'Widgets', icon: 'airplay', type: 'sub', active: false, children: [
