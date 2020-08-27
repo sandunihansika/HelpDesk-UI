@@ -256,7 +256,7 @@ export class InqueryTableComponent implements OnInit {
           this.dataLoading = true;
         }
       );
-    }, 'Did you get consent?')
+    }, 'Are you sure?')
 
   }
 
@@ -279,7 +279,7 @@ export class InqueryTableComponent implements OnInit {
           console.log(error);
         }
       );
-    }, 'Do you want to approve?')
+    }, 'Are you sure?')
 
   }
 
@@ -302,7 +302,7 @@ export class InqueryTableComponent implements OnInit {
           this.dataLoading = true;
         }
       );
-    }, 'Do you want to reject?')
+    }, 'Are you sure?')
 
   }
 
@@ -326,7 +326,7 @@ export class InqueryTableComponent implements OnInit {
           this.dataLoading = true;
         }
       );
-    }, 'Do you want to resend quotation?')
+    }, 'Are you sure?')
 
   }
 
@@ -349,7 +349,7 @@ export class InqueryTableComponent implements OnInit {
           this.dataLoading = true;
         }
       );
-    }, 'Did you get reconsent?')
+    }, 'Are you sure?')
 
   }
   addButtonClick() {
@@ -374,6 +374,7 @@ export class InqueryTableComponent implements OnInit {
     const dialogRef = this.dialogService.open(CustomerHandlingComponent, {
       data: null,
       width: '900px',
+      height: '41rem',
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -387,6 +388,7 @@ export class InqueryTableComponent implements OnInit {
     this.dialogService.open(StatusHistoryComponent, {
       data: null,
       width: '900px',
+      height: '41rem',
       disableClose: true
     });
   }

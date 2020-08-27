@@ -323,4 +323,10 @@ body .pi {
   text-overflow: ellipsis;
 }
 
+.pi-times:before {
+  content: "\e90b";
+  cursor: pointer !important;
+}
+
+
 

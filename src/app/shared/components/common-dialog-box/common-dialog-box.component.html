@@ -6,8 +6,8 @@
   <p-header cdkDrag cdkDragRootElement=".cdk-overlay-pane" class="p-0">
     <div id="commonDialogHeader" cdkDragHandle>
       <div class="d-flex flex-row align-items-center w-100">
-        <div class="title-box p-2">
-          <span class="title-header pl-2" style="font-size: large">{{ title }}</span>
+        <div class="title-box p-2" style="width: 100%">
+          <span class="title-header pl-2" style="font-size: large;color: lightslategrey;font-weight: 500">{{ title }}</span>
         </div>
         <div class="d-flex justify-content-end" style="width: calc(100% - 17rem);height: 2.5rem;">
           <div class="pi pi-times" style="font-size: 40px;" (click)="closeDialog()">
@@ -16,7 +16,7 @@
       </div>
     </div>
   </p-header>
-  <ng-content class="activity-scroll"></ng-content>
+<ng-content></ng-content>
   <p-footer>
 <!--    <div class="buttons-row" style="float: right;">-->
 <!--      <div *ngFor="let button of buttons">-->

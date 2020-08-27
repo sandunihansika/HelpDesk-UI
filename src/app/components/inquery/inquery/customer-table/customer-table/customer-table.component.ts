@@ -263,6 +263,7 @@ export class CustomerTableComponent implements OnInit {
     const dialogRef = this.dialogService.open(CustomerDetailsComponent, {
       data: null,
       width: '900px',
+      height: '41rem',
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -282,6 +283,7 @@ export class CustomerTableComponent implements OnInit {
     const dialogRef = this.dialogService.open(CorporateDetailsComponent, {
       data: null,
       width: '900px',
+      height: '41rem',
       disableClose: true
     });
     dialogRef.afterClosed().subscribe(result => {
